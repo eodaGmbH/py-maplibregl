@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import List
+
 from .basemaps import carto_dark_matter
 
 
@@ -34,5 +36,7 @@ class Map(object):
     def add_layer(self, layer_options: dict) -> None:
         self._layers.append(layer_options)
 
-    def add_marker(self, lng_lat: list) -> None:
-        self._markers.append(lng_lat)
+    def add_marker(
+        self, lng_lat: List[float, float], popup: str = None, **kwargs
+    ) -> None:
+        self._markers.append({"lngLat": lng_lat, "popup": popup, "options": kwargs})

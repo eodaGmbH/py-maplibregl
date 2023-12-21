@@ -15,7 +15,12 @@ def server(input, output, session):
     async def map():
         m = Map(style=carto_positron(), center=center_kassel, zoom=9)
         m.add_marker(center_kassel)
-        m.add_marker([9.54, 51.31667])
+        marker = {
+            "lng_lat": [9.54, 51.31667],
+            "color": "green",
+            "popup": "Hello PyMapLibreGL!",
+        }
+        m.add_marker(**marker)
         return m
 
 

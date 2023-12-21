@@ -12,6 +12,14 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 
 ## Getting started
 
+```bash
+curl -O https://raw.githubusercontent.com/eodaGmbH/py-maplibregl/main/examples/app1/app.py
+
+uvicorn app:app --reload
+```
+
+## Usage
+
 ```python
 from pymaplibregl import Map, output_maplibregl, render_maplibregl
 from shiny import App, ui
