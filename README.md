@@ -22,6 +22,7 @@ uvicorn app:app --reload
 
 ```python
 from pymaplibregl import Map, output_maplibregl, render_maplibregl
+from pymaplibregl.basemaps import carto_positron
 from shiny import App, ui
 
 app_ui = ui.page_fluid(
@@ -33,7 +34,13 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(zoom=4)
+        m = Map(style=carto_positron(), center=[9.54, 51.31667], zoom=9)
+        marker = {
+            "lng_lat": [9.54, 51.31667],
+            "color": "green",
+            "popup": "Hello PyMapLibreGL!",
+        }
+        m.add_marker(**marker)
         return m
 
 
