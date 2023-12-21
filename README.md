@@ -1,5 +1,15 @@
 # py-maplibregl
 
+## Installation
+
+```bash
+# Stable
+pip install git+https://github.com/eodaGmbH/py-maplibregl
+
+# Dev
+pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
+```
+
 ## Getting started
 
 ```python
