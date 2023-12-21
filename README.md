@@ -12,8 +12,24 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 
 ## Getting started
 
+```bash
+curl -O https://raw.githubusercontent.com/eodaGmbH/py-maplibregl/main/examples/circle_layer/app.py
+
+uvicorn app:app --reload
+```
+
+## Examples
+
+* [Marker](examples/marker/app.py)
+* [Circle Layer](examples/circle_layer/app.py)
+* [Fill Layer](examples/fill_layer/app.py)
+* [Fill-Extrusion Layer](examples/fill__extrusion_layer/app.py)
+
+## Usage
+
 ```python
 from pymaplibregl import Map, output_maplibregl, render_maplibregl
+from pymaplibregl.basemaps import carto_positron
 from shiny import App, ui
 
 app_ui = ui.page_fluid(
@@ -25,7 +41,13 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(zoom=4)
+        m = Map(style=carto_positron(), center=[9.54, 51.31667], zoom=9)
+        marker = {
+            "lng_lat": [9.54, 51.31667],
+            "color": "green",
+            "popup": "Hello PyMapLibreGL!",
+        }
+        m.add_marker(**marker)
         return m
 
 
@@ -42,7 +64,7 @@ if __name__ == "__main__":
 ```bash
 poetry install
 
-poetry run python examples/app1/app.py
+poetry run uvicorn examples.circle_layer.app:app --reload
 
 poetry run pytest
 ```

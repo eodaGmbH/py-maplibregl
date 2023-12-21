@@ -3,7 +3,7 @@ console.log("Welcome to pymaplibregl!")
 /*
 if (Shiny) {
 	console.log("Shiny");
-	Shiny.addCustomMessageHandler("maplibre", (payload) => {
+	Shiny.addCustomMessageHandler("maplibregl", (payload) => {
 		console.log(payload);
 	});
 }
@@ -18,17 +18,26 @@ if (Shiny) {
 
     renderValue(el, payload) {
         console.log(el.id, payload);
-        // console.log(maplibregl);
-        /*
-        const params = {
-            container: el.id,
-            style: 'https://demotiles.maplibre.org/style.json',
-            center: [0, 0],
-            zoom: 1
-        }
-         */
-        const params = Object.assign({container: el.id}, payload.data)
+        const params = Object.assign({container: el.id}, payload.data.mapOptions)
         this.map = new maplibregl.Map(params)
+        this.map.addControl(new maplibregl.NavigationControl());
+
+        // Add markers
+        this.map.on("load", () => payload.data.markers.forEach(({lngLat, popup, options}) => {
+            console.log(lngLat, popup, options);
+             const marker = new maplibregl.Marker(options).setLngLat(lngLat);
+             if (popup) {
+                 const popup_ = new maplibregl.Popup().setText(popup);
+                 marker.setPopup(popup_);
+             }
+             marker.addTo(this.map);
+        }));
+
+        // Add layers
+        this.map.on("load", () => payload.data.layers.forEach((props) => {
+            console.log(props);
+            this.map.addLayer(props);
+        }));
     }
   }
 
