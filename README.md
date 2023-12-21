@@ -1,5 +1,7 @@
 # py-maplibregl
 
+This repository provides [py-shiny](https://github.com/posit-dev/py-shiny) bindings for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js).
+
 ## Installation
 
 ```bash
@@ -23,7 +25,7 @@ uvicorn app:app --reload
 * [Marker](examples/marker/app.py)
 * [Circle Layer](examples/circle_layer/app.py)
 * [Fill Layer](examples/fill_layer/app.py)
-* [Fill-Extrusion Layer](examples/fill__extrusion_layer/app.py)
+* [Fill-Extrusion Layer](examples/fill_extrusion_layer/app.py)
 
 ## Usage
 
