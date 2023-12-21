@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "pymaplibregl"
+version = "0.1.0"
+description = ""
+authors = ["Stefan Kuethe <stefan.kuethe@eoda.de>"]
+readme = "README.md"
+license = "MIT"
+include = [
+    { path = "srcjs", format = ["sdist", "wheel"] }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+shiny = "^0.6.1"
+htmltools = "^0.5.1"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.0"
+isort = "^5.13.2"
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
