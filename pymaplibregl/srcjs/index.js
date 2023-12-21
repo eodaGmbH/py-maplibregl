@@ -20,6 +20,10 @@
           }
           marker.addTo(this.map);
         }));
+        this.map.on("load", () => payload.data.layers.forEach((props) => {
+          console.log(props);
+          this.map.addLayer(props);
+        }));
       }
     }
     Shiny.outputBindings.register(
