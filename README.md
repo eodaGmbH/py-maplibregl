@@ -18,6 +18,12 @@ curl -O https://raw.githubusercontent.com/eodaGmbH/py-maplibregl/main/examples/c
 uvicorn app:app --reload
 ```
 
+## Examples
+
+* [Marker](examples/marker/app.py)
+* [Circle Layer](examples/circle_layer/app.py)
+* [Fill Layer](examples/fill_layer/app.py)
+
 ## Usage
 
 ```python
