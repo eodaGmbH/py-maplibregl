@@ -33,6 +33,9 @@ class Map(object):
             "markers": self._markers,
         }
 
+    def add_control(self):
+        print("Not implemented yet")
+
     def add_layer(self, layer_options: dict) -> None:
         self._layers.append(layer_options)
 

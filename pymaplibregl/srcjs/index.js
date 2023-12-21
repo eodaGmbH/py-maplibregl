@@ -11,6 +11,7 @@
         console.log(el.id, payload);
         const params = Object.assign({ container: el.id }, payload.data.mapOptions);
         this.map = new maplibregl.Map(params);
+        this.map.addControl(new maplibregl.NavigationControl());
         this.map.on("load", () => payload.data.markers.forEach(({ lngLat, popup, options }) => {
           console.log(lngLat, popup, options);
           const marker = new maplibregl.Marker(options).setLngLat(lngLat);
