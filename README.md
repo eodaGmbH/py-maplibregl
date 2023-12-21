@@ -44,7 +44,7 @@ poetry install
 
 poetry run python examples/app1/app.py
 
-poetry run 
+poetry run pytest
 ```
 
 ### JavaScript
