@@ -20,6 +20,12 @@ if (Shiny) {
         console.log(el.id, payload);
         const params = Object.assign({container: el.id}, payload.data.mapOptions)
         this.map = new maplibregl.Map(params)
+        this.map.on("load", () => payload.data.markers.forEach((lngLat ) => {
+            console.log(lngLat);
+             const marker = new maplibregl.Marker()
+                .setLngLat(lngLat)
+                .addTo(this.map);
+        }));
     }
   }
 

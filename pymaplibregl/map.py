@@ -20,7 +20,19 @@ class Map(object):
             "zoom": zoom,
         }
         self._map_options.update(kwargs)
+        self._layers = []
+        self._markers = []
 
     @property
     def shiny_data(self):
-        return {"mapOptions": self._map_options}
+        return {
+            "mapOptions": self._map_options,
+            "layers": self._layers,
+            "markers": self._markers,
+        }
+
+    def add_layer(self, layer_options: dict) -> None:
+        self._layers.append(layer_options)
+
+    def add_marker(self, lng_lat: list) -> None:
+        self._markers.append(lng_lat)
