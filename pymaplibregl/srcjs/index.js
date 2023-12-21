@@ -9,7 +9,7 @@
       }
       renderValue(el, payload) {
         console.log(el.id, payload);
-        const params = Object.assign({ container: el.id }, payload.data);
+        const params = Object.assign({ container: el.id }, payload.data.mapOptions);
         this.map = new maplibregl.Map(params);
       }
     }

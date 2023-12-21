@@ -3,7 +3,7 @@ console.log("Welcome to pymaplibregl!")
 /*
 if (Shiny) {
 	console.log("Shiny");
-	Shiny.addCustomMessageHandler("maplibre", (payload) => {
+	Shiny.addCustomMessageHandler("maplibregl", (payload) => {
 		console.log(payload);
 	});
 }
@@ -18,16 +18,7 @@ if (Shiny) {
 
     renderValue(el, payload) {
         console.log(el.id, payload);
-        // console.log(maplibregl);
-        /*
-        const params = {
-            container: el.id,
-            style: 'https://demotiles.maplibre.org/style.json',
-            center: [0, 0],
-            zoom: 1
-        }
-         */
-        const params = Object.assign({container: el.id}, payload.data)
+        const params = Object.assign({container: el.id}, payload.data.mapOptions)
         this.map = new maplibregl.Map(params)
     }
   }
