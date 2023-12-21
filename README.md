@@ -13,7 +13,7 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 ## Getting started
 
 ```bash
-curl -O https://raw.githubusercontent.com/eodaGmbH/py-maplibregl/main/examples/app1/app.py
+curl -O https://raw.githubusercontent.com/eodaGmbH/py-maplibregl/main/examples/circle_layer/app.py
 
 uvicorn app:app --reload
 ```
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 ```bash
 poetry install
 
-poetry run python examples/app1/app.py
+poetry run uvicorn examples.circle_layer.app:app --reload
 
 poetry run pytest
 ```
