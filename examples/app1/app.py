@@ -1,5 +1,5 @@
 from pymaplibregl import Map, output_maplibregl, render_maplibregl
-from shiny import App, render, ui
+from shiny import App, ui
 
 app_ui = ui.page_fluid(
     ui.panel_title("Hello PyMapLibreGL!"),
