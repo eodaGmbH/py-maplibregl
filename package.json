@@ -1,0 +1,19 @@
+{
+  "name": "pymaplibregl",
+  "version": "0.1.0",
+  "description": "...",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "esbuild srcjs/index.js --bundle --outfile=pymaplibregl/srcjs/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stefan Kuethe",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "0.19.10"
+  }
+}
