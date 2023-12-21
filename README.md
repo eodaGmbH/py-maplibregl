@@ -23,6 +23,7 @@ uvicorn app:app --reload
 * [Marker](examples/marker/app.py)
 * [Circle Layer](examples/circle_layer/app.py)
 * [Fill Layer](examples/fill_layer/app.py)
+* [Fill-Extrusion Layer](examples/fill__extrusion_layer/app.py)
 
 ## Usage
 
