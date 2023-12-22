@@ -16,11 +16,11 @@ export default class PyMapLibreGL {
     this.map.addLayer(props);
   }
 
-  render(layers) {
+  render(calls) {
     console.log("Render it!");
-    layers.forEach((props) => {
-      console.log(props);
-      this._map.addLayer(props);
+    calls.forEach(({ name, data }) => {
+      console.log(name, data);
+      this._map[name](data);
     });
   }
 }

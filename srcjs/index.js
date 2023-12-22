@@ -19,16 +19,16 @@ if (Shiny) {
     }
 
     renderValue(el, payload) {
-      console.log(el.id, payload);
+      console.log("id", el.id, "payload", payload);
       const pyMapLibreGL = new PyMapLibreGL(
-        Object.assign({ container: el.id }, payload.data.mapOptions),
+        Object.assign({ container: el.id }, payload.mapData.mapOptions),
       );
       // pyMapLibreGL.render();
       this.map = pyMapLibreGL.getMap();
 
       // Add markers
       this.map.on("load", () =>
-        payload.data.markers.forEach(({ lngLat, popup, options }) => {
+        payload.mapData.markers.forEach(({ lngLat, popup, options }) => {
           console.log(lngLat, popup, options);
           const marker = new maplibregl.Marker(options).setLngLat(lngLat);
           if (popup) {
@@ -40,7 +40,7 @@ if (Shiny) {
       );
 
       // Add layers
-      this.map.on("load", () => pyMapLibreGL.render(payload.data.layers));
+      this.map.on("load", () => pyMapLibreGL.render(payload.mapData.calls));
       /*
       this.map.on("load", () =>
         payload.data.layers.forEach((props) => {

@@ -20,8 +20,9 @@ class Map(object):
             "zoom": zoom,
         }
         self._map_options.update(kwargs)
-        self._layers = []
-        self._markers = []
+        self._layers = []  # deprecated
+        self._markers = []  # deprecated
+        self._calls = []
 
     @property
     def data(self):
@@ -29,6 +30,7 @@ class Map(object):
             "mapOptions": self._map_options,
             "layers": self._layers,
             "markers": self._markers,
+            "calls": self._calls,
         }
 
     def add_control(self):
@@ -36,6 +38,7 @@ class Map(object):
 
     def add_layer(self, layer_options: dict) -> None:
         self._layers.append(layer_options)
+        self._calls.append({"name": "addLayer", "data": layer_options})
 
     def add_marker(
         self, lng_lat: List[float, float], popup: str = None, **kwargs

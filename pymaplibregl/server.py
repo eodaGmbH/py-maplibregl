@@ -31,5 +31,5 @@ async def render_maplibregl(
         raise TypeError(f"Expected a Map, got {type(res)}.")
 
     return {
-        "data": res.data,
+        "mapData": res.data,
     }
