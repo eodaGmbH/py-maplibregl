@@ -24,9 +24,11 @@
     }
     render(calls) {
       console.log("Render it!");
-      calls.forEach(({ name, data }) => {
-        console.log(name);
-        this[name](data);
+      this._map.on("load", () => {
+        calls.forEach(({ name, data }) => {
+          console.log(name);
+          this[name](data);
+        });
       });
     }
   };
@@ -44,8 +46,7 @@
         const pyMapLibreGL = new PyMapLibreGL(
           Object.assign({ container: el.id }, payload.mapData.mapOptions)
         );
-        this.map = pyMapLibreGL.getMap();
-        this.map.on("load", () => pyMapLibreGL.render(payload.mapData.calls));
+        pyMapLibreGL.render(payload.mapData.calls);
       }
     }
     Shiny.outputBindings.register(
