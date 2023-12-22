@@ -1,3 +1,5 @@
+import PyMapLibreGL from "./pymaplibregl";
+
 console.log("Welcome to pymaplibregl!");
 
 /*
@@ -18,12 +20,11 @@ if (Shiny) {
 
     renderValue(el, payload) {
       console.log(el.id, payload);
-      const params = Object.assign(
-        { container: el.id },
-        payload.data.mapOptions,
+      const pyMapLibreGL = new PyMapLibreGL(
+        Object.assign({ container: el.id }, payload.data.mapOptions),
       );
-      this.map = new maplibregl.Map(params);
-      this.map.addControl(new maplibregl.NavigationControl());
+      pyMapLibreGL.render();
+      this.map = pyMapLibreGL.getMap();
 
       // Add markers
       this.map.on("load", () =>
