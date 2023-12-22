@@ -76,5 +76,7 @@ poetry run pytest
 ```bash
 npm install
 
+npm run prettier
+
 npm run build
 ```
