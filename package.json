@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "esbuild srcjs/index.js --bundle --outfile=pymaplibregl/srcjs/index.js",
+    "prettier": "prettier srcjs --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Stefan Kuethe",
