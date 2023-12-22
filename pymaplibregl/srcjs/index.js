@@ -9,8 +9,18 @@
     getMap() {
       return this._map;
     }
-    render() {
+    addMarker() {
+    }
+    addLayer(props) {
+      console.log(props);
+      this.map.addLayer(props);
+    }
+    render(layers) {
       console.log("Render it!");
+      layers.forEach((props) => {
+        console.log(props);
+        this._map.addLayer(props);
+      });
     }
   };
 
@@ -27,7 +37,6 @@
         const pyMapLibreGL = new PyMapLibreGL(
           Object.assign({ container: el.id }, payload.data.mapOptions)
         );
-        pyMapLibreGL.render();
         this.map = pyMapLibreGL.getMap();
         this.map.on(
           "load",
@@ -41,13 +50,7 @@
             marker.addTo(this.map);
           })
         );
-        this.map.on(
-          "load",
-          () => payload.data.layers.forEach((props) => {
-            console.log(props);
-            this.map.addLayer(props);
-          })
-        );
+        this.map.on("load", () => pyMapLibreGL.render(payload.data.layers));
       }
     }
     Shiny.outputBindings.register(

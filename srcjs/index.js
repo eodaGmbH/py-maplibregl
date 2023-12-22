@@ -23,7 +23,7 @@ if (Shiny) {
       const pyMapLibreGL = new PyMapLibreGL(
         Object.assign({ container: el.id }, payload.data.mapOptions),
       );
-      pyMapLibreGL.render();
+      // pyMapLibreGL.render();
       this.map = pyMapLibreGL.getMap();
 
       // Add markers
@@ -40,12 +40,15 @@ if (Shiny) {
       );
 
       // Add layers
+      this.map.on("load", () => pyMapLibreGL.render(payload.data.layers));
+      /*
       this.map.on("load", () =>
         payload.data.layers.forEach((props) => {
           console.log(props);
           this.map.addLayer(props);
         }),
       );
+      */
     }
   }
 

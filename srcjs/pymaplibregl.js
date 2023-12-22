@@ -4,10 +4,23 @@ export default class PyMapLibreGL {
     this._map = new maplibregl.Map(mapOptions);
     this._map.addControl(new maplibregl.NavigationControl());
   }
+
   getMap() {
     return this._map;
   }
-  render() {
+
+  addMarker() {}
+
+  addLayer(props) {
+    console.log(props);
+    this.map.addLayer(props);
+  }
+
+  render(layers) {
     console.log("Render it!");
+    layers.forEach((props) => {
+      console.log(props);
+      this._map.addLayer(props);
+    });
   }
 }
