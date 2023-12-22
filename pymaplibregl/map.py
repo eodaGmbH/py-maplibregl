@@ -6,8 +6,6 @@ from .basemaps import carto_dark_matter
 
 
 class Map(object):
-    data: dict
-
     def __init__(
         self,
         # style: str = "https://demotiles.maplibre.org/style.json",
@@ -26,7 +24,7 @@ class Map(object):
         self._markers = []
 
     @property
-    def shiny_data(self):
+    def data(self):
         return {
             "mapOptions": self._map_options,
             "layers": self._layers,
