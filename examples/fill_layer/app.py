@@ -1,4 +1,4 @@
-from pymaplibregl import Map, output_maplibregl, render_maplibregl
+from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import carto_dark_matter, carto_positron
 from shiny import App, ui
 
@@ -22,6 +22,14 @@ line_layer = {
     "paint": {"line-color": "yellow", "line-opacity": 1.0},
 }
 
+line_layer2 = Layer(
+    "line",
+    source={
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
+    },
+    paint={"line-color": "yellow", "line-opacity": 1.0},
+)
 
 center = [-123.0753056, 49.2686511]
 
@@ -36,13 +44,13 @@ def server(input, output, session):
     async def map():
         m = Map(style=carto_dark_matter(), center=center, zoom=12, pitch=35)
         marker = {
-            "lng_lat": center,
+            "lngLat": center,
             "color": "yellow",
             "popup": "Hello PyMapLibreGL!",
         }
-        m.add_marker(**marker)
+        m.add_marker(marker)
         m.add_layer(fill_layer)
-        m.add_layer(line_layer)
+        m.add_layer(line_layer2)
         return m
 
 

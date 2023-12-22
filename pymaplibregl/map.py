@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import List
 
 from .basemaps import carto_dark_matter
+from .layer import Layer
 from .marker import Marker
 
 
@@ -41,7 +42,10 @@ class Map(object):
     def add_control(self):
         print("Not implemented yet")
 
-    def add_layer(self, layer: dict) -> None:
+    def add_layer(self, layer: [Layer | dict]) -> None:
+        if isinstance(layer, Layer):
+            layer = layer.data
+
         self._calls.append({"name": "addLayer", "data": layer})
 
     def add_marker(self, marker: [Marker | dict]) -> None:
