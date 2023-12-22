@@ -37,10 +37,16 @@ class Map(object):
         print("Not implemented yet")
 
     def add_layer(self, layer_options: dict) -> None:
-        self._layers.append(layer_options)
+        # self._layers.append(layer_options)
         self._calls.append({"name": "addLayer", "data": layer_options})
 
     def add_marker(
         self, lng_lat: List[float, float], popup: str = None, **kwargs
     ) -> None:
-        self._markers.append({"lngLat": lng_lat, "popup": popup, "options": kwargs})
+        # self._markers.append({"lngLat": lng_lat, "popup": popup, "options": kwargs})
+        self._calls.append(
+            {
+                "name": "addMarker",
+                "data": {"lngLat": lng_lat, "popup": popup, "options": kwargs},
+            }
+        )

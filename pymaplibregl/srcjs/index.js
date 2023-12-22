@@ -9,17 +9,24 @@
     getMap() {
       return this._map;
     }
-    addMarker() {
+    addMarker({ lngLat, popup, options }) {
+      console.log(lngLat, popup, options);
+      const marker = new maplibregl.Marker(options).setLngLat(lngLat);
+      if (popup) {
+        const popup_ = new maplibregl.Popup().setText(popup);
+        marker.setPopup(popup_);
+      }
+      marker.addTo(this._map);
     }
-    addLayer(props) {
-      console.log(props);
-      this.map.addLayer(props);
+    addLayer(data) {
+      console.log(data);
+      this._map.addLayer(data);
     }
     render(calls) {
       console.log("Render it!");
       calls.forEach(({ name, data }) => {
-        console.log(name, data);
-        this._map[name](data);
+        console.log(name);
+        this[name](data);
       });
     }
   };
@@ -33,23 +40,11 @@
         return scope.find(".shiny-maplibregl-output");
       }
       renderValue(el, payload) {
-        console.log("id", el.id, "payload", payload);
+        console.log("id:", el.id, "payload:", payload);
         const pyMapLibreGL = new PyMapLibreGL(
           Object.assign({ container: el.id }, payload.mapData.mapOptions)
         );
         this.map = pyMapLibreGL.getMap();
-        this.map.on(
-          "load",
-          () => payload.mapData.markers.forEach(({ lngLat, popup, options }) => {
-            console.log(lngLat, popup, options);
-            const marker = new maplibregl.Marker(options).setLngLat(lngLat);
-            if (popup) {
-              const popup_ = new maplibregl.Popup().setText(popup);
-              marker.setPopup(popup_);
-            }
-            marker.addTo(this.map);
-          })
-        );
         this.map.on("load", () => pyMapLibreGL.render(payload.mapData.calls));
       }
     }
