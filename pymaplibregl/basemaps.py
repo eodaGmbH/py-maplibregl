@@ -9,15 +9,3 @@ class Carto(Enum):
 
 def construct_carto_basemap_url(style_name: str = "dark-matter") -> str:
     return f"https://basemaps.cartocdn.com/gl/{Carto(style_name).value}-gl-style/style.json"
-
-
-def carto_positron() -> str:
-    return construct_carto_basemap_url("positron")
-
-
-def carto_dark_matter() -> str:
-    return construct_carto_basemap_url("dark-matter")
-
-
-def carto_voyager() -> str:
-    return construct_carto_basemap_url("voyager")
