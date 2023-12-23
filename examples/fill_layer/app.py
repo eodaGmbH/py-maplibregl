@@ -14,6 +14,7 @@ fill_layer = {
     "type": "fill",
     "source": SOURCE_ID,
     "paint": {"fill-color": "lightgreen", "fill-opacity": 0.6},
+    "filter": ["<", ["get", "valuePerSqm"], 2300],
 }
 
 line_layer = Layer(
