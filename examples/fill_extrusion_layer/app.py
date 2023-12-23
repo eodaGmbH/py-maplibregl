@@ -1,5 +1,4 @@
 from pymaplibregl import Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import carto_dark_matter, carto_positron
 from shiny import App, ui
 
 fill_extrusion_layer = {
@@ -28,7 +27,12 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=carto_dark_matter(), center=center, zoom=11, pitch=35)
+        m = Map(
+            style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+            center=center,
+            zoom=11,
+            pitch=35,
+        )
         m.add_layer(fill_extrusion_layer)
         return m
 

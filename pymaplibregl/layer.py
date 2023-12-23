@@ -8,6 +8,7 @@ class LayerType(Enum):
     CIRCLE = "circle"
     FILL = "fill"
     FILL_EXTRUSION = "fill-extrusion"
+    LINE = "line"
 
 
 class Layer(object):

@@ -1,5 +1,5 @@
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import carto_dark_matter, carto_positron
+from pymaplibregl.basemaps import Carto
 from shiny import App, ui
 
 fill_layer = {
@@ -12,18 +12,9 @@ fill_layer = {
     "paint": {"fill-color": "lightgreen", "fill-opacity": 0.6},
 }
 
-line_layer = {
-    "id": "vancouver-blocks-line",
-    "type": "line",
-    "source": {
-        "type": "geojson",
-        "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
-    },
-    "paint": {"line-color": "yellow", "line-opacity": 1.0},
-}
-
-line_layer2 = Layer(
+line_layer = Layer(
     "line",
+    id_="vancouver-blocks-line",
     source={
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
@@ -42,7 +33,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=carto_dark_matter(), center=center, zoom=12, pitch=35)
+        m = Map(style=Carto.DARK_MATTER, center=center, zoom=12, pitch=35)
         marker = {
             "lngLat": center,
             "color": "yellow",
@@ -50,7 +41,7 @@ def server(input, output, session):
         }
         m.add_marker(marker)
         m.add_layer(fill_layer)
-        m.add_layer(line_layer2)
+        m.add_layer(line_layer)
         return m
 
 

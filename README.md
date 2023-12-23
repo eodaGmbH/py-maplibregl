@@ -31,7 +31,7 @@ uvicorn app:app --reload
 
 ```python
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import carto_positron
+from pymaplibregl.basemaps import Carto
 from shiny import App, ui
 
 circle_layer = Layer(
@@ -54,7 +54,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=carto_positron(), center=center, zoom=7)
+        m = Map(style=Carto.POSITRON, center=center, zoom=7)
         m.add_layer(circle_layer)
         return m
 
