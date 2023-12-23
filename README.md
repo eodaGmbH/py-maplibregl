@@ -30,9 +30,20 @@ uvicorn app:app --reload
 ## Usage
 
 ```python
-from pymaplibregl import Map, output_maplibregl, render_maplibregl
+from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import carto_positron
 from shiny import App, ui
+
+circle_layer = Layer(
+    "circle",
+    source={
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/arc/counties.json",
+    },
+    paint={"circle-color": "black"},
+)
+
+center = [-118.0931, 33.78615]
 
 app_ui = ui.page_fluid(
     ui.panel_title("Hello PyMapLibreGL!"),
@@ -43,13 +54,8 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=carto_positron(), center=[9.54, 51.31667], zoom=9)
-        marker = {
-            "lng_lat": [9.54, 51.31667],
-            "color": "green",
-            "popup": "Hello PyMapLibreGL!",
-        }
-        m.add_marker(**marker)
+        m = Map(style=carto_positron(), center=center, zoom=7)
+        m.add_layer(circle_layer)
         return m
 
 
