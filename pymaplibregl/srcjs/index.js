@@ -18,6 +18,9 @@
       }
       marker.addTo(this._map);
     }
+    addSource({ id, source }) {
+      this._map.addSource(id, source);
+    }
     addLayer(data) {
       console.log(data);
       this._map.addLayer(data);

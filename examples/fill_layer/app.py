@@ -2,23 +2,24 @@ from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
 from shiny import App, ui
 
+SOURCE_ID = "vancouver-blocks"
+
+vancouver_blocks = {
+    "type": "geojson",
+    "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
+}
+
 fill_layer = {
     "id": "vancouver-blocks-fill",
     "type": "fill",
-    "source": {
-        "type": "geojson",
-        "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
-    },
+    "source": SOURCE_ID,
     "paint": {"fill-color": "lightgreen", "fill-opacity": 0.6},
 }
 
 line_layer = Layer(
     "line",
     id_="vancouver-blocks-line",
-    source={
-        "type": "geojson",
-        "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
-    },
+    source=SOURCE_ID,
     paint={"line-color": "yellow", "line-opacity": 1.0},
 )
 
@@ -40,6 +41,7 @@ def server(input, output, session):
             "popup": "Hello PyMapLibreGL!",
         }
         m.add_marker(marker)
+        m.add_source(SOURCE_ID, vancouver_blocks)
         m.add_layer(fill_layer)
         m.add_layer(line_layer)
         return m

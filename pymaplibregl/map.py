@@ -43,6 +43,9 @@ class Map(object):
     def add_control(self):
         print("Not implemented yet")
 
+    def add_source(self, id_: str, source: dict):
+        self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
+
     def add_layer(self, layer: [Layer | dict]) -> None:
         if isinstance(layer, Layer):
             layer = layer.data
