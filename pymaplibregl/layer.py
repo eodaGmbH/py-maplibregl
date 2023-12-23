@@ -1,6 +1,13 @@
+from enum import Enum
 from uuid import uuid4
 
 from ._utils import fix_keys
+
+
+class LayerType(Enum):
+    CIRCLE = "circle"
+    FILL = "fill"
+    FILL_EXTRUSION = "fill-extrusion"
 
 
 class Layer(object):
@@ -14,7 +21,16 @@ class Layer(object):
             if k in ["paint", "layout"]:
                 kwargs[k] = fix_keys(kwargs[k])
         self._data.update(kwargs)
+        self._data["type"] = LayerType(self._data["type"]).value
 
     @property
     def data(self) -> dict:
         return self._data
+
+    @property
+    def type(self):
+        return self._data["type"]
+
+    @property
+    def id(self):
+        return self._data["id"]
