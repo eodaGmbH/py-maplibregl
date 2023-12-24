@@ -18,6 +18,7 @@ if (Shiny) {
 
       // ...
       const map = pyMapLibreGL.getMap();
+
       map.on("click", (e) => {
         console.log(e);
         const inputName = `maplibregl_${el.id}`;

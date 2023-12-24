@@ -1,6 +1,7 @@
 export default class PyMapLibreGL {
   constructor(mapOptions) {
     console.log("Awesome");
+    this._id = mapOptions.container;
     this._map = new maplibregl.Map(mapOptions);
     this._map.addControl(new maplibregl.NavigationControl());
   }
@@ -26,6 +27,22 @@ export default class PyMapLibreGL {
   addLayer(data) {
     console.log(data);
     this._map.addLayer(data);
+
+    // ...
+    if (Shiny) {
+      this._map.on("click", data.id, (e) => {
+        console.log(e, e.features[0]);
+        const layerId_ = data.id.replaceAll("-", "_");
+        const inputName = `maplibregl_${this._id}_layer_${layerId_}`;
+        const feature = {
+          // coords: e.lngLat,
+          props: e.features[0].properties,
+          layer_id: data.id,
+        };
+        console.log(inputName, feature);
+        Shiny.onInputChange(inputName, feature);
+      });
+    }
   }
 
   render(calls) {
