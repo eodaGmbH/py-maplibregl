@@ -1,6 +1,6 @@
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
-from shiny import App, ui
+from shiny import App, reactive, ui
 
 SOURCE_ID = "vancouver-blocks"
 
@@ -41,11 +41,21 @@ def server(input, output, session):
             "color": "yellow",
             "popup": "Hello PyMapLibreGL!",
         }
-        m.add_marker(marker)
+        # m.add_marker(marker)
         m.add_source(SOURCE_ID, vancouver_blocks)
         m.add_layer(fill_layer)
-        m.add_layer(line_layer)
+        # m.add_layer(line_layer)
         return m
+
+    @reactive.Effect
+    @reactive.event(input.maplibregl_map_layer_vancouver_blocks_fill)
+    async def feature():
+        print(f"result: {input.maplibregl_map_layer_vancouver_blocks_fill()}")
+
+    @reactive.Effect
+    @reactive.event(input.maplibregl_map)
+    async def result():
+        print(f"result: {input.maplibregl_map()}")
 
 
 app = App(app_ui, server)
