@@ -1,6 +1,6 @@
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
-from shiny import App, ui
+from shiny import App, reactive, ui
 
 circle_layer = Layer(
     "circle",
@@ -25,6 +25,11 @@ def server(input, output, session):
         m = Map(style=Carto.POSITRON, center=center, zoom=7)
         m.add_layer(circle_layer)
         return m
+
+    @reactive.Effect
+    @reactive.event(input.maplibregl_map)
+    async def result():
+        print(f"result: {input.maplibregl_map()}")
 
 
 app = App(app_ui, server)
