@@ -29,9 +29,9 @@ class Layer(object):
         return self._data
 
     @property
-    def type(self):
+    def type(self) -> str:
         return self._data["type"]
 
     @property
-    def id(self):
+    def id(self) -> str:
         return self._data["id"]

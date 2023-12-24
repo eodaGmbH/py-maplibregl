@@ -33,6 +33,10 @@ class Map(object):
         }
 
     @property
+    def sources(self) -> list:
+        return [item["data"] for item in self._calls if item["name"] == "addSource"]
+
+    @property
     def layers(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addLayer"]
 
@@ -43,7 +47,7 @@ class Map(object):
     def add_control(self):
         print("Not implemented yet")
 
-    def add_source(self, id_: str, source: dict):
+    def add_source(self, id_: str, source: dict) -> None:
         self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
 
     def add_layer(self, layer: [Layer | dict]) -> None:
