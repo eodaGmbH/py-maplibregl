@@ -9,6 +9,11 @@ export default class PyMapLibreGL {
   getMap() {
     return this._map;
   }
+
+  applyFunc({ funcName, params }) {
+    this._map[funcName](...params);
+  }
+
   addControl({ type, options, position }) {
     console.log(type, options, position);
     this._map.addControl(new maplibregl[type](options), position);

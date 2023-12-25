@@ -43,6 +43,9 @@ def server(input, output, session):
         map.add_control(ControlType.FULLSCREEN, position=ControlPosition.BOTTOM_LEFT)
         map.add_source(SOURCE_ID, vancouver_blocks)
         map.add_layer(line_layer)
+        # map.add_call("setZoom", [[3]])
+        # map.add_call("setCenter", [[0, 0]])
+        # map.add_call("flyTo", [{"center": [9.5, 51.31667], "zoom": 4}])
         return map
 
 

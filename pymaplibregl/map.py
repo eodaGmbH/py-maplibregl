@@ -44,6 +44,11 @@ class Map(object):
     def markers(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addMarker"]
 
+    def add_call(self, func_name: str, params: list) -> None:
+        self._calls.append(
+            {"name": "applyFunc", "data": {"funcName": func_name, "params": params}}
+        )
+
     def add_control(
         self,
         type_: [str | ControlType],
