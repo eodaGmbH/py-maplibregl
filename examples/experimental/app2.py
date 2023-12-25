@@ -1,7 +1,7 @@
 import requests as req
 from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
-from pymaplibregl.mapproxy import MapProxy
+from pymaplibregl.mapproxy import MapProxy, maplibregl_context
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"
@@ -77,12 +77,14 @@ def server(input, output, session):
     @reactive.event(input.color, ignore_init=True)
     async def color():
         print(input.color())
+        async with maplibregl_context("map") as map_:
+            map_.set_paint_property(LAYER_ID, "circle-color", input.color())
+            map_.set_filter(LAYER_ID, ["==", "Imperial, CA", ["get", "name"]])
+        """
         map = MapProxy("map")
-        # map.add_call("setPaintProperty", [LAYER_ID, "circle-color", input.color()])
         map.set_paint_property(LAYER_ID, "circle-color", input.color())
-        # map.add_call("setFilter", [LAYER_ID, ["==", "Imperial, CA", ["get", "name"]]])
-        # map.set_filter(LAYER_ID, ["==", "Imperial, CA", ["get", "name"]])
-        await map.render()
+        await map.render(session)
+        """
 
 
 app = App(app_ui, server)
