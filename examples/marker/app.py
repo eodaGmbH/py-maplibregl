@@ -13,15 +13,15 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=Carto.VOYAGER, center=center_kassel, zoom=9)
-        m.add_marker(Marker(center_kassel, color="green"))
+        map_ = Map(style=Carto.VOYAGER, center=center_kassel, zoom=9)
+        map_.add_marker(Marker(center_kassel, color="green"))
         marker = {
             "lngLat": [9.54, 51.31667],
             "popup": "Hello PyMapLibreGL!",
             "options": {"color": "darkred"},
         }
-        m.add_marker(marker)
-        return m
+        map_.add_marker(marker)
+        return map_
 
 
 app = App(app_ui, server)
