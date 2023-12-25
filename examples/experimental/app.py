@@ -1,3 +1,4 @@
+import requests as req
 from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.mapproxy import MapProxy
@@ -17,6 +18,13 @@ circle_layer = Layer(
 
 center = [-118.0931, 33.78615]
 
+us_states = {
+    "type": "geojson",
+    "data": req.get(
+        "https://raw.githubusercontent.com/maplibre/maplibre-gl-js/main/docs/assets/us_states.geojson"
+    ).json(),
+}
+
 app_ui = ui.page_fluid(
     ui.panel_title("Hello PyMapLibreGL!"),
     output_maplibregl("map", height=500),
@@ -35,6 +43,17 @@ def server(input, output, session):
     @render_maplibregl
     async def map():
         map_ = Map(style=Carto.POSITRON, center=center, zoom=7)
+        map_.add_source("us-states", us_states)
+        map_.add_layer(
+            Layer(
+                LayerType.FILL,
+                source="us-states",
+                paint={"fill-color": "green", "fill-opacity": 0.5},
+            )
+        )
+        map_.add_layer(
+            Layer(LayerType.LINE, source="us-states", paint={"line-color": "white"})
+        )
         map_.add_layer(circle_layer)
         return map_
 
