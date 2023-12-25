@@ -21,8 +21,8 @@ class MapProxy(Map):
     def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:
         self.add_call("setPaintProperty", [layer_id, prop, value])
 
-    def set_layout_property(self):
-        pass
+    def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
+        self.add_call("setLayoutProperty", [layer_id, prop, value])
 
 
 @asynccontextmanager

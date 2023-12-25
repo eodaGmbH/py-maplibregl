@@ -12,17 +12,26 @@ class LayerType(Enum):
 
 
 class Layer(object):
-    def __init__(self, type_: str, id_: str = None, **kwargs):
+    def __init__(
+        self, type_: str, id_: str = None, paint: dict = {}, layout: dict = {}, **kwargs
+    ):
         self._data = {
             "id": id_ or str(uuid4()),
             "type": type_,
+            "paint": paint,
+            "layout": layout,
         }
         kwargs = fix_keys(kwargs)
+        """
         for k, v in kwargs.items():
             if k in ["paint", "layout"]:
                 kwargs[k] = fix_keys(kwargs[k])
+        """
         self._data.update(kwargs)
         self._data["type"] = LayerType(self._data["type"]).value
+        for k in self._data.keys():
+            if k in ["paint", "layout"]:
+                self.data[k] = fix_keys(self._data[k])
 
     @property
     def data(self) -> dict:

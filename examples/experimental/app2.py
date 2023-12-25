@@ -1,10 +1,18 @@
 import requests as req
-from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
+from pymaplibregl import (
+    Layer,
+    LayerType,
+    Map,
+    maplibregl_context,
+    output_maplibregl,
+    render_maplibregl,
+)
 from pymaplibregl.basemaps import Carto
-from pymaplibregl.mapproxy import MapProxy, maplibregl_context
+from pymaplibregl.mapproxy import MapProxy
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"
+LAYER_ID_LINE = "us-states"
 
 circle_layer = Layer(
     LayerType.CIRCLE,
@@ -52,7 +60,13 @@ def server(input, output, session):
             )
         )
         map_.add_layer(
-            Layer(LayerType.LINE, source="us-states", paint={"line-color": "white"})
+            Layer(
+                LayerType.LINE,
+                id_=LAYER_ID_LINE,
+                source="us-states",
+                paint={"line-color": "white"},
+                # layout={"line-blur": 0},
+            )
         )
         map_.add_layer(circle_layer)
         return map_
@@ -77,9 +91,11 @@ def server(input, output, session):
     @reactive.event(input.color, ignore_init=True)
     async def color():
         print(input.color())
+        map_: MapProxy
         async with maplibregl_context("map") as map_:
             map_.set_paint_property(LAYER_ID, "circle-color", input.color())
-            map_.set_filter(LAYER_ID, ["==", "Imperial, CA", ["get", "name"]])
+            # map_.set_filter(LAYER_ID, ["==", "Imperial, CA", ["get", "name"]])
+            map_.set_layout_property(LAYER_ID_LINE, "visibility", "none")
         """
         map = MapProxy("map")
         map.set_paint_property(LAYER_ID, "circle-color", input.color())
