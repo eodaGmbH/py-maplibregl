@@ -9,6 +9,10 @@ export default class PyMapLibreGL {
   getMap() {
     return this._map;
   }
+  addControl({ type, options, position }) {
+    console.log(type, options, position);
+    this._map.addControl(new maplibregl[type](options), position);
+  }
 
   addMarker({ lngLat, popup, options }) {
     console.log(lngLat, popup, options);
