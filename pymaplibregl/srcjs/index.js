@@ -36,7 +36,7 @@
         this._map.on("click", data.id, (e) => {
           console.log(e, e.features[0]);
           const layerId_ = data.id.replaceAll("-", "_");
-          const inputName = `maplibregl_${this._id}_layer_${layerId_}`;
+          const inputName = `${this._id}_layer_${layerId_}`;
           const feature = {
             // coords: e.lngLat,
             props: e.features[0].properties,
@@ -75,7 +75,7 @@
         const map = pyMapLibreGL.getMap();
         map.on("click", (e) => {
           console.log(e);
-          const inputName = `maplibregl_${el.id}`;
+          const inputName = `${el.id}`;
           const data = { coords: e.lngLat, point: e.point };
           console.log(inputName, data);
           Shiny.onInputChange(inputName, data);

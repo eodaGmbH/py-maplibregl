@@ -42,7 +42,7 @@ export default class PyMapLibreGL {
       this._map.on("click", data.id, (e) => {
         console.log(e, e.features[0]);
         const layerId_ = data.id.replaceAll("-", "_");
-        const inputName = `maplibregl_${this._id}_layer_${layerId_}`;
+        const inputName = `${this._id}_layer_${layerId_}`;
         const feature = {
           // coords: e.lngLat,
           props: e.features[0].properties,

@@ -21,7 +21,7 @@ if (Shiny) {
 
       map.on("click", (e) => {
         console.log(e);
-        const inputName = `maplibregl_${el.id}`;
+        const inputName = `${el.id}`;
         const data = { coords: e.lngLat, point: e.point };
         console.log(inputName, data);
         Shiny.onInputChange(inputName, data);

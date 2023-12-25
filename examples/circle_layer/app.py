@@ -29,25 +29,25 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=Carto.POSITRON, center=center, zoom=7)
-        m.add_layer(circle_layer)
-        return m
+        map_ = Map(style=Carto.POSITRON, center=center, zoom=7)
+        map_.add_layer(circle_layer)
+        return map_
 
     @reactive.Effect
-    @reactive.event(input.maplibregl_map)
+    @reactive.event(input.map)
     async def result():
-        print(f"result: {input.maplibregl_map()}")
+        print(f"result: {input.map()}")
 
     @render.text
     def coords():
-        data = input.maplibregl_map()["coords"]
+        data = input.map()["coords"]
         return f'lng: {data["lng"]}, lat: {data["lat"]}'
 
     @render.text
     def feature():
-        feature = input.maplibregl_map_layer_counties()
-        print(feature)
-        return feature["props"]["name"]
+        feature_ = input.map_layer_counties()
+        print(feature_)
+        return feature_["props"]["name"]
 
 
 app = App(app_ui, server)
