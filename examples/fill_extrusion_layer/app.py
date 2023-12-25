@@ -27,14 +27,14 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(
+        map_ = Map(
             style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
             center=center,
             zoom=11,
             pitch=35,
         )
-        m.add_layer(fill_extrusion_layer)
-        return m
+        map_.add_layer(fill_extrusion_layer)
+        return map_
 
 
 app = App(app_ui, server)

@@ -1,6 +1,6 @@
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
-from shiny import App, reactive, ui
+from shiny import App, reactive, render, ui
 
 SOURCE_ID = "vancouver-blocks"
 
@@ -29,33 +29,32 @@ center = [-123.0753056, 49.2686511]
 app_ui = ui.page_fluid(
     ui.panel_title("Hello PyMapLibreGL!"),
     output_maplibregl("map", height=600),
+    ui.output_text_verbatim("props", placeholder=True),
 )
 
 
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=Carto.DARK_MATTER, center=center, zoom=12, pitch=35)
-        marker = {
-            "lngLat": center,
-            "color": "yellow",
-            "popup": "Hello PyMapLibreGL!",
-        }
-        # m.add_marker(marker)
-        m.add_source(SOURCE_ID, vancouver_blocks)
-        m.add_layer(fill_layer)
+        map_ = Map(style=Carto.DARK_MATTER, center=center, zoom=12, pitch=35)
+        map_.add_source(SOURCE_ID, vancouver_blocks)
+        map_.add_layer(fill_layer)
         # m.add_layer(line_layer)
-        return m
+        return map_
 
     @reactive.Effect
-    @reactive.event(input.maplibregl_map_layer_vancouver_blocks_fill)
+    @reactive.event(input.map_layer_vancouver_blocks_fill)
     async def feature():
-        print(f"result: {input.maplibregl_map_layer_vancouver_blocks_fill()}")
+        print(f"result: {input.map_layer_vancouver_blocks_fill()}")
 
     @reactive.Effect
-    @reactive.event(input.maplibregl_map)
+    @reactive.event(input.map)
     async def result():
-        print(f"result: {input.maplibregl_map()}")
+        print(f"result: {input.map()}")
+
+    @render.text
+    def props():
+        return str(input.map_layer_vancouver_blocks_fill())
 
 
 app = App(app_ui, server)
