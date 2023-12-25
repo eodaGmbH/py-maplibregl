@@ -85,3 +85,6 @@ class Map(object):
                 "data": marker,
             }
         )
+
+    def set_filter(self, layer_id: str, filter_: list):
+        self.add_call("setFilter", [layer_id, filter_])

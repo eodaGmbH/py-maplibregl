@@ -59,7 +59,10 @@ def server(input, output, session):
     async def color():
         print(input.color())
         map = MapProxy("map")
-        map.add_call("setPaintProperty", [LAYER_ID, "circle-color", input.color()])
+        # map.add_call("setPaintProperty", [LAYER_ID, "circle-color", input.color()])
+        map.set_paint_property(LAYER_ID, "circle-color", input.color())
+        # map.add_call("setFilter", [LAYER_ID, ["==", "Imperial, CA", ["get", "name"]]])
+        # map.set_filter(LAYER_ID, ["==", "Imperial, CA", ["get", "name"]])
         await map.render(session)
 
 
