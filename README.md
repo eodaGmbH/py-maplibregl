@@ -26,6 +26,7 @@ uvicorn app:app --reload
 * [Circle Layer](examples/circle_layer/app.py)
 * [Fill Layer](examples/fill_layer/app.py)
 * [Fill-Extrusion Layer](examples/fill_extrusion_layer/app.py)
+* [Line Layer](examples/fill_line_layer/app.py)
 
 ## Usage
 
