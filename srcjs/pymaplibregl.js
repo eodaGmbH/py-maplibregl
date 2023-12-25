@@ -3,6 +3,8 @@ export default class PyMapLibreGL {
     console.log("Awesome");
     this._id = mapOptions.container;
     this._map = new maplibregl.Map(mapOptions);
+
+    // TODO: Do not add by default
     this._map.addControl(new maplibregl.NavigationControl());
   }
 
@@ -56,11 +58,9 @@ export default class PyMapLibreGL {
 
   render(calls) {
     console.log("Render it!");
-    //this._map.on("load", () => {
-      calls.forEach(({ name, data }) => {
-        console.log(name);
-        this[name](data);
-      });
-    //});
+    calls.forEach(({ name, data }) => {
+      console.log(name);
+      this[name](data);
+    });
   }
 }

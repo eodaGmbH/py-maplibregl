@@ -14,12 +14,13 @@ if (Shiny) {
       const pyMapLibreGL = new PyMapLibreGL(
         Object.assign({ container: el.id }, payload.mapData.mapOptions),
       );
-      // pyMapLibreGL.render(payload.mapData.calls);
+
+      const map = pyMapLibreGL.getMap();
+      map.on("load", () => {
+        pyMapLibreGL.render(payload.mapData.calls);
+      });
 
       // ...
-      const map = pyMapLibreGL.getMap();
-      map.on("load", () => {pyMapLibreGL.render(payload.mapData.calls);});
-
       map.on("click", (e) => {
         console.log(e);
         const inputName = `${el.id}`;
