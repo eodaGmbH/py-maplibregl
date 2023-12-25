@@ -14,10 +14,11 @@ if (Shiny) {
       const pyMapLibreGL = new PyMapLibreGL(
         Object.assign({ container: el.id }, payload.mapData.mapOptions),
       );
-      pyMapLibreGL.render(payload.mapData.calls);
+      // pyMapLibreGL.render(payload.mapData.calls);
 
       // ...
       const map = pyMapLibreGL.getMap();
+      map.on("load", () => {pyMapLibreGL.render(payload.mapData.calls);});
 
       map.on("click", (e) => {
         console.log(e);
@@ -25,6 +26,13 @@ if (Shiny) {
         const data = { coords: e.lngLat, point: e.point };
         console.log(inputName, data);
         Shiny.onInputChange(inputName, data);
+      });
+
+      const messageHandlerName = `pymaplibregl-${el.id}`;
+      console.log(messageHandlerName);
+      Shiny.addCustomMessageHandler(messageHandlerName, ({ id, calls }) => {
+        console.log(id, calls);
+        pyMapLibreGL.render(calls);
       });
     }
   }

@@ -56,11 +56,11 @@ export default class PyMapLibreGL {
 
   render(calls) {
     console.log("Render it!");
-    this._map.on("load", () => {
+    //this._map.on("load", () => {
       calls.forEach(({ name, data }) => {
         console.log(name);
         this[name](data);
       });
-    });
+    //});
   }
 }
