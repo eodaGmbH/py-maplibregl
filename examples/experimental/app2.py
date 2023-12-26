@@ -11,7 +11,7 @@ from pymaplibregl.basemaps import Carto
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"
-LAYER_ID_LINE = "us-states"
+LAYER_ID_LINE = "us-states-line"
 
 circle_layer = Layer(
     LayerType.CIRCLE,

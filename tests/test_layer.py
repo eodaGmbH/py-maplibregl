@@ -16,14 +16,23 @@ def test_layer():
 
 
 def test_layer_type():
+    # Prepare
+    source = "test"
+
     # Act
-    layer = Layer("fill")
+    layer = Layer("fill", source)
 
     # Assert
     assert layer.type == "fill"
 
 
 def test_bad_layer_type():
+    # Prepare
+    source = "test"
+
+    # Act
     with pytest.raises(ValueError) as e:
-        _ = Layer("block")
+        _ = Layer("block", source)
+
+    # Assert
     assert str(e.value) == "'block' is not a valid LayerType"
