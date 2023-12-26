@@ -1,0 +1,2 @@
+class Popup(object):
+    pass
