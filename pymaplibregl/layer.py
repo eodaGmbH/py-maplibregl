@@ -11,6 +11,11 @@ class LayerType(Enum):
     FILL = "fill"
     FILL_EXTRUSION = "fill-extrusion"
     LINE = "line"
+    SYMBOL = "symbol"
+    RASTER = "raster"
+    HEATMAP = "heatmap"
+    HILLSHADE = "hillshade"
+    BACKGROUND = "background"
 
 
 class Layer(object):

@@ -8,6 +8,7 @@ from pymaplibregl import (
     render_maplibregl,
 )
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.experimental import LineLayer
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"
@@ -59,8 +60,8 @@ def server(input, output, session):
             )
         )
         map_.add_layer(
-            Layer(
-                LayerType.LINE,
+            LineLayer(
+                # LayerType.LINE,
                 id_=LAYER_ID_LINE,
                 source="us-states",
                 paint={"line-color": "white"},
