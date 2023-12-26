@@ -61,7 +61,6 @@ def server(input, output, session):
         )
         map_.add_layer(
             LineLayer(
-                # LayerType.LINE,
                 id_=LAYER_ID_LINE,
                 source="us-states",
                 paint={"line-color": "white"},
