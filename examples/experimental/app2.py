@@ -1,12 +1,6 @@
 import requests as req
-from pymaplibregl import (
-    Layer,
-    LayerType,
-    Map,
-    maplibregl_context,
-    output_maplibregl,
-    render_maplibregl,
-)
+from pymaplibregl import (Layer, LayerType, Map, maplibregl_context,
+                          output_maplibregl, render_maplibregl)
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.mapproxy import MapProxy
 from shiny import App, reactive, render, ui
@@ -92,7 +86,8 @@ def server(input, output, session):
     async def color():
         print(input.color())
         map_: MapProxy
-        async with maplibregl_context("map") as map_:
+        # async with maplibregl_context("map") as map_:
+        async with MapProxy("map") as map_:
             map_.set_paint_property(LAYER_ID, "circle-color", input.color())
             # map_.set_filter(LAYER_ID, ["==", "Imperial, CA", ["get", "name"]])
             map_.set_layout_property(LAYER_ID_LINE, "visibility", "none")
