@@ -22,7 +22,7 @@ class Layer(object):
     def __init__(
         self,
         type_: str,
-        source: [dict | str],
+        source: [dict | str | None],
         id_: str = None,
         paint: dict = {},
         layout: dict = {},
@@ -35,9 +35,10 @@ class Layer(object):
             "paint": paint,
             "layout": layout,
         }
-        kwargs = fix_keys(kwargs)
+        # kwargs = fix_keys(kwargs)
         self._data.update(kwargs)
         self._data["type"] = LayerType(self._data["type"]).value
+        self._data = fix_keys(self._data)
         for k in self._data.keys():
             if k in ["paint", "layout"]:
                 self.data[k] = fix_keys(self._data[k])
