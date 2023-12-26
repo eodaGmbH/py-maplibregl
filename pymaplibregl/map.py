@@ -7,6 +7,8 @@ from .marker import Marker
 
 
 class Map(object):
+    MESSAGE = "not implemented yet"
+
     def __init__(
         self,
         style: [str | Carto] = Carto.DARK_MATTER,
@@ -88,3 +90,12 @@ class Map(object):
 
     def set_filter(self, layer_id: str, filter_: list):
         self.add_call("setFilter", [layer_id, filter_])
+
+    def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:
+        self.add_call("setPaintProperty", [layer_id, prop, value])
+
+    def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
+        self.add_call("setLayoutProperty", [layer_id, prop, value])
+
+    def to_html(self) -> None:
+        print(self.MESSAGE)

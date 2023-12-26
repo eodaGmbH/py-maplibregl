@@ -1,6 +1,6 @@
 import requests as req
 from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import Carto, background
+from pymaplibregl.basemaps import Carto, background, construct_basemap_style
 from pymaplibregl.mapcontext import MapContext
 from shiny import App, reactive, render, ui
 
@@ -13,7 +13,7 @@ circle_layer = Layer(
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/arc/counties.json",
     },
-    paint={"circle-color": "black", "circle-radius": 7},
+    paint={"circle-color": "yellow", "circle-radius": 7, "circle-blur": 1.5},
 )
 
 center = [-118.0931, 33.78615]
@@ -24,6 +24,15 @@ us_states = {
         "https://raw.githubusercontent.com/maplibre/maplibre-gl-js/main/docs/assets/us_states.geojson"
     ).json(),
 }
+
+background_layer = Layer(
+    LayerType.BACKGROUND, source=None, paint={"background-color": "black"}
+)
+line_layer = Layer(LayerType.LINE, source="us-states", paint={"line-color": "white"})
+
+custom_basemap = construct_basemap_style(
+    sources={"us-states": us_states}, layers=[background_layer, line_layer]
+)
 
 app_ui = ui.page_fluid(
     ui.panel_title("Hello PyMapLibreGL!"),
@@ -42,8 +51,10 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        map_ = Map(style=background(opacity=0.5), center=center, zoom=7)
-        map_.add_source("us-states", us_states)
+        # map_ = Map(style=background(opacity=0.5), center=center, zoom=7)
+        map_ = Map(style=custom_basemap, center=center, zoom=7)
+        # map_.add_source("us-states", us_states)
+        """
         map_.add_layer(
             Layer(
                 LayerType.FILL,
@@ -54,6 +65,7 @@ def server(input, output, session):
         map_.add_layer(
             Layer(LayerType.LINE, source="us-states", paint={"line-color": "white"})
         )
+        """
         map_.add_layer(circle_layer)
         return map_
 
