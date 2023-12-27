@@ -21,7 +21,7 @@ class LayerType(Enum):
 class Layer(object):
     def __init__(
         self,
-        type_: str,
+        type_: [str | LayerType],
         source: [dict | str | None],
         id_: str = None,
         paint: dict = {},
