@@ -21,7 +21,7 @@
       console.log(lngLat, popup, options);
       const marker = new maplibregl.Marker(options).setLngLat(lngLat);
       if (popup) {
-        const popup_ = new maplibregl.Popup().setText(popup);
+        const popup_ = new maplibregl.Popup(popup.options).setHTML(popup.text);
         marker.setPopup(popup_);
       }
       marker.addTo(this._map);
