@@ -13,7 +13,19 @@ fill_layer = Layer(
     "fill",
     id_="vancouver-blocks-fill",
     source=SOURCE_ID,
-    paint={"fill-color": "lightgreen", "fill-opacity": 0.6},
+    # paint={"fill-color": "lightgreen", "fill-opacity": 0.6},
+    paint={
+        "fill-color": [
+            "step",
+            ["get", "valuePerSqm"],
+            "darkred",
+            500,
+            "red",
+            1500,
+            "yellow",
+        ],
+        "fill-opacity": 0.7,
+    },
     filter=["<", ["get", "valuePerSqm"], 2300],
 )
 
@@ -21,7 +33,7 @@ line_layer = Layer(
     "line",
     id_="vancouver-blocks-line",
     source=SOURCE_ID,
-    paint={"line-color": "yellow", "line-opacity": 1.0},
+    paint={"line-color": "white", "line-opacity": 1.0},
 )
 
 center = [-123.0753056, 49.2686511]
@@ -39,7 +51,8 @@ def server(input, output, session):
         m = Map(style=Carto.DARK_MATTER, center=center, zoom=12, pitch=35)
         m.add_source(SOURCE_ID, vancouver_blocks)
         m.add_layer(fill_layer)
-        # m.add_layer(line_layer)
+        m.add_popup("vancouver-blocks-fill", "valuePerSqm")
+        m.add_layer(line_layer)
         return m
 
     @reactive.Effect

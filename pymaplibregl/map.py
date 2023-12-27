@@ -88,6 +88,11 @@ class Map(object):
             }
         )
 
+    def add_popup(self, layer_id: str, property_: str) -> None:
+        self._calls.append(
+            {"name": "addPopup", "data": {"layerId": layer_id, "property": property_}}
+        )
+
     def set_filter(self, layer_id: str, filter_: list):
         self.add_call("setFilter", [layer_id, filter_])
 

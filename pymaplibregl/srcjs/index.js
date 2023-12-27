@@ -47,6 +47,21 @@
         });
       }
     }
+    addPopup({ layerId, property }) {
+      const popupOptions = {
+        closeButton: false,
+        closeOnClick: false
+      };
+      const popup = new maplibregl.Popup(popupOptions);
+      this._map.on("mouseenter", layerId, (e) => {
+        const feature = e.features[0];
+        const text = feature.properties[property];
+        popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
+      });
+      this._map.on("mouseleave", layerId, () => {
+        popup.remove();
+      });
+    }
     render(calls) {
       console.log("Render it!");
       calls.forEach(({ name, data }) => {
