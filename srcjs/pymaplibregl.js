@@ -40,7 +40,7 @@ export default class PyMapLibreGL {
     this._map.addLayer(data);
 
     // ...
-    if (Shiny) {
+    if (typeof Shiny !== "undefined") {
       this._map.on("click", data.id, (e) => {
         console.log(e, e.features[0]);
         const layerId_ = data.id.replaceAll("-", "_");

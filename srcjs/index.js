@@ -2,7 +2,23 @@ import PyMapLibreGL from "./pymaplibregl";
 
 console.log("Welcome to pymaplibregl!");
 
-if (Shiny) {
+window._pyMapLibreGL = function ({ mapOptions, calls }) {
+  this._container = document.createElement("div");
+  this._container.setAttribute("id", "pymaplibregl");
+  this._container.style.height = "600px";
+  document.body.appendChild(this._container);
+  console.log(mapOptions);
+  const pyMapLibreGL = new PyMapLibreGL(
+    Object.assign({ container: this._container.id }, mapOptions),
+  );
+
+  const map = pyMapLibreGL.getMap();
+  map.on("load", () => {
+    pyMapLibreGL.render(calls);
+  });
+};
+
+if (typeof Shiny !== "undefined") {
   class MapLibreGLOutputBinding extends Shiny.OutputBinding {
     find(scope) {
       console.log("I am here!");

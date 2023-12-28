@@ -1,9 +1,37 @@
 from __future__ import annotations
 
+import json
+import os.path
+from tempfile import mkdtemp
+
+from jinja2 import Template
+
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import ControlPosition, ControlType
 from .layer import Layer
 from .marker import Marker
+
+_template = """<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>PyMapLibreGL</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"/>
+<body>
+<script>
+{{ js|safe }}
+// ...
+(() => {
+    console.log("PyMapLibreGL!");
+    var data = {{ data|safe }};
+    // console.log(data.mapOptions);
+    _pyMapLibreGL(data);
+})();
+</script>
+</body>
+</html>
+"""
 
 
 class Map(object):
@@ -102,5 +130,24 @@ class Map(object):
     def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
         self.add_call("setLayoutProperty", [layer_id, prop, value])
 
-    def to_html(self) -> None:
-        print(self.MESSAGE)
+    def to_html(self, output_dir: str = None) -> str:
+        # Read index.js
+        print(os.path.dirname(__file__))
+        index_js = os.path.join(os.path.dirname(__file__), "srcjs", "index.js")
+        with open(index_js) as f:
+            js = f.read()
+
+        # Render template
+        template = Template(_template)
+        output = template.render({"js": js, "data": json.dumps(self.data)})
+        print(output)
+
+        # Write index.html
+        if not output_dir:
+            output_dir = mkdtemp(prefix="pymaplibregl-")
+
+        file_name = os.path.join(output_dir, "index.html")
+        with open(file_name, "w") as f:
+            f.write(output)
+
+        return file_name
