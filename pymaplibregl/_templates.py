@@ -6,6 +6,7 @@ html_template = """<!DOCTYPE html>
 <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"/>
 <body>
+<!-- <div id="pymaplibregl" style="width: 250px;"></div> -->
 <script>
 {{ js|safe }}
 </script>
