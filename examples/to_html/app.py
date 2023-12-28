@@ -24,7 +24,7 @@ fill_extrusion_layer = Layer(
 center = [-123.0753056, 49.2686511]
 
 
-def create_amp():
+def create_map():
     m = Map(center=center, zoom=11, pitch=35)
     m.add_layer(fill_extrusion_layer)
     # m.add_popup("vancouver-blocks", "valuePerSqm")
@@ -32,5 +32,5 @@ def create_amp():
 
 
 if __name__ == "__main__":
-    file_name = create_amp()
+    file_name = create_map()
     print(file_name)
