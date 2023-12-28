@@ -1,7 +1,7 @@
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
-from pymaplibregl.source import GeojsonSource
-from shiny import App, reactive, render, ui
+from pymaplibregl.experimental import GeojsonSource
+from shiny import App, reactive, ui
 
 SOURCE_ID = "earthquakes"
 LAYER_ID = "earthquakes"
