@@ -8,14 +8,15 @@ html_template = """<!DOCTYPE html>
 <body>
 <script>
 {{ js|safe }}
-// ...
-(() => {
-    console.log("PyMapLibreGL!");
-    var data = {{ data|safe }};
-    // console.log(data.mapOptions);
-    _pyMapLibreGL(data);
-})();
 </script>
 </body>
 </html>
+"""
+
+js_template = """// ...
+(() => {
+    console.log("PyMapLibreGL!");
+    var data = {{ data|safe }};
+    _pyMapLibreGL(data);
+})();
 """
