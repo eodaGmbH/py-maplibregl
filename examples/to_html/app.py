@@ -27,8 +27,8 @@ center = [-123.0753056, 49.2686511]
 def create_amp():
     m = Map(center=center, zoom=11, pitch=35)
     m.add_layer(fill_extrusion_layer)
-    m.add_popup("vancouver-blocks", "valuePerSqm")
-    return m.to_html()
+    # m.add_popup("vancouver-blocks", "valuePerSqm")
+    return m.to_html(output_dir="skip")
 
 
 if __name__ == "__main__":
