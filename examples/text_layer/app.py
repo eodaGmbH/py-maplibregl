@@ -1,4 +1,5 @@
-from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
+from pymaplibregl import (Layer, LayerType, Map, output_maplibregl,
+                          render_maplibregl)
 from pymaplibregl.basemaps import Carto
 from shiny import App, reactive, render, ui
 
