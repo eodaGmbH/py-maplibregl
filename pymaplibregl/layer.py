@@ -1,14 +1,56 @@
-_points = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/scatterplot/manhattan.json"
-_geojson = "https://docs.mapbox.com/mapbox-gl-js/assets/indoor-3d-map.geojson"
+from __future__ import annotations
+
+from enum import Enum
+from uuid import uuid4
+
+from ._utils import fix_keys
+
+
+class LayerType(Enum):
+    CIRCLE = "circle"
+    FILL = "fill"
+    FILL_EXTRUSION = "fill-extrusion"
+    LINE = "line"
+    SYMBOL = "symbol"
+    RASTER = "raster"
+    HEATMAP = "heatmap"
+    HILLSHADE = "hillshade"
+    BACKGROUND = "background"
 
 
 class Layer(object):
-    def __init__(self, id_: str, type_: str, **kwargs):
-        self._properties = {
-            "id": id_,
+    def __init__(
+        self,
+        type_: [str | LayerType],
+        source: [dict | str | None],
+        id_: str = None,
+        paint: dict = {},
+        layout: dict = {},
+        **kwargs,
+    ):
+        self._data = {
+            "id": id_ or str(uuid4()),
             "type": type_,
+            "source": source,
+            "paint": paint,
+            "layout": layout,
         }
-        self._properties.update(kwargs)
+        # kwargs = fix_keys(kwargs)
+        self._data.update(kwargs)
+        self._data["type"] = LayerType(self._data["type"]).value
+        self._data = fix_keys(self._data)
+        for k in self._data.keys():
+            if k in ["paint", "layout"]:
+                self.data[k] = fix_keys(self._data[k])
 
-    def to_dict(self) -> dict[str, str]:
-        return self._properties
+    @property
+    def data(self) -> dict:
+        return self._data
+
+    @property
+    def type(self) -> str:
+        return self._data["type"]
+
+    @property
+    def id(self) -> str:
+        return self._data["id"]

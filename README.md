@@ -26,13 +26,25 @@ uvicorn app:app --reload
 * [Circle Layer](examples/circle_layer/app.py)
 * [Fill Layer](examples/fill_layer/app.py)
 * [Fill-Extrusion Layer](examples/fill_extrusion_layer/app.py)
+* [Line Layer](examples/fill_line_layer/app.py)
 
 ## Usage
 
 ```python
-from pymaplibregl import Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import carto_positron
+from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
+from pymaplibregl.basemaps import Carto
 from shiny import App, ui
+
+circle_layer = Layer(
+    "circle",
+    source={
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/arc/counties.json",
+    },
+    paint={"circle-color": "black"},
+)
+
+center = [-118.0931, 33.78615]
 
 app_ui = ui.page_fluid(
     ui.panel_title("Hello PyMapLibreGL!"),
@@ -43,13 +55,8 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=carto_positron(), center=[9.54, 51.31667], zoom=9)
-        marker = {
-            "lng_lat": [9.54, 51.31667],
-            "color": "green",
-            "popup": "Hello PyMapLibreGL!",
-        }
-        m.add_marker(**marker)
+        m = Map(style=Carto.POSITRON, center=center, zoom=7)
+        m.add_layer(circle_layer)
         return m
 
 

@@ -1,13 +1,6 @@
-console.log("Welcome to pymaplibregl!");
+import PyMapLibreGL from "./pymaplibregl";
 
-/*
-if (Shiny) {
-	console.log("Shiny");
-	Shiny.addCustomMessageHandler("maplibregl", (payload) => {
-		console.log(payload);
-	});
-}
-*/
+console.log("Welcome to pymaplibregl!");
 
 if (Shiny) {
   class MapLibreGLOutputBinding extends Shiny.OutputBinding {
@@ -17,34 +10,31 @@ if (Shiny) {
     }
 
     renderValue(el, payload) {
-      console.log(el.id, payload);
-      const params = Object.assign(
-        { container: el.id },
-        payload.data.mapOptions,
-      );
-      this.map = new maplibregl.Map(params);
-      this.map.addControl(new maplibregl.NavigationControl());
-
-      // Add markers
-      this.map.on("load", () =>
-        payload.data.markers.forEach(({ lngLat, popup, options }) => {
-          console.log(lngLat, popup, options);
-          const marker = new maplibregl.Marker(options).setLngLat(lngLat);
-          if (popup) {
-            const popup_ = new maplibregl.Popup().setText(popup);
-            marker.setPopup(popup_);
-          }
-          marker.addTo(this.map);
-        }),
+      console.log("id:", el.id, "payload:", payload);
+      const pyMapLibreGL = new PyMapLibreGL(
+        Object.assign({ container: el.id }, payload.mapData.mapOptions),
       );
 
-      // Add layers
-      this.map.on("load", () =>
-        payload.data.layers.forEach((props) => {
-          console.log(props);
-          this.map.addLayer(props);
-        }),
-      );
+      const map = pyMapLibreGL.getMap();
+      map.on("load", () => {
+        pyMapLibreGL.render(payload.mapData.calls);
+      });
+
+      // ...
+      map.on("click", (e) => {
+        console.log(e);
+        const inputName = `${el.id}`;
+        const data = { coords: e.lngLat, point: e.point };
+        console.log(inputName, data);
+        Shiny.onInputChange(inputName, data);
+      });
+
+      const messageHandlerName = `pymaplibregl-${el.id}`;
+      console.log(messageHandlerName);
+      Shiny.addCustomMessageHandler(messageHandlerName, ({ id, calls }) => {
+        console.log(id, calls);
+        pyMapLibreGL.render(calls);
+      });
     }
   }
 
