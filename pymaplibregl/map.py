@@ -1,5 +1,12 @@
 from __future__ import annotations
 
+import json
+import os.path
+
+from jinja2 import Template
+
+from ._templates import html_template, js_template
+from ._utils import get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import ControlPosition, ControlType
 from .layer import Layer
@@ -102,5 +109,17 @@ class Map(object):
     def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
         self.add_call("setLayoutProperty", [layer_id, prop, value])
 
-    def to_html(self) -> None:
-        print(self.MESSAGE)
+    def to_html(self, output_dir: str = None, **kwargs) -> str:
+        js_lib = read_internal_file("srcjs", "index.js")
+        js_snippet = Template(js_template).render(data=json.dumps(self.data))
+        output = Template(html_template).render(
+            js="\n".join([js_lib, js_snippet]), **kwargs
+        )
+        if output_dir == "skip":
+            return output
+
+        file_name = os.path.join(get_output_dir(output_dir), "index.html")
+        with open(file_name, "w") as f:
+            f.write(output)
+
+        return file_name
