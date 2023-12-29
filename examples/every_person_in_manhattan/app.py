@@ -1,4 +1,7 @@
+import json
+
 import pandas as pd
+import shapely
 from pymaplibregl import (
     Layer,
     LayerType,
@@ -20,10 +23,16 @@ point_data = pd.read_json(
     "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/scatterplot/manhattan.json"
 )
 point_data.columns = ["lng", "lat", "sex"]
+
 every_person_in_manhattan_source = {
     "type": "geojson",
     "data": df_to_geojson(point_data, lng="lng", lat="lat", properties=["sex"]),
 }
+
+bbox = shapely.bounds(
+    shapely.from_geojson(json.dumps(every_person_in_manhattan_source["data"]))
+)
+print(bbox)
 
 every_person_in_manhattan_layer = Layer(
     LayerType.CIRCLE,
@@ -35,8 +44,6 @@ every_person_in_manhattan_layer = Layer(
     },
 )
 
-center = [-118.0931, 33.78615]
-
 app_ui = ui.page_fluid(
     ui.panel_title("Every Person in Manhattan"),
     output_maplibregl("maplibre", height=600),
@@ -47,7 +54,12 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def maplibre():
-        m = Map(style=Carto.POSITRON, center=[-73.987157, 40.729906], zoom=12)
+        m = Map(
+            style=Carto.POSITRON,
+            # center=[-73.987157, 40.729906], zoom=12
+            bounds=list(bbox),
+            fitBoundsOptions={"padding": 20},
+        )
         m.add_layer(every_person_in_manhattan_layer)
         return m
 
