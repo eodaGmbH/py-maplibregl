@@ -26,7 +26,7 @@ point_data.columns = ["lng", "lat", "sex"]
 
 every_person_in_manhattan_source = {
     "type": "geojson",
-    "data": df_to_geojson(point_data, lng="lng", lat="lat", properties=["sex"]),
+    "data": df_to_geojson(point_data, properties=["sex"]),
 }
 
 bbox = shapely.bounds(

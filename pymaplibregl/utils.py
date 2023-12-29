@@ -1,23 +1,33 @@
-from pandas import DataFrame
+from __future__ import annotations
 
-"""
-def _get_feature_type(lng: str = None, lat: str = None) -> str:
-    if lng and lat:
-        return "Point"
-"""
+from enum import Enum
+
+try:
+    from pandas import DataFrame
+except:
+    print("pandas is not installed")
+
+
+class GeometryType(str, Enum):
+    POINT = "Point"
+    LINE = "Line"
+    POLYGON = "Polygon"
 
 
 def df_to_geojson(
-    df: DataFrame, lng: str = None, lat: str = None, properties: list = None
+    df: DataFrame,
+    coordinates: str | list = ["lng", "lat"],
+    geometry_type: str | GeometryType = GeometryType.POINT,
+    properties: list = None,
 ) -> dict:
     geojson = {"type": "FeatureCollection", "features": []}
     for _, row in df.iterrows():
         feature = {
             "type": "Feature",
             "properties": {},
-            "geometry": {"type": "Point", "coordinates": []},
+            "geometry": {"type": GeometryType(geometry_type).value, "coordinates": []},
         }
-        feature["geometry"]["coordinates"] = [row[lng], row[lat]]
+        feature["geometry"]["coordinates"] = list(row[coordinates])
         for prop in properties:
             feature["properties"][prop] = row[prop]
 
