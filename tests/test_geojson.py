@@ -12,6 +12,6 @@ def test_geojson_line():
     print(df)
 
     geojson = df_to_geojson(
-        df, ["start", "end"], GeometryType.LINE, properties=["name"]
+        df, ["start", "end"], GeometryType.LINE_STRING, properties=["name"]
     )
     print(geojson)

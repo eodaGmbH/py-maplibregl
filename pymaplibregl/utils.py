@@ -10,7 +10,7 @@ except:
 
 class GeometryType(str, Enum):
     POINT = "Point"
-    LINE = "Line"
+    LINE_STRING = "LineString"
     POLYGON = "Polygon"
 
 
