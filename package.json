@@ -17,5 +17,8 @@
   "devDependencies": {
     "esbuild": "0.19.10",
     "prettier": "3.1.1"
+  },
+  "dependencies": {
+    "@turf/helpers": "^6.5.0"
   }
 }

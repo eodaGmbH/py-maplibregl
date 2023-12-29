@@ -78,6 +78,11 @@ class Map(object):
     def add_source(self, id_: str, source: dict) -> None:
         self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
 
+    def add_point_source(self, id_: str, data: dict) -> None:
+        self._calls.append(
+            {"name": "addPointSource", "data": {"id": id_, "data": data}}
+        )
+
     def add_layer(self, layer: [Layer | dict]) -> None:
         if isinstance(layer, Layer):
             layer = layer.data

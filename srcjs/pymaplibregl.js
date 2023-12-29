@@ -1,3 +1,7 @@
+import * as turf from "@turf/helpers";
+
+console.log(turf.point([0, 0]));
+
 export default class PyMapLibreGL {
   constructor(mapOptions) {
     this._id = mapOptions.container;
@@ -32,6 +36,15 @@ export default class PyMapLibreGL {
 
   addSource({ id, source }) {
     this._map.addSource(id, source);
+  }
+
+  addPointSource({ id, data }) {
+    console.log(data);
+    const d = turf.featureCollection(
+      data.data.map((item) => turf.point([item[0], item[1]])),
+    );
+    console.log(d);
+    this._map.addSource(id, { type: "geojson", data: d });
   }
 
   addLayer(data) {
