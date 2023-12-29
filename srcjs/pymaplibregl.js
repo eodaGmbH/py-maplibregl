@@ -11,17 +11,16 @@ export default class PyMapLibreGL {
     return this._map;
   }
 
+  // TODO: Rename to "applyMapMethod"
   applyFunc({ funcName, params }) {
     this._map[funcName](...params);
   }
 
   addControl({ type, options, position }) {
-    console.log(type, options, position);
     this._map.addControl(new maplibregl[type](options), position);
   }
 
   addMarker({ lngLat, popup, options }) {
-    console.log(lngLat, popup, options);
     const marker = new maplibregl.Marker(options).setLngLat(lngLat);
     if (popup) {
       const popup_ = new maplibregl.Popup(popup.options).setHTML(popup.text);
