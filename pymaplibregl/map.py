@@ -109,10 +109,12 @@ class Map(object):
     def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
         self.add_call("setLayoutProperty", [layer_id, prop, value])
 
-    def to_html(self, output_dir: str = None) -> str:
+    def to_html(self, output_dir: str = None, **kwargs) -> str:
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.data))
-        output = Template(html_template).render(js="\n".join([js_lib, js_snippet]))
+        output = Template(html_template).render(
+            js="\n".join([js_lib, js_snippet]), **kwargs
+        )
         if output_dir == "skip":
             return output
 

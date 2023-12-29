@@ -6,7 +6,7 @@ html_template = """<!DOCTYPE html>
 <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"/>
 <body>
-<!-- <div id="pymaplibregl" style="width: 250px;"></div> -->
+<div id="pymaplibregl" style="{{ style|default('height=600px;') }}"></div>
 <script>
 {{ js|safe }}
 </script>
@@ -16,8 +16,7 @@ html_template = """<!DOCTYPE html>
 
 js_template = """// ...
 (() => {
-    console.log("PyMapLibreGL!");
     var data = {{ data|safe }};
-    _pyMapLibreGL(data);
+    pymaplibregl(data);
 })();
 """
