@@ -11,7 +11,6 @@ if (typeof Shiny === "undefined") {
     const pyMapLibreGL = new PyMapLibreGL(
       Object.assign({ container: container.id }, mapOptions),
     );
-
     const map = pyMapLibreGL.getMap();
     map.on("load", () => {
       pyMapLibreGL.render(calls);
@@ -22,7 +21,6 @@ if (typeof Shiny === "undefined") {
 if (typeof Shiny !== "undefined") {
   class MapLibreGLOutputBinding extends Shiny.OutputBinding {
     find(scope) {
-      console.log("I am here!");
       return scope.find(".shiny-maplibregl-output");
     }
 

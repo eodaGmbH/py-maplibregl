@@ -2,7 +2,6 @@
   // srcjs/pymaplibregl.js
   var PyMapLibreGL = class {
     constructor(mapOptions) {
-      console.log("Awesome");
       this._id = mapOptions.container;
       this._map = new maplibregl.Map(mapOptions);
       this._map.addControl(new maplibregl.NavigationControl());
@@ -30,7 +29,6 @@
       this._map.addSource(id, source);
     }
     addLayer(data) {
-      console.log(data);
       this._map.addLayer(data);
       if (typeof Shiny !== "undefined") {
         this._map.on("click", data.id, (e) => {
@@ -63,9 +61,7 @@
       });
     }
     render(calls) {
-      console.log("Render it!");
       calls.forEach(({ name, data }) => {
-        console.log(name);
         this[name](data);
       });
     }
@@ -90,7 +86,6 @@
   if (typeof Shiny !== "undefined") {
     class MapLibreGLOutputBinding extends Shiny.OutputBinding {
       find(scope) {
-        console.log("I am here!");
         return scope.find(".shiny-maplibregl-output");
       }
       renderValue(el, payload) {

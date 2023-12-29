@@ -1,6 +1,5 @@
 export default class PyMapLibreGL {
   constructor(mapOptions) {
-    console.log("Awesome");
     this._id = mapOptions.container;
     this._map = new maplibregl.Map(mapOptions);
 
@@ -36,10 +35,9 @@ export default class PyMapLibreGL {
   }
 
   addLayer(data) {
-    console.log(data);
     this._map.addLayer(data);
 
-    // ...
+    // Add event listener
     if (typeof Shiny !== "undefined") {
       this._map.on("click", data.id, (e) => {
         console.log(e, e.features[0]);
@@ -65,7 +63,6 @@ export default class PyMapLibreGL {
     this._map.on("mouseenter", layerId, (e) => {
       const feature = e.features[0];
       const text = feature.properties[property];
-      // console.log(e.lngLat, text);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
 
@@ -75,9 +72,7 @@ export default class PyMapLibreGL {
   }
 
   render(calls) {
-    console.log("Render it!");
     calls.forEach(({ name, data }) => {
-      console.log(name);
       this[name](data);
     });
   }
