@@ -1,6 +1,7 @@
 import h3
 import pandas as pd
-import shapely
+
+# import shapely
 from pymaplibregl import (
     Layer,
     LayerType,
@@ -27,13 +28,52 @@ motor_vehicle_collisions_source = {
     ),
 }
 
+# ### h3
+motor_vehicle_collisions_data["h3_index"] = motor_vehicle_collisions_data.apply(
+    lambda x: h3.geo_to_h3(x["lat"], x["lng"], resolution=7), axis=1
+)
+
+df_aggr = (
+    motor_vehicle_collisions_data[["h3_index", "injured", "killed"]]
+    .groupby("h3_index", as_index=False)
+    .sum()
+)
+df_aggr["hexagon"] = df_aggr.apply(
+    lambda x: [h3.h3_to_geo_boundary(x["h3_index"], geo_json=True)], axis=1
+)
+H3_LAYER_ID = "h3-hexagons"
+h3_source = {
+    "type": "geojson",
+    "data": df_to_geojson(df_aggr, "hexagon", "Polygon", properties=["injured"]),
+}
+h3_layer = Layer(
+    LayerType.FILL,
+    id_=H3_LAYER_ID,
+    source=h3_source,
+    paint={
+        "fill-color": [
+            "step",
+            ["get", "injured"],
+            "yellow",
+            2,
+            "orange",
+            5,
+            "darkred",
+            15,
+            "black",
+        ],
+        "fill-opacity": 0.4,
+    },
+)
+# ###
 
 """
 bbox = shapely.bounds(
     shapely.from_geojson(json.dumps(motor_vehicle_collisions_source["data"]))
 )
 """
-bbox = get_bounds(motor_vehicle_collisions_source["data"])
+# bbox = get_bounds(motor_vehicle_collisions_source["data"])
+bbox = get_bounds(h3_source["data"])
 print(bbox)
 
 
@@ -70,8 +110,9 @@ def server(input, output, session):
             fitBoundsOptions={"padding": 20},
         )
         # m.add_layer(flights_layer)
+        m.add_layer(h3_layer)
         m.add_layer(motor_vehicle_collisions_layer)
-        m.add_popup(LAYER_ID, "injured")
+        m.add_popup(H3_LAYER_ID, "injured")
         return m
 
     """

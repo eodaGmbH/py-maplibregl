@@ -1,6 +1,7 @@
 import json
 
 import h3
+import shapely
 from pandas import read_csv
 from pymaplibregl.utils import df_to_geojson
 
@@ -17,11 +18,19 @@ df_aggr = (
     df[["h3_index", "injured", "killed"]].groupby("h3_index", as_index=False).sum()
 )
 df_aggr["hexagon"] = df_aggr.apply(
-    lambda x: list(h3.h3_to_geo_boundary(x["h3_index"], geo_json=True)), axis=1
+    lambda x: [list(h3.h3_to_geo_boundary(x["h3_index"], geo_json=True))], axis=1
 )
 # df_aggr.apply(lambda x: h3.h3_to_geo_boundary(x["h3_index"]), axis=1)
 
 print(df_aggr.head())
-geojson = df_to_geojson(df_aggr, "hexagon", "Polygon")
+geojson = df_to_geojson(df_aggr.head(), "hexagon", "Polygon")
 print(geojson)
-print(json.dumps(geojson, indent=2))
+print(json.dumps(geojson))
+shapely.from_geojson(json.dumps(geojson))
+
+import requests
+
+d = requests.get(
+    "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json"
+).json()
+# print(d)
