@@ -14,7 +14,15 @@ earthquakes_source = GeoJSONSource(
     cluster_max_zoom=14,
 )
 
-circle_layer = Layer(
+earthquakes_layer = Layer(
+    "circle",
+    source=SOURCE_ID,
+    paint={"circle-color": "darkblue"},
+    filter=["!", ["has", "point_count"]],
+)
+
+
+earthquakes_cluster_layer = Layer(
     "circle",
     id_=LAYER_ID,
     source=SOURCE_ID,
@@ -39,12 +47,6 @@ circle_layer = Layer(
     },
 )
 
-circle_layer_ = Layer(
-    "circle",
-    source=SOURCE_ID,
-    paint={"circle-color": "darkblue"},
-    filter=["!", ["has", "point_count"]],
-)
 
 center = [-118.0931, 33.78615]
 
@@ -59,9 +61,9 @@ def server(input, output, session):
     async def maplibre():
         m = Map(style=Carto.POSITRON, center=center, zoom=5)
         m.add_source(SOURCE_ID, earthquakes_source)
-        m.add_layer(circle_layer)
+        m.add_layer(earthquakes_cluster_layer)
         m.add_popup(LAYER_ID, "point_count")
-        m.add_layer(circle_layer_)
+        m.add_layer(earthquakes_layer)
         return m
 
     @reactive.Effect
