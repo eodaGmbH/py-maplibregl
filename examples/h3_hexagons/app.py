@@ -76,6 +76,26 @@ h3_layer = Layer(
         "fill-opacity": 0.4,
     },
 )
+
+h3_fill_extrusion_layer = Layer(
+    LayerType.FILL_EXTRUSION,
+    source=h3_source,
+    paint={
+        "fill-extrusion-color": [
+            "step",
+            ["get", "count"],
+            "yellow",
+            5,
+            "orange",
+            10,
+            "red",
+            25,
+            "darkred",
+        ],
+        "fill-extrusion-opacity": 0.7,
+        "fill-extrusion-height": ["*", ["to-number", ["get", "count"]], 300],
+    },
+)
 # ###
 
 """
@@ -117,13 +137,15 @@ def server(input, output, session):
     async def maplibre():
         m = Map(
             style=Carto.POSITRON,
+            pitch=30,
             bounds=list(bbox),
             fitBoundsOptions={"padding": 20},
         )
         # m.add_layer(flights_layer)
-        m.add_layer(h3_layer)
-        m.add_layer(motor_vehicle_collisions_layer)
-        m.add_popup(H3_LAYER_ID, "count")
+        # m.add_layer(h3_layer)
+        # m.add_layer(motor_vehicle_collisions_layer)
+        # m.add_popup(H3_LAYER_ID, "count")
+        m.add_layer(h3_fill_extrusion_layer)
         return m
 
     """
