@@ -1,6 +1,11 @@
+from __future__ import annotations
+
 import os
 import pathlib
 from tempfile import mkdtemp
+
+from pydantic import BaseModel as BaseModel_
+from pydantic import ConfigDict
 
 
 def fix_keys(d: dict) -> dict:
@@ -26,3 +31,10 @@ def read_internal_file(*args):
         content = f.read()
 
     return content
+
+
+class BaseModel(BaseModel_):
+    model_config = ConfigDict(validate_assignment=True, extra="allow")
+
+    def to_dict(self) -> dict:
+        return self.model_dump(by_alias=True, exclude_none=True)

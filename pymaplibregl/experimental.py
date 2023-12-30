@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pymaplibregl import Layer, LayerType
 from pymaplibregl._utils import fix_keys
-from pymaplibregl.source import SourceType
+from pymaplibregl.sources import SourceType
 
 
 class LineLayer(Layer):

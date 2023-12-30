@@ -11,6 +11,7 @@ from .basemaps import Carto, construct_carto_basemap_url
 from .controls import ControlPosition, ControlType
 from .layer import Layer
 from .marker import Marker
+from .sources import Source
 
 
 class Map(object):
@@ -75,7 +76,10 @@ class Map(object):
             }
         )
 
-    def add_source(self, id_: str, source: dict) -> None:
+    def add_source(self, id_: str, source: [Source | dict]) -> None:
+        if isinstance(source, Source):
+            source = source.to_dict()
+
         self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
 
     def add_layer(self, layer: [Layer | dict]) -> None:

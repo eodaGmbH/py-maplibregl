@@ -4,6 +4,7 @@ from enum import Enum
 from uuid import uuid4
 
 from ._utils import fix_keys
+from .sources import Source
 
 
 class LayerType(Enum):
@@ -22,12 +23,14 @@ class Layer(object):
     def __init__(
         self,
         type_: [str | LayerType],
-        source: [dict | str | None],
+        source: [str | Source | dict],
         id_: str = None,
         paint: dict = {},
         layout: dict = {},
         **kwargs,
     ):
+        if isinstance(source, Source):
+            source = source.to_dict()
         self._data = {
             "id": id_ or str(uuid4()),
             "type": type_,
