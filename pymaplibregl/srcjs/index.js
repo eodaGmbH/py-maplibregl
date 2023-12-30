@@ -2,7 +2,6 @@
   // srcjs/pymaplibregl.js
   var PyMapLibreGL = class {
     constructor(mapOptions) {
-      console.log("Awesome");
       this._id = mapOptions.container;
       this._map = new maplibregl.Map(mapOptions);
       this._map.addControl(new maplibregl.NavigationControl());
@@ -10,15 +9,14 @@
     getMap() {
       return this._map;
     }
+    // TODO: Rename to "applyMapMethod"
     applyFunc({ funcName, params }) {
       this._map[funcName](...params);
     }
     addControl({ type, options, position }) {
-      console.log(type, options, position);
       this._map.addControl(new maplibregl[type](options), position);
     }
     addMarker({ lngLat, popup, options }) {
-      console.log(lngLat, popup, options);
       const marker = new maplibregl.Marker(options).setLngLat(lngLat);
       if (popup) {
         const popup_ = new maplibregl.Popup(popup.options).setHTML(popup.text);
@@ -30,7 +28,6 @@
       this._map.addSource(id, source);
     }
     addLayer(data) {
-      console.log(data);
       this._map.addLayer(data);
       if (typeof Shiny !== "undefined") {
         this._map.on("click", data.id, (e) => {
@@ -53,7 +50,7 @@
         closeOnClick: false
       };
       const popup = new maplibregl.Popup(popupOptions);
-      this._map.on("mouseenter", layerId, (e) => {
+      this._map.on("mousemove", layerId, (e) => {
         const feature = e.features[0];
         const text = feature.properties[property];
         popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
@@ -63,27 +60,19 @@
       });
     }
     render(calls) {
-      console.log("Render it!");
       calls.forEach(({ name, data }) => {
-        console.log(name);
         this[name](data);
       });
     }
   };
 
   // srcjs/index.js
-  console.log("Welcome to pymaplibregl!");
+  var version = "0.1.0";
+  console.log("pymaplibregl", version);
   if (typeof Shiny === "undefined") {
-    window._pyMapLibreGL = function({ mapOptions, calls }) {
+    window.pymaplibregl = function({ mapOptions, calls }) {
       const id = "pymaplibregl";
-      let container = document.getElementById(id);
-      if (container === null) {
-        container = document.createElement("div");
-        container.setAttribute("id", id);
-      }
-      container.style.height = "600px";
-      document.body.appendChild(container);
-      console.log(mapOptions);
+      const container = document.getElementById(id);
       const pyMapLibreGL = new PyMapLibreGL(
         Object.assign({ container: container.id }, mapOptions)
       );
@@ -96,7 +85,6 @@
   if (typeof Shiny !== "undefined") {
     class MapLibreGLOutputBinding extends Shiny.OutputBinding {
       find(scope) {
-        console.log("I am here!");
         return scope.find(".shiny-maplibregl-output");
       }
       renderValue(el, payload) {

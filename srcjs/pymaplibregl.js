@@ -1,6 +1,5 @@
 export default class PyMapLibreGL {
   constructor(mapOptions) {
-    console.log("Awesome");
     this._id = mapOptions.container;
     this._map = new maplibregl.Map(mapOptions);
 
@@ -12,17 +11,16 @@ export default class PyMapLibreGL {
     return this._map;
   }
 
+  // TODO: Rename to "applyMapMethod"
   applyFunc({ funcName, params }) {
     this._map[funcName](...params);
   }
 
   addControl({ type, options, position }) {
-    console.log(type, options, position);
     this._map.addControl(new maplibregl[type](options), position);
   }
 
   addMarker({ lngLat, popup, options }) {
-    console.log(lngLat, popup, options);
     const marker = new maplibregl.Marker(options).setLngLat(lngLat);
     if (popup) {
       const popup_ = new maplibregl.Popup(popup.options).setHTML(popup.text);
@@ -36,10 +34,9 @@ export default class PyMapLibreGL {
   }
 
   addLayer(data) {
-    console.log(data);
     this._map.addLayer(data);
 
-    // ...
+    // Add event listener
     if (typeof Shiny !== "undefined") {
       this._map.on("click", data.id, (e) => {
         console.log(e, e.features[0]);
@@ -62,10 +59,9 @@ export default class PyMapLibreGL {
       closeOnClick: false,
     };
     const popup = new maplibregl.Popup(popupOptions);
-    this._map.on("mouseenter", layerId, (e) => {
+    this._map.on("mousemove", layerId, (e) => {
       const feature = e.features[0];
       const text = feature.properties[property];
-      // console.log(e.lngLat, text);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
 
@@ -75,9 +71,7 @@ export default class PyMapLibreGL {
   }
 
   render(calls) {
-    console.log("Render it!");
     calls.forEach(({ name, data }) => {
-      console.log(name);
       this[name](data);
     });
   }

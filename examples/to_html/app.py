@@ -28,7 +28,7 @@ def create_map():
     m = Map(center=center, zoom=11, pitch=35)
     m.add_layer(fill_extrusion_layer)
     # m.add_popup("vancouver-blocks", "valuePerSqm")
-    return m.to_html(output_dir="skip")
+    return m.to_html(output_dir="skip", style="height: 800px;")
 
 
 if __name__ == "__main__":
