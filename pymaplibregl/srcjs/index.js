@@ -50,7 +50,7 @@
         closeOnClick: false
       };
       const popup = new maplibregl.Popup(popupOptions);
-      this._map.on("mouseenter", layerId, (e) => {
+      this._map.on("mousemove", layerId, (e) => {
         const feature = e.features[0];
         const text = feature.properties[property];
         popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
