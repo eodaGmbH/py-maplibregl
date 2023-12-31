@@ -29,11 +29,14 @@ def test_map_layers():
 
 def test_map_markers():
     # Prepare
+    """
     marker = {
-        "lngLat": [0, 0],
+        "lngLat": (0, 0),
         "color": "green",
-        "popup": "Hello PyMapLibreGL!",
+        "popup": {"text": "Hello PyMapLibreGL!"},
     }
+    """
+    marker = maplibre.controls.Marker(lng_lat=(0, 0), popup={"text": "Hello"})
 
     # Act
     map = maplibre.Map()
@@ -42,4 +45,4 @@ def test_map_markers():
 
     # Assert
     assert len(markers) == 1
-    assert markers[0]["lngLat"] == [0, 0]
+    assert markers[0]["lngLat"] == (0, 0)

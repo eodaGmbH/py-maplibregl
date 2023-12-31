@@ -44,7 +44,7 @@ class MarkerOptions(BaseModel):
 
 class Marker(BaseModel):
     lng_lat: Union[tuple, list] = Field(None, serialization_alias="lngLat")
-    popup: Popup = None
+    popup: Union[Popup, dict] = None
     options: Union[MarkerOptions, dict] = {}
 
 
