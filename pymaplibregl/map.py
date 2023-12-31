@@ -67,14 +67,15 @@ class Map(object):
         control: Control,
         position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
     ) -> None:
+        data = {
+            "type": control.type,
+            "options": control.to_dict(),
+            "position": ControlPosition(position).value,
+        }
         self._calls.append(
             {
                 "name": "addControl",
-                "data": {
-                    "type": ControlType(control._name).value,
-                    "options": control.to_dict(),
-                    "position": ControlPosition(position).value,
-                },
+                "data": data,
             }
         )
 

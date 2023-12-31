@@ -2,7 +2,8 @@
 from enum import Enum
 from typing import Literal, Union
 
-from pydantic import Field
+from pydantic import BaseModel as PydanticBaseModel
+from pydantic import ConfigDict, Field
 
 from ._utils import BaseModel
 
@@ -64,11 +65,13 @@ class ControlPosition(Enum):
 
 
 class Control(BaseModel):
-    pass
+    @property
+    def type(self):
+        return self.__class__.__name__
 
 
-class AttributionControl(BaseModel):
-    _name: str = ControlType.ATTRIBUTION.value
+class AttributionControl(Control):
+    # _name: str = ControlType.ATTRIBUTION.value
     compact: bool = None
     custom_attribution: Union[str, list] = Field(
         None, serialization_alias="customAttribution"
@@ -76,11 +79,12 @@ class AttributionControl(BaseModel):
 
 
 class FullscreenControl(Control):
-    _name: str = ControlType.FULLSCREEN.value
+    # _name: str = ControlType.FULLSCREEN.value
+    pass
 
 
 class GeolocateControl(Control):
-    _name: str = ControlType.GEOLOCATE.value
+    # _name: str = ControlType.GEOLOCATE.value
     position_options: dict = Field(None, serialization_alias="positionOptions")
     show_accuracy_circle: bool = Field(True, serialization_alias="showAccuracyCircle")
     show_user_heading: bool = Field(False, serialization_alias="showUserHeading")
@@ -89,21 +93,19 @@ class GeolocateControl(Control):
 
 
 class NavigationControl(Control):
-    _name: str = ControlType.NAVIGATION.value
+    # _name: str = ControlType.NAVIGATION.value
     sho_compass: bool = Field(True, serialization_alias="showCompass")
     show_zoom: bool = Field(True, serialization_alias="showZoom")
     visualize_pitch: bool = Field(False, serialization_alias="visualizePitch")
 
 
-"""
-class Unit(Enum):
+class ScaleUnit(Enum):
     IMPERIAL = "imperial"
     METRIC = "metric"
     NAUTICAL = "nautical"
-"""
 
 
 class ScaleControl(Control):
-    _name: str = ControlType.SCALE.value
+    # _name: str = ControlType.SCALE.value
     max_width: int = Field(None, serialization_alias="maxWidth")
     unit: Literal["imperial", "metric", "nautical"] = "metric"
