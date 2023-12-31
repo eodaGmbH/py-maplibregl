@@ -4,7 +4,7 @@ from enum import Enum
 from typing import Union
 from uuid import uuid4
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from ._utils import BaseModel, fix_keys
 from .sources import Source
@@ -73,3 +73,11 @@ class LayerModel(BaseModel):
     paint: dict = None
     source: Union[str, Source, dict] = None
     source_layer: str = Field(None, serialization_alias="source-layer")
+
+    @field_validator("paint", "layout")
+    @classmethod
+    def fix_paint(cls, v):
+        if isinstance(v, dict):
+            v = fix_keys(v)
+
+        return v

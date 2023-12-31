@@ -9,14 +9,21 @@ from pymaplibregl import (
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.controls import FullscreenControl, ScaleControl
 from pymaplibregl.layer import LayerModel
+from pymaplibregl.sources import GeoJSONSource
 from shiny import App, ui
 
 SOURCE_ID = "vancouver-blocks"
 
+"""
 vancouver_blocks = {
     "type": "geojson",
     "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
 }
+"""
+
+vancouver_blocks = GeoJSONSource(
+    data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
+)
 
 
 line_layer = Layer(

@@ -1,5 +1,6 @@
 import pytest
 from pymaplibregl import Layer
+from pymaplibregl.layer import LayerModel, LayerType
 
 
 def test_layer():
@@ -13,6 +14,24 @@ def test_layer():
     # Assert
     assert "source-layer" in layer.data
     assert "fill-color" in layer.data["paint"]
+
+
+def test_layer_model():
+    # Act
+    layer = LayerModel(
+        type=LayerType.FILL,
+        source="test",
+        source_layer="countries",
+        paint={"fill_color": "red"},
+        layout={"some_key": "some_value"},
+    )
+
+    print(layer.to_dict())
+
+    # Assert
+    assert "source-layer" in layer.to_dict()
+    assert "fill-color" in layer.to_dict()["paint"]
+    assert "some-key" in layer.to_dict()["layout"]
 
 
 def test_layer_type():
