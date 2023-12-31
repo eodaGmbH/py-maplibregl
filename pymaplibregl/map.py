@@ -8,9 +8,10 @@ from jinja2 import Template
 from ._templates import html_template, js_template
 from ._utils import get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
-from .controls import Control, ControlPosition, ControlType
+from .controls import Control, ControlPosition, ControlType, Marker
 from .layer import Layer
-from .marker import Marker
+
+# from .marker import Marker
 from .sources import Source
 
 
@@ -61,8 +62,6 @@ class Map(object):
 
     def add_control(
         self,
-        # type_: [str | ControlType],
-        # options: dict = {},
         control: Control,
         position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
     ) -> None:
@@ -89,16 +88,8 @@ class Map(object):
 
         self._calls.append({"name": "addLayer", "data": layer})
 
-    def add_marker(self, marker: [Marker | dict]) -> None:
-        if isinstance(marker, Marker):
-            marker = marker.data
-
-        self._calls.append(
-            {
-                "name": "addMarker",
-                "data": marker,
-            }
-        )
+    def add_marker(self, marker: Marker) -> None:
+        self._calls.append({"name": "addMarker", "data": marker.to_dict()})
 
     def add_popup(self, layer_id: str, property_: str) -> None:
         self._calls.append(

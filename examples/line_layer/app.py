@@ -1,6 +1,5 @@
 from pymaplibregl import (
     ControlPosition,
-    ControlType,
     Layer,
     LayerType,
     Map,

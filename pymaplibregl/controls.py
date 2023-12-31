@@ -7,6 +7,47 @@ from pydantic import Field
 from ._utils import BaseModel
 
 
+class PopupOptions(BaseModel):
+    anchor: str = None
+    close_button: bool = Field(False, serialization_alias="closeButton")
+    close_on_click: bool = Field(None, serialization_alias="closeOnClick")
+    close_on_move: bool = Field(None, serialization_alias="closeOnMove")
+    max_width: int = Field(None, serialization_alias="maxWidth")
+    offset: Union[int, list, dict] = None
+
+
+class Popup(BaseModel):
+    text: str
+    options: PopupOptions
+
+    """
+    def model_dump(self) -> dict:
+        return {
+            "text": self.text,
+            "options": super().model_dump(
+                exclude={"text"}, exclude_none=True, by_alias=True
+            ),
+        }
+    """
+
+
+class MarkerOptions(BaseModel):
+    anchor: str = None
+    color: str = None
+    draggable: bool = None
+    offset: Union[tuple, list] = None
+    pitch_alignment: str = Field(None, serialization_alias="pitchAlignment")
+    rotation: int = None
+    rotation_alignment: str = Field(None, serialization_alias="rotationAlignment")
+    scale: int = None
+
+
+class Marker(BaseModel):
+    lng_lat: Union[tuple, list] = Field(None, serialization_alias="lngLat")
+    popup: Popup = None
+    options: Union[MarkerOptions, dict] = {}
+
+
 class ControlType(Enum):
     NAVIGATION = "NavigationControl"
     SCALE = "ScaleControl"

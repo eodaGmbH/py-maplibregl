@@ -5,6 +5,7 @@ from typing import Annotated, List
 from .popup import Popup
 
 
+# DEPRECATED: see controls.py
 class Marker(object):
     def __init__(
         self, lng_lat: Annotated[List[float], 2], popup: [Popup | dict] = None, **kwargs
