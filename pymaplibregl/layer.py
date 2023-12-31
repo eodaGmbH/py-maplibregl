@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 from enum import Enum
+from typing import Union
 from uuid import uuid4
 
-from ._utils import fix_keys
+from pydantic import Field
+
+from ._utils import BaseModel, fix_keys
 from .sources import Source
 
 
-class LayerType(Enum):
+class LayerType(str, Enum):
     CIRCLE = "circle"
     FILL = "fill"
     FILL_EXTRUSION = "fill-extrusion"
@@ -57,3 +60,16 @@ class Layer(object):
     @property
     def id(self) -> str:
         return self._data["id"]
+
+
+class LayerModel(BaseModel):
+    id: str = str(uuid4())
+    type: LayerType
+    filter: list = None
+    layout: dict = None
+    max_zoom: int = Field(None, serialization_alias="maxzoom")
+    metadata: dict = None
+    min_zoom: int = Field(None, serialization_alias="minzoom")
+    paint: dict = None
+    source: Union[str, Source, dict] = None
+    source_layer: str = Field(None, serialization_alias="source-layer")

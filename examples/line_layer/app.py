@@ -8,6 +8,7 @@ from pymaplibregl import (
 )
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.controls import FullscreenControl, ScaleControl
+from pymaplibregl.layer import LayerModel
 from shiny import App, ui
 
 SOURCE_ID = "vancouver-blocks"
@@ -23,6 +24,14 @@ line_layer = Layer(
     id_="vancouver-blocks-line",
     source=SOURCE_ID,
     paint={"line-color": "yellow", "line-opacity": 1.0},
+)
+
+line_layer2 = LayerModel(
+    type=LayerType.LINE,
+    id="vancouver-blocks-line",
+    source=SOURCE_ID,
+    paint={"line-color": "yellow"},
+    min_zoom=12,
 )
 
 center = [-123.0753056, 49.2686511]
@@ -43,7 +52,7 @@ def server(input, output, session):
         )
         map.add_control(FullscreenControl(), position=ControlPosition.BOTTOM_LEFT)
         map.add_source(SOURCE_ID, vancouver_blocks)
-        map.add_layer(line_layer)
+        map.add_layer(line_layer2)
         # map.add_call("setZoom", [[3]])
         # map.add_call("setCenter", [[0, 0]])
         # map.add_call("flyTo", [{"center": [9.5, 51.31667], "zoom": 4}])

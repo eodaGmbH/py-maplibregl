@@ -6,13 +6,15 @@ import os.path
 from jinja2 import Template
 
 from ._templates import html_template, js_template
-from ._utils import get_output_dir, read_internal_file
+from ._utils import BaseModel, get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import Control, ControlPosition, ControlType, Marker
-from .layer import Layer
-
-# from .marker import Marker
+from .layer import Layer, LayerModel
 from .sources import Source
+
+
+class MapOptions(BaseModel):
+    pass
 
 
 class Map(object):
@@ -82,9 +84,12 @@ class Map(object):
 
         self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
 
-    def add_layer(self, layer: [Layer | dict]) -> None:
+    def add_layer(self, layer: [Layer | LayerModel | dict]) -> None:
         if isinstance(layer, Layer):
             layer = layer.data
+
+        if isinstance(layer, LayerModel):
+            layer = layer.to_dict()
 
         self._calls.append({"name": "addLayer", "data": layer})
 
