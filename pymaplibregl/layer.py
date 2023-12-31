@@ -75,7 +75,7 @@ class LayerModel(BaseModel):
     source_layer: str = Field(None, serialization_alias="source-layer")
 
     @field_validator("paint", "layout")
-    @classmethod
+    # @classmethod
     def fix_paint(cls, v):
         if isinstance(v, dict):
             v = fix_keys(v)
