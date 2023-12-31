@@ -34,7 +34,9 @@ def read_internal_file(*args):
 
 
 class BaseModel(BaseModel_):
-    model_config = ConfigDict(validate_assignment=True, extra="allow")
+    model_config = ConfigDict(
+        validate_assignment=True, extra="allow", use_enum_values=True
+    )
 
     def to_dict(self) -> dict:
         return self.model_dump(by_alias=True, exclude_none=True)

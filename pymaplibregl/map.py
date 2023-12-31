@@ -8,7 +8,7 @@ from jinja2 import Template
 from ._templates import html_template, js_template
 from ._utils import get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
-from .controls import ControlPosition, ControlType
+from .controls import Control, ControlPosition, ControlType
 from .layer import Layer
 from .marker import Marker
 from .sources import Source
@@ -61,16 +61,17 @@ class Map(object):
 
     def add_control(
         self,
-        type_: [str | ControlType],
-        options: dict = {},
+        # type_: [str | ControlType],
+        # options: dict = {},
+        control: Control,
         position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
     ) -> None:
         self._calls.append(
             {
                 "name": "addControl",
                 "data": {
-                    "type": ControlType(type_).value,
-                    "options": options,
+                    "type": ControlType(control._name).value,
+                    "options": control.to_dict(),
                     "position": ControlPosition(position).value,
                 },
             }

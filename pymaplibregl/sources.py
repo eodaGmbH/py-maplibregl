@@ -5,7 +5,7 @@ from typing import Union
 
 from pydantic import ConfigDict, Field, computed_field
 
-from pymaplibregl._utils import BaseModel
+from ._utils import BaseModel
 
 
 class SourceType(Enum):

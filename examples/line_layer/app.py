@@ -8,6 +8,7 @@ from pymaplibregl import (
     render_maplibregl,
 )
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.controls import FullscreenControl, ScaleControl
 from shiny import App, ui
 
 SOURCE_ID = "vancouver-blocks"
@@ -38,9 +39,10 @@ def server(input, output, session):
     async def ml_map():
         map = Map(style=Carto.DARK_MATTER, center=center, zoom=12, pitch=35)
         map.add_control(
-            ControlType.SCALE, {"unit": "imperial"}, position=ControlPosition.TOP_LEFT
+            ScaleControl(**{"unit": "imperial", "max_width": 200}),
+            position=ControlPosition.TOP_LEFT,
         )
-        map.add_control(ControlType.FULLSCREEN, position=ControlPosition.BOTTOM_LEFT)
+        map.add_control(FullscreenControl(), position=ControlPosition.BOTTOM_LEFT)
         map.add_source(SOURCE_ID, vancouver_blocks)
         map.add_layer(line_layer)
         # map.add_call("setZoom", [[3]])
