@@ -4,10 +4,11 @@ from enum import Enum
 from typing import Union
 from uuid import uuid4
 
+from pydantic import BaseModel as PydanticBaseModel
 from pydantic import Field, field_validator
 
 from ._utils import BaseModel, fix_keys
-from .sources import Source
+from .sources import GeoJSONSource, Source
 
 
 class LayerType(str, Enum):
@@ -74,10 +75,15 @@ class LayerModel(BaseModel):
     source: Union[str, Source, dict] = None
     source_layer: str = Field(None, serialization_alias="source-layer")
 
+    @field_validator("source")
+    def validate_source(cls, v):
+        if isinstance(v, Source):
+            return v.to_dict()
+        return v
+
     @field_validator("paint", "layout")
-    # @classmethod
     def fix_paint(cls, v):
         if isinstance(v, dict):
-            v = fix_keys(v)
+            return fix_keys(v)
 
         return v

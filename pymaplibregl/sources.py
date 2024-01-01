@@ -18,7 +18,13 @@ class SourceType(Enum):
 
 
 class Source(BaseModel):
-    model_config = ConfigDict(validate_assignment=True, extra="ignore")
+    pass
+    # model_config = ConfigDict(validate_assignment=True, extra="forbid")
+
+    """
+    def model_dump(self):
+        return super().model_dump(exclude_none=True, by_alias=True)
+    """
 
 
 class GeoJSONSource(Source):

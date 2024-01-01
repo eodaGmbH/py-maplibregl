@@ -16,4 +16,4 @@ def test_layer():
     print("line", LayerType(LayerType.LINE).value)
 
     print(layer.model_dump())
-    print(layer.to_dict())
+    # print(layer.to_dict())
