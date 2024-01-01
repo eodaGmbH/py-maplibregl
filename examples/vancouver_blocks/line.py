@@ -33,7 +33,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def ml_map():
-        m = Map(style=Carto.DARK_MATTER, center=CENTER, zoom=12, pitch=35)
+        m = Map(center=CENTER, zoom=12, pitch=35)
         m.add_control(FullscreenControl(), position=ControlPosition.BOTTOM_LEFT)
         m.add_source(SOURCE_ID, vancouver_blocks_source)
         m.add_layer(vancouver_blocks_layer)

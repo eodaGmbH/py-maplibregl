@@ -2,19 +2,37 @@ from __future__ import annotations
 
 import json
 import os.path
+from typing import Union
 
 from jinja2 import Template
+from pydantic import ConfigDict, Field, field_validator
 
 from ._templates import html_template, js_template
 from ._utils import BaseModel, get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
-from .controls import Control, ControlPosition, ControlType, Marker
+from .controls import Control, ControlPosition, Marker
 from .layer import Layer
 from .sources import Source
 
 
 class MapOptions(BaseModel):
-    pass
+    model_config = ConfigDict(
+        validate_assignment=True, extra="forbid", use_enum_values=False
+    )
+    antialias: bool = None
+    attribution_control: bool = Field(None, serialization_alias="attributionControl")
+    bearing: int = None
+    bearing_snap: int = Field(None, serialization_alias="bearingSnap")
+    bounds: tuple = None
+    box_zoom: bool = Field(None, serialization_alias="boxZoom")
+    style: Union[str, Carto] = construct_carto_basemap_url(Carto.DARK_MATTER)
+
+    @field_validator("style")
+    def validate_style(cls, v):
+        if isinstance(v, Carto):
+            return construct_carto_basemap_url(v)
+
+        return v
 
 
 class Map(object):
@@ -22,20 +40,24 @@ class Map(object):
 
     def __init__(
         self,
-        style: [str | Carto] = Carto.DARK_MATTER,
-        center: [list | tuple] = [0, 0],
-        zoom: int = 1,
+        # style: [str | Carto] = Carto.DARK_MATTER,
+        # center: [list | tuple] = [0, 0],
+        # zoom: int = 1,
+        map_options: MapOptions = MapOptions(),
         **kwargs,
     ):
-        if isinstance(style, Carto):
-            style = construct_carto_basemap_url(style)
+        # if isinstance(style, Carto):
+        #    style = construct_carto_basemap_url(style)
 
+        """
         self._map_options = {
             "style": style,
             "center": center,
             "zoom": zoom,
         }
-        self._map_options.update(kwargs)
+        """
+        self._map_options = map_options.to_dict() | kwargs
+        # self._map_options.update(kwargs)
         self._calls = []
 
     @property

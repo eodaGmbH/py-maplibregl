@@ -1,8 +1,15 @@
 import json
 
 import pandas as pd
-from pymaplibregl import (Layer, LayerType, Map, MapContext, output_maplibregl,
-                          render_maplibregl)
+from pymaplibregl import (
+    Layer,
+    LayerType,
+    Map,
+    MapContext,
+    MapOptions,
+    output_maplibregl,
+    render_maplibregl,
+)
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.controls import Marker, MarkerOptions, Popup, PopupOptions
 from pymaplibregl.sources import GeoJSONSource
@@ -62,7 +69,7 @@ def server(input, output, session):
     @render_maplibregl
     async def maplibre():
         m = Map(
-            style=Carto.POSITRON,
+            MapOptions(style=Carto.POSITRON),
             bounds=BOUNDS,
             fitBoundsOptions={"padding": 20},
         )

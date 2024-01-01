@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum
 
 from .layer import Layer, LayerType
@@ -9,7 +11,7 @@ class Carto(Enum):
     VOYAGER = "voyager"
 
 
-def construct_carto_basemap_url(style_name: str = "dark-matter") -> str:
+def construct_carto_basemap_url(style_name: str | Carto = "dark-matter") -> str:
     return f"https://basemaps.cartocdn.com/gl/{Carto(style_name).value}-gl-style/style.json"
 
 

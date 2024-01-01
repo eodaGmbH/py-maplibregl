@@ -1,7 +1,9 @@
 import pymaplibregl as maplibre
+from pymaplibregl.basemaps import Carto, construct_carto_basemap_url
+from pymaplibregl.map import MapOptions
 
 
-def test_map_options():
+def test_map_options_old():
     # Prepare
     map_options = {"center": [0, 0], "zoom": 2}
 
@@ -10,6 +12,33 @@ def test_map_options():
 
     # Assert
     assert map.data["mapOptions"]["zoom"] == 2
+
+
+def test_default_map_options():
+    map_options = MapOptions()
+
+    assert (
+        map_options.to_dict()["style"]
+        == "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+    )
+
+
+def test_map_options():
+    # Prepare
+    style = Carto.POSITRON
+    # print(style)
+    # basemap_url = construct_carto_basemap_url(style)
+
+    # Act
+    map_options = MapOptions(style=style)
+    # print(map_options)
+    print(map_options.to_dict())
+
+    # Assert
+    assert (
+        map_options.to_dict()["style"]
+        == "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+    )
 
 
 def test_map_layers():
