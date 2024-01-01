@@ -4,11 +4,10 @@ from enum import Enum
 from typing import Union
 from uuid import uuid4
 
-from pydantic import BaseModel as PydanticBaseModel
 from pydantic import Field, field_validator
 
 from ._utils import BaseModel, fix_keys
-from .sources import GeoJSONSource, Source
+from .sources import Source
 
 
 class LayerType(str, Enum):
@@ -21,48 +20,6 @@ class LayerType(str, Enum):
     HEATMAP = "heatmap"
     HILLSHADE = "hillshade"
     BACKGROUND = "background"
-
-
-"""
-class Layer(object):
-    def __init__(
-        self,
-        type_: [str | LayerType],
-        source: [str | Source | dict],
-        id_: str = None,
-        paint: dict = {},
-        layout: dict = {},
-        **kwargs,
-    ):
-        if isinstance(source, Source):
-            source = source.to_dict()
-        self._data = {
-            "id": id_ or str(uuid4()),
-            "type": type_,
-            "source": source,
-            "paint": paint,
-            "layout": layout,
-        }
-        # kwargs = fix_keys(kwargs)
-        self._data.update(kwargs)
-        self._data["type"] = LayerType(self._data["type"]).value
-        self._data = fix_keys(self._data)
-        for k in self._data.keys():
-            if k in ["paint", "layout"]:
-                self.data[k] = fix_keys(self._data[k])
-
-    @property
-    def data(self) -> dict:
-        return self._data
-
-    @property
-    def type(self) -> str:
-        return self._data["type"]
-
-    @property
-    def id(self) -> str:
-        return self._data["id"]
-"""
 
 
 class Layer(BaseModel):
