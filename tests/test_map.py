@@ -4,7 +4,7 @@ from pymaplibregl.map import MapOptions
 
 
 # TODO: Remove when refactoring of Map class is finished
-def test_map_options_old():
+def test_kwargs_map_options():
     # Prepare
     map_options = {"center": [0, 0], "zoom": 2}
 
@@ -12,7 +12,9 @@ def test_map_options_old():
     map = maplibre.Map(**map_options)
 
     # Assert
-    assert map.data["mapOptions"]["zoom"] == 2
+    assert map.to_dict()["mapOptions"] == map_options | {
+        "style": "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+    }
 
 
 def test_default_map_options():
@@ -54,7 +56,7 @@ def test_map_layers():
     # Assert
     assert len(layers) == 1
     assert layers[0]["id"] == "test"
-    assert len(map.data["calls"]) == 1
+    assert len(map.to_dict()["calls"]) == 1
 
 
 def test_map_markers():

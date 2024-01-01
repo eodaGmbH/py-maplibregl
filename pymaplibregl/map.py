@@ -59,13 +59,8 @@ class Map(object):
         self._map_options = map_options.to_dict() | kwargs
         self._calls = []
 
-    # DEPRECATED
-    @property
-    def data(self):
-        return {
-            "mapOptions": self._map_options,
-            "calls": self._calls,
-        }
+    def to_dict(self) -> dict:
+        return {"mapOptions": self._map_options, "calls": self._calls}
 
     @property
     def sources(self) -> list:
@@ -74,9 +69,6 @@ class Map(object):
     @property
     def layers(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addLayer"]
-
-    def to_dict(self) -> dict:
-        return {"mapOptions": self._map_options, "calls": self._calls}
 
     # TODO: Rename to add_map_call
     def add_call(self, func_name: str, params: list) -> None:
@@ -94,12 +86,7 @@ class Map(object):
             "options": control.to_dict(),
             "position": ControlPosition(position).value,
         }
-        self._calls.append(
-            {
-                "name": "addControl",
-                "data": data,
-            }
-        )
+        self._calls.append({"name": "addControl", "data": data})
 
     def add_source(self, id: str, source: [Source | dict]) -> None:
         if isinstance(source, Source):
