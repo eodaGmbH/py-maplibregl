@@ -57,24 +57,10 @@ class Map(object):
 
     def __init__(
         self,
-        # style: [str | Carto] = Carto.DARK_MATTER,
-        # center: [list | tuple] = [0, 0],
-        # zoom: int = 1,
         map_options: MapOptions = MapOptions(),
         **kwargs,
     ):
-        # if isinstance(style, Carto):
-        #    style = construct_carto_basemap_url(style)
-
-        """
-        self._map_options = {
-            "style": style,
-            "center": center,
-            "zoom": zoom,
-        }
-        """
         self._map_options = map_options.to_dict() | kwargs
-        # self._map_options.update(kwargs)
         self._calls = []
 
     @property
