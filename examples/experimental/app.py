@@ -2,6 +2,13 @@ import requests as req
 from pymaplibregl import (Layer, LayerType, Map, output_maplibregl,
                           render_maplibregl)
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.controls import (
+    AttributionControl,
+    FullscreenControl,
+    GeolocateControl,
+    NavigationControl,
+    ScaleControl,
+)
 from pymaplibregl.mapcontext import MapContext
 from shiny import App, reactive, render, ui
 
@@ -43,8 +50,26 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        map_ = Map(style=Carto.POSITRON, center=center, zoom=7)
+        map_ = Map(
+            style=Carto.POSITRON, center=center, zoom=7, attributionControl=False
+        )
+        map_.add_control(
+            AttributionControl(custom_attribution="Hello there", compact=True),
+            "bottom-right",
+        )
+        map_.add_control(FullscreenControl())
+        map_.add_control(NavigationControl(visualize_pitch=True), "bottom-left")
         map_.add_source("us-states", us_states)
+        map_.add_control(ScaleControl(max_width=200, unit="imperial"), "top-left")
+        map_.add_control(
+            GeolocateControl(
+                show_accuracy_circle=False,
+                show_user_location=True,
+                track_user_location=False,
+                show_user_heading=True,
+            ),
+            "bottom-left",
+        )
         map_.add_layer(
             Layer(
                 LayerType.FILL,

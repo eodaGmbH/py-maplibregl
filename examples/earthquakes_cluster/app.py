@@ -1,12 +1,12 @@
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
-from pymaplibregl.experimental import GeojsonSource
+from pymaplibregl.sources import GeoJSONSource
 from shiny import App, reactive, ui
 
 SOURCE_ID = "earthquakes"
 LAYER_ID = "earthquakes"
 
-earthquakes = GeojsonSource(
+earthquakes_source = GeoJSONSource(
     data="https://raw.githubusercontent.com/crazycapivara/mapboxer/master/data-raw/earthquakes.geojson",
     cluster=True,
     cluster_radius=50,
@@ -14,15 +14,21 @@ earthquakes = GeojsonSource(
     cluster_max_zoom=14,
 )
 
-circle_layer = Layer(
+earthquakes_layer = Layer(
+    "circle",
+    source=SOURCE_ID,
+    paint={"circle-color": "darkblue"},
+    filter=["!", ["has", "point_count"]],
+)
+
+
+earthquakes_cluster_layer = Layer(
     "circle",
     id_=LAYER_ID,
     source=SOURCE_ID,
-    # source=earthquakes.data,
     filter=["has", "point_count"],
     paint={
         "circle-color": "darkred",
-        # "circle-radius": ["*", 0.1, ["get", "point_count"]],
         "circle-radius": [
             "step",
             ["get", "point_count"],
@@ -41,12 +47,6 @@ circle_layer = Layer(
     },
 )
 
-circle_layer_ = Layer(
-    "circle",
-    source=SOURCE_ID,
-    paint={"circle-color": "darkblue"},
-    filter=["!", ["has", "point_count"]],
-)
 
 center = [-118.0931, 33.78615]
 
@@ -60,10 +60,10 @@ def server(input, output, session):
     @render_maplibregl
     async def maplibre():
         m = Map(style=Carto.POSITRON, center=center, zoom=5)
-        m.add_source(SOURCE_ID, earthquakes.data)
-        m.add_layer(circle_layer)
+        m.add_source(SOURCE_ID, earthquakes_source)
+        m.add_layer(earthquakes_cluster_layer)
         m.add_popup(LAYER_ID, "point_count")
-        m.add_layer(circle_layer_)
+        m.add_layer(earthquakes_layer)
         return m
 
     @reactive.Effect

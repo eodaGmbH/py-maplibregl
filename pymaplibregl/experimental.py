@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from pydantic import BaseModel, Field, model_serializer
+
 from pymaplibregl import Layer, LayerType
 from pymaplibregl._utils import fix_keys
-from pymaplibregl.source import SourceType
+from pymaplibregl.sources import SourceType
 
 
 class LineLayer(Layer):
@@ -10,34 +12,14 @@ class LineLayer(Layer):
         super().__init__(LayerType.LINE, source=source, id_=id_, *args, **kwargs)
 
 
-class Source(object):
-    def __init__(self, type_: [str | SourceType], **kwargs):
-        self._data = {"type": SourceType(type_).value}
-        self._data.update(kwargs)
-        self._data = fix_keys(self._data)
+class PydanticSer(BaseModel):
+    a: int = Field(..., serialization_alias="aa")
+    b: int
 
-    @property
-    def data(self):
-        return self._data
+    # @model_serializer
+    def to_dict(self):
+        return self.model_dump() | {"type": self.__class__.__name__}
 
-
-class GeojsonSource(Source):
-    def __init__(
-        self,
-        data: [dict | str],
-        cluster: bool = None,
-        cluster_radius: int = None,
-        cluster_min_points: int = None,
-        cluster_max_zoom: int = None,
-        **kwargs,
-    ):
-        super().__init__(
-            SourceType.GEOJSON,
-            # "geojson",
-            data=data,
-            cluster=cluster,
-            clusterRadius=cluster_radius,
-            clusterMinPoints=cluster_min_points,
-            clusterMaxZoom=cluster_max_zoom,
-            **kwargs,
-        )
+    # @model_serializer
+    def model_dump(self):
+        return super().model_dump(by_alias=True) | {"type": self.__class__.__name__}
