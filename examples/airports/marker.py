@@ -1,14 +1,8 @@
 import json
 
 import pandas as pd
-from pymaplibregl import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    output_maplibregl,
-    render_maplibregl,
-)
+from pymaplibregl import (Layer, LayerType, Map, MapContext, output_maplibregl,
+                          render_maplibregl)
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.controls import Marker, MarkerOptions, Popup, PopupOptions
 from pymaplibregl.sources import GeoJSONSource

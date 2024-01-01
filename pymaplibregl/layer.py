@@ -38,6 +38,7 @@ class Layer(BaseModel):
     def validate_source(cls, v):
         if isinstance(v, Source):
             return v.to_dict()
+
         return v
 
     @field_validator("paint", "layout")
