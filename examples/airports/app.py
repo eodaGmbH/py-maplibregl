@@ -1,7 +1,6 @@
 import json
 
 import pandas as pd
-import shapely
 from pymaplibregl import (
     Layer,
     LayerType,
@@ -11,7 +10,7 @@ from pymaplibregl import (
     render_maplibregl,
 )
 from pymaplibregl.basemaps import Carto
-from pymaplibregl.controls import Marker, MarkerOptions, Popup
+from pymaplibregl.controls import Marker, MarkerOptions, Popup, PopupOptions
 from pymaplibregl.sources import GeoJSONSource
 from pymaplibregl.utils import GeometryType, df_to_geojson
 from shiny import App, reactive, ui
@@ -59,7 +58,7 @@ airports_layer = Layer(
 )
 
 app_ui = ui.page_fluid(
-    ui.panel_title("Flights"),
+    ui.panel_title("Airports"),
     output_maplibregl("maplibre", height=600),
     # ui.input_slider("radius", "Radius", value=CIRCLE_RADIUS, min=1, max=5),
 )
@@ -78,6 +77,10 @@ def server(input, output, session):
             marker = Marker(
                 lng_lat=r["coordinates"],
                 options=MarkerOptions(color=get_color(r["type"]), draggable=True),
+                popup=Popup(
+                    text=r["name"],
+                    options=PopupOptions(close_button=False),
+                ),
             )
             m.add_marker(marker)
         m.add_layer(airports_layer)

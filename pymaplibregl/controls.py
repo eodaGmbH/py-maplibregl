@@ -19,7 +19,7 @@ class PopupOptions(BaseModel):
 
 class Popup(BaseModel):
     text: str
-    options: PopupOptions
+    options: Union[PopupOptions, dict] = {}
 
     """
     def model_dump(self) -> dict:
