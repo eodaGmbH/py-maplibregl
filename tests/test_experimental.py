@@ -1,5 +1,5 @@
 from pymaplibregl.experimental import PydanticSer
-from pymaplibregl.layer import LayerModel, LayerType
+from pymaplibregl.layer import Layer, LayerType
 
 
 def test_pydantic_model():
@@ -12,7 +12,7 @@ def test_pydantic_model():
 
 
 def test_layer():
-    layer = LayerModel(type=LayerType.LINE)
+    layer = Layer(type=LayerType.LINE)
     print("line", LayerType(LayerType.LINE).value)
 
     print(layer.model_dump())

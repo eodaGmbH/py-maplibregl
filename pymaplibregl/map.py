@@ -9,7 +9,7 @@ from ._templates import html_template, js_template
 from ._utils import BaseModel, get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import Control, ControlPosition, ControlType, Marker
-from .layer import Layer, LayerModel
+from .layer import Layer
 from .sources import Source
 
 
@@ -85,11 +85,8 @@ class Map(object):
 
         self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
 
-    def add_layer(self, layer: [Layer | LayerModel | dict]) -> None:
+    def add_layer(self, layer: [Layer | Layer | dict]) -> None:
         if isinstance(layer, Layer):
-            layer = layer.data
-
-        if isinstance(layer, LayerModel):
             layer = layer.to_dict()
 
         self._calls.append({"name": "addLayer", "data": layer})

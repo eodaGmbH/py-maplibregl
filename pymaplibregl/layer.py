@@ -23,6 +23,7 @@ class LayerType(str, Enum):
     BACKGROUND = "background"
 
 
+"""
 class Layer(object):
     def __init__(
         self,
@@ -61,9 +62,10 @@ class Layer(object):
     @property
     def id(self) -> str:
         return self._data["id"]
+"""
 
 
-class LayerModel(BaseModel):
+class Layer(BaseModel):
     id: str = str(uuid4())
     type: LayerType
     filter: list = None

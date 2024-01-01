@@ -1,25 +1,11 @@
-import pytest
-from pymaplibregl import Layer
-from pymaplibregl.layer import LayerModel, LayerType
+# import pytest
+from pymaplibregl.layer import Layer, LayerType
 from pymaplibregl.sources import GeoJSONSource, Source
 
 
-def test_layer():
+def test_layer_keys():
     # Act
     layer = Layer(
-        "fill", source="test", source_layer="countries", paint={"fill_color": "red"}
-    )
-
-    # print(layer.data)
-
-    # Assert
-    assert "source-layer" in layer.data
-    assert "fill-color" in layer.data["paint"]
-
-
-def test_layer_model_keys():
-    # Act
-    layer = LayerModel(
         type=LayerType.FILL,
         source="test",
         source_layer="test-layer",
@@ -36,12 +22,12 @@ def test_layer_model_keys():
     assert layer_dict["layout"] == {"some-layout-key": "test_value"}
 
 
-def test_layer_model_geojson_source():
+def test_layer_geojson_source():
     # Prepare
     source = GeoJSONSource(data="https://raw.githubusercontent.com")
 
     # Act
-    layer = LayerModel(type=LayerType.FILL, source=source)
+    layer = Layer(type=LayerType.FILL, source=source)
     print(layer)
 
     # Assert
@@ -51,47 +37,24 @@ def test_layer_model_geojson_source():
     }
 
 
-def test_layer_model_str_source():
+def test_layer_str_source():
     # Prepare
     source_id = "some-id"
 
     # Act
-    layer = LayerModel(type=LayerType.CIRCLE, source=source_id)
+    layer = Layer(type=LayerType.CIRCLE, source=source_id)
     print(layer.to_dict())
 
     assert layer.to_dict()["source"] == source_id
 
 
-def test_layer_model_dict_source():
+def test_layer_dict_source():
     # Prepare
     source = {"type": "geojson", "data": "https://raw.githubusercontent.com"}
 
     # Act
-    layer = LayerModel(type="fill-extrusion", source=source)
+    layer = Layer(type="fill-extrusion", source=source)
     print(layer.to_dict())
 
     # Assert
     assert layer.to_dict()["source"] == source
-
-
-def test_layer_type():
-    # Prepare
-    source = "test"
-
-    # Act
-    layer = Layer("fill", source)
-
-    # Assert
-    assert layer.type == "fill"
-
-
-def test_bad_layer_type():
-    # Prepare
-    source = "test"
-
-    # Act
-    with pytest.raises(ValueError) as e:
-        _ = Layer("block", source)
-
-    # Assert
-    assert str(e.value) == "'block' is not a valid LayerType"
