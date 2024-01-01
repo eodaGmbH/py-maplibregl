@@ -25,7 +25,24 @@ class MapOptions(BaseModel):
     bearing_snap: int = Field(None, serialization_alias="bearingSnap")
     bounds: tuple = None
     box_zoom: bool = Field(None, serialization_alias="boxZoom")
+    center: tuple = None
+    click_tolerance: int = Field(None, serialization_alias="clickTolerance")
+    custom_attribution: bool = Field(None, serialization_alias="customAttribution")
+    double_click_zoom: bool = Field(None, serialization_alias="doubleClickZoom")
+    fade_duration: int = Field(None, serialization_alias="fadeDuration")
+    fit_bounds_options: dict = Field(None, serialization_alias="fitBoundsOptions")
+    hash: Union[bool, str] = None
+    interactive: bool = None
+    keyword: bool = None
+    max_bounds: tuple = Field(None, serialization_alias="maxBounds")
+    max_pitch: int = Field(None, serialization_alias="maxPitch")
+    max_zoom: int = Field(None, serialization_alias="maxZoom")
+    min_pitch: int = Field(None, serialization_alias="minPitch")
+    min_zoom: int = Field(None, serialization_alias="minZoom")
+    pitch: int = None
+    scroll_zoom: bool = Field(None, serialization_alias="scrollZoom")
     style: Union[str, Carto] = construct_carto_basemap_url(Carto.DARK_MATTER)
+    zoom: int = None
 
     @field_validator("style")
     def validate_style(cls, v):

@@ -69,9 +69,12 @@ def server(input, output, session):
     @render_maplibregl
     async def maplibre():
         m = Map(
-            MapOptions(style=Carto.POSITRON),
-            bounds=BOUNDS,
-            fitBoundsOptions={"padding": 20},
+            MapOptions(
+                style=Carto.POSITRON,
+                bounds=BOUNDS,
+                fit_bounds_options={"padding": 20},
+                hash=True,
+            )
         )
         for _, r in airports_data.iterrows():
             # print(r["coordinates"], r["name"])
