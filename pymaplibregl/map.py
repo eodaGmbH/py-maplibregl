@@ -75,15 +75,8 @@ class Map(object):
     def layers(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addLayer"]
 
-    @property
-    def markers(self) -> list:
-        return [item["data"] for item in self._calls if item["name"] == "addMarker"]
-
     def to_dict(self) -> dict:
-        return {
-            "mapOptions": self._map_options,
-            "calls": self._calls,
-        }
+        return {"mapOptions": self._map_options, "calls": self._calls}
 
     # TODO: Rename to add_map_call
     def add_call(self, func_name: str, params: list) -> None:
@@ -108,13 +101,13 @@ class Map(object):
             }
         )
 
-    def add_source(self, id_: str, source: [Source | dict]) -> None:
+    def add_source(self, id: str, source: [Source | dict]) -> None:
         if isinstance(source, Source):
             source = source.to_dict()
 
-        self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
+        self._calls.append({"name": "addSource", "data": {"id": id, "source": source}})
 
-    def add_layer(self, layer: [Layer | Layer | dict]) -> None:
+    def add_layer(self, layer: [Layer | dict]) -> None:
         if isinstance(layer, Layer):
             layer = layer.to_dict()
 
@@ -123,9 +116,9 @@ class Map(object):
     def add_marker(self, marker: Marker) -> None:
         self._calls.append({"name": "addMarker", "data": marker.to_dict()})
 
-    def add_popup(self, layer_id: str, property_: str) -> None:
+    def add_popup(self, layer_id: str, prop: str) -> None:
         self._calls.append(
-            {"name": "addPopup", "data": {"layerId": layer_id, "property": property_}}
+            {"name": "addPopup", "data": {"layerId": layer_id, "property": prop}}
         )
 
     def set_filter(self, layer_id: str, filter_: list):
