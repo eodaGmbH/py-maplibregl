@@ -55,14 +55,11 @@ class MapOptions(BaseModel):
 class Map(object):
     MESSAGE = "not implemented yet"
 
-    def __init__(
-        self,
-        map_options: MapOptions = MapOptions(),
-        **kwargs,
-    ):
+    def __init__(self, map_options: MapOptions = MapOptions(), **kwargs):
         self._map_options = map_options.to_dict() | kwargs
         self._calls = []
 
+    # DEPRECATED
     @property
     def data(self):
         return {
@@ -82,6 +79,13 @@ class Map(object):
     def markers(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addMarker"]
 
+    def to_dict(self) -> dict:
+        return {
+            "mapOptions": self._map_options,
+            "calls": self._calls,
+        }
+
+    # TODO: Rename to add_map_call
     def add_call(self, func_name: str, params: list) -> None:
         self._calls.append(
             {"name": "applyFunc", "data": {"funcName": func_name, "params": params}}
@@ -135,7 +139,7 @@ class Map(object):
 
     def to_html(self, output_dir: str = None, **kwargs) -> str:
         js_lib = read_internal_file("srcjs", "index.js")
-        js_snippet = Template(js_template).render(data=json.dumps(self.data))
+        js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
         output = Template(html_template).render(
             js="\n".join([js_lib, js_snippet]), **kwargs
         )
