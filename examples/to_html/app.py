@@ -1,11 +1,10 @@
 from pymaplibregl import Layer, LayerType, Map
-from pymaplibregl.source import SourceType
+from pymaplibregl.sources import GeoJSONSource
 
-vancouver_blocks = {
-    "type": SourceType.GEOJSON.value,
-    "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
-    "filter": ["<", ["get", "valuePerSqm"], 3000],
-}
+vancouver_blocks = GeoJSONSource(
+    data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
+    filter=["<", ["get", "valuePerSqm"], 3000],
+)
 
 fill_extrusion_layer = Layer(
     LayerType.FILL_EXTRUSION,

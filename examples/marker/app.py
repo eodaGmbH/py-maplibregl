@@ -1,12 +1,16 @@
-from pymaplibregl import Map, Marker, Popup, output_maplibregl, render_maplibregl
+from pymaplibregl import Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.controls import Marker, MarkerOptions, Popup, PopupOptions
 from shiny import App, ui
 
-center_kassel = [9.5, 51.31667]
+center_kassel = (9.5, 51.31667)
 
 marker = Marker(
-    [9.54, 51.31667],
-    popup=Popup("Hello <strong>PyMapLibreGL</strong>!", options={"closeButton": False}),
+    lng_lat=(9.54, 51.31667),
+    popup=Popup(
+        text="Hello <strong>PyMapLibreGL</strong>!",
+        options=PopupOptions(close_button=False),
+    ),
     options={"color": "darkred"},
 )
 
@@ -20,7 +24,13 @@ def server(input, output, session):
     @render_maplibregl
     async def maplibre():
         m = Map(style=Carto.VOYAGER, center=center_kassel, zoom=9)
-        m.add_marker(Marker(center_kassel, color="green"))
+        m.add_marker(
+            Marker(
+                lng_lat=center_kassel,
+                options=MarkerOptions(color="green"),
+                popup=Popup(**{"text": "Hi", "options": {"closeButton": False}}),
+            )
+        )
         m.add_marker(marker)
         return m
 

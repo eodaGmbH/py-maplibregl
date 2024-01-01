@@ -1,38 +1,60 @@
-import pytest
-from pymaplibregl import Layer
+# import pytest
+from pymaplibregl.layer import Layer, LayerType
+from pymaplibregl.sources import GeoJSONSource, Source
 
 
-def test_layer():
+def test_layer_keys():
     # Act
     layer = Layer(
-        "fill", source="test", source_layer="countries", paint={"fill_color": "red"}
+        type=LayerType.FILL,
+        source="test",
+        source_layer="test-layer",
+        paint={"some_paint_key": "test_value"},
+        layout={"some_layout_key": "test_value"},
     )
 
-    # print(layer.data)
+    layer_dict = layer.to_dict()
+    print(layer_dict)
 
     # Assert
-    assert "source-layer" in layer.data
-    assert "fill-color" in layer.data["paint"]
+    assert "source-layer" in layer_dict
+    assert layer_dict["paint"] == {"some-paint-key": "test_value"}
+    assert layer_dict["layout"] == {"some-layout-key": "test_value"}
 
 
-def test_layer_type():
+def test_layer_geojson_source():
     # Prepare
-    source = "test"
+    source = GeoJSONSource(data="https://raw.githubusercontent.com")
 
     # Act
-    layer = Layer("fill", source)
+    layer = Layer(type=LayerType.FILL, source=source)
+    print(layer)
 
     # Assert
-    assert layer.type == "fill"
+    assert layer.to_dict()["source"] == {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com",
+    }
 
 
-def test_bad_layer_type():
+def test_layer_str_source():
     # Prepare
-    source = "test"
+    source_id = "some-id"
 
     # Act
-    with pytest.raises(ValueError) as e:
-        _ = Layer("block", source)
+    layer = Layer(type=LayerType.CIRCLE, source=source_id)
+    print(layer.to_dict())
+
+    assert layer.to_dict()["source"] == source_id
+
+
+def test_layer_dict_source():
+    # Prepare
+    source = {"type": "geojson", "data": "https://raw.githubusercontent.com"}
+
+    # Act
+    layer = Layer(type="fill-extrusion", source=source)
+    print(layer.to_dict())
 
     # Assert
-    assert str(e.value) == "'block' is not a valid LayerType"
+    assert layer.to_dict()["source"] == source

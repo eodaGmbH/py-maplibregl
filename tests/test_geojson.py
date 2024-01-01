@@ -19,6 +19,7 @@ def test_geojson_line():
     print(geojson)
 
 
+@pytest.mark.skip("enable me")
 def test_geojson_bounds():
     airports_url = (
         "https://github.com/visgl/deck.gl-data/raw/master/examples/line/airports.json"

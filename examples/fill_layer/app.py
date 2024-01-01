@@ -1,19 +1,18 @@
 from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.sources import GeoJSONSource
 from shiny import App, reactive, render, ui
 
 SOURCE_ID = "vancouver-blocks"
 
-vancouver_blocks = {
-    "type": "geojson",
-    "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
-}
+vancouver_blocks = GeoJSONSource(
+    data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
+)
 
 fill_layer = Layer(
     "fill",
     id_="vancouver-blocks-fill",
     source=SOURCE_ID,
-    # paint={"fill-color": "lightgreen", "fill-opacity": 0.6},
     paint={
         "fill-color": [
             "step",
@@ -33,7 +32,7 @@ line_layer = Layer(
     "line",
     id_="vancouver-blocks-line",
     source=SOURCE_ID,
-    paint={"line-color": "white", "line-opacity": 1.0},
+    paint={"line-color": "white", "line-opacity": 0.8},
 )
 
 center = [-123.0753056, 49.2686511]

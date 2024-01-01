@@ -6,11 +6,15 @@ import os.path
 from jinja2 import Template
 
 from ._templates import html_template, js_template
-from ._utils import get_output_dir, read_internal_file
+from ._utils import BaseModel, get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
-from .controls import ControlPosition, ControlType
+from .controls import Control, ControlPosition, ControlType, Marker
 from .layer import Layer
-from .marker import Marker
+from .sources import Source
+
+
+class MapOptions(BaseModel):
+    pass
 
 
 class Map(object):
@@ -60,40 +64,35 @@ class Map(object):
 
     def add_control(
         self,
-        type_: [str | ControlType],
-        options: dict = {},
+        control: Control,
         position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
     ) -> None:
+        data = {
+            "type": control.type,
+            "options": control.to_dict(),
+            "position": ControlPosition(position).value,
+        }
         self._calls.append(
             {
                 "name": "addControl",
-                "data": {
-                    "type": ControlType(type_).value,
-                    "options": options,
-                    "position": ControlPosition(position).value,
-                },
+                "data": data,
             }
         )
 
-    def add_source(self, id_: str, source: dict) -> None:
+    def add_source(self, id_: str, source: [Source | dict]) -> None:
+        if isinstance(source, Source):
+            source = source.to_dict()
+
         self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
 
-    def add_layer(self, layer: [Layer | dict]) -> None:
+    def add_layer(self, layer: [Layer | Layer | dict]) -> None:
         if isinstance(layer, Layer):
-            layer = layer.data
+            layer = layer.to_dict()
 
         self._calls.append({"name": "addLayer", "data": layer})
 
-    def add_marker(self, marker: [Marker | dict]) -> None:
-        if isinstance(marker, Marker):
-            marker = marker.data
-
-        self._calls.append(
-            {
-                "name": "addMarker",
-                "data": marker,
-            }
-        )
+    def add_marker(self, marker: Marker) -> None:
+        self._calls.append({"name": "addMarker", "data": marker.to_dict()})
 
     def add_popup(self, layer_id: str, property_: str) -> None:
         self._calls.append(
