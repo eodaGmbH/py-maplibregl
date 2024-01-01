@@ -1,5 +1,6 @@
 import requests as req
-from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
+from pymaplibregl import (Layer, LayerType, Map, output_maplibregl,
+                          render_maplibregl)
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.mapcontext import MapContext
 from shiny import App, reactive, render, ui
