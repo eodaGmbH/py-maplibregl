@@ -1,0 +1,14 @@
+site_name: pymaplibregl
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_section_style: list
+            show_root_heading: true
+            show_source: false

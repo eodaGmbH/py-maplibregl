@@ -1,0 +1,3 @@
+# PyMapLibreGL
+
+::: pymaplibregl.layer

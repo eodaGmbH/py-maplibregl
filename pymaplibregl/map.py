@@ -15,6 +15,7 @@ from .layer import Layer
 from .sources import Source
 
 
+# https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions/
 class MapOptions(BaseModel):
     model_config = ConfigDict(
         validate_assignment=True, extra="forbid", use_enum_values=False

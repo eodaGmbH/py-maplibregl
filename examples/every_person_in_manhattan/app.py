@@ -7,6 +7,7 @@ from pymaplibregl import (
     LayerType,
     Map,
     MapContext,
+    MapOptions,
     output_maplibregl,
     render_maplibregl,
 )
@@ -35,8 +36,8 @@ bbox = shapely.bounds(
 print(bbox)
 
 every_person_in_manhattan_layer = Layer(
-    LayerType.CIRCLE,
-    id_=LAYER_ID,
+    type=LayerType.CIRCLE,
+    id=LAYER_ID,
     source=every_person_in_manhattan_source,
     paint={
         "circle-color": ["match", ["get", "sex"], 1, MALE_COLOR, FEMALE_COLOR],
@@ -55,10 +56,12 @@ def server(input, output, session):
     @render_maplibregl
     async def maplibre():
         m = Map(
-            style=Carto.POSITRON,
-            # center=[-73.987157, 40.729906], zoom=12
-            bounds=list(bbox),
-            fitBoundsOptions={"padding": 20},
+            MapOptions(
+                style=Carto.POSITRON,
+                # center=[-73.987157, 40.729906], zoom=12
+                bounds=tuple(bbox),
+                fit_bounds_options={"padding": 20},
+            )
         )
         m.add_layer(every_person_in_manhattan_layer)
         return m
