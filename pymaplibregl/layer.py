@@ -37,7 +37,7 @@ class LayerType(str, Enum):
 
 
 class Layer(BaseModel):
-    """Layer
+    """Layer properties
 
     Notes:
         See [layers](https://maplibre.org/maplibre-style-spec/layers/) for more details.
