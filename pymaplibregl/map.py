@@ -15,8 +15,13 @@ from .layer import Layer
 from .sources import Source
 
 
-# https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions/
 class MapOptions(BaseModel):
+    """Map options
+
+    Note:
+        See [mapOptions](https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions/) for more details.
+    """
+
     model_config = ConfigDict(
         validate_assignment=True, extra="forbid", use_enum_values=False
     )
@@ -54,6 +59,13 @@ class MapOptions(BaseModel):
 
 
 class Map(object):
+    """Map
+
+    Args:
+        map_options (MapOptions): Map options.
+        **kwargs: Keyword arguments that are appended to the `MapOptions` object.
+    """
+
     MESSAGE = "not implemented yet"
 
     def __init__(self, map_options: MapOptions = MapOptions(), **kwargs):
@@ -82,6 +94,7 @@ class Map(object):
         control: Control,
         position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
     ) -> None:
+        """Add a control to the map"""
         data = {
             "type": control.type,
             "options": control.to_dict(),
@@ -90,21 +103,29 @@ class Map(object):
         self._calls.append({"name": "addControl", "data": data})
 
     def add_source(self, id: str, source: [Source | dict]) -> None:
+        """Add a source to the map"""
         if isinstance(source, Source):
             source = source.to_dict()
 
         self._calls.append({"name": "addSource", "data": {"id": id, "source": source}})
 
     def add_layer(self, layer: [Layer | dict]) -> None:
+        """Add a layer to the map
+
+        Args:
+            layer (Layer | dict): The Layer to be added to the map.
+        """
         if isinstance(layer, Layer):
             layer = layer.to_dict()
 
         self._calls.append({"name": "addLayer", "data": layer})
 
     def add_marker(self, marker: Marker) -> None:
+        """Add a marker to the map"""
         self._calls.append({"name": "addMarker", "data": marker.to_dict()})
 
     def add_popup(self, layer_id: str, prop: str) -> None:
+        """Add a popup to the map"""
         self._calls.append(
             {"name": "addPopup", "data": {"layerId": layer_id, "property": prop}}
         )
@@ -113,9 +134,23 @@ class Map(object):
         self.add_call("setFilter", [layer_id, filter_])
 
     def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:
+        """Update the paint property of a layer
+
+        Args:
+            layer_id (str): The name of the layer to be updated.
+            prop (str): The name of the paint property to be updated.
+            value (any): The new value of the paint property.
+        """
         self.add_call("setPaintProperty", [layer_id, prop, value])
 
     def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
+        """Update a layout property of a layer
+
+        Args:
+            layer_id (str): The name of the layer to be updated.
+            prop (str): The name of the layout property to be updated.
+            value (any): The new value of the layout property.
+        """
         self.add_call("setLayoutProperty", [layer_id, prop, value])
 
     def to_html(self, output_dir: str = None, **kwargs) -> str:

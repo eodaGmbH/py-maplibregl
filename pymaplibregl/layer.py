@@ -43,7 +43,7 @@ class Layer(BaseModel):
         See [layers](https://maplibre.org/maplibre-style-spec/layers/) for more details.
 
     Attributes:
-        id (str): **Required.** The unique ID of the layer.
+        id (str): **Required.** The unique ID of the layer. Defaults to `str(uuid4())`.
         type (str | LayerType): **Required.** The type of the layer.
         filter (list): A filter expression applied to the source of the layer.
         layout (dict): The layout properties of the layer.
