@@ -18,13 +18,15 @@ def construct_carto_basemap_url(style_name: str | Carto = "dark-matter") -> str:
 def construct_basemap_style(
     name: str = "nice-style", sources: dict = {}, layers: list = []
 ) -> dict:
-    layers = [layer.data if isinstance(layer, Layer) else layer for layer in layers]
+    layers = [
+        layer.to_dict() if isinstance(layer, Layer) else layer for layer in layers
+    ]
     return {"name": name, "version": 8, "sources": sources, "layers": layers}
 
 
 def background(color: str = "black", opacity: float = 1.0) -> dict:
     bg_layer = Layer(
-        LayerType.BACKGROUND,
+        type=LayerType.BACKGROUND,
         source=None,
         paint={"background-color": color, "background-opacity": opacity},
     )

@@ -31,7 +31,7 @@ class Layer(BaseModel):
     metadata: dict = None
     min_zoom: int = Field(None, serialization_alias="minzoom")
     paint: dict = None
-    source: Union[str, Source, dict] = None
+    source: Union[str, Source, dict, None] = None
     source_layer: str = Field(None, serialization_alias="source-layer")
 
     @field_validator("source")

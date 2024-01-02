@@ -1,4 +1,9 @@
-from pymaplibregl.basemaps import Carto, construct_carto_basemap_url
+from pymaplibregl.basemaps import (
+    Carto,
+    background,
+    construct_basemap_style,
+    construct_carto_basemap_url,
+)
 
 
 def test_carto_basemaps():
@@ -10,3 +15,15 @@ def test_carto_basemaps():
         basemap_url
         == "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
     )
+
+
+def test_background_style():
+    # Prepare
+    color = "white"
+
+    # Act
+    style = background(color=color)
+    print(style)
+
+    # Assert
+    assert style["layers"][0]["paint"]["background-color"] == color
