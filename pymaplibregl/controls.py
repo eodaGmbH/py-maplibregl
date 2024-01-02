@@ -9,6 +9,8 @@ from ._utils import BaseModel
 
 
 class PopupOptions(BaseModel):
+    """Popup options"""
+
     anchor: str = None
     close_button: bool = Field(False, serialization_alias="closeButton")
     close_on_click: bool = Field(None, serialization_alias="closeOnClick")
@@ -18,21 +20,28 @@ class PopupOptions(BaseModel):
 
 
 class Popup(BaseModel):
+    """Popup
+
+    Attributes:
+        text: The Text of the popup.
+        options (PopupOptions | dict): Popup options.
+    """
+
     text: str
     options: Union[PopupOptions, dict] = {}
 
-    """
-    def model_dump(self) -> dict:
-        return {
-            "text": self.text,
-            "options": super().model_dump(
-                exclude={"text"}, exclude_none=True, by_alias=True
-            ),
-        }
-    """
+    # def model_dump(self) -> dict:
+    #    return {
+    #        "text": self.text,
+    #        "options": super().model_dump(
+    #            exclude={"text"}, exclude_none=True, by_alias=True
+    #        ),
+    #    }
 
 
 class MarkerOptions(BaseModel):
+    """Marker options"""
+
     anchor: str = None
     color: str = None
     draggable: bool = None
@@ -44,6 +53,14 @@ class MarkerOptions(BaseModel):
 
 
 class Marker(BaseModel):
+    """Marker
+
+    Attributes:
+        lng_lat (tuple, list): **Required.** The longitude and latitude of the marker.
+        popup (Popup, dict): A Popup that is displayed when a user clicks on the marker.
+        options (MarkerOptions, dict): Marker options.
+    """
+
     lng_lat: Union[tuple, list] = Field(None, serialization_alias="lngLat")
     popup: Union[Popup, dict] = None
     options: Union[MarkerOptions, dict] = {}

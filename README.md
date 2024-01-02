@@ -20,6 +20,10 @@ curl -O https://raw.githubusercontent.com/eodaGmbH/py-maplibregl/main/examples/c
 uvicorn app:app --reload
 ```
 
+## Docs
+
+* https://eodagmbh.github.io/py-maplibregl/
+
 ## Examples
 
 * [Marker](examples/marker/app.py)
@@ -31,12 +35,12 @@ uvicorn app:app --reload
 ## Usage
 
 ```python
-from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
+from pymaplibregl import Layer, Map, MapOptions, output_maplibregl, render_maplibregl
 from pymaplibregl.basemaps import Carto
 from shiny import App, ui
 
 circle_layer = Layer(
-    "circle",
+    type="circle",
     source={
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/arc/counties.json",
@@ -44,7 +48,7 @@ circle_layer = Layer(
     paint={"circle-color": "black"},
 )
 
-center = [-118.0931, 33.78615]
+center = (-118.0931, 33.78615)
 
 app_ui = ui.page_fluid(
     ui.panel_title("Hello PyMapLibreGL!"),
@@ -55,7 +59,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def map():
-        m = Map(style=Carto.POSITRON, center=center, zoom=7)
+        m = Map(MapOptions(style=Carto.POSITRON, center=center, zoom=7))
         m.add_layer(circle_layer)
         return m
 
@@ -76,6 +80,8 @@ poetry install
 poetry run uvicorn examples.circle_layer.app:app --reload
 
 poetry run pytest
+
+poetry run pytest --doctest-modules pymaplibregl
 ```
 
 ### JavaScript

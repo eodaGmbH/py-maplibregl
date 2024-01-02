@@ -1,7 +1,12 @@
 site_name: pymaplibregl
 
 theme:
-  name: "material"
+  name: material
+  # custom_dir: mkdocs_overrides
+
+nav:
+  - index.md
+  # - example.md
 
 plugins:
   - mkdocstrings:
@@ -11,4 +16,4 @@ plugins:
             docstring_style: google
             docstring_section_style: list
             show_root_heading: true
-            show_source: false
+            show_source: True

@@ -10,6 +10,7 @@ def test_kwargs_map_options():
 
     # Act
     map = maplibre.Map(**map_options)
+    print("dict map", dict(map))
 
     # Assert
     assert map.to_dict()["mapOptions"] == map_options | {

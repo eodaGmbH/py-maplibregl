@@ -6,9 +6,29 @@ from .layer import Layer, LayerType
 
 
 class Carto(Enum):
+    """Carto basemap styles
+
+    Attributes:
+        DARK_MATTER: dark-matter
+        POSITRON: positron
+        VOYAGER: voyager
+        POSITRON_NOLABELS: positron-nolabels
+        DARK_MATTER_NOLABELS: dark-matter-nolabels
+        VOYAGER_NOLABELS: voyager-nolabels
+
+    Examples:
+        >>> from pymaplibregl import Map, MapOptions
+        >>> from pymaplibregl.basemaps import Carto
+
+        >>> map = Map(MapOptions(style=Carto.DARK_MATTER))
+    """
+
     DARK_MATTER = "dark-matter"
     POSITRON = "positron"
     VOYAGER = "voyager"
+    POSITRON_NOLABELS = "positron-nolabels"
+    DARK_MATTER_NOLABELS = "dark-matter-nolabels"
+    VOYAGER_NOLABELS = "voyager-nolabels"
 
 
 def construct_carto_basemap_url(style_name: str | Carto = "dark-matter") -> str:

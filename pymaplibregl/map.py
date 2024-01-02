@@ -64,6 +64,14 @@ class Map(object):
     Args:
         map_options (MapOptions): Map options.
         **kwargs: Keyword arguments that are appended to the `MapOptions` object.
+
+    Examples:
+        >>> from pymaplibregl.map import Map, MapOptions
+
+        >>> map_options = MapOptions(center=(9.5, 51.31667), zoom=8)
+        >>> map = Map(map_options)
+        >>> dict(map)
+        {'mapOptions': {'center': (9.5, 51.31667), 'style': 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json', 'zoom': 8}, 'calls': []}
     """
 
     MESSAGE = "not implemented yet"
@@ -71,6 +79,10 @@ class Map(object):
     def __init__(self, map_options: MapOptions = MapOptions(), **kwargs):
         self._map_options = map_options.to_dict() | kwargs
         self._calls = []
+
+    def __iter__(self):
+        for k, v in self.to_dict().items():
+            yield k, v
 
     def to_dict(self) -> dict:
         return {"mapOptions": self._map_options, "calls": self._calls}
@@ -131,6 +143,12 @@ class Map(object):
         )
 
     def set_filter(self, layer_id: str, filter_: list):
+        """Update the filter of a layer
+
+        Args:
+            layer_id (str): The name of the layer to be updated.
+            filter_ (list): The filter expression that is applied to the source of the layer.
+        """
         self.add_call("setFilter", [layer_id, filter_])
 
     def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:

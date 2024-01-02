@@ -45,7 +45,7 @@ class Layer(BaseModel):
     Attributes:
         id (str): **Required.** The unique ID of the layer. Defaults to `str(uuid4())`.
         type (str | LayerType): **Required.** The type of the layer.
-        filter (list): A filter expression applied to the source of the layer.
+        filter (list): The filter expression that is applied to the source of the layer.
         layout (dict): The layout properties of the layer.
         max_zoom (int) The maximum zoom level for the layer.
         min_zoom (int) The minimum zoom level for the layer.
@@ -55,7 +55,8 @@ class Layer(BaseModel):
 
     Examples:
         >>> from pymaplibregl.layer import Layer, LayerType
-        >>> layer = Layer(id="test", type=LayerType.CIRCLE)
+
+        >>> layer = Layer(id="test-layer", type=LayerType.CIRCLE, source="test-source")
     """
 
     id: str = str(uuid4())
