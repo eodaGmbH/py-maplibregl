@@ -22,7 +22,7 @@ class LayerType(str, Enum):
         RASTER: Raster map textures such as satellite imagery.
         HEATMAP: A heatmap.
         HILLSHADE: A Client-side hillshading visualization based on DEM data.
-        BACLGROUND: A background color or pattern.
+        BACKGROUND: A background color or pattern.
     """
 
     CIRCLE = "circle"
