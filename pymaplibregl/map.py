@@ -180,17 +180,23 @@ class Map(object):
         """
         self.add_call("setLayoutProperty", [layer_id, prop, value])
 
-    def to_html(self, output_dir: str = None, **kwargs) -> str:
+    def to_html(self, **kwargs) -> str:
+        """Render to html
+
+        Args:
+            **kwargs (Any): Additional keyword arguments that are passed to the template.
+                Currently, `style` is the only supported keyword argument.
+
+        Examples:
+            >>> from pymaplibregl import Map
+
+            >>> map = Map()
+            >>> with open("/tmp/map.html", "w") as f:
+            ...     f.write(map.to_html(style="height: 800px;")
+        """
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
         output = Template(html_template).render(
             js="\n".join([js_lib, js_snippet]), **kwargs
         )
-        if output_dir == "skip":
-            return output
-
-        file_name = os.path.join(get_output_dir(output_dir), "index.html")
-        with open(file_name, "w") as f:
-            f.write(output)
-
-        return file_name
+        return output
