@@ -1,7 +1,11 @@
 from __future__ import annotations
 
-from shiny.render.transformer import (TransformerMetadata, ValueFn,
-                                      output_transformer, resolve_value_fn)
+from shiny.render.transformer import (
+    TransformerMetadata,
+    ValueFn,
+    output_transformer,
+    resolve_value_fn,
+)
 from shiny.session import get_current_session
 
 from .map import Map
@@ -23,9 +27,8 @@ async def render_maplibregl(
         return None
 
     if not isinstance(res, Map):
-        # Throw an error if the value is not a dataframe
         raise TypeError(f"Expected a Map, got {type(res)}.")
 
     return {
-        "mapData": res.data,
+        "mapData": res.to_dict(),
     }

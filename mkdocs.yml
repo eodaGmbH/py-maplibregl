@@ -1,0 +1,49 @@
+site_name: Pymaplibregl
+
+theme:
+  name: material
+  custom_dir: docs/theme
+  palette:
+    primary: "green"
+  features:
+    - navigation.tabs
+
+nav:
+  - Get started:
+      - Welcome to Pymaplibregl: index.md
+      - Examples: examples/every_person_in_manhattan/index.md
+  - API Documentation:
+      - Map: api/map.md
+      - Layer: api/layer.md
+      - Sources: api/sources.md
+      - Basemaps: api/basemaps.md
+      - Markers and controls: api/controls.md
+  - Examples:
+      - Every person in manhattan: examples/every_person_in_manhattan/index.md
+      - Earthquake clusters: examples/earthquake_clusters/index.md
+      - Airport markers: examples/airports/index.md
+
+plugins:
+  - search:
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_section_style: table
+            show_root_heading: true
+            show_source: True
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite:
+  - pymdownx.superfences:
+  - pymdownx.snippets:
+      check_paths: true
+      base_path: [docs/examples, "."]
+
+repo_name: py-maplibregl
+repo_url: https://github.com/eodaGmbH/py-maplibregl

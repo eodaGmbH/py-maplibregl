@@ -9,6 +9,8 @@ from ._utils import BaseModel
 
 
 class SourceType(Enum):
+    """Source types"""
+
     RASTER = "raster"
     VECTOR = "vector"
     RASTER_DEM = "raster-dem"
@@ -28,6 +30,14 @@ class Source(BaseModel):
 
 
 class GeoJSONSource(Source):
+    """GeoJSON Source
+
+    Examples:
+        >>> from pymaplibregl.sources import GeoJSONSource
+
+        >>> source = GeoJSONSource(data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson")
+    """
+
     data: Union[str, dict]
     attribution: str = None
     buffer: int = None

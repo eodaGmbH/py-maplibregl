@@ -2,48 +2,90 @@ from __future__ import annotations
 
 import json
 import os.path
+from typing import Union
 
 from jinja2 import Template
+from pydantic import ConfigDict, Field, field_validator
 
 from ._templates import html_template, js_template
 from ._utils import BaseModel, get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
-from .controls import Control, ControlPosition, ControlType, Marker
+from .controls import Control, ControlPosition, Marker
 from .layer import Layer
 from .sources import Source
 
 
 class MapOptions(BaseModel):
-    pass
+    """Map options
+
+    Note:
+        See [mapOptions](https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions/) for more details.
+    """
+
+    model_config = ConfigDict(
+        validate_assignment=True, extra="forbid", use_enum_values=False
+    )
+    antialias: bool = None
+    attribution_control: bool = Field(None, serialization_alias="attributionControl")
+    bearing: int = None
+    bearing_snap: int = Field(None, serialization_alias="bearingSnap")
+    bounds: tuple = None
+    box_zoom: bool = Field(None, serialization_alias="boxZoom")
+    center: tuple = None
+    click_tolerance: int = Field(None, serialization_alias="clickTolerance")
+    custom_attribution: bool = Field(None, serialization_alias="customAttribution")
+    double_click_zoom: bool = Field(None, serialization_alias="doubleClickZoom")
+    fade_duration: int = Field(None, serialization_alias="fadeDuration")
+    fit_bounds_options: dict = Field(None, serialization_alias="fitBoundsOptions")
+    hash: Union[bool, str] = None
+    interactive: bool = None
+    keyword: bool = None
+    max_bounds: tuple = Field(None, serialization_alias="maxBounds")
+    max_pitch: int = Field(None, serialization_alias="maxPitch")
+    max_zoom: int = Field(None, serialization_alias="maxZoom")
+    min_pitch: int = Field(None, serialization_alias="minPitch")
+    min_zoom: int = Field(None, serialization_alias="minZoom")
+    pitch: int = None
+    scroll_zoom: bool = Field(None, serialization_alias="scrollZoom")
+    style: Union[str, Carto] = construct_carto_basemap_url(Carto.DARK_MATTER)
+    zoom: int = None
+
+    @field_validator("style")
+    def validate_style(cls, v):
+        if isinstance(v, Carto):
+            return construct_carto_basemap_url(v)
+
+        return v
 
 
 class Map(object):
+    """Map
+
+    Args:
+        map_options (MapOptions): Map options.
+        **kwargs: Keyword arguments that are appended to the `MapOptions` object.
+
+    Examples:
+        >>> from pymaplibregl.map import Map, MapOptions
+
+        >>> map_options = MapOptions(center=(9.5, 51.31667), zoom=8)
+        >>> map = Map(map_options)
+        >>> dict(map)
+        {'mapOptions': {'center': (9.5, 51.31667), 'style': 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json', 'zoom': 8}, 'calls': []}
+    """
+
     MESSAGE = "not implemented yet"
 
-    def __init__(
-        self,
-        style: [str | Carto] = Carto.DARK_MATTER,
-        center: [list | tuple] = [0, 0],
-        zoom: int = 1,
-        **kwargs,
-    ):
-        if isinstance(style, Carto):
-            style = construct_carto_basemap_url(style)
-
-        self._map_options = {
-            "style": style,
-            "center": center,
-            "zoom": zoom,
-        }
-        self._map_options.update(kwargs)
+    def __init__(self, map_options: MapOptions = MapOptions(), **kwargs):
+        self._map_options = map_options.to_dict() | kwargs
         self._calls = []
 
-    @property
-    def data(self):
-        return {
-            "mapOptions": self._map_options,
-            "calls": self._calls,
-        }
+    def __iter__(self):
+        for k, v in self.to_dict().items():
+            yield k, v
+
+    def to_dict(self) -> dict:
+        return {"mapOptions": self._map_options, "calls": self._calls}
 
     @property
     def sources(self) -> list:
@@ -53,10 +95,7 @@ class Map(object):
     def layers(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addLayer"]
 
-    @property
-    def markers(self) -> list:
-        return [item["data"] for item in self._calls if item["name"] == "addMarker"]
-
+    # TODO: Rename to add_map_call
     def add_call(self, func_name: str, params: list) -> None:
         self._calls.append(
             {"name": "applyFunc", "data": {"funcName": func_name, "params": params}}
@@ -67,58 +106,97 @@ class Map(object):
         control: Control,
         position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
     ) -> None:
+        """Add a control to the map
+
+        Args:
+            control (Control): The control to be add to the map.
+            position (str | ControlPosition): The position of the control.
+        """
         data = {
             "type": control.type,
             "options": control.to_dict(),
             "position": ControlPosition(position).value,
         }
-        self._calls.append(
-            {
-                "name": "addControl",
-                "data": data,
-            }
-        )
+        self._calls.append({"name": "addControl", "data": data})
 
-    def add_source(self, id_: str, source: [Source | dict]) -> None:
+    def add_source(self, id: str, source: [Source | dict]) -> None:
+        """Add a source to the map"""
         if isinstance(source, Source):
             source = source.to_dict()
 
-        self._calls.append({"name": "addSource", "data": {"id": id_, "source": source}})
+        self._calls.append({"name": "addSource", "data": {"id": id, "source": source}})
 
-    def add_layer(self, layer: [Layer | Layer | dict]) -> None:
+    def add_layer(self, layer: [Layer | dict]) -> None:
+        """Add a layer to the map
+
+        Args:
+            layer (Layer | dict): The Layer to be added to the map.
+        """
         if isinstance(layer, Layer):
             layer = layer.to_dict()
 
         self._calls.append({"name": "addLayer", "data": layer})
 
     def add_marker(self, marker: Marker) -> None:
+        """Add a marker to the map
+
+        Args:
+            marker (Marker): The marker to be added to the map.
+        """
         self._calls.append({"name": "addMarker", "data": marker.to_dict()})
 
-    def add_popup(self, layer_id: str, property_: str) -> None:
+    def add_popup(self, layer_id: str, prop: str) -> None:
+        """Add a popup to the map"""
         self._calls.append(
-            {"name": "addPopup", "data": {"layerId": layer_id, "property": property_}}
+            {"name": "addPopup", "data": {"layerId": layer_id, "property": prop}}
         )
 
     def set_filter(self, layer_id: str, filter_: list):
+        """Update the filter of a layer
+
+        Args:
+            layer_id (str): The name of the layer to be updated.
+            filter_ (list): The filter expression that is applied to the source of the layer.
+        """
         self.add_call("setFilter", [layer_id, filter_])
 
     def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:
+        """Update the paint property of a layer
+
+        Args:
+            layer_id (str): The name of the layer to be updated.
+            prop (str): The name of the paint property to be updated.
+            value (any): The new value of the paint property.
+        """
         self.add_call("setPaintProperty", [layer_id, prop, value])
 
     def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
+        """Update a layout property of a layer
+
+        Args:
+            layer_id (str): The name of the layer to be updated.
+            prop (str): The name of the layout property to be updated.
+            value (any): The new value of the layout property.
+        """
         self.add_call("setLayoutProperty", [layer_id, prop, value])
 
-    def to_html(self, output_dir: str = None, **kwargs) -> str:
+    def to_html(self, **kwargs) -> str:
+        """Render to html
+
+        Args:
+            **kwargs (Any): Additional keyword arguments that are passed to the template.
+                Currently, `style` is the only supported keyword argument.
+
+        Examples:
+            >>> from pymaplibregl import Map
+
+            >>> map = Map()
+            >>> with open("/tmp/map.html", "w") as f:
+            ...     f.write(map.to_html(style="height: 800px;")
+        """
         js_lib = read_internal_file("srcjs", "index.js")
-        js_snippet = Template(js_template).render(data=json.dumps(self.data))
+        js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
         output = Template(html_template).render(
             js="\n".join([js_lib, js_snippet]), **kwargs
         )
-        if output_dir == "skip":
-            return output
-
-        file_name = os.path.join(get_output_dir(output_dir), "index.html")
-        with open(file_name, "w") as f:
-            f.write(output)
-
-        return file_name
+        return output

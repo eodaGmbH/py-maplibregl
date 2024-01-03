@@ -1,15 +1,48 @@
 import pymaplibregl as maplibre
+from pymaplibregl.basemaps import Carto, construct_carto_basemap_url
+from pymaplibregl.map import MapOptions
 
 
-def test_map_options():
+# TODO: Remove when refactoring of Map class is finished
+def test_kwargs_map_options():
     # Prepare
     map_options = {"center": [0, 0], "zoom": 2}
 
     # Act
     map = maplibre.Map(**map_options)
+    print("dict map", dict(map))
 
     # Assert
-    assert map.data["mapOptions"]["zoom"] == 2
+    assert map.to_dict()["mapOptions"] == map_options | {
+        "style": "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+    }
+
+
+def test_default_map_options():
+    map_options = MapOptions()
+
+    assert (
+        map_options.to_dict()["style"]
+        == "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+    )
+
+
+def test_map_options():
+    # Prepare
+    style = Carto.POSITRON
+    # print(style)
+    # basemap_url = construct_carto_basemap_url(style)
+
+    # Act
+    map_options = MapOptions(style=style)
+    # print(map_options)
+    print(map_options.to_dict())
+
+    # Assert
+    assert (
+        map_options.to_dict()["style"]
+        == "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+    )
 
 
 def test_map_layers():
@@ -24,24 +57,20 @@ def test_map_layers():
     # Assert
     assert len(layers) == 1
     assert layers[0]["id"] == "test"
-    assert len(map.data["calls"]) == 1
+    assert len(map.to_dict()["calls"]) == 1
 
 
 def test_map_markers():
     # Prepare
-    """
-    marker = {
-        "lngLat": (0, 0),
-        "color": "green",
-        "popup": {"text": "Hello PyMapLibreGL!"},
-    }
-    """
     marker = maplibre.controls.Marker(lng_lat=(0, 0), popup={"text": "Hello"})
 
     # Act
     map = maplibre.Map()
     map.add_marker(marker)
-    markers = map.markers
+    markers = [
+        item["data"] for item in map.to_dict()["calls"] if item["name"] == "addMarker"
+    ]
+    print(markers)
 
     # Assert
     assert len(markers) == 1

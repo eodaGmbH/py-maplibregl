@@ -1,11 +1,8 @@
-import json
-
 import pandas as pd
 from pymaplibregl import (
     Layer,
     LayerType,
     Map,
-    MapContext,
     MapOptions,
     output_maplibregl,
     render_maplibregl,
@@ -14,7 +11,7 @@ from pymaplibregl.basemaps import Carto
 from pymaplibregl.controls import Marker, MarkerOptions, Popup, PopupOptions
 from pymaplibregl.sources import GeoJSONSource
 from pymaplibregl.utils import GeometryType, df_to_geojson
-from shiny import App, reactive, ui
+from shiny import App, ui
 
 BOUNDS = (-8.92242886, 43.30508298, 13.76496714, 59.87668996)
 
@@ -40,7 +37,7 @@ geojson = df_to_geojson(
     properties=["type", "name", "abbrev"],
 )
 
-airports_layer = Layer(
+airport_circles = Layer(
     type=LayerType.CIRCLE,
     source=GeoJSONSource(data=geojson),
     paint={
@@ -58,45 +55,37 @@ airports_layer = Layer(
     },
 )
 
+map_options = MapOptions(
+    style=Carto.POSITRON,
+    bounds=BOUNDS,
+    fit_bounds_options={"padding": 20},
+    hash=True,
+)
+
+popup_options = PopupOptions(close_button=False)
+
 app_ui = ui.page_fluid(
     ui.panel_title("Airports"),
     output_maplibregl("maplibre", height=600),
-    # ui.input_slider("radius", "Radius", value=CIRCLE_RADIUS, min=1, max=5),
 )
 
 
 def server(input, output, session):
     @render_maplibregl
     async def maplibre():
-        m = Map(
-            MapOptions(
-                style=Carto.POSITRON,
-                bounds=BOUNDS,
-                fit_bounds_options={"padding": 20},
-                hash=True,
-            )
-        )
+        m = Map(map_options)
         for _, r in airports_data.iterrows():
-            # print(r["coordinates"], r["name"])
             marker = Marker(
                 lng_lat=r["coordinates"],
-                options=MarkerOptions(color=get_color(r["type"]), draggable=True),
+                options=MarkerOptions(color=get_color(r["type"])),
                 popup=Popup(
                     text=r["name"],
-                    options=PopupOptions(close_button=False),
+                    options=popup_options,
                 ),
             )
             m.add_marker(marker)
-        m.add_layer(airports_layer)
+        m.add_layer(airport_circles)
         return m
-
-    """
-    @reactive.Effect
-    @reactive.event(input.radius, ignore_init=True)
-    async def radius():
-        async with MapContext("maplibre") as m:
-            m.set_paint_property(LAYER_ID, "circle-radius", input.radius())
-    """
 
 
 app = App(app_ui, server)

@@ -12,30 +12,30 @@ from pymaplibregl import (
     render_maplibregl,
 )
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.sources import GeoJSONSource
 from pymaplibregl.utils import df_to_geojson
 from shiny import App, reactive, ui
 
 MALE_COLOR = "rgb(0, 128, 255)"
 FEMALE_COLOR = "rgb(255, 0, 128)"
-LAYER_ID = "every-person-in-manhattan"
+LAYER_ID = "every-person-in-manhattan-circles"
 CIRCLE_RADIUS = 2
 
 point_data = pd.read_json(
     "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/scatterplot/manhattan.json"
 )
+
 point_data.columns = ["lng", "lat", "sex"]
 
-every_person_in_manhattan_source = {
-    "type": "geojson",
-    "data": df_to_geojson(point_data, properties=["sex"]),
-}
+every_person_in_manhattan_source = GeoJSONSource(
+    data=df_to_geojson(point_data, properties=["sex"]),
+)
 
 bbox = shapely.bounds(
-    shapely.from_geojson(json.dumps(every_person_in_manhattan_source["data"]))
+    shapely.from_geojson(json.dumps(every_person_in_manhattan_source.data))
 )
-print(bbox)
 
-every_person_in_manhattan_layer = Layer(
+every_person_in_manhattan_circles = Layer(
     type=LayerType.CIRCLE,
     id=LAYER_ID,
     source=every_person_in_manhattan_source,
@@ -43,6 +43,12 @@ every_person_in_manhattan_layer = Layer(
         "circle-color": ["match", ["get", "sex"], 1, MALE_COLOR, FEMALE_COLOR],
         "circle-radius": CIRCLE_RADIUS,
     },
+)
+
+map_options = MapOptions(
+    style=Carto.POSITRON,
+    bounds=tuple(bbox),
+    fit_bounds_options={"padding": 20},
 )
 
 app_ui = ui.page_fluid(
@@ -55,15 +61,8 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def maplibre():
-        m = Map(
-            MapOptions(
-                style=Carto.POSITRON,
-                # center=[-73.987157, 40.729906], zoom=12
-                bounds=tuple(bbox),
-                fit_bounds_options={"padding": 20},
-            )
-        )
-        m.add_layer(every_person_in_manhattan_layer)
+        m = Map(map_options)
+        m.add_layer(every_person_in_manhattan_circles)
         return m
 
     @reactive.Effect

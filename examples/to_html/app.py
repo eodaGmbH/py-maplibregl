@@ -7,8 +7,8 @@ vancouver_blocks = GeoJSONSource(
 )
 
 fill_extrusion_layer = Layer(
-    LayerType.FILL_EXTRUSION,
-    id_="vancouver-blocks",
+    type=LayerType.FILL_EXTRUSION,
+    id="vancouver-blocks",
     source=vancouver_blocks,
     paint={
         "fill-extrusion-color": {
@@ -26,7 +26,7 @@ center = [-123.0753056, 49.2686511]
 def create_map():
     m = Map(center=center, zoom=11, pitch=35)
     m.add_layer(fill_extrusion_layer)
-    # m.add_popup("vancouver-blocks", "valuePerSqm")
+    m.add_popup("vancouver-blocks", "valuePerSqm")
     return m.to_html(output_dir="skip", style="height: 800px;")
 
 

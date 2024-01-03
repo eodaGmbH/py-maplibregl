@@ -1,13 +1,23 @@
-from pymaplibregl import Layer, Map, MapOptions, output_maplibregl, render_maplibregl
+from pymaplibregl import (
+    Layer,
+    LayerType,
+    Map,
+    MapOptions,
+    output_maplibregl,
+    render_maplibregl,
+)
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.sources import GeoJSONSource
 from shiny import App, reactive, ui
 
-SOURCE_ID = "earthquakes"
-LAYER_ID = "earthquakes"
+EARTHQUAKE_SOURCE = "earthquakes"
+EARTHQUAKE_CIRCLES = "earthquake-circles"
+EARTHQUAKE_CLUSTERS = "earthquake-clusters"
+EARTHQUAKE_LABELS = "earthquake-labels"
+
+CENTER = (-118.0931, 33.78615)
 
 earthquakes_source = GeoJSONSource(
-    # data="https://raw.githubusercontent.com/crazycapivara/mapboxer/master/data-raw/earthquakes.geojson",
     data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
     cluster=True,
     cluster_radius=50,
@@ -19,18 +29,18 @@ earthquakes_source = GeoJSONSource(
     },
 )
 
-earthquakes_layer = Layer(
-    type="circle",
-    source=SOURCE_ID,
+earthquake_circles = Layer(
+    type=LayerType.CIRCLE,
+    id=EARTHQUAKE_CIRCLES,
+    source=EARTHQUAKE_SOURCE,
     paint={"circle-color": "darkblue"},
     filter=["!", ["has", "point_count"]],
 )
 
-
-earthquakes_cluster_layer = Layer(
-    type="circle",
-    id=LAYER_ID,
-    source=SOURCE_ID,
+earthquake_clusters = Layer(
+    type=LayerType.CIRCLE,
+    id=EARTHQUAKE_CLUSTERS,
+    source=EARTHQUAKE_SOURCE,
     filter=["has", "point_count"],
     paint={
         "circle-color": [
@@ -46,8 +56,18 @@ earthquakes_cluster_layer = Layer(
     },
 )
 
+earthquake_labels = Layer(
+    type=LayerType.SYMBOL,
+    id="text",
+    source=EARTHQUAKE_SOURCE,
+    filter=["has", "point_count"],
+    layout={
+        "text-field": ["get", "point_count_abbreviated"],
+        "text-size": 12,
+    },
+)
 
-center = [-118.0931, 33.78615]
+map_options = MapOptions(style=Carto.POSITRON, center=CENTER, zoom=3, hash=True)
 
 app_ui = ui.page_fluid(
     ui.panel_title("Earthquakes Cluster"),
@@ -58,23 +78,12 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def maplibre():
-        m = Map(MapOptions(style=Carto.POSITRON, center=([-103.5917, 40.6699]), zoom=3))
-        m.add_source(SOURCE_ID, earthquakes_source)
-        m.add_layer(earthquakes_cluster_layer)
-        m.add_popup(LAYER_ID, "maxMag")
-        m.add_layer(earthquakes_layer)
-        m.add_layer(
-            Layer(
-                type="symbol",
-                id="text",
-                source=SOURCE_ID,
-                filter=["has", "point_count"],
-                layout={
-                    "text-field": ["get", "point_count_abbreviated"],
-                    "text-size": 12,
-                },
-            )
-        )
+        m = Map(map_options)
+        m.add_source(EARTHQUAKE_SOURCE, earthquakes_source)
+        m.add_layer(earthquake_clusters)
+        m.add_layer(earthquake_circles)
+        m.add_popup(EARTHQUAKE_CLUSTERS, "maxMag")
+        m.add_layer(earthquake_labels)
         return m
 
     @reactive.Effect
