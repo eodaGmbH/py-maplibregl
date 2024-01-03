@@ -1,0 +1,3 @@
+::: pymaplibregl.Map
+
+::: pymaplibregl.MapOptions

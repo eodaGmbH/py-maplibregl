@@ -106,7 +106,12 @@ class Map(object):
         control: Control,
         position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
     ) -> None:
-        """Add a control to the map"""
+        """Add a control to the map
+
+        Args:
+            control (Control): The control to be add to the map.
+            position (str | ControlPosition): The position of the control.
+        """
         data = {
             "type": control.type,
             "options": control.to_dict(),
@@ -133,7 +138,11 @@ class Map(object):
         self._calls.append({"name": "addLayer", "data": layer})
 
     def add_marker(self, marker: Marker) -> None:
-        """Add a marker to the map"""
+        """Add a marker to the map
+
+        Args:
+            marker (Marker): The marker to be added to the map.
+        """
         self._calls.append({"name": "addMarker", "data": marker.to_dict()})
 
     def add_popup(self, layer_id: str, prop: str) -> None:

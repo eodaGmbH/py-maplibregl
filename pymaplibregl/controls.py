@@ -1,4 +1,7 @@
-# see also https://docs.mapbox.com/mapbox-gl-js/api/markers/#fullscreencontrol
+""" Markers and controls
+
+See also https://docs.mapbox.com/mapbox-gl-js/api/markers/
+"""
 from enum import Enum
 from typing import Literal, Union
 
@@ -29,14 +32,6 @@ class Popup(BaseModel):
 
     text: str
     options: Union[PopupOptions, dict] = {}
-
-    # def model_dump(self) -> dict:
-    #    return {
-    #        "text": self.text,
-    #        "options": super().model_dump(
-    #            exclude={"text"}, exclude_none=True, by_alias=True
-    #        ),
-    #    }
 
 
 class MarkerOptions(BaseModel):
@@ -75,6 +70,8 @@ class ControlType(Enum):
 
 
 class ControlPosition(Enum):
+    """Control position"""
+
     TOP_LEFT = "top-left"
     TOP_RIGHT = "top-right"
     BOTTOM_LEFT = "bottom-left"
@@ -96,6 +93,16 @@ class AttributionControl(Control):
 
 
 class FullscreenControl(Control):
+    """Fullscreen control
+
+    Examples:
+        >>> from pymaplibregl import Map
+        >>> from pymaplibregl.controls import FullscreenControl
+
+        >>> map = Map()
+        >>> map.add_control(FullscreenControl())
+    """
+
     # _name: str = ControlType.FULLSCREEN.value
     pass
 

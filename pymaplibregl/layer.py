@@ -10,7 +10,7 @@ from ._utils import BaseModel, fix_keys
 from .sources import Source
 
 
-class LayerType(str, Enum):
+class LayerType(Enum):
     """Rendering type of layer
 
     Attributes:
@@ -47,9 +47,9 @@ class Layer(BaseModel):
         type (str | LayerType): **Required.** The type of the layer.
         filter (list): The filter expression that is applied to the source of the layer.
         layout (dict): The layout properties of the layer.
-        max_zoom (int) The maximum zoom level for the layer.
-        min_zoom (int) The minimum zoom level for the layer.
-        paint (dict) The paint properties of the layer.
+        max_zoom (int): The maximum zoom level for the layer.
+        min_zoom (int): The minimum zoom level for the layer.
+        paint (dict): The paint properties of the layer.
         source (str | Source): The name (unique ID) of a source or a source object to be used for the layer.
         source_layer (str): The layer to use from a vector tile source.
 
