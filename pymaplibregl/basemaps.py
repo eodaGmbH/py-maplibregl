@@ -47,6 +47,7 @@ def construct_basemap_style(
 def background(color: str = "black", opacity: float = 1.0) -> dict:
     bg_layer = Layer(
         type=LayerType.BACKGROUND,
+        id="background",
         source=None,
         paint={"background-color": color, "background-opacity": opacity},
     )

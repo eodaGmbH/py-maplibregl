@@ -47,7 +47,7 @@ class MapOptions(BaseModel):
     min_zoom: int = Field(None, serialization_alias="minZoom")
     pitch: int = None
     scroll_zoom: bool = Field(None, serialization_alias="scrollZoom")
-    style: Union[str, Carto] = construct_carto_basemap_url(Carto.DARK_MATTER)
+    style: Union[str, Carto, dict] = construct_carto_basemap_url(Carto.DARK_MATTER)
     zoom: int = None
 
     @field_validator("style")
