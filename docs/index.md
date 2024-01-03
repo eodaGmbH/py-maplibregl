@@ -24,4 +24,6 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 
 ### Shiny integration
 
-...
+```python
+-8<-- "basic_usage_shiny.py"
+```

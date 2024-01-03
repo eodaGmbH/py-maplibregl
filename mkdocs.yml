@@ -21,6 +21,7 @@ nav:
   - Examples:
       - Every person in manhattan: examples/every_person_in_manhattan/index.md
       - Earthquake clusters: examples/earthquake_clusters/index.md
+      - Airport markers: examples/airports/index.md
 
 plugins:
   - search:
