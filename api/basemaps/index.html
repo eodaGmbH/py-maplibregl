@@ -9,22 +9,26 @@
       
       
       
+        <link rel="prev" href="../sources/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../controls/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>Pymaplibregl</title>
+        <title>Basemaps - Pymaplibregl</title>
       
     
     
   
-      <link rel="stylesheet" href="/assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="/assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -73,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#pymaplibregl.basemaps.Carto" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -83,7 +92,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="Pymaplibregl" class="md-header__button md-logo" aria-label="Pymaplibregl" data-md-component="logo">
+    <a href="../.." title="Pymaplibregl" class="md-header__button md-logo" aria-label="Pymaplibregl" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -103,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Basemaps
             
           </span>
         </div>
@@ -186,7 +195,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/." class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           
   
   Get started
@@ -200,11 +209,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/api/map/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../map/" class="md-tabs__link">
           
   
   API Documentation
@@ -222,7 +233,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/examples/every_person_in_manhattan/" class="md-tabs__link">
+        <a href="../../examples/every_person_in_manhattan/" class="md-tabs__link">
           
   
   Examples
@@ -255,7 +266,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Pymaplibregl" class="md-nav__button md-logo" aria-label="Pymaplibregl" data-md-component="logo">
+    <a href="../.." title="Pymaplibregl" class="md-nav__button md-logo" aria-label="Pymaplibregl" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -325,7 +336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -346,7 +357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/every_person_in_manhattan/" class="md-nav__link">
+      <a href="../../examples/every_person_in_manhattan/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -371,8 +382,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -381,12 +394,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -400,7 +413,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             API Documentation
@@ -414,7 +427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/map/" class="md-nav__link">
+      <a href="../map/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -435,7 +448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/layer/" class="md-nav__link">
+      <a href="../layer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -456,7 +469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/sources/" class="md-nav__link">
+      <a href="../sources/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -474,10 +487,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/api/basemaps/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Basemaps
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -486,6 +517,33 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pymaplibregl.basemaps.Carto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Carto
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -498,7 +556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/controls/" class="md-nav__link">
+      <a href="../controls/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -566,7 +624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/every_person_in_manhattan/" class="md-nav__link">
+      <a href="../../examples/every_person_in_manhattan/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -587,7 +645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/earthquake_clusters/" class="md-nav__link">
+      <a href="../../examples/earthquake_clusters/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -608,7 +666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/airports/" class="md-nav__link">
+      <a href="../../examples/airports/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -647,6 +705,23 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pymaplibregl.basemaps.Carto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Carto
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -657,8 +732,174 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+  
+
+
+  <h1>Basemaps</h1>
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="pymaplibregl.basemaps.Carto" class="doc doc-heading">
+          <code>pymaplibregl.basemaps.Carto</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="enum.Enum">Enum</span></code></p>
+
+  
+      <p>Carto basemap styles</p>
+
+
+
+  <p>Attributes:</p>
+  <ul>
+      <li class="field-body">
+        <b><code>DARK_MATTER</code></b>
+        –
+        <div class="doc-md-description">
+          <p>dark-matter</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>POSITRON</code></b>
+        –
+        <div class="doc-md-description">
+          <p>positron</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>VOYAGER</code></b>
+        –
+        <div class="doc-md-description">
+          <p>voyager</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>POSITRON_NOLABELS</code></b>
+        –
+        <div class="doc-md-description">
+          <p>positron-nolabels</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>DARK_MATTER_NOLABELS</code></b>
+        –
+        <div class="doc-md-description">
+          <p>dark-matter-nolabels</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>VOYAGER_NOLABELS</code></b>
+        –
+        <div class="doc-md-description">
+          <p>voyager-nolabels</p>
+        </div>
+      </li>
+  </ul>
+
+
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pymaplibregl</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapOptions</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pymaplibregl.basemaps</span> <span class="kn">import</span> <span class="n">Carto</span>
+</span></code></pre></div>
+    <div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">map</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">MapOptions</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Carto</span><span class="o">.</span><span class="n">DARK_MATTER</span><span class="p">))</span>
+</span></code></pre></div>
+
+            <details class="quote">
+              <summary>Source code in <code>pymaplibregl/basemaps.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">class</span> <span class="nc">Carto</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Carto basemap styles</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    Attributes:</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">        DARK_MATTER: dark-matter</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">        POSITRON: positron</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">        VOYAGER: voyager</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        POSITRON_NOLABELS: positron-nolabels</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        DARK_MATTER_NOLABELS: dark-matter-nolabels</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        VOYAGER_NOLABELS: voyager-nolabels</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Examples:</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        &gt;&gt;&gt; from pymaplibregl import Map, MapOptions</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        &gt;&gt;&gt; from pymaplibregl.basemaps import Carto</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        &gt;&gt;&gt; map = Map(MapOptions(style=Carto.DARK_MATTER))</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a>    <span class="n">DARK_MATTER</span> <span class="o">=</span> <span class="s2">&quot;dark-matter&quot;</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a>    <span class="n">POSITRON</span> <span class="o">=</span> <span class="s2">&quot;positron&quot;</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a>    <span class="n">VOYAGER</span> <span class="o">=</span> <span class="s2">&quot;voyager&quot;</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a>    <span class="n">POSITRON_NOLABELS</span> <span class="o">=</span> <span class="s2">&quot;positron-nolabels&quot;</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a>    <span class="n">DARK_MATTER_NOLABELS</span> <span class="o">=</span> <span class="s2">&quot;dark-matter-nolabels&quot;</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a>    <span class="n">VOYAGER_NOLABELS</span> <span class="o">=</span> <span class="s2">&quot;voyager-nolabels&quot;</span>
+</span></code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -692,10 +933,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.tabs"], "search": "/assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>

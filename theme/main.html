@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block libs %}
+  {{ super() }}
+  <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"/>
+{% endblock %}

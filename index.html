@@ -10,25 +10,36 @@
       
       
       
+        <link rel="next" href="examples/every_person_in_manhattan/">
+      
       
       <link rel="icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>pymaplibregl</title>
+        <title>Welcome to Pymaplibregl - Pymaplibregl</title>
       
     
     
+  
       <link rel="stylesheet" href="assets/stylesheets/main.50c56a3b.min.css">
       
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
       
 
 
     
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"/>
+
     
+  
       
     
+  <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+
     
       
         
@@ -51,7 +62,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -72,11 +88,9 @@
     
       
 
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="pymaplibregl" class="md-header__button md-logo" aria-label="pymaplibregl" data-md-component="logo">
+    <a href="." title="Pymaplibregl" class="md-header__button md-logo" aria-label="Pymaplibregl" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -90,24 +104,73 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            pymaplibregl
+            Pymaplibregl
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PyMapLibreGL
+              Welcome to Pymaplibregl
             
           </span>
         </div>
       </div>
     </div>
     
-    
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
+      
     
     
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/eodaGmbH/py-maplibregl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    py-maplibregl
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -117,6 +180,71 @@
       
       
         
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="." class="md-tabs__link">
+          
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="api/map/" class="md-tabs__link">
+          
+  
+  API Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="examples/every_person_in_manhattan/" class="md-tabs__link">
+          
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
           
         
       
@@ -131,22 +259,78 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="pymaplibregl" class="md-nav__button md-logo" aria-label="pymaplibregl" data-md-component="logo">
+    <a href="." title="Pymaplibregl" class="md-nav__button md-logo" aria-label="Pymaplibregl" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    pymaplibregl
+    Pymaplibregl
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/eodaGmbH/py-maplibregl" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    py-maplibregl
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
       
       
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Get started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Get started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
   
   
     
@@ -165,7 +349,7 @@
           
   
   <span class="md-ellipsis">
-    PyMapLibreGL
+    Welcome to Pymaplibregl
   </span>
   
 
@@ -176,7 +360,7 @@
         
   
   <span class="md-ellipsis">
-    PyMapLibreGL
+    Welcome to Pymaplibregl
   </span>
   
 
@@ -198,247 +382,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pymaplibregl.basemaps" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      basemaps
+      Installation
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="basemaps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.basemaps.Carto" class="md-nav__link">
-    <span class="md-ellipsis">
-      Carto
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pymaplibregl.controls" class="md-nav__link">
+  <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      controls
+      Basic usage
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="controls">
+    <nav class="md-nav" aria-label="Basic usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.Marker" class="md-nav__link">
+  <a href="#standalone" class="md-nav__link">
     <span class="md-ellipsis">
-      Marker
+      Standalone
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.MarkerOptions" class="md-nav__link">
+  <a href="#shiny-integration" class="md-nav__link">
     <span class="md-ellipsis">
-      MarkerOptions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.Popup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Popup
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.PopupOptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      PopupOptions
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pymaplibregl.layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      layer
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="layer">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.layer.Layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Layer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.layer.LayerType" class="md-nav__link">
-    <span class="md-ellipsis">
-      LayerType
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pymaplibregl.map" class="md-nav__link">
-    <span class="md-ellipsis">
-      map
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="map">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map" class="md-nav__link">
-    <span class="md-ellipsis">
-      Map
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Map">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_control" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_control()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_layer()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_marker" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_marker()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_popup" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_popup()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_source" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_source()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.set_filter" class="md-nav__link">
-    <span class="md-ellipsis">
-      set_filter()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.set_layout_property" class="md-nav__link">
-    <span class="md-ellipsis">
-      set_layout_property()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.set_paint_property" class="md-nav__link">
-    <span class="md-ellipsis">
-      set_paint_property()
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.MapOptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      MapOptions
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pymaplibregl.sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      sources
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="sources">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.sources.GeoJSONSource" class="md-nav__link">
-    <span class="md-ellipsis">
-      GeoJSONSource
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.sources.SourceType" class="md-nav__link">
-    <span class="md-ellipsis">
-      SourceType
+      Shiny integration
     </span>
   </a>
   
@@ -452,6 +426,297 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/every_person_in_manhattan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/map/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Layer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/basemaps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basemaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/controls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markers and controls
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/every_person_in_manhattan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Every person in manhattan
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/earthquake_clusters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Earthquake clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/airports/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Airport markers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -484,247 +749,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pymaplibregl.basemaps" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      basemaps
+      Installation
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="basemaps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.basemaps.Carto" class="md-nav__link">
-    <span class="md-ellipsis">
-      Carto
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pymaplibregl.controls" class="md-nav__link">
+  <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      controls
+      Basic usage
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="controls">
+    <nav class="md-nav" aria-label="Basic usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.Marker" class="md-nav__link">
+  <a href="#standalone" class="md-nav__link">
     <span class="md-ellipsis">
-      Marker
+      Standalone
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.MarkerOptions" class="md-nav__link">
+  <a href="#shiny-integration" class="md-nav__link">
     <span class="md-ellipsis">
-      MarkerOptions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.Popup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Popup
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.controls.PopupOptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      PopupOptions
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pymaplibregl.layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      layer
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="layer">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.layer.Layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Layer
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.layer.LayerType" class="md-nav__link">
-    <span class="md-ellipsis">
-      LayerType
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pymaplibregl.map" class="md-nav__link">
-    <span class="md-ellipsis">
-      map
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="map">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map" class="md-nav__link">
-    <span class="md-ellipsis">
-      Map
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Map">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_control" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_control()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_layer()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_marker" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_marker()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_popup" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_popup()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.add_source" class="md-nav__link">
-    <span class="md-ellipsis">
-      add_source()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.set_filter" class="md-nav__link">
-    <span class="md-ellipsis">
-      set_filter()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.set_layout_property" class="md-nav__link">
-    <span class="md-ellipsis">
-      set_layout_property()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.Map.set_paint_property" class="md-nav__link">
-    <span class="md-ellipsis">
-      set_paint_property()
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.map.MapOptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      MapOptions
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pymaplibregl.sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      sources
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="sources">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.sources.GeoJSONSource" class="md-nav__link">
-    <span class="md-ellipsis">
-      GeoJSONSource
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pymaplibregl.sources.SourceType" class="md-nav__link">
-    <span class="md-ellipsis">
-      SourceType
+      Shiny integration
     </span>
   </a>
   
@@ -749,2025 +804,78 @@
                 
                   
 
-
-<h1 id="pymaplibregl">PyMapLibreGL</h1>
-
-
-<div class="doc doc-object doc-module">
-
-
-
-
-<h2 id="pymaplibregl.basemaps" class="doc doc-heading">
-          <code>pymaplibregl.basemaps</code>
-
-
-</h2>
-
-  <div class="doc doc-contents first">
-
+  
   
 
-  <div class="doc doc-children">
 
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.basemaps.Carto" class="doc doc-heading">
-          <code>Carto</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="enum.Enum">Enum</span></code></p>
-
-  
-      <p>Carto basemap styles</p>
-
-
-
-  <p>Attributes:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>DARK_MATTER</code></b>
-        –
-        <div class="doc-md-description">
-          <p>dark-matter</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>POSITRON</code></b>
-        –
-        <div class="doc-md-description">
-          <p>positron</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>VOYAGER</code></b>
-        –
-        <div class="doc-md-description">
-          <p>voyager</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>POSITRON_NOLABELS</code></b>
-        –
-        <div class="doc-md-description">
-          <p>positron-nolabels</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>DARK_MATTER_NOLABELS</code></b>
-        –
-        <div class="doc-md-description">
-          <p>dark-matter-nolabels</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>VOYAGER_NOLABELS</code></b>
-        –
-        <div class="doc-md-description">
-          <p>voyager-nolabels</p>
-        </div>
-      </li>
-  </ul>
-
-
-
-<p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pymaplibregl</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapOptions</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pymaplibregl.basemaps</span> <span class="kn">import</span> <span class="n">Carto</span>
-</code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">map</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">MapOptions</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Carto</span><span class="o">.</span><span class="n">DARK_MATTER</span><span class="p">))</span>
-</code></pre></div>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/basemaps.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Carto</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Carto basemap styles</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        DARK_MATTER: dark-matter</span>
-<span class="sd">        POSITRON: positron</span>
-<span class="sd">        VOYAGER: voyager</span>
-<span class="sd">        POSITRON_NOLABELS: positron-nolabels</span>
-<span class="sd">        DARK_MATTER_NOLABELS: dark-matter-nolabels</span>
-<span class="sd">        VOYAGER_NOLABELS: voyager-nolabels</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from pymaplibregl import Map, MapOptions</span>
-<span class="sd">        &gt;&gt;&gt; from pymaplibregl.basemaps import Carto</span>
-
-<span class="sd">        &gt;&gt;&gt; map = Map(MapOptions(style=Carto.DARK_MATTER))</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">DARK_MATTER</span> <span class="o">=</span> <span class="s2">&quot;dark-matter&quot;</span>
-    <span class="n">POSITRON</span> <span class="o">=</span> <span class="s2">&quot;positron&quot;</span>
-    <span class="n">VOYAGER</span> <span class="o">=</span> <span class="s2">&quot;voyager&quot;</span>
-    <span class="n">POSITRON_NOLABELS</span> <span class="o">=</span> <span class="s2">&quot;positron-nolabels&quot;</span>
-    <span class="n">DARK_MATTER_NOLABELS</span> <span class="o">=</span> <span class="s2">&quot;dark-matter-nolabels&quot;</span>
-    <span class="n">VOYAGER_NOLABELS</span> <span class="o">=</span> <span class="s2">&quot;voyager-nolabels&quot;</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-
-<h2 id="pymaplibregl.controls" class="doc doc-heading">
-          <code>pymaplibregl.controls</code>
-
-
-</h2>
-
-  <div class="doc doc-contents first">
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.controls.Marker" class="doc doc-heading">
-          <code>Marker</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pymaplibregl._utils.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Marker</p>
-
-
-
-  <p>Attributes:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>lng_lat</code></b>
-            (<code>(tuple, list)</code>)
-        –
-        <div class="doc-md-description">
-          <p><strong>Required.</strong> The longitude and latitude of the marker.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>popup</code></b>
-            (<code>(<a class="autorefs autorefs-internal" title="pymaplibregl.controls.Popup" href="#pymaplibregl.controls.Popup">Popup</a>, dict)</code>)
-        –
-        <div class="doc-md-description">
-          <p>A Popup that is displayed when a user clicks on the marker.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>options</code></b>
-            (<code>(<a class="autorefs autorefs-internal" title="pymaplibregl.controls.MarkerOptions" href="#pymaplibregl.controls.MarkerOptions">MarkerOptions</a>, dict)</code>)
-        –
-        <div class="doc-md-description">
-          <p>Marker options.</p>
-        </div>
-      </li>
-  </ul>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/controls.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Marker</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Marker</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        lng_lat (tuple, list): **Required.** The longitude and latitude of the marker.</span>
-<span class="sd">        popup (Popup, dict): A Popup that is displayed when a user clicks on the marker.</span>
-<span class="sd">        options (MarkerOptions, dict): Marker options.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">lng_lat</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;lngLat&quot;</span><span class="p">)</span>
-    <span class="n">popup</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Popup</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">options</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">MarkerOptions</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.controls.MarkerOptions" class="doc doc-heading">
-          <code>MarkerOptions</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pymaplibregl._utils.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Marker options</p>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/controls.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">MarkerOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Marker options&quot;&quot;&quot;</span>
-
-    <span class="n">anchor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">draggable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">offset</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">pitch_alignment</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;pitchAlignment&quot;</span><span class="p">)</span>
-    <span class="n">rotation</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">rotation_alignment</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;rotationAlignment&quot;</span><span class="p">)</span>
-    <span class="n">scale</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.controls.Popup" class="doc doc-heading">
-          <code>Popup</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pymaplibregl._utils.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Popup</p>
-
-
-
-  <p>Attributes:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>text</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p>The Text of the popup.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>options</code></b>
-            (<code><a class="autorefs autorefs-internal" title="pymaplibregl.controls.PopupOptions" href="#pymaplibregl.controls.PopupOptions">PopupOptions</a> | dict</code>)
-        –
-        <div class="doc-md-description">
-          <p>Popup options.</p>
-        </div>
-      </li>
-  </ul>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/controls.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Popup</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Popup</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        text: The Text of the popup.</span>
-<span class="sd">        options (PopupOptions | dict): Popup options.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">options</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">PopupOptions</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.controls.PopupOptions" class="doc doc-heading">
-          <code>PopupOptions</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pymaplibregl._utils.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Popup options</p>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/controls.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PopupOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Popup options&quot;&quot;&quot;</span>
-
-    <span class="n">anchor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">close_button</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;closeButton&quot;</span><span class="p">)</span>
-    <span class="n">close_on_click</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;closeOnClick&quot;</span><span class="p">)</span>
-    <span class="n">close_on_move</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;closeOnMove&quot;</span><span class="p">)</span>
-    <span class="n">max_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;maxWidth&quot;</span><span class="p">)</span>
-    <span class="n">offset</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-
-<h2 id="pymaplibregl.layer" class="doc doc-heading">
-          <code>pymaplibregl.layer</code>
-
-
-</h2>
-
-  <div class="doc doc-contents first">
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.layer.Layer" class="doc doc-heading">
-          <code>Layer</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pymaplibregl._utils.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Layer properties</p>
-
-<details class="notes" open>
-  <summary>Notes</summary>
-  <p>See <a href="https://maplibre.org/maplibre-style-spec/layers/">layers</a> for more details.</p>
-</details>
-
-
-  <p>Attributes:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>id</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p><strong>Required.</strong> The unique ID of the layer. Defaults to <code>str(uuid4())</code>.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>type</code></b>
-            (<code>str | <a class="autorefs autorefs-internal" title="pymaplibregl.layer.LayerType" href="#pymaplibregl.layer.LayerType">LayerType</a></code>)
-        –
-        <div class="doc-md-description">
-          <p><strong>Required.</strong> The type of the layer.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>filter</code></b>
-            (<code>list</code>)
-        –
-        <div class="doc-md-description">
-          <p>The filter expression that is applied to the source of the layer.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>layout</code></b>
-            (<code>dict</code>)
-        –
-        <div class="doc-md-description">
-          <p>The layout properties of the layer.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>source</code></b>
-            (<code>str | <span title="pymaplibregl.sources.Source">Source</span></code>)
-        –
-        <div class="doc-md-description">
-          <p>The name (unique ID) of a source or a source object to be used for the layer.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>source_layer</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p>The layer to use from a vector tile source.</p>
-        </div>
-      </li>
-  </ul>
-
-
-
-<p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pymaplibregl.layer</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">LayerType</span>
-</code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">layer</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;test-layer&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">LayerType</span><span class="o">.</span><span class="n">CIRCLE</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;test-source&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/layer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Layer</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Layer properties</span>
-
-<span class="sd">    Notes:</span>
-<span class="sd">        See [layers](https://maplibre.org/maplibre-style-spec/layers/) for more details.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        id (str): **Required.** The unique ID of the layer. Defaults to `str(uuid4())`.</span>
-<span class="sd">        type (str | LayerType): **Required.** The type of the layer.</span>
-<span class="sd">        filter (list): The filter expression that is applied to the source of the layer.</span>
-<span class="sd">        layout (dict): The layout properties of the layer.</span>
-<span class="sd">        max_zoom (int) The maximum zoom level for the layer.</span>
-<span class="sd">        min_zoom (int) The minimum zoom level for the layer.</span>
-<span class="sd">        paint (dict) The paint properties of the layer.</span>
-<span class="sd">        source (str | Source): The name (unique ID) of a source or a source object to be used for the layer.</span>
-<span class="sd">        source_layer (str): The layer to use from a vector tile source.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from pymaplibregl.layer import Layer, LayerType</span>
-
-<span class="sd">        &gt;&gt;&gt; layer = Layer(id=&quot;test-layer&quot;, type=LayerType.CIRCLE, source=&quot;test-source&quot;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="n">LayerType</span>
-    <span class="nb">filter</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">layout</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">max_zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;maxzoom&quot;</span><span class="p">)</span>
-    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">min_zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;minzoom&quot;</span><span class="p">)</span>
-    <span class="n">paint</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">source</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Source</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">source_layer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;source-layer&quot;</span><span class="p">)</span>
-
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_source</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Source</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">v</span>
-
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;paint&quot;</span><span class="p">,</span> <span class="s2">&quot;layout&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">fix_paint</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">fix_keys</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">v</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.layer.LayerType" class="doc doc-heading">
-          <code>LayerType</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code>str</code>, <code><span title="enum.Enum">Enum</span></code></p>
-
-  
-      <p>Rendering type of layer</p>
-
-
-
-  <p>Attributes:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>CIRCLE</code></b>
-        –
-        <div class="doc-md-description">
-          <p>A filled circle.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>FILL</code></b>
-        –
-        <div class="doc-md-description">
-          <p>A filled polygon with an optional stroked border.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>FILL_EXTRUSION</code></b>
-        –
-        <div class="doc-md-description">
-          <p>An extruded polygon.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>LINE</code></b>
-        –
-        <div class="doc-md-description">
-          <p>A stroked line.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>SYMBOL</code></b>
-        –
-        <div class="doc-md-description">
-          <p>An icon or a text label.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>RASTER</code></b>
-        –
-        <div class="doc-md-description">
-          <p>Raster map textures such as satellite imagery.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>HEATMAP</code></b>
-        –
-        <div class="doc-md-description">
-          <p>A heatmap.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>HILLSHADE</code></b>
-        –
-        <div class="doc-md-description">
-          <p>A Client-side hillshading visualization based on DEM data.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>BACKGROUND</code></b>
-        –
-        <div class="doc-md-description">
-          <p>A background color or pattern.</p>
-        </div>
-      </li>
-  </ul>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/layer.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">LayerType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rendering type of layer</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        CIRCLE: A filled circle.</span>
-<span class="sd">        FILL: A filled polygon with an optional stroked border.</span>
-<span class="sd">        FILL_EXTRUSION: An extruded polygon.</span>
-<span class="sd">        LINE: A stroked line.</span>
-<span class="sd">        SYMBOL: An icon or a text label.</span>
-<span class="sd">        RASTER: Raster map textures such as satellite imagery.</span>
-<span class="sd">        HEATMAP: A heatmap.</span>
-<span class="sd">        HILLSHADE: A Client-side hillshading visualization based on DEM data.</span>
-<span class="sd">        BACKGROUND: A background color or pattern.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">CIRCLE</span> <span class="o">=</span> <span class="s2">&quot;circle&quot;</span>
-    <span class="n">FILL</span> <span class="o">=</span> <span class="s2">&quot;fill&quot;</span>
-    <span class="n">FILL_EXTRUSION</span> <span class="o">=</span> <span class="s2">&quot;fill-extrusion&quot;</span>
-    <span class="n">LINE</span> <span class="o">=</span> <span class="s2">&quot;line&quot;</span>
-    <span class="n">SYMBOL</span> <span class="o">=</span> <span class="s2">&quot;symbol&quot;</span>
-    <span class="n">RASTER</span> <span class="o">=</span> <span class="s2">&quot;raster&quot;</span>
-    <span class="n">HEATMAP</span> <span class="o">=</span> <span class="s2">&quot;heatmap&quot;</span>
-    <span class="n">HILLSHADE</span> <span class="o">=</span> <span class="s2">&quot;hillshade&quot;</span>
-    <span class="n">BACKGROUND</span> <span class="o">=</span> <span class="s2">&quot;background&quot;</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-
-<h2 id="pymaplibregl.map" class="doc doc-heading">
-          <code>pymaplibregl.map</code>
-
-
-</h2>
-
-  <div class="doc doc-contents first">
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.map.Map" class="doc doc-heading">
-          <code>Map</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code>object</code></p>
-
-  
-      <p>Map</p>
-
-
-
-  <p>Parameters:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>map_options</code></b>
-            (<code><a class="autorefs autorefs-internal" title="pymaplibregl.map.MapOptions" href="#pymaplibregl.map.MapOptions">MapOptions</a></code>, default:
-                <code><a class="autorefs autorefs-internal" title="pymaplibregl.map.MapOptions" href="#pymaplibregl.map.MapOptions">MapOptions</a>()</code>
-)
-        –
-        <div class="doc-md-description">
-          <p>Map options.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>**kwargs</code></b>
-        –
-        <div class="doc-md-description">
-          <p>Keyword arguments that are appended to the <code>MapOptions</code> object.</p>
-        </div>
-      </li>
-  </ul>
-
-
-
-<p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pymaplibregl.map</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapOptions</span>
-</code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">map_options</span> <span class="o">=</span> <span class="n">MapOptions</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">51.31667</span><span class="p">),</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">map</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">map_options</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">dict</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span>
-<span class="go">{&#39;mapOptions&#39;: {&#39;center&#39;: (9.5, 51.31667), &#39;style&#39;: &#39;https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json&#39;, &#39;zoom&#39;: 8}, &#39;calls&#39;: []}</span>
-</code></pre></div>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
-<span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Map</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Map</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        map_options (MapOptions): Map options.</span>
-<span class="sd">        **kwargs: Keyword arguments that are appended to the `MapOptions` object.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from pymaplibregl.map import Map, MapOptions</span>
-
-<span class="sd">        &gt;&gt;&gt; map_options = MapOptions(center=(9.5, 51.31667), zoom=8)</span>
-<span class="sd">        &gt;&gt;&gt; map = Map(map_options)</span>
-<span class="sd">        &gt;&gt;&gt; dict(map)</span>
-<span class="sd">        {&#39;mapOptions&#39;: {&#39;center&#39;: (9.5, 51.31667), &#39;style&#39;: &#39;https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json&#39;, &#39;zoom&#39;: 8}, &#39;calls&#39;: []}</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;not implemented yet&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">map_options</span><span class="p">:</span> <span class="n">MapOptions</span> <span class="o">=</span> <span class="n">MapOptions</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_map_options</span> <span class="o">=</span> <span class="n">map_options</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="o">|</span> <span class="n">kwargs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">yield</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span>
-
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;mapOptions&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_options</span><span class="p">,</span> <span class="s2">&quot;calls&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="p">}</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">sources</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;addSource&quot;</span><span class="p">]</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">layers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;addLayer&quot;</span><span class="p">]</span>
-
-    <span class="c1"># TODO: Rename to add_map_call</span>
-    <span class="k">def</span> <span class="nf">add_call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;applyFunc&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;funcName&quot;</span><span class="p">:</span> <span class="n">func_name</span><span class="p">,</span> <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">}}</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">add_control</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">control</span><span class="p">:</span> <span class="n">Control</span><span class="p">,</span>
-        <span class="n">position</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">ControlPosition</span><span class="p">]</span> <span class="o">=</span> <span class="n">ControlPosition</span><span class="o">.</span><span class="n">TOP_RIGHT</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a control to the map&quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">control</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
-            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="n">control</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
-            <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">ControlPosition</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addControl&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
-
-    <span class="k">def</span> <span class="nf">add_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="p">[</span><span class="n">Source</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a source to the map&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Source</span><span class="p">):</span>
-            <span class="n">source</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addSource&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">source</span><span class="p">}})</span>
-
-    <span class="k">def</span> <span class="nf">add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="p">[</span><span class="n">Layer</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a layer to the map</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            layer (Layer | dict): The Layer to be added to the map.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">Layer</span><span class="p">):</span>
-            <span class="n">layer</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addLayer&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">layer</span><span class="p">})</span>
-
-    <span class="k">def</span> <span class="nf">add_marker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">marker</span><span class="p">:</span> <span class="n">Marker</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a marker to the map&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addMarker&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">marker</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()})</span>
-
-    <span class="k">def</span> <span class="nf">add_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a popup to the map&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addPopup&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;layerId&quot;</span><span class="p">:</span> <span class="n">layer_id</span><span class="p">,</span> <span class="s2">&quot;property&quot;</span><span class="p">:</span> <span class="n">prop</span><span class="p">}}</span>
-        <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">set_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filter_</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the filter of a layer</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            layer_id (str): The name of the layer to be updated.</span>
-<span class="sd">            filter_ (list): The filter expression that is applied to the source of the layer.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_call</span><span class="p">(</span><span class="s2">&quot;setFilter&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">filter_</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">set_paint_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the paint property of a layer</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            layer_id (str): The name of the layer to be updated.</span>
-<span class="sd">            prop (str): The name of the paint property to be updated.</span>
-<span class="sd">            value (any): The new value of the paint property.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_call</span><span class="p">(</span><span class="s2">&quot;setPaintProperty&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">set_layout_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a layout property of a layer</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            layer_id (str): The name of the layer to be updated.</span>
-<span class="sd">            prop (str): The name of the layout property to be updated.</span>
-<span class="sd">            value (any): The new value of the layout property.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_call</span><span class="p">(</span><span class="s2">&quot;setLayoutProperty&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">to_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">js_lib</span> <span class="o">=</span> <span class="n">read_internal_file</span><span class="p">(</span><span class="s2">&quot;srcjs&quot;</span><span class="p">,</span> <span class="s2">&quot;index.js&quot;</span><span class="p">)</span>
-        <span class="n">js_snippet</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">js_template</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()))</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">html_template</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-            <span class="n">js</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">js_lib</span><span class="p">,</span> <span class="n">js_snippet</span><span class="p">]),</span> <span class="o">**</span><span class="n">kwargs</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="n">output_dir</span> <span class="o">==</span> <span class="s2">&quot;skip&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">output</span>
-
-        <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_output_dir</span><span class="p">(</span><span class="n">output_dir</span><span class="p">),</span> <span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">file_name</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.add_control" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">add_control</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">ControlPosition</span><span class="o">.</span><span class="n">TOP_RIGHT</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a control to the map</p>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_control</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>
-    <span class="n">control</span><span class="p">:</span> <span class="n">Control</span><span class="p">,</span>
-    <span class="n">position</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">ControlPosition</span><span class="p">]</span> <span class="o">=</span> <span class="n">ControlPosition</span><span class="o">.</span><span class="n">TOP_RIGHT</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a control to the map&quot;&quot;&quot;</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">control</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
-        <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="n">control</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
-        <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">ControlPosition</span><span class="p">(</span><span class="n">position</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addControl&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.add_layer" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a layer to the map</p>
-
-
-
-  <p>Parameters:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>layer</code></b>
-            (<code><a class="autorefs autorefs-internal" title="pymaplibregl.layer.Layer" href="#pymaplibregl.layer.Layer">Layer</a> | dict</code>)
-        –
-        <div class="doc-md-description">
-          <p>The Layer to be added to the map.</p>
-        </div>
-      </li>
-  </ul>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="p">[</span><span class="n">Layer</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a layer to the map</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        layer (Layer | dict): The Layer to be added to the map.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">Layer</span><span class="p">):</span>
-        <span class="n">layer</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addLayer&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">layer</span><span class="p">})</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.add_marker" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">add_marker</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a marker to the map</p>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_marker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">marker</span><span class="p">:</span> <span class="n">Marker</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a marker to the map&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addMarker&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">marker</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()})</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.add_popup" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">add_popup</span><span class="p">(</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a popup to the map</p>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a popup to the map&quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addPopup&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;layerId&quot;</span><span class="p">:</span> <span class="n">layer_id</span><span class="p">,</span> <span class="s2">&quot;property&quot;</span><span class="p">:</span> <span class="n">prop</span><span class="p">}}</span>
-    <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.add_source" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">add_source</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Add a source to the map</p>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="p">[</span><span class="n">Source</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a source to the map&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Source</span><span class="p">):</span>
-        <span class="n">source</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">_calls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addSource&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">source</span><span class="p">}})</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.set_filter" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">set_filter</span><span class="p">(</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">filter_</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Update the filter of a layer</p>
-
-
-
-  <p>Parameters:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>layer_id</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p>The name of the layer to be updated.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>filter_</code></b>
-            (<code>list</code>)
-        –
-        <div class="doc-md-description">
-          <p>The filter expression that is applied to the source of the layer.</p>
-        </div>
-      </li>
-  </ul>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">set_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filter_</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the filter of a layer</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        layer_id (str): The name of the layer to be updated.</span>
-<span class="sd">        filter_ (list): The filter expression that is applied to the source of the layer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_call</span><span class="p">(</span><span class="s2">&quot;setFilter&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">filter_</span><span class="p">])</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.set_layout_property" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">set_layout_property</span><span class="p">(</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Update a layout property of a layer</p>
-
-
-
-  <p>Parameters:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>layer_id</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p>The name of the layer to be updated.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>prop</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p>The name of the layout property to be updated.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>value</code></b>
-            (<code>any</code>)
-        –
-        <div class="doc-md-description">
-          <p>The new value of the layout property.</p>
-        </div>
-      </li>
-  </ul>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">set_layout_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update a layout property of a layer</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        layer_id (str): The name of the layer to be updated.</span>
-<span class="sd">        prop (str): The name of the layout property to be updated.</span>
-<span class="sd">        value (any): The new value of the layout property.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_call</span><span class="p">(</span><span class="s2">&quot;setLayoutProperty&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
-
-
-<h4 id="pymaplibregl.map.Map.set_paint_property" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">set_paint_property</span><span class="p">(</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code>
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Update the paint property of a layer</p>
-
-
-
-  <p>Parameters:</p>
-  <ul>
-      <li class="field-body">
-        <b><code>layer_id</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p>The name of the layer to be updated.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>prop</code></b>
-            (<code>str</code>)
-        –
-        <div class="doc-md-description">
-          <p>The name of the paint property to be updated.</p>
-        </div>
-      </li>
-      <li class="field-body">
-        <b><code>value</code></b>
-            (<code>any</code>)
-        –
-        <div class="doc-md-description">
-          <p>The new value of the paint property.</p>
-        </div>
-      </li>
-  </ul>
-
-          <details class="quote">
-            <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">set_paint_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the paint property of a layer</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        layer_id (str): The name of the layer to be updated.</span>
-<span class="sd">        prop (str): The name of the paint property to be updated.</span>
-<span class="sd">        value (any): The new value of the paint property.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_call</span><span class="p">(</span><span class="s2">&quot;setPaintProperty&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">layer_id</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
-</code></pre></div></td></tr></table></div>
-          </details>
-  </div>
-
-</div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.map.MapOptions" class="doc doc-heading">
-          <code>MapOptions</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pymaplibregl._utils.BaseModel">BaseModel</span></code></p>
-
-  
-      <p>Map options</p>
-
-<details class="note" open>
-  <summary>Note</summary>
-  <p>See <a href="https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions/">mapOptions</a> for more details.</p>
-</details>
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/map.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">MapOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Map options</span>
-
-<span class="sd">    Note:</span>
-<span class="sd">        See [mapOptions](https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions/) for more details.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span>
-        <span class="n">validate_assignment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">&quot;forbid&quot;</span><span class="p">,</span> <span class="n">use_enum_values</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">)</span>
-    <span class="n">antialias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">attribution_control</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;attributionControl&quot;</span><span class="p">)</span>
-    <span class="n">bearing</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">bearing_snap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;bearingSnap&quot;</span><span class="p">)</span>
-    <span class="n">bounds</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">box_zoom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;boxZoom&quot;</span><span class="p">)</span>
-    <span class="n">center</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">click_tolerance</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;clickTolerance&quot;</span><span class="p">)</span>
-    <span class="n">custom_attribution</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;customAttribution&quot;</span><span class="p">)</span>
-    <span class="n">double_click_zoom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;doubleClickZoom&quot;</span><span class="p">)</span>
-    <span class="n">fade_duration</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;fadeDuration&quot;</span><span class="p">)</span>
-    <span class="n">fit_bounds_options</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;fitBoundsOptions&quot;</span><span class="p">)</span>
-    <span class="nb">hash</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">keyword</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">max_bounds</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;maxBounds&quot;</span><span class="p">)</span>
-    <span class="n">max_pitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;maxPitch&quot;</span><span class="p">)</span>
-    <span class="n">max_zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;maxZoom&quot;</span><span class="p">)</span>
-    <span class="n">min_pitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;minPitch&quot;</span><span class="p">)</span>
-    <span class="n">min_zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;minZoom&quot;</span><span class="p">)</span>
-    <span class="n">pitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">scroll_zoom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;scrollZoom&quot;</span><span class="p">)</span>
-    <span class="n">style</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Carto</span><span class="p">]</span> <span class="o">=</span> <span class="n">construct_carto_basemap_url</span><span class="p">(</span><span class="n">Carto</span><span class="o">.</span><span class="n">DARK_MATTER</span><span class="p">)</span>
-    <span class="n">zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">validate_style</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Carto</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">construct_carto_basemap_url</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">v</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-
-<h2 id="pymaplibregl.sources" class="doc doc-heading">
-          <code>pymaplibregl.sources</code>
-
-
-</h2>
-
-  <div class="doc doc-contents first">
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.sources.GeoJSONSource" class="doc doc-heading">
-          <code>GeoJSONSource</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="pymaplibregl.sources.Source">Source</span></code></p>
-
-  
-      <p>GeoJSON Source</p>
-
-
-
-<p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pymaplibregl.sources</span> <span class="kn">import</span> <span class="n">GeoJSONSource</span>
-</code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">GeoJSONSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/sources.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">GeoJSONSource</span><span class="p">(</span><span class="n">Source</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;GeoJSON Source</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; from pymaplibregl.sources import GeoJSONSource</span>
-
-<span class="sd">        &gt;&gt;&gt; source = GeoJSONSource(data=&quot;https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson&quot;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span>
-    <span class="n">attribution</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">buffer</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">cluster</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">cluster_max_zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;clusterMaxZoom&quot;</span><span class="p">)</span>
-    <span class="n">cluster_min_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;clusterMinPoints&quot;</span><span class="p">)</span>
-    <span class="n">cluster_properties</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;clusterProperties&quot;</span><span class="p">)</span>
-    <span class="n">cluster_radius</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;clusterRadius&quot;</span><span class="p">)</span>
-    <span class="nb">filter</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">generate_id</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;generateId&quot;</span><span class="p">)</span>
-    <span class="n">line_metrics</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;lineMetrics&quot;</span><span class="p">)</span>
-    <span class="n">maxzoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">promote_id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">serialization_alias</span><span class="o">=</span><span class="s2">&quot;promoteId&quot;</span><span class="p">)</span>
-    <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="nd">@computed_field</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">SourceType</span><span class="o">.</span><span class="n">GEOJSON</span><span class="o">.</span><span class="n">value</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-
-<h3 id="pymaplibregl.sources.SourceType" class="doc doc-heading">
-          <code>SourceType</code>
-
-
-</h3>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="enum.Enum">Enum</span></code></p>
-
-  
-      <p>Source types</p>
-
-            <details class="quote">
-              <summary>Source code in <code>pymaplibregl/sources.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SourceType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Source types&quot;&quot;&quot;</span>
-
-    <span class="n">RASTER</span> <span class="o">=</span> <span class="s2">&quot;raster&quot;</span>
-    <span class="n">VECTOR</span> <span class="o">=</span> <span class="s2">&quot;vector&quot;</span>
-    <span class="n">RASTER_DEM</span> <span class="o">=</span> <span class="s2">&quot;raster-dem&quot;</span>
-    <span class="n">GEOJSON</span> <span class="o">=</span> <span class="s2">&quot;geojson&quot;</span>
-    <span class="n">IMAGE</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span>
-    <span class="n">VIDEO</span> <span class="o">=</span> <span class="s2">&quot;video&quot;</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
+<h1 id="pymaplibregl">Pymaplibregl</h1>
+<p>Pymaplibregl provides Python bindings for <a href="https://github.com/maplibre/maplibre-gl-js">maplibre-gl-js</a>.</p>
+<p>It integrates seamlessly into <a href="https://github.com/posit-dev/py-shiny">py-shiny</a>.</p>
+<h2 id="installation">Installation</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Stable</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/eodaGmbH/py-maplibregl
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Dev</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/eodaGmbH/py-maplibregl@dev
+</span></code></pre></div>
+<h2 id="basic-usage">Basic usage</h2>
+<h3 id="standalone">Standalone</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">webbrowser</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span> <span class="nn">pymaplibregl</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">LayerType</span><span class="p">,</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapOptions</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">from</span> <span class="nn">pymaplibregl.sources</span> <span class="kn">import</span> <span class="n">GeoJSONSource</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">vancouver_blocks</span> <span class="o">=</span> <span class="n">GeoJSONSource</span><span class="p">(</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">data</span><span class="o">=</span><span class="s2">&quot;https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">map_options</span> <span class="o">=</span> <span class="n">MapOptions</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">123.1256</span><span class="p">,</span> <span class="mf">49.24658</span><span class="p">),</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pitch</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">map_options</span><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">m</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">Layer</span><span class="p">(</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="nb">type</span><span class="o">=</span><span class="n">LayerType</span><span class="o">.</span><span class="n">LINE</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="n">source</span><span class="o">=</span><span class="n">vancouver_blocks</span><span class="p">,</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="n">paint</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;line-color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">},</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="p">)</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">)</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">temp_file</span> <span class="o">=</span> <span class="s2">&quot;/tmp/pymaplibregl.html&quot;</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;height: 800px;&quot;</span><span class="p">))</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">temp_file</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="shiny-integration">Shiny integration</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">pymaplibregl</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapContext</span><span class="p">,</span> <span class="n">output_maplibregl</span><span class="p">,</span> <span class="n">render_maplibregl</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">pymaplibregl.controls</span> <span class="kn">import</span> <span class="n">Marker</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span> <span class="nn">shiny</span> <span class="kn">import</span> <span class="n">App</span><span class="p">,</span> <span class="n">reactive</span><span class="p">,</span> <span class="n">ui</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">app_ui</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">page_fluid</span><span class="p">(</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">output_maplibregl</span><span class="p">(</span><span class="s2">&quot;maplibre&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">),</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="nd">@render_maplibregl</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="k">def</span> <span class="nf">maplibre</span><span class="p">():</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">()</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="k">return</span> <span class="n">m</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="nd">@reactive</span><span class="o">.</span><span class="n">Effect</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="nd">@reactive</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">maplibre</span><span class="p">)</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">coords</span><span class="p">():</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">MapContext</span><span class="p">(</span><span class="s2">&quot;maplibre&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>            <span class="nb">print</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">maplibre</span><span class="p">())</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>            <span class="n">m</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">Marker</span><span class="p">(</span><span class="n">lng_lat</span><span class="o">=</span><span class="nb">input</span><span class="o">.</span><span class="n">maplibre</span><span class="p">()[</span><span class="s2">&quot;coords&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">(</span><span class="n">app_ui</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></code></pre></div>
 
 
 
@@ -2814,7 +922,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.d7c377c4.min.js"></script>
