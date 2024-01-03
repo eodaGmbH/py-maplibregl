@@ -17,7 +17,7 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 ## Getting started
 
 * [Basic usage](https://eodagmbh.github.io/py-maplibregl/)
-* [API Documentation](https://eodagmbh.github.io/py-maplibregl/map/)
+* [API Documentation](https://eodagmbh.github.io/py-maplibregl/api/map/)
 * [Examples](https://eodagmbh.github.io/py-maplibregl/examples/every_person_in_manhattan/)
 
 ## Development
