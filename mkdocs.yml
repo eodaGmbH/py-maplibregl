@@ -9,7 +9,9 @@ theme:
     - navigation.tabs
 
 nav:
-  - index.md
+  - Get started:
+      - Welcome to Pymaplibregl: index.md
+      - Examples: examples/every_person_in_manhattan/index.md
   - API Documentation:
       - Map: api/map.md
       - Layer: api/layer.md

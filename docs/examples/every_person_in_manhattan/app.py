@@ -12,6 +12,7 @@ from pymaplibregl import (
     render_maplibregl,
 )
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.sources import GeoJSONSource
 from pymaplibregl.utils import df_to_geojson
 from shiny import App, reactive, ui
 
@@ -26,13 +27,12 @@ point_data = pd.read_json(
 
 point_data.columns = ["lng", "lat", "sex"]
 
-every_person_in_manhattan_source = {
-    "type": "geojson",
-    "data": df_to_geojson(point_data, properties=["sex"]),
-}
+every_person_in_manhattan_source = GeoJSONSource(
+    data=df_to_geojson(point_data, properties=["sex"]),
+)
 
 bbox = shapely.bounds(
-    shapely.from_geojson(json.dumps(every_person_in_manhattan_source["data"]))
+    shapely.from_geojson(json.dumps(every_person_in_manhattan_source.data))
 )
 
 every_person_in_manhattan_circles = Layer(
@@ -45,6 +45,12 @@ every_person_in_manhattan_circles = Layer(
     },
 )
 
+map_options = MapOptions(
+    style=Carto.POSITRON,
+    bounds=tuple(bbox),
+    fit_bounds_options={"padding": 20},
+)
+
 app_ui = ui.page_fluid(
     ui.panel_title("Every Person in Manhattan"),
     output_maplibregl("maplibre", height=600),
@@ -55,14 +61,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     async def maplibre():
-        m = Map(
-            MapOptions(
-                style=Carto.POSITRON,
-                # center=[-73.987157, 40.729906], zoom=12
-                bounds=tuple(bbox),
-                fit_bounds_options={"padding": 20},
-            )
-        )
+        m = Map(map_options)
         m.add_layer(every_person_in_manhattan_circles)
         return m
 
