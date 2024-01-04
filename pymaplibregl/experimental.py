@@ -3,8 +3,6 @@ from __future__ import annotations
 from pydantic import BaseModel, Field, model_serializer
 
 from pymaplibregl import Layer, LayerType
-from pymaplibregl._utils import fix_keys
-from pymaplibregl.sources import SourceType
 
 
 class LineLayer(Layer):
