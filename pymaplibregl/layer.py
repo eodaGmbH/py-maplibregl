@@ -59,7 +59,7 @@ class Layer(BaseModel):
         >>> layer = Layer(id="test-layer", type=LayerType.CIRCLE, source="test-source")
     """
 
-    id: str = str(uuid4())
+    id: str = Field(default_factory=lambda: str(uuid4()))
     type: LayerType
     filter: list = None
     layout: dict = None
