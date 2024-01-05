@@ -45,9 +45,9 @@ export function render({ model, el }) {
   // console.log("init calls", calls);
   model.on("msg:custom", (msg) => {
     console.log("custom msg", msg);
-    map.on("load", () => {
+    // map.on("load", () => {
       msg.calls.forEach((call) => applyMapMethod(map, call));
-    });
+    //});
   });
 
   model.on("change:test", () => {
@@ -55,14 +55,19 @@ export function render({ model, el }) {
     console.log(test);
   });
 
+  /*
   model.on("change:calls", () => {
     let calls = model.get("calls");
     console.log("update calls", calls);
     // calls.forEach((call) => applyMapMethod(map, call));
   });
+  */
 
   el.appendChild(container);
 
-  model.set("_rendered", true);
-  model.save_changes();
+  map.on("load", () => {
+    model.set("_rendered", true);
+    model.save_changes();
+  });
+
 }
