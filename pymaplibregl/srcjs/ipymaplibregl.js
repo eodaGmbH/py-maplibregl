@@ -33,41 +33,27 @@ export function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);
 
   const container = createContainer(model);
-
   const mapOptions = Object.assign(
     { container: container },
     model.get("map_options"),
   );
   console.log(mapOptions);
   const map = createMap(mapOptions, model);
-
-  // const calls = model.get("calls");
-  // console.log("init calls", calls);
-  model.on("msg:custom", (msg) => {
-    console.log("custom msg", msg);
-    // map.on("load", () => {
-      msg.calls.forEach((call) => applyMapMethod(map, call));
-    //});
-  });
-
-  model.on("change:test", () => {
-    const test = model.get("test");
-    console.log(test);
-  });
-
-  /*
-  model.on("change:calls", () => {
-    let calls = model.get("calls");
-    console.log("update calls", calls);
-    // calls.forEach((call) => applyMapMethod(map, call));
-  });
-  */
-
-  el.appendChild(container);
-
   map.on("load", () => {
     model.set("_rendered", true);
     model.save_changes();
   });
 
+  model.on("msg:custom", (msg) => {
+    console.log("custom msg", msg);
+    msg.calls.forEach((call) => applyMapMethod(map, call));
+  });
+
+  // TODO: Remove
+  model.on("change:test", () => {
+    const test = model.get("test");
+    console.log(test);
+  });
+
+  el.appendChild(container);
 }
