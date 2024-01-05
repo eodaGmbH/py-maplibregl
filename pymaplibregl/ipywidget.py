@@ -13,8 +13,9 @@ from .map import MapOptions
 class MaplibreWidget(AnyWidget):
     _esm = join(Path(__file__).parent, "srcjs", "ipymaplibregl.js")
     _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
-    # _rendered = traitlets.Bool(False, config=True).tag(sync=True)
-    rendered = traitlets.Bool(False, config=True).tag(sync=True)
+    _rendered = traitlets.Bool(False, config=True).tag(sync=True)
+    # rendered = traitlets.Bool(False, config=True).tag(sync=True)
+    _message_queue = []
     map_options = traitlets.Dict().tag(sync=True)
     height = traitlets.Union([traitlets.Int(), traitlets.Unicode()]).tag(sync=True)
     test = traitlets.Unicode().tag(sync=True)
@@ -23,6 +24,7 @@ class MaplibreWidget(AnyWidget):
     # controls = traitlets.List().tag(sync=True)
     # sources = traitlets.List().tag(sync=True)
     # layers = traitlets.List().tag(sync=True)
+
     lng_lat = traitlets.Dict().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
@@ -41,18 +43,21 @@ class MaplibreWidget(AnyWidget):
 
         return height
 
-    @traitlets.observe("rendered")
+    @traitlets.observe("_rendered")
     def _on_rendered(self, change):
-        self.calls = self._calls
-        assert self.calls == self._calls
+        # self.calls = self._message_queue
+        # assert self.calls == self._message_queue
         # del self._calls
+        self.send({"calls": self._message_queue})
+        self._message_queue = []
 
     def add_call(self, method_name: str, *args) -> None:
         call = [method_name, args]
-        if not self.rendered:
-            self._calls = self._calls + [call]
-        else:
-            self.calls = [call]
+        if not self._rendered:
+            self._message_queue = self._message_queue + [call]
+            return
+
+        self.calls = [call]
 
     def add_layer(self, layer: Layer) -> None:
         self.add_call("addLayer", layer.to_dict())

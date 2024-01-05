@@ -41,10 +41,13 @@ export function render({ model, el }) {
   console.log(mapOptions);
   const map = createMap(mapOptions, model);
 
-  const calls = model.get("calls");
-  console.log("init calls", calls);
-  map.on("load", () => {
-    // calls.forEach((call) => applyMapMethod(map, call));
+  // const calls = model.get("calls");
+  // console.log("init calls", calls);
+  model.on("msg:custom", (msg) => {
+    console.log("custom msg", msg);
+    map.on("load", () => {
+      msg.calls.forEach((call) => applyMapMethod(map, call));
+    });
   });
 
   model.on("change:test", () => {
@@ -54,12 +57,12 @@ export function render({ model, el }) {
 
   model.on("change:calls", () => {
     let calls = model.get("calls");
-    console.log("update calls", calls)
+    console.log("update calls", calls);
     // calls.forEach((call) => applyMapMethod(map, call));
   });
 
   el.appendChild(container);
 
-  model.set("rendered", true);
+  model.set("_rendered", true);
   model.save_changes();
 }
