@@ -10,7 +10,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9"
+python = ">=3.9,<4"
 shiny = "^0.6.1"
 htmltools = "^0.5.1"
 requests = "^2.31.0"
@@ -24,6 +24,7 @@ pytest = "^7.4.3"
 mkdocs = "^1.5.3"
 mkdocstrings = {extras = ["python"], version = "^0.24.0"}
 mkdocs-material = "^9.5.3"
+geopandas = "^0.14.2"
 
 [tool.black]
 line-lenght = 130
