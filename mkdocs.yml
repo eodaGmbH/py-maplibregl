@@ -23,6 +23,7 @@ nav:
       - Earthquake clusters: examples/earthquake_clusters/index.md
       - Airport markers: examples/airports/index.md
       - 3D Indoor mapping: examples/3d_indoor_mapping/index.md
+      - Custom basemap: examples/custom_basemap/index.md
 
 plugins:
   - search:

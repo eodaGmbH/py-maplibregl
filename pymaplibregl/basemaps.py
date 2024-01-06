@@ -38,6 +38,13 @@ def construct_carto_basemap_url(style_name: str | Carto = "dark-matter") -> str:
 def construct_basemap_style(
     name: str = "nice-style", sources: dict = {}, layers: list = []
 ) -> dict:
+    """Construct a basemap style
+
+    Args:
+        name (str): The name of the basemap style.
+        sources (dict): The sources to be used for the basemap style.
+        layers (list): The layers to be used for the basemap style.
+    """
     layers = [
         layer.to_dict() if isinstance(layer, Layer) else layer for layer in layers
     ]
