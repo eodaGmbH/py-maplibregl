@@ -29,17 +29,31 @@ function applyMapMethod(map, call) {
   map[methodName](...params);
 }
 
-const _this = {
-  addPopup: ([map, layerId, prop]) => {
-    console.log("addPopup", map, layerId, prop);
+// TODO: Duplicated code, use for Shiny and Ipywidget
+// Custom map methods
+const customMapMethods = {
+  addPopup: function ([layerId, property]) {
+    const map = this;
+    const popupOptions = {
+      closeButton: false,
+      closeOnClick: false,
+    };
+    const popup = new maplibregl.Popup(popupOptions);
+
+    map.on("mousemove", layerId, (e) => {
+      const feature = e.features[0];
+      const text = feature.properties[property];
+      popup.setLngLat(e.lngLat).setHTML(text).addTo(map);
+    });
+
+    map.on("mouseleave", layerId, () => {
+      popup.remove();
+    });
   },
 };
 
 export function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);
-
-  // _this["addPopup"]();
-  console.log(Object.keys(_this));
 
   const container = createContainer(model);
   const mapOptions = Object.assign(
@@ -48,6 +62,7 @@ export function render({ model, el }) {
   );
   console.log(mapOptions);
   const map = createMap(mapOptions, model);
+
   map.on("load", () => {
     model.set("_rendered", true);
     model.save_changes();
@@ -56,10 +71,11 @@ export function render({ model, el }) {
   model.on("msg:custom", (msg) => {
     console.log("custom msg", msg);
     msg.calls.forEach((call) => {
-      if (Object.keys(_this).includes(call[0])) {
+      // Custom map call
+      if (Object.keys(customMapMethods).includes(call[0])) {
         console.log("internal call", call);
         const [name, params] = call;
-        _this[name]([map].concat(params));
+        customMapMethods[name].call(map, params);
         return;
       }
 
