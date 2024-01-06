@@ -29,8 +29,17 @@ function applyMapMethod(map, call) {
   map[methodName](...params);
 }
 
+const _this = {
+  addPopup: ([map, layerId, prop]) => {
+    console.log("addPopup", map, layerId, prop);
+  },
+};
+
 export function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);
+
+  // _this["addPopup"]();
+  console.log(Object.keys(_this));
 
   const container = createContainer(model);
   const mapOptions = Object.assign(
@@ -46,7 +55,16 @@ export function render({ model, el }) {
 
   model.on("msg:custom", (msg) => {
     console.log("custom msg", msg);
-    msg.calls.forEach((call) => applyMapMethod(map, call));
+    msg.calls.forEach((call) => {
+      if (Object.keys(_this).includes(call[0])) {
+        console.log("internal call", call);
+        const [name, params] = call;
+        _this[name]([map].concat(params));
+        return;
+      }
+
+      applyMapMethod(map, call);
+    });
   });
 
   // TODO: Remove

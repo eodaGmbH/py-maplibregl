@@ -33,6 +33,10 @@ class BaseMap(object):
         """Update a layout property of a layer"""
         self.add_call("setLayoutProperty", layer_id, prop, value)
 
+    def add_tooltip(self, layer_id: str, prop: str) -> None:
+        """Add a tooltip to the map"""
+        self.add_call("addPopup", layer_id, prop)
+
 
 # TODO: Rename to MapWidget or IpyMap
 class MaplibreWidget(AnyWidget, BaseMap):
