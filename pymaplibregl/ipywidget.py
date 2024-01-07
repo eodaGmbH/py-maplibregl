@@ -12,8 +12,11 @@ from .map import MapOptions
 from .sources import Source
 
 
-# TODO: Use this class as base class for map.Map as well
+# TODO: Rewrite map.Map to this class
 class BaseMap(object):
+    def __init__(self, map_options=MapOptions(), **kwargs) -> None:
+        self.map_options = map_options.to_dict() | kwargs
+
     # This method must be overwritten
     def add_call(self, method_name: str, *args) -> None:
         """Add a method call that is executed on the map instance
@@ -70,10 +73,11 @@ class MapWidget(AnyWidget, BaseMap):
     lng_lat = traitlets.Dict().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
-        self.map_options = map_options.to_dict()
+        # self.map_options = map_options.to_dict()
         self._message_queue = []
-        super().__init__(**kwargs)
-        # AnyWidget.__init__(self, **kwargs)
+        # super().__init__(**kwargs)
+        AnyWidget.__init__(self, **kwargs)
+        BaseMap.__init__(self, map_options, **kwargs)
 
     @traitlets.default("height")
     def _default_height(self):
