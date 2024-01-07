@@ -51,7 +51,6 @@ class MapWidget(AnyWidget, BaseMap):
     _rendered = traitlets.Bool(False, config=True).tag(sync=True)
     map_options = traitlets.Dict().tag(sync=True)
     height = traitlets.Union([traitlets.Int(), traitlets.Unicode()]).tag(sync=True)
-    test = traitlets.Unicode().tag(sync=True)
     lng_lat = traitlets.Dict().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:

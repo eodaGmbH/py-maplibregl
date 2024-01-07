@@ -60,11 +60,5 @@ export function render({ model, el }) {
     });
   });
 
-  // TODO: Remove
-  model.on("change:test", () => {
-    const test = model.get("test");
-    console.log(test);
-  });
-
   el.appendChild(container);
 }
