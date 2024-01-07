@@ -46,7 +46,7 @@ class BaseMap(object):
 
 # TODO: Rename to MapWidget or IpyMap
 class MapWidget(AnyWidget, BaseMap):
-    _esm = join(Path(__file__).parent, "srcjs", "ipymaplibregl.js")
+    _esm = join(Path(__file__).parent, "srcjs", "ipywidget.js")
     _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
     _rendered = traitlets.Bool(False, config=True).tag(sync=True)
     map_options = traitlets.Dict().tag(sync=True)

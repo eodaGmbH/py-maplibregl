@@ -1,9 +1,1 @@
-// srcjs/ipywidget.js
-import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
-function render({ model, el }) {
-  console.log("ipywidget");
-  console.log(maplibregl.version);
-}
-export {
-  render
-};
+import r from"https://esm.sh/maplibre-gl@3.6.2";function g(e){let n="pymaplibregl",t=document.createElement("div");return t.id=n,t.style.height=e.get("height"),t}function u(e,n){let t=new r.Map(e);return t.addControl(new r.NavigationControl),t.on("click",o=>{n.set("lng_lat",o.lngLat),n.save_changes()}),t.once("load",()=>{t.resize()}),t}function m(e,n){let[t,o]=n;console.log(t,o),e[t](...o)}var i={addPopup:function([e,n]){let t=this,o={closeButton:!1,closeOnClick:!1},a=new r.Popup(o);t.on("mousemove",e,s=>{let p=s.features[0].properties[n];a.setLngLat(s.lngLat).setHTML(p).addTo(t)}),t.on("mouseleave",e,()=>{a.remove()})}};function h({model:e,el:n}){console.log("maplibregl",r.version);let t=g(e),o=Object.assign({container:t},e.get("map_options"));console.log(o);let a=u(o,e);a.on("load",()=>{e.set("_rendered",!0),e.save_changes()}),e.on("msg:custom",s=>{console.log("custom msg",s),s.calls.forEach(c=>{if(Object.keys(i).includes(c[0])){console.log("internal call",c);let[p,l]=c;i[p].call(a,l);return}m(a,c)})}),e.on("change:test",()=>{let s=e.get("test");console.log(s)}),n.appendChild(t)}export{h as render};
