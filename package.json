@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "esbuild srcjs/index.js --bundle --outfile=pymaplibregl/srcjs/index.js",
-    "build-ipywidget": "esbuild srcjs/ipywidget.js --bundle --format=esm --minify --outfile=pymaplibregl/srcjs/ipywidget.js",
+    "build-ipywidget": "esbuild srcjs/ipywidget.js --bundle --format=esm --outfile=pymaplibregl/srcjs/ipywidget.js",
     "prettier": "prettier srcjs --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

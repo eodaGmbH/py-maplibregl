@@ -1,9 +1,10 @@
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
+import { getCustomMapMethods } from "./mapmethods";
 
 function createContainer(model) {
-  const ID = "pymaplibregl";
+  const id = "pymaplibregl";
   const container = document.createElement("div");
-  container.id = ID;
+  container.id = id;
   container.style.height = model.get("height");
   return container;
 }
@@ -30,7 +31,7 @@ function applyMapMethod(map, call) {
 }
 
 // TODO: Duplicated code, use for Shiny and Ipywidget
-// Custom map methods
+/*
 const customMapMethods = {
   addPopup: function ([layerId, property]) {
     const map = this;
@@ -51,10 +52,12 @@ const customMapMethods = {
     });
   },
 };
-
+*/
 export function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);
 
+  // Workaround to avoid duplicated imports (current bug in esbuild)
+  const customMapMethods = getCustomMapMethods(maplibregl);
   const container = createContainer(model);
   const mapOptions = Object.assign(
     { container: container },
