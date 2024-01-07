@@ -2,7 +2,7 @@
 
 ::: pymaplibregl.MapOptions
 
-::: pymaplibregl.ipywidget.MaplibreWidget
+::: pymaplibregl.ipywidget.MapWidget
     options:
         inherited_members: true
       

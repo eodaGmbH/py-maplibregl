@@ -17,7 +17,6 @@ function createMap(mapOptions, model) {
     map.getCanvas().style.cursor = "pointer";
   });
 
-  // Change it back to a pointer when it leaves.
   map.on("mouseout", () => {
     map.getCanvas().style.cursor = "";
   });

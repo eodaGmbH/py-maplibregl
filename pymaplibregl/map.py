@@ -87,6 +87,7 @@ class Map(object):
     def to_dict(self) -> dict:
         return {"mapOptions": self._map_options, "calls": self._calls}
 
+    """
     @property
     def sources(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addSource"]
@@ -94,12 +95,24 @@ class Map(object):
     @property
     def layers(self) -> list:
         return [item["data"] for item in self._calls if item["name"] == "addLayer"]
+    """
 
     # TODO: Rename to add_map_call
-    def add_call(self, func_name: str, params: list) -> None:
+    def add_call_(self, func_name: str, params: list) -> None:
         self._calls.append(
             {"name": "applyFunc", "data": {"funcName": func_name, "params": params}}
         )
+
+    def add_call(self, method_name: str, *args) -> None:
+        """Add a method call that is executed on the map instance
+
+        Args:
+            method_name (str): The name of the map method to be executed.
+            *args (any): The arguments to be passed to the map method.
+        """
+        # TODO: Pass as dict? {"name": method_name, "args": args}
+        call = [method_name, args]
+        self._calls.append(call)
 
     def add_control(
         self,
@@ -112,19 +125,19 @@ class Map(object):
             control (Control): The control to be add to the map.
             position (str | ControlPosition): The position of the control.
         """
-        data = {
-            "type": control.type,
-            "options": control.to_dict(),
-            "position": ControlPosition(position).value,
-        }
-        self._calls.append({"name": "addControl", "data": data})
+        self.add_call(
+            "addControl",
+            control.type,
+            control.to_dict(),
+            ControlPosition(position).value,
+        )
 
     def add_source(self, id: str, source: [Source | dict]) -> None:
         """Add a source to the map"""
         if isinstance(source, Source):
             source = source.to_dict()
 
-        self._calls.append({"name": "addSource", "data": {"id": id, "source": source}})
+        self.add_call("addSource", id, source)
 
     def add_layer(self, layer: [Layer | dict]) -> None:
         """Add a layer to the map
@@ -135,7 +148,7 @@ class Map(object):
         if isinstance(layer, Layer):
             layer = layer.to_dict()
 
-        self._calls.append({"name": "addLayer", "data": layer})
+        self.add_call("addLayer", layer)
 
     def add_marker(self, marker: Marker) -> None:
         """Add a marker to the map
@@ -143,13 +156,11 @@ class Map(object):
         Args:
             marker (Marker): The marker to be added to the map.
         """
-        self._calls.append({"name": "addMarker", "data": marker.to_dict()})
+        self.add_call("addMarker", marker.to_dict())
 
     def add_popup(self, layer_id: str, prop: str) -> None:
         """Add a popup to the map"""
-        self._calls.append(
-            {"name": "addPopup", "data": {"layerId": layer_id, "property": prop}}
-        )
+        self.add_call("addPopup", layer_id, prop)
 
     def set_filter(self, layer_id: str, filter_: list):
         """Update the filter of a layer
@@ -158,7 +169,7 @@ class Map(object):
             layer_id (str): The name of the layer to be updated.
             filter_ (list): The filter expression that is applied to the source of the layer.
         """
-        self.add_call("setFilter", [layer_id, filter_])
+        self.add_call("setFilter", layer_id, filter_)
 
     def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:
         """Update the paint property of a layer
@@ -168,7 +179,7 @@ class Map(object):
             prop (str): The name of the paint property to be updated.
             value (any): The new value of the paint property.
         """
-        self.add_call("setPaintProperty", [layer_id, prop, value])
+        self.add_call("setPaintProperty", layer_id, prop, value)
 
     def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
         """Update a layout property of a layer
@@ -178,7 +189,7 @@ class Map(object):
             prop (str): The name of the layout property to be updated.
             value (any): The new value of the layout property.
         """
-        self.add_call("setLayoutProperty", [layer_id, prop, value])
+        self.add_call("setLayoutProperty", layer_id, prop, value)
 
     def to_html(self, **kwargs) -> str:
         """Render to html
