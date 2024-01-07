@@ -18,6 +18,7 @@ class BaseMap(object):
             method_name (str): The name of the map method to be executed.
             *args (any): The arguments to be passed to the map method.
         """
+        # TODO: Pass as dict? {"name": method_name, "args": args}
         call = [method_name, args]
         print(call)
 
