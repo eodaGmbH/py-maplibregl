@@ -2,6 +2,11 @@
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
 
 // srcjs/mapmethods.js
+function applyMapMethod(map, call) {
+  const [methodName, params] = call;
+  console.log(methodName, params);
+  map[methodName](...params);
+}
 function getCustomMapMethods(maplibregl2, map) {
   return {
     addPopup: function([layerId, property]) {
@@ -41,11 +46,6 @@ function createMap(mapOptions, model) {
     map.resize();
   });
   return map;
-}
-function applyMapMethod(map, call) {
-  const [methodName, params] = call;
-  console.log(methodName, params);
-  map[methodName](...params);
 }
 function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);

@@ -1,3 +1,9 @@
+function applyMapMethod(map, call) {
+  const [methodName, params] = call;
+  console.log(methodName, params);
+  map[methodName](...params);
+}
+
 // TODO: Duplicated code, use for Shiny and Ipywidget
 // Custom map methods
 function getCustomMapMethods(maplibregl, map) {
@@ -23,4 +29,4 @@ function getCustomMapMethods(maplibregl, map) {
   };
 }
 
-export { getCustomMapMethods };
+export { applyMapMethod, getCustomMapMethods };
