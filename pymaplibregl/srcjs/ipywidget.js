@@ -2,10 +2,9 @@
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
 
 // srcjs/mapmethods.js
-function getCustomMapMethods(maplibregl2) {
+function getCustomMapMethods(maplibregl2, map) {
   return {
     addPopup: function([layerId, property]) {
-      const map = this;
       const popupOptions = {
         closeButton: false,
         closeOnClick: false
@@ -50,7 +49,6 @@ function applyMapMethod(map, call) {
 }
 function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);
-  const customMapMethods = getCustomMapMethods(maplibregl);
   const container = createContainer(model);
   const mapOptions = Object.assign(
     { container },
@@ -58,6 +56,7 @@ function render({ model, el }) {
   );
   console.log(mapOptions);
   const map = createMap(mapOptions, model);
+  const customMapMethods = getCustomMapMethods(maplibregl, map);
   map.on("load", () => {
     model.set("_rendered", true);
     model.save_changes();
@@ -68,7 +67,7 @@ function render({ model, el }) {
       if (Object.keys(customMapMethods).includes(call[0])) {
         console.log("internal call", call);
         const [name, params] = call;
-        customMapMethods[name].call(map, params);
+        customMapMethods[name](params);
         return;
       }
       applyMapMethod(map, call);

@@ -56,8 +56,6 @@ const customMapMethods = {
 export function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);
 
-  // Workaround to avoid duplicated imports (current bug in esbuild)
-  const customMapMethods = getCustomMapMethods(maplibregl);
   const container = createContainer(model);
   const mapOptions = Object.assign(
     { container: container },
@@ -65,6 +63,10 @@ export function render({ model, el }) {
   );
   console.log(mapOptions);
   const map = createMap(mapOptions, model);
+
+  // As a  Workaround we need to pass maplibregl module to customMapMethods
+  // to avoid duplicated imports (current bug in esbuild)
+  const customMapMethods = getCustomMapMethods(maplibregl, map);
 
   map.on("load", () => {
     model.set("_rendered", true);
@@ -78,7 +80,7 @@ export function render({ model, el }) {
       if (Object.keys(customMapMethods).includes(call[0])) {
         console.log("internal call", call);
         const [name, params] = call;
-        customMapMethods[name].call(map, params);
+        customMapMethods[name](params);
         return;
       }
 

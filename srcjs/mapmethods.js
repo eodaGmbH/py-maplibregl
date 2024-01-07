@@ -1,9 +1,9 @@
 // TODO: Duplicated code, use for Shiny and Ipywidget
 // Custom map methods
-function getCustomMapMethods(maplibregl) {
+function getCustomMapMethods(maplibregl, map) {
   return {
     addPopup: function ([layerId, property]) {
-      const map = this;
+      // const map = this;
       const popupOptions = {
         closeButton: false,
         closeOnClick: false,
