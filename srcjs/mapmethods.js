@@ -26,6 +26,10 @@ function getCustomMapMethods(maplibregl, map) {
         popup.remove();
       });
     },
+
+    addControl: function ([type, options, position]) {
+      map.addControl(new maplibregl[type](options), position);
+    },
   };
 }
 

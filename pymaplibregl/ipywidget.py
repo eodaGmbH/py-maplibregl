@@ -1,9 +1,12 @@
+from __future__ import annotations
+
 from os.path import join
 from pathlib import Path
 
 import traitlets
 from anywidget import AnyWidget
 
+from .controls import Control, ControlPosition
 from .layer import Layer
 from .map import MapOptions
 from .sources import Source
@@ -30,6 +33,19 @@ class BaseMap(object):
     def add_layer(self, layer: Layer) -> None:
         """Add a layer to the map"""
         self.add_call("addLayer", layer.to_dict())
+
+    def add_control(
+        self,
+        control: Control,
+        position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
+    ) -> None:
+        """Add a control to the map"""
+        self.add_call(
+            "addControl",
+            control.type,
+            control.to_dict(),
+            ControlPosition(position).value,
+        )
 
     def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:
         """Update a paint property of a layer"""

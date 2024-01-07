@@ -23,6 +23,9 @@ function getCustomMapMethods(maplibregl2, map) {
       map.on("mouseleave", layerId, () => {
         popup.remove();
       });
+    },
+    addControl: function([type, options, position]) {
+      map.addControl(new maplibregl2[type](options), position);
     }
   };
 }
@@ -38,6 +41,12 @@ function createContainer(model) {
 function createMap(mapOptions, model) {
   const map = new maplibregl.Map(mapOptions);
   map.addControl(new maplibregl.NavigationControl());
+  map.on("mouseover", () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+  map.on("mouseout", () => {
+    map.getCanvas().style.cursor = "";
+  });
   map.on("click", (e) => {
     model.set("lng_lat", e.lngLat);
     model.save_changes();
@@ -72,10 +81,6 @@ function render({ model, el }) {
       }
       applyMapMethod(map, call);
     });
-  });
-  model.on("change:test", () => {
-    const test = model.get("test");
-    console.log(test);
   });
   el.appendChild(container);
 }

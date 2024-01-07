@@ -13,6 +13,15 @@ function createMap(mapOptions, model) {
   const map = new maplibregl.Map(mapOptions);
   map.addControl(new maplibregl.NavigationControl());
 
+  map.on("mouseover", () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+
+  // Change it back to a pointer when it leaves.
+  map.on("mouseout", () => {
+    map.getCanvas().style.cursor = "";
+  });
+
   map.on("click", (e) => {
     model.set("lng_lat", e.lngLat);
     model.save_changes();
