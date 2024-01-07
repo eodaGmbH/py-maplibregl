@@ -6,6 +6,7 @@ from anywidget import AnyWidget
 
 from .layer import Layer
 from .map import MapOptions
+from .sources import Source
 
 
 # TODO: Use this class as base class for map.Map as well
@@ -21,6 +22,10 @@ class BaseMap(object):
         # TODO: Pass as dict? {"name": method_name, "args": args}
         call = [method_name, args]
         print(call)
+
+    def add_source(self, source_id: str, source: Source) -> None:
+        """Add a source to the map"""
+        self.add_call("addSource", source_id, source.to_dict())
 
     def add_layer(self, layer: Layer) -> None:
         """Add a layer to the map"""
@@ -40,7 +45,7 @@ class BaseMap(object):
 
 
 # TODO: Rename to MapWidget or IpyMap
-class MaplibreWidget(AnyWidget, BaseMap):
+class MapWidget(AnyWidget, BaseMap):
     _esm = join(Path(__file__).parent, "srcjs", "ipymaplibregl.js")
     _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
     _rendered = traitlets.Bool(False, config=True).tag(sync=True)
