@@ -9,7 +9,7 @@ function applyMapMethod(map, call) {
 }
 function getCustomMapMethods(maplibregl2, map) {
   return {
-    addPopup: function([layerId, property]) {
+    addTooltip: function([layerId, property]) {
       const popupOptions = {
         closeButton: false,
         closeOnClick: false
@@ -26,6 +26,17 @@ function getCustomMapMethods(maplibregl2, map) {
     },
     addControl: function([type, options, position]) {
       map.addControl(new maplibregl2[type](options), position);
+    },
+    addPopup: function([layerId, property]) {
+      const popupOptions = {
+        closeButton: false
+      };
+      const popup = new maplibregl2.Popup(popupOptions);
+      map.on("click", layerId, (e) => {
+        const feature = e.features[0];
+        const text = feature.properties[property];
+        popup.setLngLat(e.lngLat).setHTML(text).addTo(map);
+      });
     }
   };
 }
