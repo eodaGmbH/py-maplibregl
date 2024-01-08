@@ -9,7 +9,7 @@ function applyMapMethod(map, call) {
 }
 function getCustomMapMethods(maplibregl2, map) {
   return {
-    addTooltip: function([layerId, property]) {
+    addTooltip: function(layerId, property) {
       const popupOptions = {
         closeButton: false,
         closeOnClick: false
@@ -24,10 +24,10 @@ function getCustomMapMethods(maplibregl2, map) {
         popup.remove();
       });
     },
-    addControl: function([type, options, position]) {
+    addControl: function(type, options, position) {
       map.addControl(new maplibregl2[type](options), position);
     },
-    addPopup: function([layerId, property]) {
+    addPopup: function(layerId, property) {
       const popupOptions = {
         closeButton: false
       };
@@ -87,7 +87,7 @@ function render({ model, el }) {
       if (Object.keys(customMapMethods).includes(call[0])) {
         console.log("internal call", call);
         const [name, params] = call;
-        customMapMethods[name](params);
+        customMapMethods[name](...params);
         return;
       }
       applyMapMethod(map, call);

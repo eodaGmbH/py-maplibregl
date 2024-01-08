@@ -60,7 +60,7 @@ export function render({ model, el }) {
       if (Object.keys(customMapMethods).includes(call[0])) {
         console.log("internal call", call);
         const [name, params] = call;
-        customMapMethods[name](params);
+        customMapMethods[name](...params);
         return;
       }
 
