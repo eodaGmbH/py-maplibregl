@@ -77,15 +77,15 @@ class Map(object):
     MESSAGE = "not implemented yet"
 
     def __init__(self, map_options: MapOptions = MapOptions(), **kwargs):
-        self._map_options = map_options.to_dict() | kwargs
-        self._calls = []
+        self.map_options = map_options.to_dict() | kwargs
+        self._message_queue = []
 
     def __iter__(self):
         for k, v in self.to_dict().items():
             yield k, v
 
     def to_dict(self) -> dict:
-        return {"mapOptions": self._map_options, "calls": self._calls}
+        return {"mapOptions": self.map_options, "calls": self._message_queue}
 
     """
     @property
@@ -99,7 +99,7 @@ class Map(object):
 
     # TODO: Rename to add_map_call
     def add_call_(self, func_name: str, params: list) -> None:
-        self._calls.append(
+        self._message_queue.append(
             {"name": "applyFunc", "data": {"funcName": func_name, "params": params}}
         )
 
@@ -112,7 +112,7 @@ class Map(object):
         """
         # TODO: Pass as dict? {"name": method_name, "args": args}
         call = [method_name, args]
-        self._calls.append(call)
+        self._message_queue.append(call)
 
     def add_control(
         self,
@@ -203,7 +203,7 @@ class Map(object):
 
             >>> map = Map()
             >>> with open("/tmp/map.html", "w") as f:
-            ...     f.write(map.to_html(style="height: 800px;")
+            ...     f.write(map.to_html(style="height: 800px;") # doctest: +SKIP
         """
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))

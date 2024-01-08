@@ -4,11 +4,11 @@ from .map import Map
 
 
 class MapContext(Map):
-    def __init__(self, id_: str, session: Session = None) -> None:
-        self.id = id_
+    def __init__(self, id: str, session: Session = None) -> None:
+        self.id = id
         self._session = require_active_session(session)
-        self._map_options = {}
-        self._calls = []
+        self.map_options = {}
+        self._message_queue = []
 
     async def __aenter__(self):
         return self
@@ -18,5 +18,5 @@ class MapContext(Map):
 
     async def render(self):
         await self._session.send_custom_message(
-            f"pymaplibregl-{self.id}", {"id": self.id, "calls": self._calls}
+            f"pymaplibregl-{self.id}", {"id": self.id, "calls": self._message_queue}
         )

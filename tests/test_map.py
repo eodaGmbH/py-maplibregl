@@ -52,11 +52,11 @@ def test_map_layers():
 
     # Act
     map.add_layer(layer)
-    method_name, args = map._calls[0]
+    method_name, args = map._message_queue[0]
     layer = args[0]
 
     # Assert
-    assert len(map._calls) == 1
+    assert len(map._message_queue) == 1
     assert layer["id"] == "test"
     assert len(map.to_dict()["calls"]) == 1
 
