@@ -20,6 +20,7 @@ nav:
       - Markers and controls: api/controls.md
   - Examples:
       - Every person in manhattan: examples/every_person_in_manhattan/index.md
+      - Vancouver property value: examples/vancouver_blocks/index.md
       - Earthquake clusters: examples/earthquake_clusters/index.md
       - Airport markers: examples/airports/index.md
       - 3D Indoor mapping: examples/3d_indoor_mapping/index.md
