@@ -1,4 +1,4 @@
-site_name: Pymaplibregl
+site_name: py-maplibregl
 
 theme:
   name: material
@@ -10,7 +10,9 @@ theme:
 
 nav:
   - Get started:
-      - Welcome to Pymaplibregl: index.md
+      - Welcome to py-maplibregl: index.md
+      - Shiny: shiny.md
+      - Jupyter: jupyter.md
       - Examples: examples/every_person_in_manhattan/index.md
   - API Documentation:
       - Map: api/map.md
