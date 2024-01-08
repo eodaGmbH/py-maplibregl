@@ -162,6 +162,10 @@ class Map(object):
         """Add a popup to the map"""
         self.add_call("addPopup", layer_id, prop)
 
+    def add_tooltip(self, layer_id: str, prop: str) -> None:
+        """Add a tooltip to the map"""
+        self.add_call("addPopup", layer_id, prop)
+
     def set_filter(self, layer_id: str, filter_: list):
         """Update the filter of a layer
 
