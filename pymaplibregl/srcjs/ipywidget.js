@@ -37,6 +37,14 @@ function getCustomMapMethods(maplibregl2, map) {
         const text = feature.properties[property];
         popup.setLngLat(e.lngLat).setHTML(text).addTo(map);
       });
+    },
+    addMarker: function({ lngLat, popup, options }) {
+      const marker = new maplibregl2.Marker(options).setLngLat(lngLat);
+      if (popup) {
+        const popup_ = new maplibregl2.Popup(popup.options).setHTML(popup.text);
+        marker.setPopup(popup_);
+      }
+      marker.addTo(map);
     }
   };
 }
