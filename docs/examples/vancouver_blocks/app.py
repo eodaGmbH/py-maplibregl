@@ -65,7 +65,7 @@ app_ui = ui.page_fluid(
         "Height of polygons - average property value per square meter of lot",
         style="padding: 10px;",
     ),
-    output_maplibregl("maplibre", height=800),
+    output_maplibregl("maplibre", height=700),
     ui.input_select(
         "filter",
         "max property value per square meter",
@@ -83,7 +83,7 @@ def server(input, output, session):
         m.add_source(SOURCE_ID, vancouver_blocks_source)
         m.add_layer(vancouver_blocks_lines)
         m.add_layer(vancouver_blocks_fill)
-        m.add_popup(LAYER_ID_FILL, "valuePerSqm")
+        m.add_tooltip(LAYER_ID_FILL, "valuePerSqm")
         return m
 
     @reactive.Effect

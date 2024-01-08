@@ -61,7 +61,7 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
     @render_maplibregl
-    async def maplibre():
+    def maplibre():
         m = Map(map_options)
         m.add_control(ScaleControl(), position="bottom-left")
         m.add_layer(every_person_in_manhattan_circles)

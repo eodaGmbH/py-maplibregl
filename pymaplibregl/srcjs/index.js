@@ -47,6 +47,17 @@
     }
     addPopup(layerId, property) {
       const popupOptions = {
+        closeButton: false
+      };
+      const popup = new maplibregl.Popup(popupOptions);
+      this._map.on("click", layerId, (e) => {
+        const feature = e.features[0];
+        const text = feature.properties[property];
+        popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
+      });
+    }
+    addTooltip(layerId, property) {
+      const popupOptions = {
         closeButton: false,
         closeOnClick: false
       };
@@ -65,6 +76,7 @@
         if ([
           "addLayer",
           "addPopup",
+          "addTooltip",
           "addMarker",
           "addPopup",
           "addControl"

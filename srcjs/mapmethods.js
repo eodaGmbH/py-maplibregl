@@ -8,8 +8,7 @@ function applyMapMethod(map, call) {
 // Custom map methods
 function getCustomMapMethods(maplibregl, map) {
   return {
-    addPopup: function ([layerId, property]) {
-      // const map = this;
+    addTooltip: function ([layerId, property]) {
       const popupOptions = {
         closeButton: false,
         closeOnClick: false,
