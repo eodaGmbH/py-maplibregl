@@ -122,7 +122,7 @@ class Map(object):
         """Add a control to the map
 
         Args:
-            control (Control): The control to be add to the map.
+            control (Control): The control to be added to the map.
             position (str | ControlPosition): The position of the control.
         """
         self.add_call(
@@ -163,7 +163,12 @@ class Map(object):
         self.add_call("addPopup", layer_id, prop)
 
     def add_tooltip(self, layer_id: str, prop: str) -> None:
-        """Add a tooltip to the map"""
+        """Add a tooltip to the map
+
+        Args:
+            layer_id (str): The layer to which the tooltip is added.
+            prop (str): The property of the source to be displayed.
+        """
         self.add_call("addPopup", layer_id, prop)
 
     def set_filter(self, layer_id: str, filter_: list):
