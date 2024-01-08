@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel, Field, model_serializer
 
 from pymaplibregl import Layer, LayerType
@@ -21,3 +23,17 @@ class PydanticSer(BaseModel):
     # @model_serializer
     def model_dump(self):
         return super().model_dump(by_alias=True) | {"type": self.__class__.__name__}
+
+
+class LayoutProperties(BaseModel):
+    visibility: Literal["visible", "none"] = None
+    fill_sort_key: int = None
+    line_cap: Literal["butt", "round", "square"] = None
+    line_join: Literal["bevel", "round", "miter"] = None
+    line_miter_limit: int = None
+    line_round_limit: float = None
+    line_sort_key: int = None
+
+
+class PaintProperties(BaseModel):
+    pass
