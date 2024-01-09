@@ -2,15 +2,8 @@ import json
 
 import pandas as pd
 import shapely
-from maplibre import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    MapOptions,
-    output_maplibregl,
-    render_maplibregl,
-)
+from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
+                      output_maplibregl, render_maplibregl)
 from maplibre.basemaps import Carto
 from maplibre.controls import ScaleControl
 from maplibre.sources import GeoJSONSource

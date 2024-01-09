@@ -1,9 +1,5 @@
-from maplibre.basemaps import (
-    Carto,
-    background,
-    construct_basemap_style,
-    construct_carto_basemap_url,
-)
+from maplibre.basemaps import (Carto, background, construct_basemap_style,
+                               construct_carto_basemap_url)
 
 
 def test_carto_basemaps():
