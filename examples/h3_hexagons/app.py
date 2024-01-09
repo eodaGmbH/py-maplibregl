@@ -1,17 +1,10 @@
 import h3
 import pandas as pd
-
 # import shapely
-from pymaplibregl import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    output_maplibregl,
-    render_maplibregl,
-)
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.utils import GeometryType, df_to_geojson, get_bounds
+from maplibre import (Layer, LayerType, Map, MapContext, output_maplibregl,
+                      render_maplibregl)
+from maplibre.basemaps import Carto
+from maplibre.utils import GeometryType, df_to_geojson, get_bounds
 from shiny import App, reactive, ui
 
 LAYER_ID = "motor_vehicle_collisions"

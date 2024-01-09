@@ -55,7 +55,7 @@ class Layer(BaseModel):
         source_layer (str): The layer to use from a vector tile source.
 
     Examples:
-        >>> from pymaplibregl.layer import Layer, LayerType
+        >>> from maplibre.layer import Layer, LayerType
 
         >>> layer = Layer(id="test-layer", type=LayerType.CIRCLE, source="test-source")
     """

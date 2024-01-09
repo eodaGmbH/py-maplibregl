@@ -1,7 +1,7 @@
 import requests as req
-from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import Carto, background, construct_basemap_style
-from pymaplibregl.mapcontext import MapContext
+from maplibre import Layer, LayerType, Map, output_maplibregl, render_maplibregl
+from maplibre.basemaps import Carto, background, construct_basemap_style
+from maplibre.mapcontext import MapContext
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"

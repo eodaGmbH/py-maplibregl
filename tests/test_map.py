@@ -1,6 +1,6 @@
-import pymaplibregl as maplibre
-from pymaplibregl.basemaps import Carto, construct_carto_basemap_url
-from pymaplibregl.map import MapOptions
+import maplibre as maplibre
+from maplibre.basemaps import Carto, construct_carto_basemap_url
+from maplibre.map import MapOptions
 
 
 # TODO: Remove when refactoring of Map class is finished

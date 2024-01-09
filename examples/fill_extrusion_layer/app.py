@@ -1,5 +1,5 @@
-from pymaplibregl import Layer, Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import Carto
+from maplibre import Layer, Map, output_maplibregl, render_maplibregl
+from maplibre.basemaps import Carto
 from shiny import App, ui
 
 fill_extrusion_layer = Layer(

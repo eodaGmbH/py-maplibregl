@@ -1,7 +1,7 @@
-from pymaplibregl import Map, MapOptions, output_maplibregl, render_maplibregl
-from pymaplibregl.controls import ControlPosition, FullscreenControl
-from pymaplibregl.layer import Layer, LayerType
-from pymaplibregl.sources import GeoJSONSource
+from maplibre import Map, MapOptions, output_maplibregl, render_maplibregl
+from maplibre.controls import ControlPosition, FullscreenControl
+from maplibre.layer import Layer, LayerType
+from maplibre.sources import GeoJSONSource
 from shiny import App, ui
 
 CENTER = (-123.0753056, 49.2686511)

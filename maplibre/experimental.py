@@ -4,7 +4,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_serializer
 
-from pymaplibregl import Layer, LayerType
+from maplibre import Layer, LayerType
 
 
 class LineLayer(Layer):
