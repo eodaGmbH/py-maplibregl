@@ -1,5 +1,4 @@
-from maplibre import (Layer, Map, MapOptions, output_maplibregl,
-                      render_maplibregl)
+from maplibre import Layer, Map, MapOptions, output_maplibregl, render_maplibregl
 from maplibre.basemaps import Carto
 from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
