@@ -2,17 +2,10 @@ import json
 
 import pandas as pd
 import shapely
-from pymaplibregl import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    MapOptions,
-    output_maplibregl,
-    render_maplibregl,
-)
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.utils import df_to_geojson
+from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
+                      output_maplibregl, render_maplibregl)
+from maplibre.basemaps import Carto
+from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
 
 MALE_COLOR = "rgb(0, 128, 255)"

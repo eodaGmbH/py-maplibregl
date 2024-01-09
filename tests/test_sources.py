@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pymaplibregl.sources import *
+from maplibre.sources import *
 
 
 def test_geojson_source():

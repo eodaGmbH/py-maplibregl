@@ -1,5 +1,5 @@
 import requests as req
-from pymaplibregl import (
+from maplibre import (
     Layer,
     LayerType,
     Map,
@@ -7,8 +7,8 @@ from pymaplibregl import (
     output_maplibregl,
     render_maplibregl,
 )
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.experimental import LineLayer
+from maplibre.basemaps import Carto
+from maplibre.experimental import LineLayer
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"

@@ -1,13 +1,13 @@
-::: pymaplibregl.controls.Popup
+::: maplibre.controls.Popup
 
-::: pymaplibregl.controls.PopupOptions
+::: maplibre.controls.PopupOptions
 
-::: pymaplibregl.controls.Marker
+::: maplibre.controls.Marker
 
-::: pymaplibregl.controls.MarkerOptions
+::: maplibre.controls.MarkerOptions
 
-::: pymaplibregl.controls.ControlPosition
+::: maplibre.controls.ControlPosition
     options:
         docstring_section_style: list
 
-::: pymaplibregl.controls.FullscreenControl
+::: maplibre.controls.FullscreenControl

@@ -17,8 +17,8 @@ class Carto(Enum):
         VOYAGER_NOLABELS: voyager-nolabels
 
     Examples:
-        >>> from pymaplibregl import Map, MapOptions
-        >>> from pymaplibregl.basemaps import Carto
+        >>> from maplibre import Map, MapOptions
+        >>> from maplibre.basemaps import Carto
 
         >>> map = Map(MapOptions(style=Carto.DARK_MATTER))
     """

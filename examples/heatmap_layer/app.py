@@ -1,5 +1,5 @@
-from pymaplibregl import Layer, LayerType, Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import Carto
+from maplibre import Layer, LayerType, Map, output_maplibregl, render_maplibregl
+from maplibre.basemaps import Carto
 from shiny import App, ui
 
 # bounds = [{"lat": 51.069, "lng": -128.584}, {"lat": 21.657, "lng": -59.590}]

@@ -1,19 +1,19 @@
-Use `MapWidget` in your [Juyper](https://jupyter.org/) Notebook.
+Use `MapWidget` in your [Juyper](https://jupyter.org/) Notebook:
 
 ```python
 import ipywidgets as widgets
 
-from pymaplibregl import MapOptions, Layer, LayerType
-from pymaplibregl.sources import GeoJSONSource
-from pymaplibregl.controls import ScaleControl, Marker
-from pymaplibregl.ipywidget import MapWidget as Map
+from maplibre import Layer, LayerType
+from maplibre.sources import GeoJSONSource
+from maplibre.controls import ScaleControl, Marker
+from maplibre.ipywidget import MapWidget as Map
 
 # Create a source
 earthquakes = GeoJSONSource(
     data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
 )
 
-# Creat a layer
+# Create a layer
 layer_id = "earthquakes"
 
 earthquake_circles = Layer(
@@ -45,7 +45,7 @@ widgets.interact(
 
 # Set filter on magnitude
 widgets.interact(
-    lambda mag_min: m.set_filter(layer_id, [">=", ["get", "mag"],  mag_min]),
+    lambda mag_min: m.set_filter(layer_id, [">=", ["get", "mag"], mag_min]),
     mag_min=3
 )
 
@@ -53,6 +53,7 @@ widgets.interact(
 from IPython.display import clear_output
 
 output = widgets.Output()
+
 
 def log_lng_lat(lng_lat):
     with output:

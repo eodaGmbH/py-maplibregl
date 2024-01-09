@@ -1,4 +1,4 @@
-from pymaplibregl.controls import Popup, PopupOptions
+from maplibre.controls import Popup, PopupOptions
 
 
 def test_popup():

@@ -1,5 +1,5 @@
-from pymaplibregl import Layer, LayerType, Map
-from pymaplibregl.sources import GeoJSONSource
+from maplibre import Layer, LayerType, Map
+from maplibre.sources import GeoJSONSource
 
 vancouver_blocks = GeoJSONSource(
     data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",

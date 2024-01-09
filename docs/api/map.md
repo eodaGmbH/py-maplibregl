@@ -1,8 +1,8 @@
-::: pymaplibregl.Map
+::: maplibre.Map
 
-::: pymaplibregl.MapOptions
+::: maplibre.MapOptions
 
-::: pymaplibregl.ipywidget.MapWidget
+::: maplibre.ipywidget.MapWidget
     options:
         inherited_members: true
       

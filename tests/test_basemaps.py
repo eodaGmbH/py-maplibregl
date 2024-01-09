@@ -1,4 +1,4 @@
-from pymaplibregl.basemaps import (
+from maplibre.basemaps import (
     Carto,
     background,
     construct_basemap_style,

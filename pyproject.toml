@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pymaplibregl"
+name = "maplibre"
 version = "0.1.0"
 description = ""
 authors = ["Stefan Kuethe <stefan.kuethe@eoda.de>"]

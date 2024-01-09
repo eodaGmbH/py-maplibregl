@@ -1,4 +1,4 @@
-from pymaplibregl.controls import ControlType, ScaleControl
+from maplibre.controls import ControlType, ScaleControl
 
 
 def test_scale_control():

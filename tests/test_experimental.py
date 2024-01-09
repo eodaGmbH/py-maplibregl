@@ -1,5 +1,5 @@
-from pymaplibregl.experimental import PydanticSer
-from pymaplibregl.layer import Layer, LayerType
+from maplibre.experimental import PydanticSer
+from maplibre.layer import Layer, LayerType
 
 
 def test_pydantic_model():

@@ -1,6 +1,6 @@
 # import pytest
-from pymaplibregl.layer import Layer, LayerType
-from pymaplibregl.sources import GeoJSONSource, Source
+from maplibre.layer import Layer, LayerType
+from maplibre.sources import GeoJSONSource, Source
 
 
 def test_layer_keys():

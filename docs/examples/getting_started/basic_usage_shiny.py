@@ -1,5 +1,5 @@
-from pymaplibregl import Map, MapContext, output_maplibregl, render_maplibregl
-from pymaplibregl.controls import Marker
+from maplibre import Map, MapContext, output_maplibregl, render_maplibregl
+from maplibre.controls import Marker
 from shiny import App, reactive, ui
 
 app_ui = ui.page_fluid(

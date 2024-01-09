@@ -1,5 +1,5 @@
-::: pymaplibregl.Layer
+::: maplibre.Layer
 
-::: pymaplibregl.LayerType
+::: maplibre.LayerType
     options:
         docstring_section_style: list

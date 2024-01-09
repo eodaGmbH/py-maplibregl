@@ -1,4 +1,4 @@
-site_name: py-maplibregl
+site_name: MapLibre for Python
 
 theme:
   name: material
@@ -11,7 +11,7 @@ theme:
 
 nav:
   - Get started:
-      - Welcome to py-maplibregl: index.md
+      - Welcome to MapLibre: index.md
       - Layers: layers.md
       - Shiny: shiny.md
       - Jupyter: jupyter.md
