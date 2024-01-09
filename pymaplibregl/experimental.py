@@ -27,7 +27,7 @@ class PydanticSer(BaseModel):
 
 class LayoutProperties(BaseModel):
     visibility: Literal["visible", "none"] = None
-    fill_sort_key: int = None
+    fill_sort_key: list = None  # Example: ["get", "priority"]
     line_cap: Literal["butt", "round", "square"] = None
     line_join: Literal["bevel", "round", "miter"] = None
     line_miter_limit: int = None
@@ -36,4 +36,7 @@ class LayoutProperties(BaseModel):
 
 
 class PaintProperties(BaseModel):
-    pass
+    background_color: str = None
+    background_emissive_strength: int = None
+    background_opacity: int = None
+    background_pattern: str = None
