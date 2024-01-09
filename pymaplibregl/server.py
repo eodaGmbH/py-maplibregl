@@ -27,9 +27,8 @@ async def render_maplibregl(
         return None
 
     if not isinstance(res, Map):
-        # Throw an error if the value is not a dataframe
         raise TypeError(f"Expected a Map, got {type(res)}.")
 
     return {
-        "data": res.shiny_data,
+        "mapData": res.to_dict(),
     }
