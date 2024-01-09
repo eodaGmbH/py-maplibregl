@@ -13,7 +13,7 @@ earthquakes = GeoJSONSource(
     data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
 )
 
-# Creat a layer
+# Create a layer
 layer_id = "earthquakes"
 
 earthquake_circles = Layer(
