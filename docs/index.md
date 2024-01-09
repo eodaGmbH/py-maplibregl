@@ -19,11 +19,11 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 ### Standalone
 
 ```python
--8<-- "basic_usage.py"
+-8<-- "getting_started/basic_usage.py"
 ```
 
 ### Shiny integration
 
 ```python
--8<-- "basic_usage_shiny.py"
+-8<-- "getting_started/basic_usage_shiny.py"
 ```

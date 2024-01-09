@@ -40,7 +40,8 @@ class Layer(BaseModel):
     """Layer properties
 
     Notes:
-        See [layers](https://maplibre.org/maplibre-style-spec/layers/) for more details.
+        See [layers](https://maplibre.org/maplibre-style-spec/layers/) for more details on the
+        `paint` and `layout` properties of the layers.
 
     Attributes:
         id (str): **Required.** The unique ID of the layer. Defaults to `str(uuid4())`.

@@ -7,7 +7,12 @@ vancouver_blocks = GeoJSONSource(
     data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",
 )
 
-map_options = MapOptions(center=(-123.1256, 49.24658), zoom=12, hash=True, pitch=35)
+map_options = MapOptions(
+    center=(-123.1256, 49.24658),
+    zoom=12,
+    hash=True,
+    pitch=35,
+)
 
 m = Map(map_options)
 m.add_layer(

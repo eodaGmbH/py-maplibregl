@@ -12,9 +12,9 @@ theme:
 nav:
   - Get started:
       - Welcome to py-maplibregl: index.md
+      - Layers: layers.md
       - Shiny: shiny.md
       - Jupyter: jupyter.md
-      - Examples: examples/every_person_in_manhattan/index.md
   - API Documentation:
       - Map: api/map.md
       - Layer: api/layer.md
