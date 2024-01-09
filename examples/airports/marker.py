@@ -1,8 +1,15 @@
 import json
 
 import pandas as pd
-from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
-                      output_maplibregl, render_maplibregl)
+from maplibre import (
+    Layer,
+    LayerType,
+    Map,
+    MapContext,
+    MapOptions,
+    output_maplibregl,
+    render_maplibregl,
+)
 from maplibre.basemaps import Carto
 from maplibre.controls import Marker, MarkerOptions, Popup, PopupOptions
 from maplibre.sources import GeoJSONSource
