@@ -3,7 +3,7 @@ Use `MapWidget` in your [Juyper](https://jupyter.org/) Notebook:
 ```python
 import ipywidgets as widgets
 
-from maplibre import MapOptions, Layer, LayerType
+from maplibre import Layer, LayerType
 from maplibre.sources import GeoJSONSource
 from maplibre.controls import ScaleControl, Marker
 from maplibre.ipywidget import MapWidget as Map
