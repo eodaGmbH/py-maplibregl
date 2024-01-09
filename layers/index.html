@@ -9,22 +9,26 @@
       
       
       
+        <link rel="prev" href="..">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../shiny/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>py-maplibregl</title>
+        <title>Layers - py-maplibregl</title>
       
     
     
   
-      <link rel="stylesheet" href="/assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,9 +52,9 @@
       
     
     
-      <link rel="stylesheet" href="/assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -85,7 +89,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="py-maplibregl" class="md-header__button md-logo" aria-label="py-maplibregl" data-md-component="logo">
+    <a href=".." title="py-maplibregl" class="md-header__button md-logo" aria-label="py-maplibregl" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -105,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Layers
             
           </span>
         </div>
@@ -178,11 +182,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/." class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href=".." class="md-tabs__link">
           
   
   Get started
@@ -200,7 +206,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/api/map/" class="md-tabs__link">
+        <a href="../api/map/" class="md-tabs__link">
           
   
   API Documentation
@@ -218,7 +224,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/examples/every_person_in_manhattan/" class="md-tabs__link">
+        <a href="../examples/every_person_in_manhattan/" class="md-tabs__link">
           
   
   Examples
@@ -257,7 +263,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="py-maplibregl" class="md-nav__button md-logo" aria-label="py-maplibregl" data-md-component="logo">
+    <a href=".." title="py-maplibregl" class="md-nav__button md-logo" aria-label="py-maplibregl" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -284,8 +290,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -294,12 +302,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
           <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
@@ -313,7 +321,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             Get started
@@ -327,7 +335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -345,10 +353,17 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/layers/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -357,6 +372,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -369,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/shiny/" class="md-nav__link">
+      <a href="../shiny/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -390,7 +406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/jupyter/" class="md-nav__link">
+      <a href="../jupyter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -458,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/map/" class="md-nav__link">
+      <a href="../api/map/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -479,7 +495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/layer/" class="md-nav__link">
+      <a href="../api/layer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -500,7 +516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/sources/" class="md-nav__link">
+      <a href="../api/sources/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -521,7 +537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/basemaps/" class="md-nav__link">
+      <a href="../api/basemaps/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -542,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/controls/" class="md-nav__link">
+      <a href="../api/controls/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -610,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/every_person_in_manhattan/" class="md-nav__link">
+      <a href="../examples/every_person_in_manhattan/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -631,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/vancouver_blocks/" class="md-nav__link">
+      <a href="../examples/vancouver_blocks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -652,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/earthquake_clusters/" class="md-nav__link">
+      <a href="../examples/earthquake_clusters/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -673,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/airports/" class="md-nav__link">
+      <a href="../examples/airports/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -694,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/3d_indoor_mapping/" class="md-nav__link">
+      <a href="../examples/3d_indoor_mapping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -715,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/examples/custom_basemap/" class="md-nav__link">
+      <a href="../examples/custom_basemap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -764,8 +780,64 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+  
+
+
+  <h1>Layers</h1>
+
+<p>The <code>paint</code> and <code>layout</code> properties for the layers depend on the <a href="/api/layer/#pymaplibregl.LayerType">type</a> of the layer.
+They are passed as a <code>dict</code> corresponding to the <a href="https://maplibre.org/maplibre-style-spec/layers/">Layer Style Spec</a>.</p>
+<p>For example, to set the radius and the color for a circle layer, the <code>paint</code> property looks like this:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">paint</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The value for any <code>layout</code> property, <code>paint</code> property, or <code>filter</code> may also be specified as an expression.
+For details see <a href="https://maplibre.org/maplibre-style-spec/expressions/">Expressions</a>.</p>
+<p>For example, if the source of your layer has a <code>color</code> property that contains the color of the feature,
+you can use the following expression:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">paint</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="s2">&quot;circle-radius&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>A more complex expression where the color depends on the <code>type</code> property of the layer's source might look like this:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">paint</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>        <span class="s2">&quot;circle-color&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>            <span class="s2">&quot;match&quot;</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>            <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">],</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>            <span class="c1"># darkred if type == &quot;mid&quot;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>            <span class="s2">&quot;mid&quot;</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>            <span class="s2">&quot;darkred&quot;</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>            <span class="c1"># darkgreen if type == &quot;major&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>            <span class="s2">&quot;major&quot;</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>            <span class="s2">&quot;darkgreen&quot;</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>            <span class="c1"># else blue</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            <span class="s2">&quot;darkblue&quot;</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="p">]</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Filter features of a source according to its <code>magnitude</code> property:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Only show features where magnitude &gt;= 5</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">filter</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">],</span> <span class="mi">5</span><span class="p">]</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -799,10 +871,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "/assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>

@@ -12,6 +12,7 @@ from pymaplibregl import (
     render_maplibregl,
 )
 from pymaplibregl.basemaps import Carto
+from pymaplibregl.controls import ScaleControl
 from pymaplibregl.sources import GeoJSONSource
 from pymaplibregl.utils import df_to_geojson
 from shiny import App, reactive, ui
@@ -60,8 +61,9 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
     @render_maplibregl
-    async def maplibre():
+    def maplibre():
         m = Map(map_options)
+        m.add_control(ScaleControl(), position="bottom-left")
         m.add_layer(every_person_in_manhattan_circles)
         return m
 

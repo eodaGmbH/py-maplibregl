@@ -77,12 +77,12 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
     @render_maplibregl
-    async def maplibre():
+    def maplibre():
         m = Map(map_options)
         m.add_source(EARTHQUAKE_SOURCE, earthquakes_source)
         m.add_layer(earthquake_clusters)
         m.add_layer(earthquake_circles)
-        m.add_popup(EARTHQUAKE_CLUSTERS, "maxMag")
+        m.add_tooltip(EARTHQUAKE_CLUSTERS, "maxMag")
         m.add_layer(earthquake_labels)
         return m
 
