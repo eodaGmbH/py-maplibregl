@@ -18,7 +18,7 @@
     
     
       
-        <title>Welcome to py-maplibregl - py-maplibregl</title>
+        <title>Welcome to MapLibre - MapLibre for Python</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#py-maplibregl" class="md-skip">
+        <a href="#maplibre-for-python" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="py-maplibregl" class="md-header__button md-logo" aria-label="py-maplibregl" data-md-component="logo">
+    <a href="." title="MapLibre for Python" class="md-header__button md-logo" aria-label="MapLibre for Python" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -106,13 +106,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            py-maplibregl
+            MapLibre for Python
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Welcome to py-maplibregl
+              Welcome to MapLibre
             
           </span>
         </div>
@@ -266,13 +266,13 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="py-maplibregl" class="md-nav__button md-logo" aria-label="py-maplibregl" data-md-component="logo">
+    <a href="." title="MapLibre for Python" class="md-nav__button md-logo" aria-label="MapLibre for Python" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    py-maplibregl
+    MapLibre for Python
   </label>
   
     <div class="md-nav__source">
@@ -351,7 +351,7 @@
           
   
   <span class="md-ellipsis">
-    Welcome to py-maplibregl
+    Welcome to MapLibre
   </span>
   
 
@@ -362,7 +362,7 @@
         
   
   <span class="md-ellipsis">
-    Welcome to py-maplibregl
+    Welcome to MapLibre
   </span>
   
 
@@ -415,6 +415,15 @@
   <a href="#shiny-integration" class="md-nav__link">
     <span class="md-ellipsis">
       Shiny integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jupyter-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jupyter widget
     </span>
   </a>
   
@@ -892,6 +901,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#jupyter-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jupyter widget
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -915,9 +933,9 @@
   
 
 
-<h1 id="py-maplibregl">py-maplibregl</h1>
-<p><a href="https://github.com/eodaGmbH/py-maplibregl">py-maplibregl</a> provides Python bindings for <a href="https://github.com/maplibre/maplibre-gl-js">maplibre-gl-js</a>.</p>
-<p>It integrates seamlessly into <a href="https://github.com/posit-dev/py-shiny">py-shiny</a>.</p>
+<h1 id="maplibre-for-python">MapLibre for Python</h1>
+<p><a href="https://github.com/eodaGmbH/py-maplibregl">MapLibre for Python</a> provides Python bindings for <a href="https://github.com/maplibre/maplibre-gl-js">MapLibre GL JS</a>.</p>
+<p>It integrates seamlessly into <a href="https://github.com/posit-dev/py-shiny">Shiny for Python</a> and <a href="https://jupyter.org/">Jupyter</a>.</p>
 <h2 id="installation">Installation</h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Stable</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/eodaGmbH/py-maplibregl
@@ -929,8 +947,8 @@
 <h3 id="standalone">Standalone</h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">webbrowser</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span> <span class="nn">pymaplibregl</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">LayerType</span><span class="p">,</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapOptions</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">from</span> <span class="nn">pymaplibregl.sources</span> <span class="kn">import</span> <span class="n">GeoJSONSource</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span> <span class="nn">maplibre</span> <span class="kn">import</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">LayerType</span><span class="p">,</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapOptions</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kn">from</span> <span class="nn">maplibre.sources</span> <span class="kn">import</span> <span class="n">GeoJSONSource</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">vancouver_blocks</span> <span class="o">=</span> <span class="n">GeoJSONSource</span><span class="p">(</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">data</span><span class="o">=</span><span class="s2">&quot;https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json&quot;</span><span class="p">,</span>
@@ -960,8 +978,8 @@
 </span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">temp_file</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="shiny-integration">Shiny integration</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">pymaplibregl</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapContext</span><span class="p">,</span> <span class="n">output_maplibregl</span><span class="p">,</span> <span class="n">render_maplibregl</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">pymaplibregl.controls</span> <span class="kn">import</span> <span class="n">Marker</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">maplibre</span> <span class="kn">import</span> <span class="n">Map</span><span class="p">,</span> <span class="n">MapContext</span><span class="p">,</span> <span class="n">output_maplibregl</span><span class="p">,</span> <span class="n">render_maplibregl</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">maplibre.controls</span> <span class="kn">import</span> <span class="n">Marker</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span> <span class="nn">shiny</span> <span class="kn">import</span> <span class="n">App</span><span class="p">,</span> <span class="n">reactive</span><span class="p">,</span> <span class="n">ui</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">app_ui</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">page_fluid</span><span class="p">(</span>
@@ -987,6 +1005,12 @@
 </span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
 </span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 </span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="jupyter-widget">Jupyter widget</h3>
+<div class="language-Python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">maplibre.ipywidget</span> <span class="kn">import</span> <span class="n">MapWidget</span> <span class="k">as</span> <span class="n">Map</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">m</span> <span class="o">=</span> <span class="n">Map</span><span class="p">()</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">m</span>
 </span></code></pre></div>
 
 

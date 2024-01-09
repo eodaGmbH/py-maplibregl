@@ -1,4 +1,4 @@
-from pymaplibregl import (
+from maplibre import (
     Layer,
     LayerType,
     Map,
@@ -6,8 +6,8 @@ from pymaplibregl import (
     output_maplibregl,
     render_maplibregl,
 )
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.sources import GeoJSONSource
+from maplibre.basemaps import Carto
+from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
 
 EARTHQUAKE_SOURCE = "earthquakes"
