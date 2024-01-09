@@ -2,15 +2,8 @@ import json
 
 import pandas as pd
 import shapely
-from pymaplibregl import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    MapOptions,
-    output_maplibregl,
-    render_maplibregl,
-)
+from pymaplibregl import (Layer, LayerType, Map, MapContext, MapOptions,
+                          output_maplibregl, render_maplibregl)
 from pymaplibregl.basemaps import Carto
 from pymaplibregl.sources import GeoJSONSource
 from pymaplibregl.utils import df_to_geojson
