@@ -1,8 +1,8 @@
-# py-maplibregl
+# MapLibre for Python
 
-[py-maplibregl](https://github.com/eodaGmbH/py-maplibregl) provides Python bindings for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js).
+[MapLibre for Python](https://github.com/eodaGmbH/py-maplibregl) provides Python bindings for [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
 
-It integrates seamlessly into [py-shiny](https://github.com/posit-dev/py-shiny).
+It integrates seamlessly into [Shiny for Python](https://github.com/posit-dev/py-shiny) and [Jupyter](https://jupyter.org/).
 
 ## Installation
 
@@ -26,4 +26,13 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 
 ```python
 -8<-- "getting_started/basic_usage_shiny.py"
+```
+
+### Jupyter widget
+
+```Python
+from maplibre.ipywidget import MapWidget as Map
+
+m = Map()
+m
 ```

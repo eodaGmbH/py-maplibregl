@@ -1,4 +1,4 @@
-from pymaplibregl.controls import Marker, MarkerOptions, Popup
+from maplibre.controls import Marker, MarkerOptions, Popup
 
 
 def test_marker():

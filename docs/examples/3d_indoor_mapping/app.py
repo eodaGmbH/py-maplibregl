@@ -1,8 +1,8 @@
 import webbrowser
 
-from pymaplibregl import Layer, LayerType, Map, MapOptions
-from pymaplibregl.basemaps import background
-from pymaplibregl.sources import GeoJSONSource, RasterTileSource
+from maplibre import Layer, LayerType, Map, MapOptions
+from maplibre.basemaps import background
+from maplibre.sources import GeoJSONSource, RasterTileSource
 
 TEMP_FILE = "/tmp/pymaplibregl_temp.html"
 FLOORPLAN_SOURCE_ID = "floorplan"

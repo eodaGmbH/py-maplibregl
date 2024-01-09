@@ -1,6 +1,12 @@
-from pymaplibregl import (Layer, LayerType, Map, MapContext, output_maplibregl,
-                          render_maplibregl)
-from pymaplibregl.sources import GeoJSONSource
+from maplibre import (
+    Layer,
+    LayerType,
+    Map,
+    MapContext,
+    output_maplibregl,
+    render_maplibregl,
+)
+from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "earthquakes"

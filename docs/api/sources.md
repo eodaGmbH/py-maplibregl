@@ -1,1 +1,1 @@
-::: pymaplibregl.sources
+::: maplibre.sources

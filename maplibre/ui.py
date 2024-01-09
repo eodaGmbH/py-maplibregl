@@ -9,7 +9,7 @@ from ._constants import __version__, _shiny_output_class
 maplibregl_dep = HTMLDependency(
     "maplibregl",
     version="3.6.2",
-    source={"package": "pymaplibregl", "subdir": "srcjs"},
+    source={"package": "maplibre", "subdir": "srcjs"},
     script={"src": "maplibre-gl.js", "type": "module"},
     stylesheet={"href": "maplibre-gl.css"},
     all_files=False,
@@ -18,7 +18,7 @@ maplibregl_dep = HTMLDependency(
 pymaplibregl_dep = HTMLDependency(
     "pymaplibregl",
     version=__version__,
-    source={"package": "pymaplibregl", "subdir": "srcjs"},
+    source={"package": "maplibre", "subdir": "srcjs"},
     script={"src": "index.js", "type": "module"},
     all_files=False,
 )

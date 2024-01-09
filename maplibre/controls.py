@@ -103,8 +103,8 @@ class FullscreenControl(Control):
     """Fullscreen control
 
     Examples:
-        >>> from pymaplibregl import Map
-        >>> from pymaplibregl.controls import FullscreenControl, ControlPosition
+        >>> from maplibre import Map
+        >>> from maplibre.controls import FullscreenControl, ControlPosition
 
         >>> map = Map()
         >>> map.add_control(FullscreenControl(), ControlPosition.BOTTOM_LEFT)

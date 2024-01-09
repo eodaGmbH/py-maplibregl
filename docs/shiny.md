@@ -1,18 +1,20 @@
-[py-maplibregl](https://github.com/eodaGmbH/py-maplibregl) integrates seamlessly into [py-shiny](https://github.com/posit-dev/py-shiny).
+[MapLibre for Python](https://github.com/eodaGmbH/py-maplibregl) integrates seamlessly into [Shiny for Python](https://github.com/posit-dev/py-shiny).
 
 ## Adding UI output
 
 ```python
 from shiny import App, ui
-from pymaplibregl import output_maplibregl
+from maplibre import output_maplibregl
 
 app_ui = ui.page_fluid(
     ui.panel_title("MapLibre"),
     output_maplibregl("maplibre", height=600)
 )
 
+
 def server(input, output, session):
     pass
+
 
 app = App(app_ui, server)
 ```
@@ -21,18 +23,20 @@ app = App(app_ui, server)
 
 ```python
 from shiny import App, ui
-from pymaplibregl import output_maplibregl, render_maplibregl, Map
+from maplibre import output_maplibregl, render_maplibregl, Map
 
 app_ui = ui.page_fluid(
     ui.panel_title("MapLibre"),
     output_maplibregl("maplibre", height=600)
 )
 
+
 def server(input, output, session):
     @render_maplibregl
     def maplibre():
         m = Map()
         return m
+
 
 app = App(app_ui, server)
 ```

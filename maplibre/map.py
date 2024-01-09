@@ -66,7 +66,7 @@ class Map(object):
         **kwargs: Keyword arguments that are appended to the `MapOptions` object.
 
     Examples:
-        >>> from pymaplibregl.map import Map, MapOptions
+        >>> from maplibre.map import Map, MapOptions
 
         >>> map_options = MapOptions(center=(9.5, 51.31667), zoom=8)
         >>> map = Map(map_options)
@@ -213,7 +213,7 @@ class Map(object):
                 Currently, `style` is the only supported keyword argument.
 
         Examples:
-            >>> from pymaplibregl import Map
+            >>> from maplibre import Map
 
             >>> map = Map()
             >>> with open("/tmp/map.html", "w") as f:

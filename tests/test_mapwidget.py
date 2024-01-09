@@ -1,5 +1,5 @@
 import pytest
-from pymaplibregl.ipywidget import MapWidget
+from maplibre.ipywidget import MapWidget
 
 
 # @pytest.mark.skip("enable me")

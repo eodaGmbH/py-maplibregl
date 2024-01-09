@@ -1,5 +1,5 @@
-::: pymaplibregl.basemaps.Carto
+::: maplibre.basemaps.Carto
     options:
         docstring_section_style: list
 
-::: pymaplibregl.basemaps.construct_basemap_style
+::: maplibre.basemaps.construct_basemap_style
