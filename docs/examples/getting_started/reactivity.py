@@ -1,11 +1,5 @@
-from pymaplibregl import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    output_maplibregl,
-    render_maplibregl,
-)
+from pymaplibregl import (Layer, LayerType, Map, MapContext, output_maplibregl,
+                          render_maplibregl)
 from pymaplibregl.sources import GeoJSONSource
 from shiny import App, reactive, render, ui
 
