@@ -51,9 +51,9 @@ class Marker(BaseModel):
     """Marker
 
     Attributes:
-        lng_lat (tuple, list): **Required.** The longitude and latitude of the marker.
-        popup (Popup, dict): A Popup that is displayed when a user clicks on the marker.
-        options (MarkerOptions, dict): Marker options.
+        lng_lat (tuple |list): **Required.** The longitude and latitude of the marker.
+        popup (Popup | dict): The Popup that is displayed when a user clicks on the marker.
+        options (MarkerOptions | dict): Marker options.
     """
 
     lng_lat: Union[tuple, list] = Field(None, serialization_alias="lngLat")
@@ -70,7 +70,14 @@ class ControlType(Enum):
 
 
 class ControlPosition(Enum):
-    """Control position"""
+    """Control position
+
+    Attributes:
+        TOP_LEFT: top-left
+        TOP_RIGHT: top-right
+        BOTTOM_LEFT: bottom-left
+        BOTTOM_RIGHT: bottom-right
+    """
 
     TOP_LEFT = "top-left"
     TOP_RIGHT = "top-right"
@@ -97,10 +104,10 @@ class FullscreenControl(Control):
 
     Examples:
         >>> from pymaplibregl import Map
-        >>> from pymaplibregl.controls import FullscreenControl
+        >>> from pymaplibregl.controls import FullscreenControl, ControlPosition
 
         >>> map = Map()
-        >>> map.add_control(FullscreenControl())
+        >>> map.add_control(FullscreenControl(), ControlPosition.BOTTOM_LEFT)
     """
 
     # _name: str = ControlType.FULLSCREEN.value

@@ -57,3 +57,32 @@ class GeoJSONSource(Source):
     @property
     def type(self) -> str:
         return SourceType.GEOJSON.value
+
+
+class RasterTileSource(Source):
+    """Raster tile source
+
+    Examples:
+        >>> from pymaplibregl.sources import RasterTileSource
+        >>> raster_source = RasterTileSource(
+        ...     tiles=["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+        ...     tile_size=256,
+        ...     min_zoom=0,
+        ...     max_zoom=19,
+        ... )
+    """
+
+    attribution: str = None
+    bounds: tuple = None
+    max_zoom: int = Field(None, serialization_alias="maxzoom")
+    min_zoom: int = Field(None, serialization_alias="minzoom")
+    scheme: str = None
+    tile_size: int = Field(None, serialization_alias="tileSize")
+    tiles: Union[tuple, list] = None
+    url: str = None
+    volatile: bool = None
+
+    @computed_field
+    @property
+    def type(self) -> str:
+        return SourceType.RASTER.value

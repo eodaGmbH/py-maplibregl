@@ -1,6 +1,6 @@
-# Pymaplibregl
+# py-maplibregl
 
-Pymaplibregl provides Python bindings for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js).
+[py-maplibregl](https://github.com/eodaGmbH/py-maplibregl) provides Python bindings for [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js).
 
 It integrates seamlessly into [py-shiny](https://github.com/posit-dev/py-shiny).
 
@@ -19,11 +19,11 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 ### Standalone
 
 ```python
--8<-- "basic_usage.py"
+-8<-- "getting_started/basic_usage.py"
 ```
 
 ### Shiny integration
 
 ```python
--8<-- "basic_usage_shiny.py"
+-8<-- "getting_started/basic_usage_shiny.py"
 ```

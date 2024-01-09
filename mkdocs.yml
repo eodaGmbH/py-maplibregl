@@ -1,4 +1,4 @@
-site_name: Pymaplibregl
+site_name: py-maplibregl
 
 theme:
   name: material
@@ -7,11 +7,14 @@ theme:
     primary: "green"
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
 
 nav:
   - Get started:
-      - Welcome to Pymaplibregl: index.md
-      - Examples: examples/every_person_in_manhattan/index.md
+      - Welcome to py-maplibregl: index.md
+      - Layers: layers.md
+      - Shiny: shiny.md
+      - Jupyter: jupyter.md
   - API Documentation:
       - Map: api/map.md
       - Layer: api/layer.md
@@ -20,8 +23,11 @@ nav:
       - Markers and controls: api/controls.md
   - Examples:
       - Every person in manhattan: examples/every_person_in_manhattan/index.md
+      - Vancouver property value: examples/vancouver_blocks/index.md
       - Earthquake clusters: examples/earthquake_clusters/index.md
       - Airport markers: examples/airports/index.md
+      - 3D Indoor mapping: examples/3d_indoor_mapping/index.md
+      - Custom basemap: examples/custom_basemap/index.md
 
 plugins:
   - search:

@@ -52,11 +52,12 @@ def test_map_layers():
 
     # Act
     map.add_layer(layer)
-    layers = map.layers
+    method_name, args = map._message_queue[0]
+    layer = args[0]
 
     # Assert
-    assert len(layers) == 1
-    assert layers[0]["id"] == "test"
+    assert len(map._message_queue) == 1
+    assert layer["id"] == "test"
     assert len(map.to_dict()["calls"]) == 1
 
 
@@ -68,9 +69,12 @@ def test_map_markers():
     map = maplibre.Map()
     map.add_marker(marker)
     markers = [
-        item["data"] for item in map.to_dict()["calls"] if item["name"] == "addMarker"
+        # item["data"] for item in map.to_dict()["calls"] if item["name"] == "addMarker"
+        item[1][0]
+        for item in map.to_dict()["calls"]
+        if item[0] == "addMarker"
     ]
-    print(markers)
+    print(markers[0])
 
     # Assert
     assert len(markers) == 1
