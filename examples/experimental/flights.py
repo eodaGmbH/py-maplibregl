@@ -2,7 +2,7 @@ import json
 
 import pandas as pd
 import shapely
-from pymaplibregl import (
+from maplibre import (
     Layer,
     LayerType,
     Map,
@@ -10,8 +10,8 @@ from pymaplibregl import (
     output_maplibregl,
     render_maplibregl,
 )
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.utils import GeometryType, df_to_geojson
+from maplibre.basemaps import Carto
+from maplibre.utils import GeometryType, df_to_geojson
 from shiny import App, reactive, ui
 
 """

@@ -1,6 +1,6 @@
-from pymaplibregl import Map, output_maplibregl, render_maplibregl
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.controls import Marker, MarkerOptions, Popup, PopupOptions
+from maplibre import Map, output_maplibregl, render_maplibregl
+from maplibre.basemaps import Carto
+from maplibre.controls import Marker, MarkerOptions, Popup, PopupOptions
 from shiny import App, ui
 
 center_kassel = (9.5, 51.31667)

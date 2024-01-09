@@ -1,6 +1,6 @@
 import pytest
+from maplibre.utils import GeometryType, df_to_geojson, get_bounds
 from pandas import read_json
-from pymaplibregl.utils import GeometryType, df_to_geojson, get_bounds
 
 
 @pytest.mark.skip("enable me")

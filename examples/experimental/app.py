@@ -1,11 +1,14 @@
 import requests as req
-from pymaplibregl import (Layer, LayerType, Map, output_maplibregl,
-                          render_maplibregl)
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.controls import (AttributionControl, FullscreenControl,
-                                   GeolocateControl, NavigationControl,
-                                   ScaleControl)
-from pymaplibregl.mapcontext import MapContext
+from maplibre import Layer, LayerType, Map, output_maplibregl, render_maplibregl
+from maplibre.basemaps import Carto
+from maplibre.controls import (
+    AttributionControl,
+    FullscreenControl,
+    GeolocateControl,
+    NavigationControl,
+    ScaleControl,
+)
+from maplibre.mapcontext import MapContext
 from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"

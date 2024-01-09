@@ -33,7 +33,7 @@ class GeoJSONSource(Source):
     """GeoJSON Source
 
     Examples:
-        >>> from pymaplibregl.sources import GeoJSONSource
+        >>> from maplibre.sources import GeoJSONSource
 
         >>> source = GeoJSONSource(data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson")
     """
@@ -63,7 +63,7 @@ class RasterTileSource(Source):
     """Raster tile source
 
     Examples:
-        >>> from pymaplibregl.sources import RasterTileSource
+        >>> from maplibre.sources import RasterTileSource
         >>> raster_source = RasterTileSource(
         ...     tiles=["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
         ...     tile_size=256,

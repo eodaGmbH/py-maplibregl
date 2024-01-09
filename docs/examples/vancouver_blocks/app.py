@@ -1,4 +1,4 @@
-from pymaplibregl import (
+from maplibre import (
     Layer,
     LayerType,
     Map,
@@ -7,9 +7,9 @@ from pymaplibregl import (
     output_maplibregl,
     render_maplibregl,
 )
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.controls import ScaleControl
-from pymaplibregl.sources import GeoJSONSource
+from maplibre.basemaps import Carto
+from maplibre.controls import ScaleControl
+from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
 
 SOURCE_ID = "vancouver-blocks"

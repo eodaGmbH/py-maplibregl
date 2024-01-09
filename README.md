@@ -31,7 +31,7 @@ poetry run uvicorn examples.circle_layer.app:app --reload
 
 poetry run pytest
 
-poetry run pytest --doctest-modules pymaplibregl
+poetry run pytest --doctest-modules maplibre
 ```
 
 ### JavaScript

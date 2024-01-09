@@ -1,10 +1,16 @@
 import pandas as pd
-from pymaplibregl import (Layer, LayerType, Map, MapOptions, output_maplibregl,
-                          render_maplibregl)
-from pymaplibregl.basemaps import Carto
-from pymaplibregl.controls import Marker, MarkerOptions, Popup, PopupOptions
-from pymaplibregl.sources import GeoJSONSource
-from pymaplibregl.utils import GeometryType, df_to_geojson
+from maplibre import (
+    Layer,
+    LayerType,
+    Map,
+    MapOptions,
+    output_maplibregl,
+    render_maplibregl,
+)
+from maplibre.basemaps import Carto
+from maplibre.controls import Marker, MarkerOptions, Popup, PopupOptions
+from maplibre.sources import GeoJSONSource
+from maplibre.utils import GeometryType, df_to_geojson
 from shiny import App, ui
 
 BOUNDS = (-8.92242886, 43.30508298, 13.76496714, 59.87668996)
@@ -66,7 +72,7 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
     @render_maplibregl
-    async def maplibre():
+    def maplibre():
         m = Map(map_options)
         for _, r in airports_data.iterrows():
             marker = Marker(
