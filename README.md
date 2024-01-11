@@ -27,8 +27,6 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 ```bash
 poetry install
 
-poetry run uvicorn examples.circle_layer.app:app --reload
-
 poetry run pytest
 
 poetry run pytest --doctest-modules maplibre
