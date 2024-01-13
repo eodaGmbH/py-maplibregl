@@ -59,7 +59,12 @@ function createContainer(model) {
 }
 function createMap(mapOptions, model) {
   const map = new maplibregl.Map(mapOptions);
-  map.addControl(new maplibregl.NavigationControl());
+  if (mapOptions.navigationControl === void 0) {
+    mapOptions.navigationControl = true;
+  }
+  if (mapOptions.navigationControl) {
+    map.addControl(new maplibregl.NavigationControl());
+  }
   map.on("mouseover", () => {
     map.getCanvas().style.cursor = "pointer";
   });

@@ -11,7 +11,13 @@ function createContainer(model) {
 
 function createMap(mapOptions, model) {
   const map = new maplibregl.Map(mapOptions);
-  map.addControl(new maplibregl.NavigationControl());
+  if (mapOptions.navigationControl === undefined) {
+    mapOptions.navigationControl = true;
+  }
+
+  if (mapOptions.navigationControl) {
+    map.addControl(new maplibregl.NavigationControl());
+  }
 
   map.on("mouseover", () => {
     map.getCanvas().style.cursor = "pointer";
