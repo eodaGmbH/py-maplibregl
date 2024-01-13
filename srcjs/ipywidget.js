@@ -48,11 +48,6 @@ export function render({ model, el }) {
   // to avoid duplicated imports (current bug in esbuild)
   const customMapMethods = getCustomMapMethods(maplibregl, map);
 
-  map.on("load", () => {
-    model.set("_rendered", true);
-    model.save_changes();
-  });
-
   const apply = (calls) => {
     calls.forEach((call) => {
       // Custom map call
@@ -66,6 +61,15 @@ export function render({ model, el }) {
       applyMapMethod(map, call);
     });
   };
+
+  const calls = model.get("calls");
+
+  map.on("load", () => {
+    console.log("init calls", calls);
+    apply(calls);
+    model.set("_rendered", true);
+    model.save_changes();
+  });
 
   model.on("msg:custom", (msg) => {
     console.log("custom msg", msg);
