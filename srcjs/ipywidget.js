@@ -53,9 +53,8 @@ export function render({ model, el }) {
     model.save_changes();
   });
 
-  model.on("msg:custom", (msg) => {
-    console.log("custom msg", msg);
-    msg.calls.forEach((call) => {
+  const apply = (calls) => {
+    calls.forEach((call) => {
       // Custom map call
       if (Object.keys(customMapMethods).includes(call[0])) {
         console.log("internal call", call);
@@ -66,6 +65,11 @@ export function render({ model, el }) {
 
       applyMapMethod(map, call);
     });
+  };
+
+  model.on("msg:custom", (msg) => {
+    console.log("custom msg", msg);
+    apply(msg.calls);
   });
 
   el.appendChild(container);
