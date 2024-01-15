@@ -2394,4 +2394,4 @@ all = ["geopandas", "pandas"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "5d37fd6e6a4c9db9ccdf6fb195857d4b05540578909b626855796af6d03b6562"
+content-hash = "f63acd17c501b755d5a19a20a822b8673678bb1eb09a5dea577d6fefaf1a9b6d"
