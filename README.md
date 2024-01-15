@@ -8,10 +8,14 @@ It integrates seamlessly into [Shiny for Python](https://github.com/posit-dev/py
 
 ```bash
 # Stable
-pip install git+https://github.com/eodaGmbH/py-maplibregl
+pip install maplibre
+
+pip install "maplibre[all]"
 
 # Dev
 pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
+
+pip install "maplibre[all] @ git+https://github.com/eodaGmbH/py-maplibregl@dev"
 ```
 
 ## Getting started
@@ -26,8 +30,6 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 
 ```bash
 poetry install
-
-poetry run uvicorn examples.circle_layer.app:app --reload
 
 poetry run pytest
 

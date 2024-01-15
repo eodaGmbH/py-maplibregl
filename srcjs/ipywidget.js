@@ -11,7 +11,13 @@ function createContainer(model) {
 
 function createMap(mapOptions, model) {
   const map = new maplibregl.Map(mapOptions);
-  map.addControl(new maplibregl.NavigationControl());
+  if (mapOptions.navigationControl === undefined) {
+    mapOptions.navigationControl = true;
+  }
+
+  if (mapOptions.navigationControl) {
+    map.addControl(new maplibregl.NavigationControl());
+  }
 
   map.on("mouseover", () => {
     map.getCanvas().style.cursor = "pointer";
@@ -48,14 +54,8 @@ export function render({ model, el }) {
   // to avoid duplicated imports (current bug in esbuild)
   const customMapMethods = getCustomMapMethods(maplibregl, map);
 
-  map.on("load", () => {
-    model.set("_rendered", true);
-    model.save_changes();
-  });
-
-  model.on("msg:custom", (msg) => {
-    console.log("custom msg", msg);
-    msg.calls.forEach((call) => {
+  const apply = (calls) => {
+    calls.forEach((call) => {
       // Custom map call
       if (Object.keys(customMapMethods).includes(call[0])) {
         console.log("internal call", call);
@@ -66,6 +66,20 @@ export function render({ model, el }) {
 
       applyMapMethod(map, call);
     });
+  };
+
+  const calls = model.get("calls");
+
+  map.on("load", () => {
+    console.log("init calls", calls);
+    apply(calls);
+    model.set("_rendered", true);
+    model.save_changes();
+  });
+
+  model.on("msg:custom", (msg) => {
+    console.log("custom msg", msg);
+    apply(msg.calls);
   });
 
   el.appendChild(container);
