@@ -6,7 +6,7 @@ from enum import Enum
 try:
     from pandas import DataFrame
 except ImportError:
-    print("pandas is not installed")
+    DataFrame = None
 
 
 try:
