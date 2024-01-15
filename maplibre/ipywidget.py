@@ -12,7 +12,6 @@ from .map import Map, MapOptions
 from .sources import Source
 
 
-# TODO: Rewrite map.Map to this class
 # DEPRECATED: MapWidget now uses map.Map as base class
 class BaseMap(object):
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
@@ -68,15 +67,15 @@ class BaseMap(object):
 class MapWidget(AnyWidget, Map):
     _esm = join(Path(__file__).parent, "srcjs", "ipywidget.js")
     _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
+    _use_message_queue = False
     _rendered = traitlets.Bool(False, config=True).tag(sync=True)
     map_options = traitlets.Dict().tag(sync=True)
+    calls = traitlets.List().tag(sync=True)
     height = traitlets.Union([traitlets.Int(), traitlets.Unicode()]).tag(sync=True)
     lng_lat = traitlets.Dict().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
-        # self.map_options = map_options.to_dict()
-        # self._message_queue = []
-        # super().__init__(**kwargs)
+        self.calls = []
         AnyWidget.__init__(self, **kwargs)
         Map.__init__(self, map_options, **kwargs)
 
@@ -97,9 +96,16 @@ class MapWidget(AnyWidget, Map):
         self.send({"calls": self._message_queue, "msg": "init"})
         self._message_queue = []
 
+    def use_message_queue(self, value: bool = True) -> None:
+        self._use_message_queue = value
+
     def add_call(self, method_name: str, *args) -> None:
         call = [method_name, args]
         if not self._rendered:
+            if not self._use_message_queue:
+                self.calls = self.calls + [call]
+                return
+
             self._message_queue.append(call)
             return
 

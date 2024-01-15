@@ -16,6 +16,7 @@ htmltools = "^0.5.1"
 requests = "^2.31.0"
 jinja2 = "^3.1.2"
 pydantic = "^2.5.3"
+anywidget = "^0.8.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.0"

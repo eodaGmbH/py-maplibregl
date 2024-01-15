@@ -8,8 +8,8 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "esbuild srcjs/index.js --bundle --outfile=pymaplibregl/srcjs/index.js",
-    "build-ipywidget": "esbuild srcjs/ipywidget.js --bundle --format=esm --outfile=pymaplibregl/srcjs/ipywidget.js",
+    "build": "esbuild srcjs/index.js --bundle --outfile=maplibre/srcjs/index.js",
+    "build-ipywidget": "esbuild srcjs/ipywidget.js --bundle --format=esm --outfile=maplibre/srcjs/ipywidget.js",
     "build-rwidget": "esbuild srcjs/rwidget.js --bundle --minify --outfile=../r-maplibregl/inst/htmlwidgets/maplibre.js",
     "prettier": "prettier srcjs --write",
     "test": "echo \"Error: no test specified\" && exit 1"
