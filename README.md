@@ -12,6 +12,9 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl
 
 # Dev
 pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
+
+# Install with optional dependencies
+pip install -U "maplibre[all] @ git+https://github.com/eodaGmbH/py-maplibregl"
 ```
 
 ## Getting started
