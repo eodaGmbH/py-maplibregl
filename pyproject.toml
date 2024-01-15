@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "maplibre"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Stefan Kuethe <stefan.kuethe@eoda.de>"]
 readme = "README.md"
