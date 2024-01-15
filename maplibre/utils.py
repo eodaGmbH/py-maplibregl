@@ -9,10 +9,20 @@ except ImportError:
     print("pandas is not installed")
 
 
+try:
+    from geopandas import GeoDataFrame
+except ImportError:
+    GeoDataFrame = None
+
+
 class GeometryType(str, Enum):
     POINT = "Point"
     LINE_STRING = "LineString"
     POLYGON = "Polygon"
+
+
+def geopandas_to_geojson(df: GeoDataFrame) -> dict:
+    return json.loads(df.to_json())
 
 
 def df_to_geojson(
