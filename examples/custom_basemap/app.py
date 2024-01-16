@@ -1,10 +1,11 @@
+import sys
 import webbrowser
 
 from maplibre import Layer, LayerType, Map, MapOptions
 from maplibre.basemaps import construct_basemap_style
 from maplibre.sources import GeoJSONSource
 
-TEMP_FILE = "/tmp/pymaplibregl_temp.html"
+file_name = "/tmp/pymaplibregl_temp.html"
 
 bg_layer = Layer(
     type=LayerType.BACKGROUND,
@@ -60,7 +61,9 @@ def create_map():
 
 if __name__ == "__main__":
     m = create_map()
-    with open(TEMP_FILE, "w") as f:
+    if len(sys.argv) == 2:
+        file_name = sys.argv[1]
+    with open(file_name, "w") as f:
         f.write(m.to_html())
 
-    webbrowser.open(TEMP_FILE)
+    webbrowser.open(file_name)
