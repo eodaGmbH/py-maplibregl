@@ -1,3 +1,5 @@
+import sys
+
 from maplibre import (
     Layer,
     LayerType,
@@ -59,6 +61,17 @@ map_options = MapOptions(
     bearing=0,
 )
 
+
+def create_map() -> Map:
+    m = Map(map_options)
+    m.add_control(ScaleControl(), position="bottom-left")
+    m.add_source(SOURCE_ID, vancouver_blocks_source)
+    m.add_layer(vancouver_blocks_lines)
+    m.add_layer(vancouver_blocks_fill)
+    m.add_tooltip(LAYER_ID_FILL, "valuePerSqm")
+    return m
+
+
 app_ui = ui.page_fluid(
     ui.panel_title("Vancouver Property Value"),
     ui.div(
@@ -78,12 +91,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     def maplibre():
-        m = Map(map_options)
-        m.add_control(ScaleControl(), position="bottom-left")
-        m.add_source(SOURCE_ID, vancouver_blocks_source)
-        m.add_layer(vancouver_blocks_lines)
-        m.add_layer(vancouver_blocks_fill)
-        m.add_tooltip(LAYER_ID_FILL, "valuePerSqm")
+        m = create_map()
         return m
 
     @reactive.Effect
@@ -97,4 +105,10 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 if __name__ == "__main__":
-    app.run()
+    if len(sys.argv) == 2:
+        file_name = sys.argv[1]
+        m = create_map()
+        with open(file_name, "w") as f:
+            f.write(m.to_html())
+    else:
+        app.run()
