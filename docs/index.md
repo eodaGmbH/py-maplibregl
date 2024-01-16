@@ -10,7 +10,7 @@ It integrates seamlessly into [Shiny for Python](https://github.com/posit-dev/py
 # Stable
 pip install maplibre
 
-pip install maplibre[all]
+pip install "maplibre[all]"
 
 # Dev
 pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
