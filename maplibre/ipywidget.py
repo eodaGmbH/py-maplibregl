@@ -65,6 +65,19 @@ class BaseMap(object):
 
 # TODO: Rename to MapWidget or IpyMap
 class MapWidget(AnyWidget, Map):
+    """MapWidget
+
+    Use this class to display and update maps in Jupyter Notebooks.
+
+    See `maplibre.Map` for available methods.
+
+    Examples:
+        >>> from maplibre import MapOptions
+        >>> from maplibre.ipywidget import MapWidget as Map
+        >>> m = Map(MapOptions(center=(-123.13, 49.254), zoom=11, pitch=45))
+        >>> m # doctest: +SKIP
+    """
+
     _esm = join(Path(__file__).parent, "srcjs", "ipywidget.js")
     _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
     _use_message_queue = False

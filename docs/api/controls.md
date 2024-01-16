@@ -11,3 +11,9 @@
         docstring_section_style: list
 
 ::: maplibre.controls.FullscreenControl
+
+::: maplibre.controls.ScaleControl
+
+::: maplibre.controls.NavigationControl
+
+::: maplibre.controls.GeolocateControl
