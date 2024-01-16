@@ -63,6 +63,7 @@ if __name__ == "__main__":
     m = create_map()
     if len(sys.argv) == 2:
         file_name = sys.argv[1]
+
     with open(file_name, "w") as f:
         f.write(m.to_html())
 
