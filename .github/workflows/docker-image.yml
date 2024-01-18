@@ -21,7 +21,7 @@ jobs:
     - name: Build the Docker image
       run: |
         cd docs/examples/vancouver_blocks
-        docker build . --file Dockerfile --tag IMAGE_NAME
+        docker build . --file Dockerfile --tag $IMAGE_NAME
     - name: Log in to registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
     - name: Push image
