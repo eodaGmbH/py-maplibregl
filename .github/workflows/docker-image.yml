@@ -18,3 +18,5 @@ jobs:
       run: |
         cd docs/examples/vancouver_blocks
         docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Log in to registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
