@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  IMAGE_NAME: vancouver-blocks
+  VERSION: latest
+
 jobs:
 
   build:
@@ -17,6 +21,11 @@ jobs:
     - name: Build the Docker image
       run: |
         cd docs/examples/vancouver_blocks
-        docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+        docker build . --file Dockerfile --tag IMAGE_NAME
     - name: Log in to registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+    - name: Push image
+      run: |
+        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+        docker push $IMAGE_ID:$VERSION
