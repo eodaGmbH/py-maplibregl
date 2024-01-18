@@ -20,6 +20,10 @@ pip install "maplibre[all] @ git+https://github.com/eodaGmbH/py-maplibregl@dev"
 
 ## Getting started
 
+```bash
+docker run --rm -p 8050:8050 ghcr.io/eodagmbh/py-maplibregl/vancouver-blocks:latest
+```
+
 * [Basic usage](https://eodagmbh.github.io/py-maplibregl/)
 * [API Documentation](https://eodagmbh.github.io/py-maplibregl/api/map/)
 * [Examples](https://eodagmbh.github.io/py-maplibregl/examples/every_person_in_manhattan/)
