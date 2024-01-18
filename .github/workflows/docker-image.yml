@@ -16,5 +16,5 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-        cd docs/examples/vancouver-blocks
+        cd docs/examples/vancouver_blocks
         docker build . --file Dockerfile --tag my-image-name:$(date +%s)
