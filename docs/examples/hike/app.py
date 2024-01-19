@@ -21,15 +21,12 @@ data = gpd.read_file("https://docs.mapbox.com/mapbox-gl-js/assets/hike.geojson")
 # print(data.get_coordinates().to_numpy()[0])
 
 
-def create_feature(lng_lat) -> dict:
-    return {
-        "type": "Feature",
-        "geometry": {"type": "LineString", "coordinates": [lng_lat]},
-    }
-
-
-feature = create_feature(tuple(data.get_coordinates().to_numpy()[0]))
-feature_collection = {"type": "FeatureCollection", "features": [feature]}
+feature_collection = {
+    "type": "FeatureCollection",
+    "features": [
+        {"type": "Feature", "geometry": {"type": "LineString", "coordinates": []}}
+    ],
+}
 print(feature_collection)
 
 hike = GeoJSONSource(data="https://docs.mapbox.com/mapbox-gl-js/assets/hike.geojson")
@@ -51,7 +48,8 @@ def server(input, output, session):
     @render_maplibregl
     def mapylibre():
         m = Map(
-            MapOptions(bounds=data.total_bounds, fit_bounds_options={"padding": 20})
+            # MapOptions(center=data.get_coordinates().to_numpy()[0], zoom=16, pitch=30)
+            MapOptions(bounds=data.total_bounds, fit_bounds_options={"padding": 10})
         )
         m.add_source(SOURCE_ID, hike)
         m.add_layer(layer)
@@ -64,22 +62,20 @@ def server(input, output, session):
                 paint={"line-color": "yellow", "line-width": 5},
             )
         )
-        # m.add_marker(Marker(lng_lat=data.get_coordinates().to_numpy()[0]))
         return m
 
     @reactive.Effect
     @reactive.event(input.run)
     async def run():
-        print("run")
         for lng_lat in data.get_coordinates().to_numpy():
-            print(lng_lat)
+            # print(lng_lat)
             feature_collection["features"][0]["geometry"]["coordinates"].append(
                 tuple(lng_lat)
             )
             async with MapContext("mapylibre") as m:
                 m.set_data("hike-animation", feature_collection)
                 m.add_call("panTo", tuple(lng_lat))
-            await asyncio.sleep(0.005)
+            # await asyncio.sleep(0.005)
 
         feature_collection["features"][0]["geometry"]["coordinates"] = []
 
