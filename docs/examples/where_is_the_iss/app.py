@@ -8,9 +8,10 @@ from maplibre import (
     output_maplibregl,
     render_maplibregl,
 )
-from maplibre.controls import Marker
 from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
+
+MAX_FEATURES = 30
 
 
 def where_is_the_iss() -> tuple:
@@ -26,9 +27,13 @@ def create_feature(lng_lat) -> dict:
 
 
 lng_lat = where_is_the_iss()
-print(lng_lat)
+# print(lng_lat)
+
 feature = create_feature(lng_lat)
-print(feature)
+# print(feature)
+
+feature_collection = {"type": "FeatureCollection", "features": [feature]}
+# print(feature_collection)
 
 app_ui = ui.page_fluid(
     ui.h1("Where is the ISS"),
@@ -41,7 +46,7 @@ def server(input, output, session):
     @render_maplibregl
     def mapylibre():
         m = Map(MapOptions(center=lng_lat, zoom=3))
-        m.add_source("iss", GeoJSONSource(data=feature))
+        m.add_source("iss", GeoJSONSource(data=feature_collection))
         m.add_layer(
             Layer(
                 type=LayerType.CIRCLE,
@@ -57,9 +62,14 @@ def server(input, output, session):
         print("Fetching new position")
         lng_lat = where_is_the_iss()
         print(lng_lat)
+        if len(feature_collection["features"]) == MAX_FEATURES:
+            feature_collection["features"] = []
+
         async with MapContext("mapylibre") as m:
-            # m.add_marker(Marker(lng_lat=lng_lat))
-            m.add_call("setSourceData", "iss", create_feature(lng_lat))
+            feature_collection["features"].append(create_feature(lng_lat))
+            print(feature_collection)
+            m.set_data("iss", feature_collection)
+            m.add_call("flyTo", {"center": lng_lat, "speed": 0.5})
 
 
 app = App(app_ui, server)
