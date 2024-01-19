@@ -205,6 +205,10 @@ class Map(object):
         """
         self.add_call("setLayoutProperty", layer_id, prop, value)
 
+    def set_data(self, source_id: str, data: dict) -> None:
+        """Update the data of a GeoJSON source"""
+        self.add_call("setSourceData", source_id, data)
+
     def to_html(self, **kwargs) -> str:
         """Render to html
 
