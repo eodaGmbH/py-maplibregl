@@ -2,11 +2,13 @@ import webbrowser
 
 import h3
 import pandas as pd
-from maplibre import Layer, LayerType, Map, MapOptions
+from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
+                      output_maplibregl, render_maplibregl)
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson, get_bounds
+from shiny import App, reactive, ui
 
-RESOLUTION = 7
+RESOLUTION = 6
 COLORS = ("lightblue", "turquoise", "lightgreen", "yellow", "orange", "darkred")
 
 road_safety = pd.read_csv(
@@ -14,7 +16,7 @@ road_safety = pd.read_csv(
 ).dropna()
 
 
-def create_h3_grid(res=RESOLUTION) -> pd.DataFrame:
+def create_h3_grid(res=RESOLUTION) -> dict:
     road_safety["h3"] = road_safety.apply(
         lambda x: h3.geo_to_h3(x["lat"], x["lng"], resolution=res), axis=1
     )
@@ -27,16 +29,14 @@ def create_h3_grid(res=RESOLUTION) -> pd.DataFrame:
         bins=len(COLORS),
         labels=COLORS,
     )
-    return df
-
-
-df = create_h3_grid()
-
-source = GeoJSONSource(
-    data=df_to_geojson(
+    return df_to_geojson(
         df, "hexagon", geometry_type="Polygon", properties=["count", "color"]
     )
-)
+
+
+geojson = create_h3_grid()
+
+source = GeoJSONSource(data=geojson)
 bounds = get_bounds(source.data)
 
 
@@ -58,10 +58,31 @@ def create_map() -> Map:
     return m
 
 
-filename = "/tmp/road_safety.html"
-with open(filename, "w") as f:
-    m = create_map()
-    f.write(m.to_html())
+app_ui = ui.page_fluid(
+    ui.panel_title("Road safety in UK"),
+    output_maplibregl("mapylibre", height=700),
+    ui.input_slider("res", "Resolution", min=4, max=8, step=1, value=RESOLUTION),
+)
 
 
-webbrowser.open(filename)
+def server(input, output, session):
+    @render_maplibregl
+    def mapylibre():
+        return create_map()
+
+    @reactive.Effect
+    @reactive.event(input.res, ignore_init=True)
+    async def resolutiom():
+        async with MapContext("mapylibre", session=session) as m:
+            m.set_data("road-safety", create_h3_grid(input.res()))
+
+
+app = App(app_ui, server)
+
+if __name__ == "__main__":
+    filename = "/tmp/road_safety.html"
+    with open(filename, "w") as f:
+        m = create_map()
+        f.write(m.to_html())
+
+    webbrowser.open(filename)
