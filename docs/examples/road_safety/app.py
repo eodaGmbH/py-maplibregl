@@ -22,10 +22,12 @@ df["hexagon"] = df.apply(
     lambda x: [h3.h3_to_geo_boundary(x["h3"], geo_json=True)], axis=1
 )
 
+colors = ("lightblue", "turquoise", "lightgreen", "yellow", "orange", "darkred")
+
 df["color"] = pd.cut(
     df["count"],
-    bins=6,
-    labels=("lightblue", "darkblue", "lightgreen", "yellow", "orange", "darkred"),
+    bins=len(colors),
+    labels=colors,
 )
 
 source = GeoJSONSource(
@@ -37,7 +39,8 @@ bounds = get_bounds(source.data)
 
 
 def create_map() -> Map:
-    m = Map(MapOptions(bounds=bounds))
+    # m = Map(MapOptions(bounds=bounds))
+    m = Map(MapOptions(center=(-1.415727, 52.232395), zoom=7, pitch=40, bearing=-27))
     m.add_layer(
         Layer(
             id="road-safety",
