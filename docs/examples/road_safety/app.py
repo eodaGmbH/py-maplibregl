@@ -7,28 +7,30 @@ from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson, get_bounds
 
 RESOLUTION = 7
+COLORS = ("lightblue", "turquoise", "lightgreen", "yellow", "orange", "darkred")
 
 road_safety = pd.read_csv(
     "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"
 ).dropna()
 
-road_safety["h3"] = road_safety.apply(
-    lambda x: h3.geo_to_h3(x["lat"], x["lng"], resolution=RESOLUTION), axis=1
-)
 
-df = road_safety.groupby("h3").h3.agg("count").to_frame("count").reset_index()
+def create_h3_grid(res=RESOLUTION) -> pd.DataFrame:
+    road_safety["h3"] = road_safety.apply(
+        lambda x: h3.geo_to_h3(x["lat"], x["lng"], resolution=res), axis=1
+    )
+    df = road_safety.groupby("h3").h3.agg("count").to_frame("count").reset_index()
+    df["hexagon"] = df.apply(
+        lambda x: [h3.h3_to_geo_boundary(x["h3"], geo_json=True)], axis=1
+    )
+    df["color"] = pd.cut(
+        df["count"],
+        bins=len(COLORS),
+        labels=COLORS,
+    )
+    return df
 
-df["hexagon"] = df.apply(
-    lambda x: [h3.h3_to_geo_boundary(x["h3"], geo_json=True)], axis=1
-)
 
-colors = ("lightblue", "turquoise", "lightgreen", "yellow", "orange", "darkred")
-
-df["color"] = pd.cut(
-    df["count"],
-    bins=len(colors),
-    labels=colors,
-)
+df = create_h3_grid()
 
 source = GeoJSONSource(
     data=df_to_geojson(
@@ -39,7 +41,6 @@ bounds = get_bounds(source.data)
 
 
 def create_map() -> Map:
-    # m = Map(MapOptions(bounds=bounds))
     m = Map(MapOptions(center=(-1.415727, 52.232395), zoom=7, pitch=40, bearing=-27))
     m.add_layer(
         Layer(
