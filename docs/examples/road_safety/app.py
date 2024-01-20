@@ -72,9 +72,13 @@ def server(input, output, session):
 
     @reactive.Effect
     @reactive.event(input.res, ignore_init=True)
-    async def resolutiom():
+    async def resolution():
         async with MapContext("mapylibre", session=session) as m:
-            m.set_data("road-safety", create_h3_grid(input.res()))
+            with ui.Progress() as p:
+                p.set(message="H3 calculation in progress")
+                geojson = create_h3_grid(input.res())
+                m.set_data("road-safety", geojson)
+                p.set(1, message="Calculation finished")
 
 
 app = App(app_ui, server)
