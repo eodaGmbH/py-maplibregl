@@ -41,9 +41,13 @@ def create_map() -> Map:
     m.add_layer(
         Layer(
             id="road-safety",
-            type=LayerType.FILL,
+            type=LayerType.FILL_EXTRUSION,
             source=source,
-            paint={"fill-color": ["get", "color"], "fill-opacity": 0.5},
+            paint={
+                "fill-extrusion-color": ["get", "color"],
+                "fill-extrusion-opacity": 0.7,
+                "fill-extrusion-height": ["*", 100, ["get", "count"]],
+            },
         )
     )
     m.add_tooltip("road-safety", "count")
