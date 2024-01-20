@@ -48,8 +48,7 @@ def create_h3_grid(res=RESOLUTION) -> dict:
     )
 
 
-geojson = create_h3_grid()
-source = GeoJSONSource(data=geojson)
+source = GeoJSONSource(data=create_h3_grid())
 
 
 def create_map() -> Map:
@@ -85,11 +84,10 @@ def server(input, output, session):
     @reactive.Effect
     @reactive.event(input.res, ignore_init=True)
     async def resolution():
-        async with MapContext("mapylibre", session=session) as m:
+        async with MapContext("mapylibre") as m:
             with ui.Progress() as p:
                 p.set(message="H3 calculation in progress")
-                geojson = create_h3_grid(input.res())
-                m.set_data("road-safety", geojson)
+                m.set_data("road-safety", create_h3_grid(input.res()))
                 p.set(1, message="Calculation finished")
 
 
