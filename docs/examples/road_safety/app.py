@@ -2,11 +2,11 @@ import webbrowser
 
 import h3
 import pandas as pd
-from maplibre import Layer, Map, MapOptions
+from maplibre import Layer, LayerType, Map, MapOptions
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson, get_bounds
 
-RESOLUTION = 5
+RESOLUTION = 7
 
 road_safety = pd.read_csv(
     "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"
@@ -22,19 +22,37 @@ df["hexagon"] = df.apply(
     lambda x: [h3.h3_to_geo_boundary(x["h3"], geo_json=True)], axis=1
 )
 
+df["color"] = pd.cut(
+    df["count"],
+    bins=6,
+    labels=("lightblue", "darkblue", "lightgreen", "yellow", "orange", "darkred"),
+)
+
 source = GeoJSONSource(
-    data=df_to_geojson(df, "hexagon", geometry_type="Polygon", properties=["count"])
+    data=df_to_geojson(
+        df, "hexagon", geometry_type="Polygon", properties=["count", "color"]
+    )
 )
 bounds = get_bounds(source.data)
 
-m = Map(MapOptions(bounds=bounds))
-m.add_layer(
-    Layer(id="road-safety", type="line", source=source, paint={"line-color": "yellow"})
-)
-m.add_tooltip("road-safety", "count")
+
+def create_map() -> Map:
+    m = Map(MapOptions(bounds=bounds))
+    m.add_layer(
+        Layer(
+            id="road-safety",
+            type=LayerType.FILL,
+            source=source,
+            paint={"fill-color": ["get", "color"], "fill-opacity": 0.5},
+        )
+    )
+    m.add_tooltip("road-safety", "count")
+    return m
+
 
 filename = "/tmp/road_safety.html"
 with open(filename, "w") as f:
+    m = create_map()
     f.write(m.to_html())
 
 
