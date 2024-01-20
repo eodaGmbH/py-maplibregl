@@ -2,14 +2,28 @@ import webbrowser
 
 import h3
 import pandas as pd
-from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
-                      output_maplibregl, render_maplibregl)
+from maplibre import (
+    Layer,
+    LayerType,
+    Map,
+    MapContext,
+    MapOptions,
+    output_maplibregl,
+    render_maplibregl,
+)
 from maplibre.sources import GeoJSONSource
-from maplibre.utils import df_to_geojson, get_bounds
+from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
 
 RESOLUTION = 6
-COLORS = ("lightblue", "turquoise", "lightgreen", "yellow", "orange", "darkred")
+COLORS = (
+    "lightblue",
+    "turquoise",
+    "lightgreen",
+    "yellow",
+    "orange",
+    "darkred",
+)
 
 road_safety = pd.read_csv(
     "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"
@@ -35,9 +49,7 @@ def create_h3_grid(res=RESOLUTION) -> dict:
 
 
 geojson = create_h3_grid()
-
 source = GeoJSONSource(data=geojson)
-bounds = get_bounds(source.data)
 
 
 def create_map() -> Map:
