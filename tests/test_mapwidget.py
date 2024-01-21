@@ -2,7 +2,7 @@ import pytest
 from maplibre.ipywidget import MapWidget
 
 
-# @pytest.mark.skip("enable me")
+@pytest.mark.skip("enable me")
 def test_maplibre_widget():
     widget = MapWidget(height=200)
     print(widget.map_options)

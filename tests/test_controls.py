@@ -7,6 +7,3 @@ def test_scale_control():
 
     assert control.type == ControlType.SCALE.value
     assert control.unit == "metric"
-
-
-# def test_scale_control():
