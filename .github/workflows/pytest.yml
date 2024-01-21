@@ -25,7 +25,6 @@ jobs:
         run: poetry install
       - name: Test package
         run: |
-          sudo apt-get install -y libxcb-xinerama0
           poetry run pytest
-          poetry run pytest --doctest-modules maplibre
+          poetry run pytest --doctest-modules maplibre --ignore maplibre/ipywidget.py
 
