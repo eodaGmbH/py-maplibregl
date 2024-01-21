@@ -1,4 +1,6 @@
-# maplibre v0.1.2
+# Changelog for MapLibre for Python
+
+## maplibre v0.1.2
 
 * Add `Map.set_data`
 * Add `Map.set_visibility`
@@ -7,6 +9,6 @@
 * Remove dead code
 * Add more examples
 
-# maplibre v0.1.1
+## maplibre v0.1.1
 
 * Initial PyPI release
