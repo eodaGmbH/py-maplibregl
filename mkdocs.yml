@@ -30,6 +30,7 @@ nav:
       - Custom basemap: examples/custom_basemap/index.md
       - GeoPandas: examples/geopandas/index.md
       - UK Road Safety: examples/road_safety/index.md
+      - Where is the ISS: examples/where_is_the_iss/index.md
 
 plugins:
   - search:
