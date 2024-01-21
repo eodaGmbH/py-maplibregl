@@ -1,3 +1,4 @@
+import sys
 import webbrowser
 
 import h3
@@ -15,7 +16,7 @@ from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
 
-RESOLUTION = 6
+RESOLUTION = 7
 COLORS = (
     "lightblue",
     "turquoise",
@@ -94,9 +95,9 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 if __name__ == "__main__":
-    filename = "/tmp/road_safety.html"
+    filename = sys.argv[1] if len(sys.argv) == 2 else "/tmp/road_safety.html"
     with open(filename, "w") as f:
         m = create_map()
-        f.write(m.to_html())
+        f.write(m.to_html(style="height: 700px;"))
 
     webbrowser.open(filename)
