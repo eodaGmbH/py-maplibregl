@@ -50,6 +50,10 @@ function getCustomMapMethods(maplibregl, map) {
       }
       marker.addTo(map);
     },
+
+    setSourceData: function (sourceId, data) {
+      map.getSource(sourceId).setData(data);
+    },
   };
 }
 
