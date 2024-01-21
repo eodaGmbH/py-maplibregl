@@ -206,8 +206,23 @@ class Map(object):
         self.add_call("setLayoutProperty", layer_id, prop, value)
 
     def set_data(self, source_id: str, data: dict) -> None:
-        """Update the data of a GeoJSON source"""
+        """Update the data of a GeoJSON source
+
+        Args:
+            source_id (str): The name of the source to be updated.
+            data (dict): The data of the source.
+        """
         self.add_call("setSourceData", source_id, data)
+
+    def set_visibility(self, layer_id: str, visible: bool = True) -> None:
+        """Update the visibility of a layer
+
+        Args:
+            layer_id (str): The name of the layer to be updated.
+            visible (bool): Whether the layer is visible or not.
+        """
+        value = "visible" if visible else "none"
+        self.add_call("setLayoutProperty", layer_id, "visibility", value)
 
     def to_html(self, **kwargs) -> str:
         """Render to html
