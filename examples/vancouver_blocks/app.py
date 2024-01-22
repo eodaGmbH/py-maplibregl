@@ -44,8 +44,8 @@ vancouver_blocks_fill = Layer(
                 [0, "grey"],
                 [1000, "yellow"],
                 [5000, "orange"],
-                [10000, "red"],
-                [50000, "darkred"],
+                [10000, "darkred"],
+                [50000, "lightblue"],
             ],
         },
         "fill-extrusion-height": ["*", 10, ["sqrt", ["get", "valuePerSqm"]]],
@@ -78,12 +78,18 @@ app_ui = ui.page_fluid(
         "Height of polygons - average property value per square meter of lot",
         style="padding: 10px;",
     ),
-    output_maplibregl("maplibre", height=700),
+    output_maplibregl("maplibre", height=600),
     ui.input_select(
         "filter",
         "max property value per square meter",
         choices=[0, 1000, 5000, 10000, 50000, 100000, MAX_FILTER_VALUE],
         selected=MAX_FILTER_VALUE,
+    ),
+    ui.input_checkbox_group(
+        "layers",
+        "Layers",
+        choices=[LAYER_ID_FILL, LAYER_ID_LINES],
+        selected=[LAYER_ID_FILL, LAYER_ID_LINES],
     ),
 )
 
@@ -100,6 +106,14 @@ def server(input, output, session):
         async with MapContext("maplibre") as m:
             filter_ = ["<=", ["get", "valuePerSqm"], int(input.filter())]
             m.set_filter(LAYER_ID_FILL, filter_)
+
+    @reactive.Effect
+    @reactive.event(input.layers)
+    async def layers():
+        visible_layers = input.layers()
+        async with MapContext("maplibre") as m:
+            for layer in [LAYER_ID_FILL, LAYER_ID_LINES]:
+                m.set_visibility(layer, layer in visible_layers)
 
 
 app = App(app_ui, server)
