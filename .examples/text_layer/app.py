@@ -1,4 +1,5 @@
-from maplibre import Layer, LayerType, Map, output_maplibregl, render_maplibregl
+from maplibre import (Layer, LayerType, Map, output_maplibregl,
+                      render_maplibregl)
 from maplibre.basemaps import Carto
 from shiny import App, reactive, render, ui
 
