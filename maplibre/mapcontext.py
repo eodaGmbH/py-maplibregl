@@ -4,6 +4,19 @@ from .map import Map
 
 
 class MapContext(Map):
+    """MapContext
+
+    Use this class to update a `Map` instance in a Shiny app.
+    Must be used inside an async function.
+
+    See `maplibre.Map` for available methods.
+
+    Args:
+        id (string): The id of the map to be updated.
+        session (Session): A Shiny session.
+            If `None`, the active session is used.
+    """
+
     def __init__(self, id: str, session: Session = None) -> None:
         self.id = id
         self._session = require_active_session(session)

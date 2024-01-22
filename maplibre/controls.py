@@ -92,6 +92,8 @@ class Control(BaseModel):
 
 
 class AttributionControl(Control):
+    """Attribution control"""
+
     # _name: str = ControlType.ATTRIBUTION.value
     compact: bool = None
     custom_attribution: Union[str, list] = Field(
@@ -115,6 +117,8 @@ class FullscreenControl(Control):
 
 
 class GeolocateControl(Control):
+    """Geolocate control"""
+
     # _name: str = ControlType.GEOLOCATE.value
     position_options: dict = Field(None, serialization_alias="positionOptions")
     show_accuracy_circle: bool = Field(True, serialization_alias="showAccuracyCircle")
@@ -124,8 +128,10 @@ class GeolocateControl(Control):
 
 
 class NavigationControl(Control):
+    """Navigation control"""
+
     # _name: str = ControlType.NAVIGATION.value
-    sho_compass: bool = Field(True, serialization_alias="showCompass")
+    show_compass: bool = Field(True, serialization_alias="showCompass")
     show_zoom: bool = Field(True, serialization_alias="showZoom")
     visualize_pitch: bool = Field(False, serialization_alias="visualizePitch")
 
@@ -137,6 +143,8 @@ class ScaleUnit(Enum):
 
 
 class ScaleControl(Control):
+    """Scale control"""
+
     # _name: str = ControlType.SCALE.value
     max_width: int = Field(None, serialization_alias="maxWidth")
     unit: Literal["imperial", "metric", "nautical"] = "metric"

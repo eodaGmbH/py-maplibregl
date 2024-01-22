@@ -2,7 +2,9 @@
 
 ::: maplibre.MapOptions
 
+::: maplibre.MapContext
+
 ::: maplibre.ipywidget.MapWidget
     options:
-        inherited_members: true
+        inherited_members: false
       

@@ -1,0 +1,33 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "feature/examples" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  IMAGE_NAME: hike-animation
+  VERSION: latest
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        cd docs/examples/hike
+        docker build . --file Dockerfile --tag $IMAGE_NAME
+    - name: Log in to registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+    - name: Push image
+      run: |
+        IMAGE_ID=ghcr.io/$GITHUB_REPOSITORY/$IMAGE_NAME
+        # repository name must be lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+        docker push $IMAGE_ID:$VERSION

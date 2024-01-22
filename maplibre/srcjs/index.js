@@ -71,6 +71,9 @@
         popup.remove();
       });
     }
+    setSourceData(sourceId, data) {
+      this._map.getSource(sourceId).setData(data);
+    }
     render(calls) {
       calls.forEach(([name, params]) => {
         if ([
@@ -79,7 +82,8 @@
           "addTooltip",
           "addMarker",
           "addPopup",
-          "addControl"
+          "addControl",
+          "setSourceData"
         ].includes(name)) {
           console.log("Custom method", name, params);
           this[name](...params);

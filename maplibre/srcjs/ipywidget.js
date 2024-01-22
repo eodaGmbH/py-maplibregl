@@ -45,6 +45,9 @@ function getCustomMapMethods(maplibregl2, map) {
         marker.setPopup(popup_);
       }
       marker.addTo(map);
+    },
+    setSourceData: function(sourceId, data) {
+      map.getSource(sourceId).setData(data);
     }
   };
 }
