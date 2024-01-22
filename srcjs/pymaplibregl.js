@@ -88,6 +88,10 @@ export default class PyMapLibreGL {
     });
   }
 
+  setSourceData(sourceId, data) {
+    this._map.getSource(sourceId).setData(data);
+  }
+
   render(calls) {
     calls.forEach(([name, params]) => {
       // Custom method
@@ -99,6 +103,7 @@ export default class PyMapLibreGL {
           "addMarker",
           "addPopup",
           "addControl",
+          "setSourceData",
         ].includes(name)
       ) {
         console.log("Custom method", name, params);

@@ -1,3 +1,5 @@
+<a href="app.html" target="_blank">See example in action</a>
+
 ```python
 -8<-- "3d_indoor_mapping/app.py"
 ```

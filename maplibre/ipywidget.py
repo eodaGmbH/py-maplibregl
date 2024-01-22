@@ -12,59 +12,20 @@ from .map import Map, MapOptions
 from .sources import Source
 
 
-# DEPRECATED: MapWidget now uses map.Map as base class
-class BaseMap(object):
-    def __init__(self, map_options=MapOptions(), **kwargs) -> None:
-        self.map_options = map_options.to_dict() | kwargs
-
-    # This method must be overwritten
-    def add_call(self, method_name: str, *args) -> None:
-        """Add a method call that is executed on the map instance
-
-        Args:
-            method_name (str): The name of the map method to be executed.
-            *args (any): The arguments to be passed to the map method.
-        """
-        # TODO: Pass as dict? {"name": method_name, "args": args}
-        call = [method_name, args]
-        print(call)
-
-    def add_source(self, source_id: str, source: Source) -> None:
-        """Add a source to the map"""
-        self.add_call("addSource", source_id, source.to_dict())
-
-    def add_layer(self, layer: Layer) -> None:
-        """Add a layer to the map"""
-        self.add_call("addLayer", layer.to_dict())
-
-    def add_control(
-        self,
-        control: Control,
-        position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
-    ) -> None:
-        """Add a control to the map"""
-        self.add_call(
-            "addControl",
-            control.type,
-            control.to_dict(),
-            ControlPosition(position).value,
-        )
-
-    def set_paint_property(self, layer_id: str, prop: str, value: any) -> None:
-        """Update a paint property of a layer"""
-        self.add_call("setPaintProperty", layer_id, prop, value)
-
-    def set_layout_property(self, layer_id: str, prop: str, value: any) -> None:
-        """Update a layout property of a layer"""
-        self.add_call("setLayoutProperty", layer_id, prop, value)
-
-    def add_tooltip(self, layer_id: str, prop: str) -> None:
-        """Add a tooltip to the map"""
-        self.add_call("addPopup", layer_id, prop)
-
-
-# TODO: Rename to MapWidget or IpyMap
 class MapWidget(AnyWidget, Map):
+    """MapWidget
+
+    Use this class to display and update maps in Jupyter Notebooks.
+
+    See `maplibre.Map` for available methods.
+
+    Examples:
+        >>> from maplibre import MapOptions
+        >>> from maplibre.ipywidget import MapWidget as Map
+        >>> m = Map(MapOptions(center=(-123.13, 49.254), zoom=11, pitch=45))
+        >>> m # doctest: +SKIP
+    """
+
     _esm = join(Path(__file__).parent, "srcjs", "ipywidget.js")
     _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
     _use_message_queue = False
