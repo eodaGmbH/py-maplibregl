@@ -1,4 +1,6 @@
 import requests as req
+from shiny import App, reactive, render, ui
+
 from maplibre import (
     Layer,
     LayerType,
@@ -9,7 +11,6 @@ from maplibre import (
 )
 from maplibre.basemaps import Carto
 from maplibre.experimental import LineLayer
-from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"
 LAYER_ID_LINE = "us-states-line"
