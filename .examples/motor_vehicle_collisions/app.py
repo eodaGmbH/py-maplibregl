@@ -1,5 +1,6 @@
 import h3
 import pandas as pd
+from shiny import App, reactive, ui
 
 # import shapely
 from maplibre import (
@@ -12,7 +13,6 @@ from maplibre import (
 )
 from maplibre.basemaps import Carto
 from maplibre.utils import GeometryType, df_to_geojson, get_bounds
-from shiny import App, reactive, ui
 
 LAYER_ID = "motor_vehicle_collisions"
 
