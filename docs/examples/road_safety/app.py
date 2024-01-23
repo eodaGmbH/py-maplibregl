@@ -51,21 +51,28 @@ def create_h3_grid(res=RESOLUTION) -> dict:
 
 source = GeoJSONSource(data=create_h3_grid())
 
+map_options = MapOptions(
+    center=(-1.415727, 52.232395),
+    zoom=7,
+    pitch=40,
+    bearing=-27,
+)
+
+h3_layer = Layer(
+    id="road-safety",
+    type=LayerType.FILL_EXTRUSION,
+    source=source,
+    paint={
+        "fill-extrusion-color": ["get", "color"],
+        "fill-extrusion-opacity": 0.7,
+        "fill-extrusion-height": ["*", 100, ["get", "count"]],
+    },
+)
+
 
 def create_map() -> Map:
-    m = Map(MapOptions(center=(-1.415727, 52.232395), zoom=7, pitch=40, bearing=-27))
-    m.add_layer(
-        Layer(
-            id="road-safety",
-            type=LayerType.FILL_EXTRUSION,
-            source=source,
-            paint={
-                "fill-extrusion-color": ["get", "color"],
-                "fill-extrusion-opacity": 0.7,
-                "fill-extrusion-height": ["*", 100, ["get", "count"]],
-            },
-        )
-    )
+    m = Map(map_options)
+    m.add_layer(h3_layer)
     m.add_tooltip("road-safety", "count")
     return m
 
