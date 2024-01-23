@@ -29,7 +29,8 @@ map_options = MapOptions(bounds=df_geo.total_bounds)
 def create_map():
     m = Map(map_options)
     m.add_layer(wilderness_layer)
-    m.add_tooltip(LAYER_ID, "NAME")
+    # m.add_tooltip(LAYER_ID, "NAME")
+    m.add_tooltip(LAYER_ID, None)
     return m
 
 

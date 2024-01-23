@@ -79,7 +79,15 @@ export default class PyMapLibreGL {
     const popup = new maplibregl.Popup(popupOptions);
     this._map.on("mousemove", layerId, (e) => {
       const feature = e.features[0];
-      const text = feature.properties[property];
+      let text;
+      if (property === null) {
+        text = Object.keys(feature.properties)
+          .map((key) => `${key}: ${feature.properties[key]}`)
+          .join("</br>");
+      } else {
+        text = feature.properties[property];
+      }
+
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
 
