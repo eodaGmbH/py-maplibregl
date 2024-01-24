@@ -158,21 +158,21 @@ class Map(object):
         """
         self.add_call("addMarker", marker.to_dict())
 
-    def add_popup(self, layer_id: str, prop: str) -> None:
+    def add_popup(self, layer_id: str, prop: str = None) -> None:
         """Add a popup to the map
 
         Args:
             layer_id (str): The layer to which the popup is added.
-            prop (str): The property of the source to be displayed.
+            prop (str): The property of the source to be displayed. If `None`, all properties will be displayed.
         """
         self.add_call("addPopup", layer_id, prop)
 
-    def add_tooltip(self, layer_id: str, prop: str) -> None:
+    def add_tooltip(self, layer_id: str, prop: str = None) -> None:
         """Add a tooltip to the map
 
         Args:
             layer_id (str): The layer to which the tooltip is added.
-            prop (str): The property of the source to be displayed.
+            prop (str): The property of the source to be displayed. If `None`, all properties will be displayed.
         """
         self.add_call("addTooltip", layer_id, prop)
 

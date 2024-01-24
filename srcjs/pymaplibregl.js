@@ -77,7 +77,8 @@ export default class PyMapLibreGL {
     const popup = new maplibregl.Popup(popupOptions);
     this._map.on("click", layerId, (e) => {
       const feature = e.features[0];
-      const text = feature.properties[property];
+      // const text = feature.properties[property];
+      const text = getTextFromFeature(feature, property);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
   }
