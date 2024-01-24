@@ -1,5 +1,16 @@
 // import { getCustomMapMethods } from "./mapmethods";
 
+function getTextFromFeature(feature, property) {
+  if (property === null) {
+    const text = Object.keys(feature.properties)
+      .map((key) => `${key}: ${feature.properties[key]}`)
+      .join("</br>");
+    return text;
+  }
+
+  return feature.properties[property];
+}
+
 export default class PyMapLibreGL {
   constructor(mapOptions) {
     this._id = mapOptions.container;
@@ -79,15 +90,7 @@ export default class PyMapLibreGL {
     const popup = new maplibregl.Popup(popupOptions);
     this._map.on("mousemove", layerId, (e) => {
       const feature = e.features[0];
-      let text;
-      if (property === null) {
-        text = Object.keys(feature.properties)
-          .map((key) => `${key}: ${feature.properties[key]}`)
-          .join("</br>");
-      } else {
-        text = feature.properties[property];
-      }
-
+      const text = getTextFromFeature(feature, property);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
 
