@@ -1,6 +1,11 @@
+import mustache from "mustache";
 // import { getCustomMapMethods } from "./mapmethods";
 
-function getTextFromFeature(feature, property) {
+function getTextFromFeature(feature, property, template) {
+  if (template !== null) {
+    return mustache.render(template, feature.properties);
+  }
+
   if (property === null) {
     const text = Object.keys(feature.properties)
       .map((key) => `${key}: ${feature.properties[key]}`)
@@ -70,7 +75,7 @@ export default class PyMapLibreGL {
     }
   }
 
-  addPopup(layerId, property) {
+  addPopup(layerId, property, template = null) {
     const popupOptions = {
       closeButton: false,
     };
@@ -78,12 +83,12 @@ export default class PyMapLibreGL {
     this._map.on("click", layerId, (e) => {
       const feature = e.features[0];
       // const text = feature.properties[property];
-      const text = getTextFromFeature(feature, property);
+      const text = getTextFromFeature(feature, property, template);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
   }
 
-  addTooltip(layerId, property) {
+  addTooltip(layerId, property, template = null) {
     const popupOptions = {
       closeButton: false,
       closeOnClick: false,
@@ -91,7 +96,7 @@ export default class PyMapLibreGL {
     const popup = new maplibregl.Popup(popupOptions);
     this._map.on("mousemove", layerId, (e) => {
       const feature = e.features[0];
-      const text = getTextFromFeature(feature, property);
+      const text = getTextFromFeature(feature, property, template);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
 
