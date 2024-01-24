@@ -41,7 +41,7 @@ poetry install
 
 poetry run pytest
 
-poetry run pytest --doctest-modules maplibre
+poetry run pytest --ignore=maplibre/ipywidget.py --doctest-modules maplibre
 ```
 
 ### JavaScript

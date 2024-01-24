@@ -177,6 +177,11 @@ class Map(object):
             layer_id (str): The layer to which the tooltip is added.
             prop (str): The property of the source to be displayed. If `None`, all properties are displayed.
             template (str): A mustache template. If supplied, `prop` is ignored.
+
+        Examples:
+            >>> map = Map()
+            >>> # ...
+            >>> map.add_tooltip("test-layer", template="Name: {{ name }}")
         """
         self.add_call("addTooltip", layer_id, prop, template)
 
