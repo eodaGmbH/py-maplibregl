@@ -163,7 +163,7 @@ class Map(object):
 
         Args:
             layer_id (str): The layer to which the popup is added.
-            prop (str): The property of the source to be displayed. If `None`, all properties will be displayed.
+            prop (str): The property of the source to be displayed. If `None`, all properties are displayed.
         """
         self.add_call("addPopup", layer_id, prop)
 
@@ -172,7 +172,7 @@ class Map(object):
 
         Args:
             layer_id (str): The layer to which the tooltip is added.
-            prop (str): The property of the source to be displayed. If `None`, all properties will be displayed.
+            prop (str): The property of the source to be displayed. If `None`, all properties are displayed.
         """
         self.add_call("addTooltip", layer_id, prop)
 
