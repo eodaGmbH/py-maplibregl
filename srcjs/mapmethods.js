@@ -1,3 +1,5 @@
+import { getTextFromFeature } from "./utils";
+
 function applyMapMethod(map, call) {
   const [methodName, params] = call;
   console.log(methodName, params);
@@ -8,7 +10,7 @@ function applyMapMethod(map, call) {
 // Custom map methods
 function getCustomMapMethods(maplibregl, map) {
   return {
-    addTooltip: function (layerId, property) {
+    addTooltip: function (layerId, property, template = null) {
       const popupOptions = {
         closeButton: false,
         closeOnClick: false,
@@ -17,7 +19,9 @@ function getCustomMapMethods(maplibregl, map) {
 
       map.on("mousemove", layerId, (e) => {
         const feature = e.features[0];
-        const text = feature.properties[property];
+
+        // const text = feature.properties[property];
+        const text = getTextFromFeature(feature, property, template);
         popup.setLngLat(e.lngLat).setHTML(text).addTo(map);
       });
 
@@ -30,14 +34,16 @@ function getCustomMapMethods(maplibregl, map) {
       map.addControl(new maplibregl[type](options), position);
     },
 
-    addPopup: function (layerId, property) {
+    addPopup: function (layerId, property, template = null) {
       const popupOptions = {
         closeButton: false,
       };
       const popup = new maplibregl.Popup(popupOptions);
       map.on("click", layerId, (e) => {
         const feature = e.features[0];
-        const text = feature.properties[property];
+
+        // const text = feature.properties[property];
+        const text = getTextFromFeature(feature, property, template);
         popup.setLngLat(e.lngLat).setHTML(text).addTo(map);
       });
     },

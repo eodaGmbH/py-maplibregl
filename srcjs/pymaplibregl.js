@@ -1,6 +1,9 @@
 import mustache from "mustache";
-// import { getCustomMapMethods } from "./mapmethods";
 
+// import { getCustomMapMethods } from "./mapmethods";
+import { getTextFromFeature } from "./utils";
+
+/*
 function getTextFromFeature(feature, property, template) {
   if (template !== null) {
     return mustache.render(template, feature.properties);
@@ -15,6 +18,7 @@ function getTextFromFeature(feature, property, template) {
 
   return feature.properties[property];
 }
+ */
 
 export default class PyMapLibreGL {
   constructor(mapOptions) {
