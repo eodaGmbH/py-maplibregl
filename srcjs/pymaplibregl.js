@@ -1,24 +1,5 @@
-import mustache from "mustache";
-
 // import { getCustomMapMethods } from "./mapmethods";
 import { getTextFromFeature } from "./utils";
-
-/*
-function getTextFromFeature(feature, property, template) {
-  if (template !== null) {
-    return mustache.render(template, feature.properties);
-  }
-
-  if (property === null) {
-    const text = Object.keys(feature.properties)
-      .map((key) => `${key}: ${feature.properties[key]}`)
-      .join("</br>");
-    return text;
-  }
-
-  return feature.properties[property];
-}
- */
 
 export default class PyMapLibreGL {
   constructor(mapOptions) {
@@ -79,7 +60,7 @@ export default class PyMapLibreGL {
     }
   }
 
-  addPopup(layerId, property, template = null) {
+  addPopup(layerId, property = null, template = null) {
     const popupOptions = {
       closeButton: false,
     };
@@ -92,7 +73,7 @@ export default class PyMapLibreGL {
     });
   }
 
-  addTooltip(layerId, property, template = null) {
+  addTooltip(layerId, property = null, template = null) {
     const popupOptions = {
       closeButton: false,
       closeOnClick: false,
