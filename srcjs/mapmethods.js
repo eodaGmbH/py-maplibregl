@@ -10,7 +10,7 @@ function applyMapMethod(map, call) {
 // Custom map methods
 function getCustomMapMethods(maplibregl, map) {
   return {
-    addTooltip: function (layerId, property, template = null) {
+    addTooltip: function (layerId, property = null, template = null) {
       const popupOptions = {
         closeButton: false,
         closeOnClick: false,
@@ -34,7 +34,7 @@ function getCustomMapMethods(maplibregl, map) {
       map.addControl(new maplibregl[type](options), position);
     },
 
-    addPopup: function (layerId, property, template = null) {
+    addPopup: function (layerId, property = null, template = null) {
       const popupOptions = {
         closeButton: false,
       };
