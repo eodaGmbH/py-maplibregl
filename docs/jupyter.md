@@ -32,21 +32,21 @@ m.add_marker(Marker(lng_lat=(100.507, 13.745)))
 m
 
 # Change radius
-widgets.interact(
+_ = widgets.interact(
     lambda radius: m.set_paint_property(layer_id, "circle-radius", radius),
-    radius=5
+    radius=(1, 8, 1)
 )
 
 # Change color
-widgets.interact(
+_ = widgets.interact(
     lambda color: m.set_paint_property(layer_id, "circle-color", color),
     color=["green", "yellow", "orange", "red"]
 )
 
 # Set filter on magnitude
-widgets.interact(
+_ = widgets.interact(
     lambda mag_min: m.set_filter(layer_id, [">=", ["get", "mag"], mag_min]),
-    mag_min=3
+    mag_min=(1, 8, 1)
 )
 
 # Observe map-on-click event
