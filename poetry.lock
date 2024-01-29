@@ -1940,14 +1940,14 @@ test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "shiny"
-version = "0.6.1.1"
+version = "0.7.0"
 description = "A web development framework for Python."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "shiny-0.6.1.1-py3-none-any.whl", hash = "sha256:dfc4296ef2c9f35ad33cf14337c1d8e1da31958c32c3faf9d294514275133768"},
-    {file = "shiny-0.6.1.1.tar.gz", hash = "sha256:42c4cf690bfd4d666e523e876ddd7afce1208516c5c4816663a12e5889f58292"},
+    {file = "shiny-0.7.0-py3-none-any.whl", hash = "sha256:1de66c06a8e89ffd3cd6dcb49104c2ba2744e3043423ff2f85b97fdb34fa35ed"},
+    {file = "shiny-0.7.0.tar.gz", hash = "sha256:d7eb78989259297eb2c3247dc9df16846890480526753a36e0505b881861e487"},
 ]
 
 [package.dependencies]
@@ -1960,16 +1960,16 @@ markdown-it-py = ">=1.1.0"
 mdit-py-plugins = ">=0.3.0"
 python-multipart = "*"
 questionary = {version = ">=2.0.0", markers = "platform_system != \"Emscripten\""}
-starlette = ">=0.17.1"
+starlette = ">=0.17.1,<0.35.0"
 typing-extensions = ">=4.0.1"
 uvicorn = ">=0.16.0"
 watchfiles = {version = ">=0.18.0", markers = "platform_system != \"Emscripten\""}
 websockets = ">=10.0"
 
 [package.extras]
-dev = ["black (>=23.1.0)", "flake8 (>=6.0.0)", "flake8-bugbear (>=23.2.13)", "isort (>=5.10.1)", "matplotlib", "numpy", "pandas", "pandas-stubs", "pre-commit (>=2.15.0)", "pyright (>=1.1.334)", "shinyswatch (>=0.2.4)", "wheel"]
-doc = ["griffe (==0.33.0)", "jupyter", "jupyter-client (<8.0.0)", "pydantic (==1.10)", "quartodoc (==0.7.2)", "shinylive (==0.1.1)", "tabulate"]
-test = ["astropy", "bokeh", "coverage", "duckdb", "geodatasets", "geopandas", "holoviews", "ipyleaflet", "missingno", "plotly", "plotnine", "psutil", "pytest (>=6.2.4)", "pytest-asyncio (>=0.17.2)", "pytest-cov", "pytest-playwright (>=0.3.0)", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist", "rsconnect-python", "scikit-learn", "seaborn", "shinywidgets", "suntime", "syrupy", "timezonefinder", "xarray"]
+dev = ["black (>=23.1.0)", "flake8 (>=6.0.0)", "flake8-bugbear (>=23.2.13)", "isort (>=5.10.1)", "matplotlib", "numpy", "pandas", "pandas-stubs", "pre-commit (>=2.15.0)", "pyright (>=1.1.348)", "shinyswatch (>=0.2.4)", "wheel"]
+doc = ["griffe (==0.33.0)", "jupyter", "jupyter-client (<8.0.0)", "pydantic (==1.10)", "quartodoc (==0.7.2)", "shinylive", "tabulate"]
+test = ["astropy", "bokeh", "coverage", "duckdb", "folium", "geodatasets", "geopandas", "holoviews", "ipyleaflet", "missingno", "plotly", "plotnine", "psutil", "pytest (>=6.2.4)", "pytest-asyncio (>=0.17.2)", "pytest-cov", "pytest-playwright (>=0.3.0)", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist", "rsconnect-python", "scikit-learn", "seaborn", "shinywidgets", "suntime", "syrupy", "timezonefinder", "xarray"]
 
 [[package]]
 name = "six"
@@ -2017,14 +2017,14 @@ tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
 name = "starlette"
-version = "0.35.1"
+version = "0.34.0"
 description = "The little ASGI library that shines."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "starlette-0.35.1-py3-none-any.whl", hash = "sha256:50bbbda9baa098e361f398fda0928062abbaf1f54f4fadcbe17c092a01eb9a25"},
-    {file = "starlette-0.35.1.tar.gz", hash = "sha256:3e2639dac3520e4f58734ed22553f950d3f3cb1001cd2eaac4d57e8cdc5f66bc"},
+    {file = "starlette-0.34.0-py3-none-any.whl", hash = "sha256:2e14ee943f2df59eb8c141326240ce601643f1a97b577db44634f6d05d368c37"},
+    {file = "starlette-0.34.0.tar.gz", hash = "sha256:ed050aaf3896945bfaae93bdf337e53ef3f29115a9d9c153e402985115cd9c8e"},
 ]
 
 [package.dependencies]
@@ -2394,4 +2394,4 @@ all = ["geopandas", "pandas"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "47ba10b55a403b30b258b7298c519ac5c9e0a4b5c611c578f0d3a665233d7d88"
+content-hash = "e6a75af45f029a585627b63d2d75ae99e4fb1061602d07600811ac98494d232d"

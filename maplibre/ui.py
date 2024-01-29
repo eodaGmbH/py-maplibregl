@@ -1,6 +1,9 @@
+### TODO: move to 'shiny.py'
+
 from __future__ import annotations
 
-from htmltools import HTMLDependency
+from htmltools import HTMLDependency, Tag
+
 from shiny import ui
 from shiny.module import resolve_id
 
@@ -24,7 +27,7 @@ pymaplibregl_dep = HTMLDependency(
 )
 
 
-def output_maplibregl(id_: str, height: [int | str] = 200):
+def output_maplibregl(id_: str, height: [int | str] = 200) -> Tag:
     if isinstance(height, int):
         height = f"{height}px"
 

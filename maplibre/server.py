@@ -1,3 +1,5 @@
+### DEPRECATED: see 'shiny.py'
+
 from __future__ import annotations
 
 from shiny.render.transformer import (
