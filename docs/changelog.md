@@ -1,5 +1,10 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.1.3
+
+* Display all properties in popup and tooltip if `prop = None` (#26)
+* Support [mustache](https://github.com/janl/mustache.js) templates for popups and tooltips (#27)
+
 ## maplibre v0.1.2
 
 * Add `Map.set_data`
