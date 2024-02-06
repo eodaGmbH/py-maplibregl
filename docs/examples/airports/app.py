@@ -1,3 +1,5 @@
+import sys
+
 import pandas as pd
 from maplibre import (
     Layer,
@@ -64,6 +66,23 @@ map_options = MapOptions(
 
 popup_options = PopupOptions(close_button=False)
 
+
+def create_map() -> Map:
+    m = Map(map_options)
+    m.add_layer(airport_circles)
+    for _, r in airports_data.iterrows():
+        marker = Marker(
+            lng_lat=r["coordinates"],
+            options=MarkerOptions(color=get_color(r["type"])),
+            popup=Popup(
+                text=r["name"],
+                options=popup_options,
+            ),
+        )
+        m.add_marker(marker)
+    return m
+
+
 app_ui = ui.page_fluid(
     ui.panel_title("Airports"),
     output_maplibregl("maplibre", height=600),
@@ -73,22 +92,14 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     def maplibre():
-        m = Map(map_options)
-        for _, r in airports_data.iterrows():
-            marker = Marker(
-                lng_lat=r["coordinates"],
-                options=MarkerOptions(color=get_color(r["type"])),
-                popup=Popup(
-                    text=r["name"],
-                    options=popup_options,
-                ),
-            )
-            m.add_marker(marker)
-        m.add_layer(airport_circles)
-        return m
+        return create_map()
 
 
 app = App(app_ui, server)
 
 if __name__ == "__main__":
-    app.run()
+    if len(sys.argv) == 2:
+        with open(sys.argv[1], "w") as f:
+            f.write(create_map().to_html())
+    else:
+        app.run()

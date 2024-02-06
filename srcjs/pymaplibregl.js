@@ -1,4 +1,5 @@
 // import { getCustomMapMethods } from "./mapmethods";
+import { getTextFromFeature } from "./utils";
 
 export default class PyMapLibreGL {
   constructor(mapOptions) {
@@ -59,19 +60,20 @@ export default class PyMapLibreGL {
     }
   }
 
-  addPopup(layerId, property) {
+  addPopup(layerId, property = null, template = null) {
     const popupOptions = {
       closeButton: false,
     };
     const popup = new maplibregl.Popup(popupOptions);
     this._map.on("click", layerId, (e) => {
       const feature = e.features[0];
-      const text = feature.properties[property];
+      // const text = feature.properties[property];
+      const text = getTextFromFeature(feature, property, template);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
   }
 
-  addTooltip(layerId, property) {
+  addTooltip(layerId, property = null, template = null) {
     const popupOptions = {
       closeButton: false,
       closeOnClick: false,
@@ -79,7 +81,7 @@ export default class PyMapLibreGL {
     const popup = new maplibregl.Popup(popupOptions);
     this._map.on("mousemove", layerId, (e) => {
       const feature = e.features[0];
-      const text = feature.properties[property];
+      const text = getTextFromFeature(feature, property, template);
       popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
     });
 
