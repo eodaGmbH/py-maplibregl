@@ -1,6 +1,7 @@
 # MapLibre for Python
 
 [![Release](https://img.shields.io/github/v/release/eodaGmbH/py-maplibregl)](https://img.shields.io/github/v/release/eodaGmbH/py-maplibregl)
+[![pypi](https://img.shields.io/pypi/v/maplibre.svg)](https://pypi.python.org/pypi/maplibre)
 [![Build status](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-maplibregl/pytest.yml?branch=main)](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-maplibregl/pytest.yml?branch=main)
 [![License](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)
 
