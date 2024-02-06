@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Pymaplibregl</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"/>
+<body>
+<div id="pymaplibregl" style="height:600px;"></div>
+<script>
+(() => {
+  // srcjs/pymaplibregl.js
+  var PyMapLibreGL = class {
+    constructor(mapOptions) {
+      this._id = mapOptions.container;
+      this._map = new maplibregl.Map(mapOptions);
+      this._map.on("mouseover", () => {
+        this._map.getCanvas().style.cursor = "pointer";
+      });
+      this._map.on("mouseout", () => {
+        this._map.getCanvas().style.cursor = "";
+      });
+      this._map.addControl(new maplibregl.NavigationControl());
+    }
+    getMap() {
+      return this._map;
+    }
+    applyMapMethod(name, params) {
+      this._map[name](...params);
+    }
+    addControl(type, options, position) {
+      this._map.addControl(new maplibregl[type](options), position);
+    }
+    addMarker({ lngLat, popup, options }) {
+      const marker = new maplibregl.Marker(options).setLngLat(lngLat);
+      if (popup) {
+        const popup_ = new maplibregl.Popup(popup.options).setHTML(popup.text);
+        marker.setPopup(popup_);
+      }
+      marker.addTo(this._map);
+    }
+    addLayer(layer) {
+      this._map.addLayer(layer);
+      if (typeof Shiny !== "undefined") {
+        this._map.on("click", layer.id, (e) => {
+          console.log(e, e.features[0]);
+          const layerId_ = layer.id.replaceAll("-", "_");
+          const inputName = `${this._id}_layer_${layerId_}`;
+          const feature = {
+            props: e.features[0].properties,
+            layer_id: layer.id
+          };
+          console.log(inputName, feature);
+          Shiny.onInputChange(inputName, feature);
+        });
+      }
+    }
+    addPopup(layerId, property) {
+      const popupOptions = {
+        closeButton: false
+      };
+      const popup = new maplibregl.Popup(popupOptions);
+      this._map.on("click", layerId, (e) => {
+        const feature = e.features[0];
+        const text = feature.properties[property];
+        popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
+      });
+    }
+    addTooltip(layerId, property) {
+      const popupOptions = {
+        closeButton: false,
+        closeOnClick: false
+      };
+      const popup = new maplibregl.Popup(popupOptions);
+      this._map.on("mousemove", layerId, (e) => {
+        const feature = e.features[0];
+        const text = feature.properties[property];
+        popup.setLngLat(e.lngLat).setHTML(text).addTo(this._map);
+      });
+      this._map.on("mouseleave", layerId, () => {
+        popup.remove();
+      });
+    }
+    setSourceData(sourceId, data) {
+      this._map.getSource(sourceId).setData(data);
+    }
+    render(calls) {
+      calls.forEach(([name, params]) => {
+        if ([
+          "addLayer",
+          "addPopup",
+          "addTooltip",
+          "addMarker",
+          "addPopup",
+          "addControl",
+          "setSourceData"
+        ].includes(name)) {
+          console.log("Custom method", name, params);
+          this[name](...params);
+          return;
+        }
+        console.log("Map method", name);
+        this.applyMapMethod(name, params);
+      });
+    }
+  };
+
+  // srcjs/index.js
+  var version = "0.1.0";
+  console.log("pymaplibregl", version);
+  if (typeof Shiny === "undefined") {
+    window.pymaplibregl = function({ mapOptions, calls }) {
+      const id = "pymaplibregl";
+      const container = document.getElementById(id);
+      const pyMapLibreGL = new PyMapLibreGL(
+        Object.assign({ container: container.id }, mapOptions)
+      );
+      const map = pyMapLibreGL.getMap();
+      map.on("load", () => {
+        pyMapLibreGL.render(calls);
+      });
+    };
+  }
+  if (typeof Shiny !== "undefined") {
+    class MapLibreGLOutputBinding extends Shiny.OutputBinding {
+      find(scope) {
+        return scope.find(".shiny-maplibregl-output");
+      }
+      renderValue(el, payload) {
+        console.log("id:", el.id, "payload:", payload);
+        const pyMapLibreGL = new PyMapLibreGL(
+          Object.assign({ container: el.id }, payload.mapData.mapOptions)
+        );
+        const map = pyMapLibreGL.getMap();
+        map.on("load", () => {
+          pyMapLibreGL.render(payload.mapData.calls);
+        });
+        map.on("click", (e) => {
+          console.log(e);
+          const inputName = `${el.id}`;
+          const data = { coords: e.lngLat, point: e.point };
+          console.log(inputName, data);
+          Shiny.onInputChange(inputName, data);
+        });
+        const messageHandlerName = `pymaplibregl-${el.id}`;
+        console.log(messageHandlerName);
+        Shiny.addCustomMessageHandler(messageHandlerName, ({ id, calls }) => {
+          console.log(id, calls);
+          pyMapLibreGL.render(calls);
+        });
+      }
+    }
+    Shiny.outputBindings.register(
+      new MapLibreGLOutputBinding(),
+      "shiny-maplibregl-output"
+    );
+  }
+})();
+
+// ...
+(() => {
+    var data = {"mapOptions": {"bounds": [-8.92242886, 43.30508298, 13.76496714, 59.87668996], "fitBoundsOptions": {"padding": 20}, "hash": true, "style": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"}, "calls": [["addLayer", [{"id": "b8e999c9-0e91-470e-990b-25359ef6021b", "type": "circle", "paint": {"circle-color": ["match", ["get", "type"], "mid", "darkred", "major", "darkgreen", "darkblue"], "circle-radius": 10, "circle-opacity": 0.3}, "source": {"data": {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"type": "mid", "name": "Rotterdam The Hague", "abbrev": "RTM"}, "geometry": {"type": "Point", "coordinates": [4.433844349628764, 51.94913018993814]}}, {"type": "Feature", "properties": {"type": "major", "name": "Liverpool John Lennon", "abbrev": "LPL"}, "geometry": {"type": "Point", "coordinates": [-2.858620657849378, 53.3363751054422]}}, {"type": "Feature", "properties": {"type": "major", "name": "Newcastle Int'l", "abbrev": "NCL"}, "geometry": {"type": "Point", "coordinates": [-1.7103457840721599, 55.03708486080194]}}, {"type": "Feature", "properties": {"type": "major", "name": "Bremen", "abbrev": "BRE"}, "geometry": {"type": "Point", "coordinates": [8.785861770313199, 53.052287104156]}}, {"type": "Feature", "properties": {"type": "major", "name": "Bristol Int'l", "abbrev": "BRS"}, "geometry": {"type": "Point", "coordinates": [-2.710864691343084, 51.386293418914825]}}, {"type": "Feature", "properties": {"type": "major", "name": "Cardiff", "abbrev": "CWL"}, "geometry": {"type": "Point", "coordinates": [-3.339568764291176, 51.398622091101736]}}, {"type": "Feature", "properties": {"type": "major", "name": "Edinburgh Int'l", "abbrev": "EDI"}, "geometry": {"type": "Point", "coordinates": [-3.364284685135544, 55.94855401136389]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Inverness", "abbrev": "INV"}, "geometry": {"type": "Point", "coordinates": [-4.063591755871404, 57.53950029234237]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Kirkwall", "abbrev": "KOI"}, "geometry": {"type": "Point", "coordinates": [-2.9013784952450763, 58.954428878830335]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Sumburgh", "abbrev": "LSI"}, "geometry": {"type": "Point", "coordinates": [-1.288060688387535, 59.87668995989991]}}, {"type": "Feature", "properties": {"type": "major", "name": "London Luton", "abbrev": "LTN"}, "geometry": {"type": "Point", "coordinates": [-0.376227267397439, 51.88029525709689]}}, {"type": "Feature", "properties": {"type": "major", "name": "Malpensa", "abbrev": "MXP"}, "geometry": {"type": "Point", "coordinates": [8.712959535024366, 45.627440514038085]}}, {"type": "Feature", "properties": {"type": "major", "name": "Nurnberg", "abbrev": "NUE"}, "geometry": {"type": "Point", "coordinates": [11.077417973909554, 49.49450521703444]}}, {"type": "Feature", "properties": {"type": "major", "name": "Shannon", "abbrev": "SNN"}, "geometry": {"type": "Point", "coordinates": [-8.922428855576856, 52.69345371025315]}}, {"type": "Feature", "properties": {"type": "major", "name": "Turin Int'l", "abbrev": "TRN"}, "geometry": {"type": "Point", "coordinates": [7.644162303621326, 45.19166007346416]}}, {"type": "Feature", "properties": {"type": "major", "name": "Bordeaux", "abbrev": "BOD"}, "geometry": {"type": "Point", "coordinates": [-0.7017934490752431, 44.83211086626738]}}, {"type": "Feature", "properties": {"type": "mid", "name": "St Gatien", "abbrev": "DOL"}, "geometry": {"type": "Point", "coordinates": [0.158653528230218, 49.3616609986609]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Lille-Lesquin", "abbrev": "LIL"}, "geometry": {"type": "Point", "coordinates": [3.105964997998134, 50.57164239295805]}}, {"type": "Feature", "properties": {"type": "major", "name": "Toulouse-Blagnac", "abbrev": "TLS"}, "geometry": {"type": "Point", "coordinates": [1.373509185511526, 43.63046256616008]}}, {"type": "Feature", "properties": {"type": "major", "name": "Leeds Bradford", "abbrev": "LBA"}, "geometry": {"type": "Point", "coordinates": [-1.659831067347459, 53.869081947443426]}}, {"type": "Feature", "properties": {"type": "major", "name": "Cork", "abbrev": "ORK"}, "geometry": {"type": "Point", "coordinates": [-8.490141999838169, 51.84854054199234]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Glasgow Prestwick", "abbrev": "PIK"}, "geometry": {"type": "Point", "coordinates": [-4.610971639010681, 55.50889181051419]}}, {"type": "Feature", "properties": {"type": "military mid", "name": "Chalons Vatry", "abbrev": "XCR"}, "geometry": {"type": "Point", "coordinates": [4.191119825742889, 48.780394613856636]}}, {"type": "Feature", "properties": {"type": "major", "name": "Luxembourg-Findel", "abbrev": "LUX"}, "geometry": {"type": "Point", "coordinates": [6.216421217287303, 49.634304092510156]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Deurne", "abbrev": "ANR"}, "geometry": {"type": "Point", "coordinates": [4.450922773999087, 51.18912850638063]}}, {"type": "Feature", "properties": {"type": "major", "name": "London Gatwick", "abbrev": "LGW"}, "geometry": {"type": "Point", "coordinates": [-0.16296163913945602, 51.15575675192744]}}, {"type": "Feature", "properties": {"type": "major", "name": "Manchester Int'l", "abbrev": "MAN"}, "geometry": {"type": "Point", "coordinates": [-2.273371590694273, 53.3624896066518]}}, {"type": "Feature", "properties": {"type": "major", "name": "Marseille Provence Airport", "abbrev": "MRS"}, "geometry": {"type": "Point", "coordinates": [5.221379177203371, 43.44106000164678]}}, {"type": "Feature", "properties": {"type": "major", "name": "Birmingham Int'l", "abbrev": "BHX"}, "geometry": {"type": "Point", "coordinates": [-1.7337317043445242, 52.4529085542838]}}, {"type": "Feature", "properties": {"type": "major", "name": "Dresden", "abbrev": "DRS"}, "geometry": {"type": "Point", "coordinates": [13.764967144004657, 51.1250912428871]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Annemasse", "abbrev": "QNJ"}, "geometry": {"type": "Point", "coordinates": [6.264910853641589, 46.195728328626046]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Strasbourg", "abbrev": "SXB"}, "geometry": {"type": "Point", "coordinates": [7.627841966889239, 48.544696172175925]}}, {"type": "Feature", "properties": {"type": "major", "name": "Cologne/Bonn", "abbrev": "CGN"}, "geometry": {"type": "Point", "coordinates": [7.122359755245384, 50.87825966294708]}}, {"type": "Feature", "properties": {"type": "major", "name": "Stavanger Sola", "abbrev": "SVG"}, "geometry": {"type": "Point", "coordinates": [5.629810329721797, 58.882156484218456]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Bilbao", "abbrev": "BIO"}, "geometry": {"type": "Point", "coordinates": [-2.906090116798052, 43.30508298111946]}}, {"type": "Feature", "properties": {"type": "major", "name": "Brussels", "abbrev": "BRU"}, "geometry": {"type": "Point", "coordinates": [4.484640324082721, 50.89729496415107]}}, {"type": "Feature", "properties": {"type": "major", "name": "Belfast Int'l", "abbrev": "BFS"}, "geometry": {"type": "Point", "coordinates": [-6.216169437349579, 54.661557547010304]}}, {"type": "Feature", "properties": {"type": "major", "name": "Orio Al Serio", "abbrev": "BGY"}, "geometry": {"type": "Point", "coordinates": [9.6989176939974, 45.66549805606944]}}, {"type": "Feature", "properties": {"type": "major", "name": "Dusseldorf Int'l", "abbrev": "DUS"}, "geometry": {"type": "Point", "coordinates": [6.764944466121738, 51.27818204207739]}}, {"type": "Feature", "properties": {"type": "major", "name": "Stuttgart", "abbrev": "STR"}, "geometry": {"type": "Point", "coordinates": [9.193951089455355, 48.69010513589127]}}, {"type": "Feature", "properties": {"type": "major", "name": "Geneva", "abbrev": "GVA"}, "geometry": {"type": "Point", "coordinates": [6.107945774236033, 46.231009510157946]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Lyon-Saint Exupery", "abbrev": "LYS"}, "geometry": {"type": "Point", "coordinates": [5.075944318134585, 45.721018683466895]}}, {"type": "Feature", "properties": {"type": "major", "name": "Glasgow Int'l", "abbrev": "GLA"}, "geometry": {"type": "Point", "coordinates": [-4.431677969951068, 55.864182857035445]}}, {"type": "Feature", "properties": {"type": "major", "name": "Paris Orly", "abbrev": "ORY"}, "geometry": {"type": "Point", "coordinates": [2.367379127837731, 48.731303045805156]}}, {"type": "Feature", "properties": {"type": "major", "name": "Copenhagen", "abbrev": "CPH"}, "geometry": {"type": "Point", "coordinates": [12.649350868450766, 55.62850172215277]}}, {"type": "Feature", "properties": {"type": "major", "name": "Dublin", "abbrev": "DUB"}, "geometry": {"type": "Point", "coordinates": [-6.243884910371393, 53.42700828497003]}}, {"type": "Feature", "properties": {"type": "major", "name": "Hamburg", "abbrev": "HAM"}, "geometry": {"type": "Point", "coordinates": [10.005647830925, 53.63200116408657]}}, {"type": "Feature", "properties": {"type": "major", "name": "Franz-Josef-Strauss", "abbrev": "MUC"}, "geometry": {"type": "Point", "coordinates": [11.788062719243683, 48.353837396160834]}}, {"type": "Feature", "properties": {"type": "major", "name": "Zurich Int'l", "abbrev": "ZRH"}, "geometry": {"type": "Point", "coordinates": [8.562212795347643, 47.45238950649154]}}, {"type": "Feature", "properties": {"type": "mid", "name": "Gosselies", "abbrev": "CRL"}, "geometry": {"type": "Point", "coordinates": [4.454373629816501, 50.457129654956674]}}, {"type": "Feature", "properties": {"type": "major", "name": "Munich Freight Terminal", "abbrev": "MUCf"}, "geometry": {"type": "Point", "coordinates": [11.769482859365423, 48.34979640783765]}}, {"type": "Feature", "properties": {"type": "major", "name": "Schiphol", "abbrev": "AMS"}, "geometry": {"type": "Point", "coordinates": [4.764376932328116, 52.30893238898216]}}, {"type": "Feature", "properties": {"type": "major", "name": "London Heathrow", "abbrev": "LHR"}, "geometry": {"type": "Point", "coordinates": [-0.453156652063309, 51.47099587999383]}}, {"type": "Feature", "properties": {"type": "major", "name": "Linate", "abbrev": "LIN"}, "geometry": {"type": "Point", "coordinates": [9.27996629691061, 45.46039384562521]}}, {"type": "Feature", "properties": {"type": "major", "name": "Charles de Gaulle Int'l", "abbrev": "CDG"}, "geometry": {"type": "Point", "coordinates": [2.541867767394572, 49.01442009693854]}}, {"type": "Feature", "properties": {"type": "major", "name": "Berlin-Tegel Int'l", "abbrev": "TXL"}, "geometry": {"type": "Point", "coordinates": [13.290309092507398, 52.55442870441008]}}, {"type": "Feature", "properties": {"type": "major", "name": "Frankfurt Int'l", "abbrev": "FRA"}, "geometry": {"type": "Point", "coordinates": [8.571822869076074, 50.050677089520725]}}]}, "type": "geojson"}}]], ["addMarker", [{"lngLat": [4.433844349628764, 51.94913018993814], "popup": {"text": "Rotterdam The Hague", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [-2.858620657849378, 53.3363751054422], "popup": {"text": "Liverpool John Lennon", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-1.7103457840721599, 55.03708486080194], "popup": {"text": "Newcastle Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [8.785861770313199, 53.052287104156], "popup": {"text": "Bremen", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-2.710864691343084, 51.386293418914825], "popup": {"text": "Bristol Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-3.339568764291176, 51.398622091101736], "popup": {"text": "Cardiff", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-3.364284685135544, 55.94855401136389], "popup": {"text": "Edinburgh Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-4.063591755871404, 57.53950029234237], "popup": {"text": "Inverness", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [-2.9013784952450763, 58.954428878830335], "popup": {"text": "Kirkwall", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [-1.288060688387535, 59.87668995989991], "popup": {"text": "Sumburgh", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [-0.376227267397439, 51.88029525709689], "popup": {"text": "London Luton", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [8.712959535024366, 45.627440514038085], "popup": {"text": "Malpensa", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [11.077417973909554, 49.49450521703444], "popup": {"text": "Nurnberg", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-8.922428855576856, 52.69345371025315], "popup": {"text": "Shannon", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [7.644162303621326, 45.19166007346416], "popup": {"text": "Turin Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-0.7017934490752431, 44.83211086626738], "popup": {"text": "Bordeaux", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [0.158653528230218, 49.3616609986609], "popup": {"text": "St Gatien", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [3.105964997998134, 50.57164239295805], "popup": {"text": "Lille-Lesquin", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [1.373509185511526, 43.63046256616008], "popup": {"text": "Toulouse-Blagnac", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-1.659831067347459, 53.869081947443426], "popup": {"text": "Leeds Bradford", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-8.490141999838169, 51.84854054199234], "popup": {"text": "Cork", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-4.610971639010681, 55.50889181051419], "popup": {"text": "Glasgow Prestwick", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [4.191119825742889, 48.780394613856636], "popup": {"text": "Chalons Vatry", "options": {"closeButton": false}}, "options": {"color": "darkblue"}}]], ["addMarker", [{"lngLat": [6.216421217287303, 49.634304092510156], "popup": {"text": "Luxembourg-Findel", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [4.450922773999087, 51.18912850638063], "popup": {"text": "Deurne", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [-0.16296163913945602, 51.15575675192744], "popup": {"text": "London Gatwick", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-2.273371590694273, 53.3624896066518], "popup": {"text": "Manchester Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [5.221379177203371, 43.44106000164678], "popup": {"text": "Marseille Provence Airport", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-1.7337317043445242, 52.4529085542838], "popup": {"text": "Birmingham Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [13.764967144004657, 51.1250912428871], "popup": {"text": "Dresden", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [6.264910853641589, 46.195728328626046], "popup": {"text": "Annemasse", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [7.627841966889239, 48.544696172175925], "popup": {"text": "Strasbourg", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [7.122359755245384, 50.87825966294708], "popup": {"text": "Cologne/Bonn", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [5.629810329721797, 58.882156484218456], "popup": {"text": "Stavanger Sola", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-2.906090116798052, 43.30508298111946], "popup": {"text": "Bilbao", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [4.484640324082721, 50.89729496415107], "popup": {"text": "Brussels", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-6.216169437349579, 54.661557547010304], "popup": {"text": "Belfast Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [9.6989176939974, 45.66549805606944], "popup": {"text": "Orio Al Serio", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [6.764944466121738, 51.27818204207739], "popup": {"text": "Dusseldorf Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [9.193951089455355, 48.69010513589127], "popup": {"text": "Stuttgart", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [6.107945774236033, 46.231009510157946], "popup": {"text": "Geneva", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [5.075944318134585, 45.721018683466895], "popup": {"text": "Lyon-Saint Exupery", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [-4.431677969951068, 55.864182857035445], "popup": {"text": "Glasgow Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [2.367379127837731, 48.731303045805156], "popup": {"text": "Paris Orly", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [12.649350868450766, 55.62850172215277], "popup": {"text": "Copenhagen", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-6.243884910371393, 53.42700828497003], "popup": {"text": "Dublin", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [10.005647830925, 53.63200116408657], "popup": {"text": "Hamburg", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [11.788062719243683, 48.353837396160834], "popup": {"text": "Franz-Josef-Strauss", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [8.562212795347643, 47.45238950649154], "popup": {"text": "Zurich Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [4.454373629816501, 50.457129654956674], "popup": {"text": "Gosselies", "options": {"closeButton": false}}, "options": {"color": "darkred"}}]], ["addMarker", [{"lngLat": [11.769482859365423, 48.34979640783765], "popup": {"text": "Munich Freight Terminal", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [4.764376932328116, 52.30893238898216], "popup": {"text": "Schiphol", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [-0.453156652063309, 51.47099587999383], "popup": {"text": "London Heathrow", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [9.27996629691061, 45.46039384562521], "popup": {"text": "Linate", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [2.541867767394572, 49.01442009693854], "popup": {"text": "Charles de Gaulle Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [13.290309092507398, 52.55442870441008], "popup": {"text": "Berlin-Tegel Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]], ["addMarker", [{"lngLat": [8.571822869076074, 50.050677089520725], "popup": {"text": "Frankfurt Int'l", "options": {"closeButton": false}}, "options": {"color": "darkgreen"}}]]]};
+    pymaplibregl(data);
+})();
+</script>
+</body>
+</html>

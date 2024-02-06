@@ -1,6 +1,6 @@
 {
   "name": "pymaplibregl",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "...",
   "main": "index.js",
   "directories": {
@@ -8,8 +8,10 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "esbuild srcjs/index.js --bundle --outfile=maplibre/srcjs/index.js",
-    "build-ipywidget": "esbuild srcjs/ipywidget.js --bundle --format=esm --outfile=maplibre/srcjs/ipywidget.js",
+    "build": "esbuild srcjs/index.js --bundle --minify --outfile=maplibre/srcjs/index.js",
+    "build-dev": "esbuild srcjs/index.js --bundle --outfile=maplibre/srcjs/index.js",
+    "build-ipywidget": "esbuild srcjs/ipywidget.js --bundle --minify --format=esm --outfile=maplibre/srcjs/ipywidget.js",
+    "build-ipywidget-dev": "esbuild srcjs/ipywidget.js --bundle --format=esm --outfile=maplibre/srcjs/ipywidget.js",
     "build-rwidget": "esbuild srcjs/rwidget.js --bundle --minify --outfile=../r-maplibregl/inst/htmlwidgets/maplibre.js",
     "prettier": "prettier srcjs --write",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,5 +21,8 @@
   "devDependencies": {
     "esbuild": "0.19.10",
     "prettier": "3.1.1"
+  },
+  "dependencies": {
+    "mustache": "^4.2.0"
   }
 }

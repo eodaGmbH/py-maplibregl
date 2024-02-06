@@ -1,16 +1,9 @@
 import requests as req
-from shiny import App, reactive, render, ui
-
-from maplibre import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    output_maplibregl,
-    render_maplibregl,
-)
+from maplibre import (Layer, LayerType, Map, MapContext, output_maplibregl,
+                      render_maplibregl)
 from maplibre.basemaps import Carto
 from maplibre.experimental import LineLayer
+from shiny import App, reactive, render, ui
 
 LAYER_ID = "counties"
 LAYER_ID_LINE = "us-states-line"
@@ -103,3 +96,4 @@ app = App(app_ui, server)
 
 if __name__ == "__main__":
     app.run()
+un()

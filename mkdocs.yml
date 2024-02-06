@@ -15,6 +15,7 @@ nav:
       - Layers: layers.md
       - Shiny: shiny.md
       - Jupyter: jupyter.md
+      - Changelog: changelog.md
   - API Documentation:
       - Map: api/map.md
       - Layer: api/layer.md
@@ -29,7 +30,7 @@ nav:
       - 3D Indoor mapping: examples/3d_indoor_mapping/index.md
       - Custom basemap: examples/custom_basemap/index.md
       - GeoPandas: examples/geopandas/index.md
-      - UK Road Safety: examples/road_safety/index.md
+      - H3 Grid UK Road Safety: examples/road_safety/index.md
       - Where is the ISS: examples/where_is_the_iss/index.md
 
 plugins:

@@ -1,4 +1,5 @@
 import json
+import sys
 
 import pandas as pd
 import shapely
@@ -52,6 +53,14 @@ map_options = MapOptions(
     fit_bounds_options={"padding": 20},
 )
 
+
+def create_map() -> Map:
+    m = Map(map_options)
+    m.add_control(ScaleControl(), position="bottom-left")
+    m.add_layer(every_person_in_manhattan_circles)
+    return m
+
+
 app_ui = ui.page_fluid(
     ui.panel_title("Every Person in Manhattan"),
     output_maplibregl("maplibre", height=600),
@@ -62,10 +71,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
     @render_maplibregl
     def maplibre():
-        m = Map(map_options)
-        m.add_control(ScaleControl(), position="bottom-left")
-        m.add_layer(every_person_in_manhattan_circles)
-        return m
+        return create_map()
 
     @reactive.Effect
     @reactive.event(input.radius, ignore_init=True)
@@ -77,4 +83,9 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 if __name__ == "__main__":
-    app.run()
+    if len(sys.argv) == 2:
+        file_name = sys.argv[1]
+        with open(file_name, "w") as f:
+            f.write(create_map().to_html())
+    else:
+        app.run()

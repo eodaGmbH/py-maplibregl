@@ -6,15 +6,8 @@ from shiny.render.transformer import (
     output_transformer,
     resolve_value_fn,
 )
-from shiny.session import get_current_session
 
 from .map import Map
-
-
-async def maplibre_render(id_: str = None, color: str = "black") -> None:
-    session = get_current_session()
-    opts = {"id": id_, "color": color}
-    await session.send_custom_message("maplibre", opts)
 
 
 @output_transformer
