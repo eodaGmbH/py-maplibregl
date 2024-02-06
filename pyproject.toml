@@ -32,7 +32,7 @@ geopandas = "^0.14.2"
 all = ["pandas", "geopandas"]
 
 [tool.black]
-line-lenght = 130
+line-lenght = 120
 
 [build-system]
 requires = ["poetry-core"]
