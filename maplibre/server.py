@@ -1,11 +1,7 @@
 from __future__ import annotations
 
-from shiny.render.transformer import (
-    TransformerMetadata,
-    ValueFn,
-    output_transformer,
-    resolve_value_fn,
-)
+from shiny.render.transformer import (TransformerMetadata, ValueFn,
+                                      output_transformer, resolve_value_fn)
 from shiny.session import get_current_session
 
 from .map import Map
