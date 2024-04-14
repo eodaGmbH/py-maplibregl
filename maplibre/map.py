@@ -19,7 +19,7 @@ class MapOptions(BaseModel):
     """Map options
 
     Note:
-        See [mapOptions](https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions/) for more details.
+        See [mapOptions](https://maplibre.org/maplibre-gl-js/docs/API/types/MapOptions/) for more details.
     """
 
     model_config = ConfigDict(
