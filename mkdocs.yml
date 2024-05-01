@@ -32,6 +32,7 @@ nav:
       - GeoPandas: examples/geopandas/index.md
       - H3 Grid UK Road Safety: examples/road_safety/index.md
       - Where is the ISS: examples/where_is_the_iss/index.md
+      - WMS: examples/wms/index.md
 
 plugins:
   - search:

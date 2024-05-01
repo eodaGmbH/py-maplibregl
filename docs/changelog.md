@@ -1,5 +1,9 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.1.4
+
+* `anywidget>=0.9.0` (#36)
+
 ## maplibre v0.1.3
 
 * Display all properties in popup and tooltip if `prop = None` (#26)
