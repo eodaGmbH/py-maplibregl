@@ -3,18 +3,10 @@ import sys
 
 import pandas as pd
 import shapely
-from maplibre import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    MapOptions,
-    output_maplibregl,
-    render_maplibregl,
-)
+from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
+                      output_maplibregl, render_maplibregl)
 from maplibre.basemaps import Carto
 from maplibre.controls import ScaleControl
-
 # New since Shiny v0.7.0
 from maplibre.shiny import render_maplibre
 from maplibre.sources import GeoJSONSource
