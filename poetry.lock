@@ -37,14 +37,14 @@ trio = ["trio (>=0.23)"]
 
 [[package]]
 name = "anywidget"
-version = "0.8.1"
+version = "0.9.10"
 description = "custom jupyter widgets made easy"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "anywidget-0.8.1-py3-none-any.whl", hash = "sha256:a1ddadf26f7fde1124e651de65622c1c6647d7c5f20b52c909a360402ddc9f88"},
-    {file = "anywidget-0.8.1.tar.gz", hash = "sha256:a7627770be455f89afd7d58faff926f45ef52b53257ae3c595177d5ff9b12fd1"},
+    {file = "anywidget-0.9.10-py3-none-any.whl", hash = "sha256:4cdd29d098a3174002fdac3abc2f2e5b0cb25e0d00b757dadd168dc2ec03c2c4"},
+    {file = "anywidget-0.9.10.tar.gz", hash = "sha256:390a628240981c09813c7523279ddcab82ff4fd3287add5433b78b1369089068"},
 ]
 
 [package.dependencies]
@@ -54,7 +54,7 @@ typing-extensions = ">=4.2.0"
 
 [package.extras]
 dev = ["comm (>=0.1.0)", "watchfiles (>=0.18.0)"]
-test = ["ipython (<8.13)", "msgspec", "pydantic", "pytest", "pytest-cov", "ruff"]
+test = ["ipython (<8.13)", "msgspec", "mypy (==1.9.0)", "pydantic", "pytest", "pytest-cov", "ruff"]
 
 [[package]]
 name = "appdirs"
@@ -2394,4 +2394,4 @@ all = ["geopandas", "pandas"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "47ba10b55a403b30b258b7298c519ac5c9e0a4b5c611c578f0d3a665233d7d88"
+content-hash = "0fe104bc6b1d1deb33a5684a022ed7d551bb77564c5869325b9ec15867d6573b"
