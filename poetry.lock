@@ -1900,36 +1900,40 @@ test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "shiny"
-version = "0.7.0"
+version = "0.9.0"
 description = "A web development framework for Python."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "shiny-0.7.0-py3-none-any.whl", hash = "sha256:1de66c06a8e89ffd3cd6dcb49104c2ba2744e3043423ff2f85b97fdb34fa35ed"},
-    {file = "shiny-0.7.0.tar.gz", hash = "sha256:d7eb78989259297eb2c3247dc9df16846890480526753a36e0505b881861e487"},
+    {file = "shiny-0.9.0-py3-none-any.whl", hash = "sha256:2977f595fb6dfe7734678060b6b844ac1fe2701318502d403a89c6250f9847cc"},
+    {file = "shiny-0.9.0.tar.gz", hash = "sha256:add19daeb6d5a43f4f60fbc89affed05f4f4b19ffc7ee252001288aa1724ccf9"},
 ]
 
 [package.dependencies]
 appdirs = ">=1.4.4"
 asgiref = ">=3.5.2"
-click = ">=8.1.4"
+click = {version = ">=8.1.4", markers = "platform_system != \"Emscripten\""}
 htmltools = ">=0.5.1"
 linkify-it-py = ">=1.0"
 markdown-it-py = ">=1.1.0"
 mdit-py-plugins = ">=0.3.0"
-python-multipart = "*"
+packaging = ">=20.9"
+python-multipart = [
+    {version = "*", markers = "platform_system == \"Emscripten\""},
+    {version = ">=0.0.7", markers = "platform_system != \"Emscripten\""},
+]
 questionary = {version = ">=2.0.0", markers = "platform_system != \"Emscripten\""}
-starlette = ">=0.17.1,<0.35.0"
+starlette = "*"
 typing-extensions = ">=4.0.1"
-uvicorn = ">=0.16.0"
+uvicorn = {version = ">=0.16.0", markers = "platform_system != \"Emscripten\""}
 watchfiles = {version = ">=0.18.0", markers = "platform_system != \"Emscripten\""}
 websockets = ">=10.0"
 
 [package.extras]
-dev = ["black (>=23.1.0)", "flake8 (>=6.0.0)", "flake8-bugbear (>=23.2.13)", "isort (>=5.10.1)", "matplotlib", "numpy", "pandas", "pandas-stubs", "pre-commit (>=2.15.0)", "pyright (>=1.1.348)", "shinyswatch (>=0.2.4)", "wheel"]
+dev = ["black (>=24.0)", "flake8 (>=6.0.0)", "flake8-bugbear (>=23.2.13)", "isort (>=5.10.1)", "matplotlib", "numpy", "pandas", "pandas-stubs", "pre-commit (>=2.15.0)", "pyright (>=1.1.348)", "shinyswatch (>=0.2.4)", "wheel"]
 doc = ["griffe (==0.33.0)", "jupyter", "jupyter-client (<8.0.0)", "pydantic (==1.10)", "quartodoc (==0.7.2)", "shinylive", "tabulate"]
-test = ["astropy", "bokeh", "coverage", "duckdb", "folium", "geodatasets", "geopandas", "holoviews", "ipyleaflet", "missingno", "plotly", "plotnine", "psutil", "pytest (>=6.2.4)", "pytest-asyncio (>=0.17.2)", "pytest-cov", "pytest-playwright (>=0.3.0)", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist", "rsconnect-python", "scikit-learn", "seaborn", "shinywidgets", "suntime", "syrupy", "timezonefinder", "xarray"]
+test = ["astropy", "bokeh", "coverage", "duckdb", "faicons", "folium", "geodatasets", "geopandas", "holoviews", "ipyleaflet", "missingno", "palmerpenguins", "plotly", "plotnine", "psutil", "pytest (>=6.2.4)", "pytest-asyncio (>=0.17.2)", "pytest-cov", "pytest-playwright (>=0.3.0)", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist", "rsconnect-python", "scikit-learn", "seaborn", "shinywidgets", "suntime", "syrupy", "timezonefinder", "xarray"]
 
 [[package]]
 name = "six"
@@ -1977,14 +1981,14 @@ tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
 name = "starlette"
-version = "0.34.0"
+version = "0.37.2"
 description = "The little ASGI library that shines."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "starlette-0.34.0-py3-none-any.whl", hash = "sha256:2e14ee943f2df59eb8c141326240ce601643f1a97b577db44634f6d05d368c37"},
-    {file = "starlette-0.34.0.tar.gz", hash = "sha256:ed050aaf3896945bfaae93bdf337e53ef3f29115a9d9c153e402985115cd9c8e"},
+    {file = "starlette-0.37.2-py3-none-any.whl", hash = "sha256:6fe59f29268538e5d0d182f2791a479a0c64638e6935d1c6989e63fb2699c6ee"},
+    {file = "starlette-0.37.2.tar.gz", hash = "sha256:9af890290133b79fc3db55474ade20f6220a364a0402e0b556e7cd5e1e093823"},
 ]
 
 [package.dependencies]
@@ -1992,7 +1996,7 @@ anyio = ">=3.4.0,<5"
 typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
-full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
+full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7)", "pyyaml"]
 
 [[package]]
 name = "tomli"
@@ -2357,4 +2361,4 @@ all = ["geopandas", "pandas"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "a7d03cabbb93a8777795ef71758217d0935d37da910f854bd609be4dd1ec842e"
+content-hash = "8f24751f7c3e75ae2c19921561a59d2ffeeb31402591b1187a1ec4fa7e58a053"
