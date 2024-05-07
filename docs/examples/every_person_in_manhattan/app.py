@@ -3,12 +3,20 @@ import sys
 
 import pandas as pd
 import shapely
-from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
-                      output_maplibregl, render_maplibregl)
+from maplibre import (
+    Layer,
+    LayerType,
+    Map,
+    MapContext,
+    MapOptions,
+    output_maplibregl,
+    render_maplibregl,
+)
 from maplibre.basemaps import Carto
 from maplibre.controls import ScaleControl
+
 # New since Shiny v0.7.0
-from maplibre.shiny import render_maplibre
+from maplibre.shiny import MapLibreRenderer
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
@@ -64,7 +72,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @render_maplibre
+    @MapLibreRenderer
     def maplibre():
         return create_map()
 

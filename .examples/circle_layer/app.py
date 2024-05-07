@@ -1,6 +1,6 @@
 from maplibre import Layer, Map, MapOptions, output_maplibregl, render_maplibregl
 from maplibre.basemaps import Carto
-from maplibre.shiny import render_maplibre
+from maplibre.shiny import MapLibreRenderer
 from shiny import App, reactive, render, ui
 
 circle_layer = Layer(
@@ -28,7 +28,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @render_maplibre
+    @MapLibreRenderer
     async def map():
         map_ = Map(MapOptions(style=Carto.POSITRON, center=center, zoom=7))
         map_.add_layer(circle_layer)
