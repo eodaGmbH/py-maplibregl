@@ -2,6 +2,8 @@
 
 [![Release](https://img.shields.io/github/v/release/eodaGmbH/py-maplibregl)](https://img.shields.io/github/v/release/eodaGmbH/py-maplibregl)
 [![pypi](https://img.shields.io/pypi/v/maplibre.svg)](https://pypi.python.org/pypi/maplibre)
+[![Conda recipe](https://img.shields.io/badge/recipe-leafmap-green.svg)](https://github.com/conda-forge/maplibre-feedstock)
+[![Conda package](https://img.shields.io/conda/vn/conda-forge/leafmap.svg)](https://anaconda.org/conda-forge/maplibre)
 [![Build status](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-maplibregl/pytest.yml?branch=main)](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-maplibregl/pytest.yml?branch=main)
 [![License](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)
 
@@ -21,6 +23,9 @@ pip install "maplibre[all]"
 pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 
 pip install "maplibre[all] @ git+https://github.com/eodaGmbH/py-maplibregl@dev"
+
+# Conda
+conda install -c conda-forge maplibre
 ```
 
 ## Getting started

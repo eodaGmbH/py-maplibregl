@@ -14,6 +14,9 @@ pip install "maplibre[all]"
 
 # Dev
 pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
+
+# Conda
+conda install -c conda-forge maplibre
 ```
 
 ## Basic usage
