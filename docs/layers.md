@@ -1,4 +1,4 @@
-The `paint` and `layout` properties for the layers depend on the [type](/api/layer/#maplibre.LayerType) of the layer.
+The `paint` and `layout` properties for the layers depend on the [type](../api/layer/#maplibre.LayerType) of the layer.
 They are passed as a `dict` corresponding to the [Layer Style Spec](https://maplibre.org/maplibre-style-spec/layers/).
 
 For example, to set the radius and the color for a circle layer, the `paint` property looks like this:
