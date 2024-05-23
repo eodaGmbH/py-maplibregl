@@ -41,8 +41,8 @@ export default class PyMapLibreGL {
     marker.addTo(this._map);
   }
 
-  addLayer(layer) {
-    this._map.addLayer(layer);
+  addLayer(layer, beforeId) {
+    this._map.addLayer(layer, beforeId);
 
     // Add event listener
     if (typeof Shiny !== "undefined") {
