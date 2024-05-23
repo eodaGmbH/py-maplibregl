@@ -1,5 +1,9 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.1.5
+
+* Update deprecated render function to support `shiny>=0.7.0`
+
 ## maplibre v0.1.4
 
 * `anywidget>=0.9.0` (#36)
