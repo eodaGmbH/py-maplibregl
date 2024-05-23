@@ -3,10 +3,10 @@ import sys
 from maplibre import (
     Layer,
     LayerType,
-    Map,  # render_maplibregl,
-    MapLibreRenderer,
+    Map,
     MapOptions,
     output_maplibregl,
+    render_maplibregl,
 )
 from maplibre.basemaps import Carto
 from maplibre.sources import GeoJSONSource
@@ -89,7 +89,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @MapLibreRenderer
+    @render_maplibregl
     def maplibre():
         return create_map()
 

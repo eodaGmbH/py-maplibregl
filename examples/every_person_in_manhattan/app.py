@@ -14,9 +14,6 @@ from maplibre import (
 )
 from maplibre.basemaps import Carto
 from maplibre.controls import ScaleControl
-
-# New since Shiny v0.7.0
-from maplibre.shiny import MapLibreRenderer
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
@@ -72,7 +69,7 @@ app_ui = ui.page_fluid(
 
 
 def server(input, output, session):
-    @MapLibreRenderer
+    @render_maplibregl
     def maplibre():
         return create_map()
 
