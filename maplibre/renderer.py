@@ -1,5 +1,4 @@
 from htmltools import Tag
-
 from shiny.render.renderer import Renderer
 
 from .map import Map
