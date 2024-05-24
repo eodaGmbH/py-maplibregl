@@ -1,5 +1,10 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.1.6
+
+* Add `before_id` parameter to `add_layer` method (#45, #47)
+* Add example showing how to insert a layer before labels
+
 ## maplibre v0.1.5
 
 * Update deprecated render function to support `shiny>=0.7.0`
