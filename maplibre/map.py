@@ -133,22 +133,30 @@ class Map(object):
         )
 
     def add_source(self, id: str, source: [Source | dict]) -> None:
-        """Add a source to the map"""
+        """Add a source to the map
+
+        Args:
+            id (str): The unique ID of the source.
+            source (Source | dict): The source to be added to the map.
+        """
         if isinstance(source, Source):
             source = source.to_dict()
 
         self.add_call("addSource", id, source)
 
-    def add_layer(self, layer: [Layer | dict]) -> None:
+    def add_layer(self, layer: [Layer | dict], before_id: str = None) -> None:
         """Add a layer to the map
 
         Args:
             layer (Layer | dict): The Layer to be added to the map.
+            before_id (str): The ID of an existing layer to insert the new layer before,
+                resulting in the new layer appearing visually beneath the existing layer.
+                If `None`, the new layer will appear above all other layers.
         """
         if isinstance(layer, Layer):
             layer = layer.to_dict()
 
-        self.add_call("addLayer", layer)
+        self.add_call("addLayer", layer, before_id)
 
     def add_marker(self, marker: Marker) -> None:
         """Add a marker to the map
