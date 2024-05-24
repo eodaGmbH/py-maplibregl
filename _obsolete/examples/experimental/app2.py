@@ -1,12 +1,6 @@
 import requests as req
-from maplibre import (
-    Layer,
-    LayerType,
-    Map,
-    MapContext,
-    output_maplibregl,
-    render_maplibregl,
-)
+from maplibre import (Layer, LayerType, Map, MapContext, output_maplibregl,
+                      render_maplibregl)
 from maplibre.basemaps import Carto
 from maplibre.experimental import LineLayer
 from shiny import App, reactive, render, ui
