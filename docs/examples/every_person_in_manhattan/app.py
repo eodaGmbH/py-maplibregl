@@ -15,6 +15,7 @@ from maplibre import (
 from maplibre.basemaps import Carto
 from maplibre.controls import ScaleControl
 from maplibre.sources import GeoJSONSource
+from maplibre.ui import use_deckgl
 from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
 
@@ -51,6 +52,7 @@ map_options = MapOptions(
     style=Carto.POSITRON,
     bounds=tuple(bbox),
     fit_bounds_options={"padding": 20},
+    hash=True,
 )
 
 
@@ -62,6 +64,7 @@ def create_map() -> Map:
 
 
 app_ui = ui.page_fluid(
+    use_deckgl(),
     ui.panel_title("Every Person in Manhattan"),
     output_maplibregl("maplibre", height=600),
     ui.input_slider("radius", "Radius", value=CIRCLE_RADIUS, min=1, max=5),
