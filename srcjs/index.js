@@ -26,9 +26,9 @@ if (typeof Shiny !== "undefined") {
 
     renderValue(el, payload) {
       console.log("id:", el.id, "payload:", payload);
-      const pyMapLibreGL = new PyMapLibreGL(
+      const pyMapLibreGL = (window._maplibreWidget = new PyMapLibreGL(
         Object.assign({ container: el.id }, payload.mapData.mapOptions),
-      );
+      ));
 
       const map = pyMapLibreGL.getMap();
       map.on("load", () => {

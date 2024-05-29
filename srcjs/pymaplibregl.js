@@ -1,5 +1,15 @@
 // import { getCustomMapMethods } from "./mapmethods";
+// import deck from "https://esm.sh/deck.gl@9.0.16";
 import { getTextFromFeature } from "./utils";
+
+function getJSONConverter() {
+  if (typeof deck === "undefined") {
+    return;
+  }
+
+  const configuration = new deck.JSONConfiguration({ classes: deck });
+  return new deck.JSONConverter({ configuration });
+}
 
 export default class PyMapLibreGL {
   constructor(mapOptions) {
@@ -16,8 +26,10 @@ export default class PyMapLibreGL {
 
     // TODO: Do not add by default
     this._map.addControl(new maplibregl.NavigationControl());
+
     // this.customMapMethods = getCustomMapMethods(maplibregl, this._map);
     // console.log("Custom methods", Object.keys(this.customMapMethods));
+    this._JSONConverter = getJSONConverter();
   }
 
   getMap() {
@@ -94,6 +106,32 @@ export default class PyMapLibreGL {
     this._map.getSource(sourceId).setData(data);
   }
 
+  addDeckLayer(deckLayer) {
+    if (typeof this._JSONConverter === "undefined") {
+      console.log("deck or JSONConverter is undefined");
+      return;
+    }
+    const layer = this._JSONConverter.convert(deckLayer);
+    console.log("layer", layer);
+
+    const deckOverlay = new deck.MapboxOverlay({
+      interleaved: true,
+      layers: [
+        layer,
+        /*
+        new deck.ScatterplotLayer({
+          id: "deckgl-circle",
+          data: [{ position: [0.45, 51.47] }],
+          getPosition: (d) => d.position,
+          getFillColor: [255, 0, 0, 100],
+          getRadius: 1000,
+        }),
+        */
+      ],
+    });
+    this._map.addControl(deckOverlay);
+  }
+
   render(calls) {
     calls.forEach(([name, params]) => {
       // Custom method
@@ -106,6 +144,7 @@ export default class PyMapLibreGL {
           "addPopup",
           "addControl",
           "setSourceData",
+          "addDeckLayer",
         ].includes(name)
       ) {
         console.log("Custom method", name, params);

@@ -261,3 +261,6 @@ class Map(object):
             js="\n".join([js_lib, js_snippet]), **kwargs
         )
         return output
+
+    def add_deck_layer(self, layer: dict) -> None:
+        self.add_call("addDeckLayer", layer)
