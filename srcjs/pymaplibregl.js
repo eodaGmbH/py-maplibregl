@@ -106,28 +106,19 @@ export default class PyMapLibreGL {
     this._map.getSource(sourceId).setData(data);
   }
 
-  addDeckLayer(deckLayer) {
+  addDeckOverlay(deckLayers) {
     if (typeof this._JSONConverter === "undefined") {
       console.log("deck or JSONConverter is undefined");
       return;
     }
-    const layer = this._JSONConverter.convert(deckLayer);
-    console.log("layer", layer);
+    const layers = deckLayers.map((deckLayer) =>
+      this._JSONConverter.convert(deckLayer),
+    );
+    console.log("layers", layers);
 
     const deckOverlay = new deck.MapboxOverlay({
       interleaved: true,
-      layers: [
-        layer,
-        /*
-        new deck.ScatterplotLayer({
-          id: "deckgl-circle",
-          data: [{ position: [0.45, 51.47] }],
-          getPosition: (d) => d.position,
-          getFillColor: [255, 0, 0, 100],
-          getRadius: 1000,
-        }),
-        */
-      ],
+      layers: layers,
     });
     this._map.addControl(deckOverlay);
   }
@@ -144,7 +135,7 @@ export default class PyMapLibreGL {
           "addPopup",
           "addControl",
           "setSourceData",
-          "addDeckLayer",
+          "addDeckOverlay",
         ].includes(name)
       ) {
         console.log("Custom method", name, params);

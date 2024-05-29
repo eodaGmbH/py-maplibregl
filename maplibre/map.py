@@ -258,7 +258,9 @@ class Map(object):
         """
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
-        add_deckgl_headers = "addDeckLayer" in [item[0] for item in self._message_queue]
+        add_deckgl_headers = "addDeckOverlay" in [
+            item[0] for item in self._message_queue
+        ]
         headers = (
             [
                 '<script src="https://unpkg.com/deck.gl@9.0.16/dist.min.js"></script>',
@@ -272,8 +274,5 @@ class Map(object):
         )
         return output
 
-    def add_deck_layer(self, layer: dict, before_id: str = None) -> None:
-        if before_id:
-            layer.update({"beforeId": before_id})
-
-        self.add_call("addDeckLayer", layer)
+    def add_deck_layers(self, layers: list[dict]) -> None:
+        self.add_call("addDeckOverlay", layers)

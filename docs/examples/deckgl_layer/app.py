@@ -27,7 +27,7 @@ deck_grid_layer = {
     "cellSize": 200,
 }
 
-m.add_deck_layer(deck_grid_layer)
+m.add_deck_layers([deck_grid_layer])
 
 # Shiny Express
 use_deckgl()
