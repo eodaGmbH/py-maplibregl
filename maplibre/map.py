@@ -262,5 +262,8 @@ class Map(object):
         )
         return output
 
-    def add_deck_layer(self, layer: dict) -> None:
+    def add_deck_layer(self, layer: dict, before_id: str = None) -> None:
+        if before_id:
+            layer.update({"beforeId": before_id})
+
         self.add_call("addDeckLayer", layer)

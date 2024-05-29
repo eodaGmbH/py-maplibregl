@@ -20,36 +20,29 @@ urban_areas = GeoJSONSource(
 m = Map(
     MapOptions(
         style=style,
-        center=(0.45, 51.47),
+        # center=(0.45, 51.47),
+        center=(-122.4, 37.74),
         # center=(-88.13734351262877, 35.137451890638886),
-        zoom=11,
+        zoom=12,
         hash=True,
+        pitch=40,
     )
 )
 
+deck_grid_layer = {
+    "@@type": "GridLayer",
+    "id": "GridLayer",
+    "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json",
+    "extruded": True,
+    "getPosition": "@@=COORDINATES",
+    "getColorWeight": "@@=SPACES",
+    "getElevationWeight": "@@=SPACES",
+    "elevationScale": 4,
+    "cellSize": 200,
+}
 
-m.add_deck_layer(
-    {
-        "@@type": "ScatterplotLayer",
-        "id": "deck-circle",
-        "data": [{"position": [0.45, 51.47]}],
-        "getPosition": "@@=position",
-        "getFillColor": [255, 0, 0, 100],
-        "getRadius": 100,
-    }
-)
+m.add_deck_layer(deck_grid_layer)
 
-"""
-m.add_layer(
-    Layer(
-        id="urban-areas-fill",
-        type=LayerType.FILL,
-        source=urban_areas,
-        paint={"fill-color": "pink", "fill-opacity": 1.0},
-    ),
-    before_id=symbol_ids[0],
-)
-"""
 
 for symbol_id in symbol_ids:
     m.set_paint_property(symbol_id, "text-color", "purple")
