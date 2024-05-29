@@ -241,10 +241,11 @@ class Map(object):
         value = "visible" if visible else "none"
         self.add_call("setLayoutProperty", layer_id, "visibility", value)
 
-    def to_html(self, **kwargs) -> str:
+    def to_html(self, title: str = "My Awesome Map", **kwargs) -> str:
         """Render to html
 
         Args:
+            title (str): The Title of the HTML document.
             **kwargs (Any): Additional keyword arguments that are passed to the template.
                 Currently, `style` is the only supported keyword argument.
 
@@ -257,8 +258,17 @@ class Map(object):
         """
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
+        add_deckgl_headers = "addDeckLayer" in [item[0] for item in self._message_queue]
+        headers = (
+            [
+                '<script src="https://unpkg.com/deck.gl@9.0.16/dist.min.js"></script>',
+                '<script src="https://unpkg.com/@deck.gl/json@9.0.16/dist.min.js"></script>',
+            ]
+            if add_deckgl_headers
+            else []
+        )
         output = Template(html_template).render(
-            js="\n".join([js_lib, js_snippet]), **kwargs
+            js="\n".join([js_lib, js_snippet]), title=title, headers=headers, **kwargs
         )
         return output
 
