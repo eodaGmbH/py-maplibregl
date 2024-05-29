@@ -16,7 +16,7 @@ m = Map(
         center=(0.45, 51.47),
         zoom=4,
         hash=True,
-        pitch=40,
+        pitch=30,
     )
 )
 
@@ -32,7 +32,22 @@ deck_geojson_layer = {
     "autoHighlight": True,
 }
 
-m.add_deck_layers([deck_geojson_layer])
+deck_arc_layer = {
+    "@@type": "ArcLayer",
+    "id": "arcs",
+    "data": [
+        feature
+        for feature in data["features"]
+        if feature["properties"]["scalerank"] < 4
+    ],
+    "getSourcePosition": [-0.4531566, 51.4709959],  # London
+    "getTargetPosition": "@@=geometry.coordinates",
+    "getSourceColor": [0, 128, 200],
+    "getTargetColor": [200, 0, 80],
+    "getWidth": 2,
+}
+
+m.add_deck_layers([deck_geojson_layer, deck_arc_layer])
 
 # Shiny Express
 use_deckgl()
