@@ -1,5 +1,5 @@
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
-// import deck from "https://esm.sh/deck.gl@9.0.16?bundle";
+
 import { applyMapMethod, getCustomMapMethods } from "./mapmethods";
 
 function createContainer(model) {
