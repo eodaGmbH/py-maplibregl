@@ -1,4 +1,4 @@
-import { getTextFromFeature, getDeckTooltip } from "./utils";
+import { getTextFromFeature, getDeckTooltip, deckLayerOnHover } from "./utils";
 
 function getJSONConverter() {
   if (typeof deck === "undefined") {
@@ -111,14 +111,18 @@ export default class PyMapLibreGL {
     const layers = deckLayers.map((deckLayer) =>
       this._JSONConverter.convert(
         Object.assign(deckLayer, {
-          // Use this for a maplibregl tooltip
+          /* Use tooltip from maplibre.gl
+          onHover: tooltip_template
+            ? deckLayerOnHover(this._map, tooltip_template)
+            : null,
+          */
           onHover: ({ layer, coordinate, object }) => {
             // console.log(layer.id, coordinate, object);
 
-            // Add even listener
+            // Add event listener
             if (typeof Shiny !== "undefined") {
               const inputName = `${this._id}_layer_${deckLayer.id}`;
-              console.log("deckInputName", inputName);
+              // console.log("deckInputName", inputName);
               Shiny.onInputChange(inputName, object);
             }
           },
@@ -127,6 +131,7 @@ export default class PyMapLibreGL {
     );
     // console.log("deckLayers", layers);
 
+    // Use 'this._deckOverlay', so that we can update the overlay via 'setProps'
     const deckOverlay = new deck.MapboxOverlay({
       interleaved: true,
       layers: layers,
