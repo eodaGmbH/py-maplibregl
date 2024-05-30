@@ -114,7 +114,16 @@ export default class PyMapLibreGL {
     const layers = deckLayers.map((deckLayer) =>
       this._JSONConverter.convert(
         Object.assign(deckLayer, {
-          onHover: ({ object }) => console.log(object),
+          onHover: ({ object }) => {
+            console.log(object);
+
+            // Add even listener
+            if (typeof Shiny !== "undefined") {
+              const inputName = `${this._id}_layer_${deckLayer.id}`;
+              console.log("deckInputName", inputName);
+              Shiny.onInputChange(inputName, object);
+            }
+          },
         }),
       ),
     );

@@ -1,8 +1,12 @@
 # Shiny Express App
 
+import json
+
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
 from maplibre.ui import use_deckgl
+
+# from shiny import reactive
 from shiny.express import input, render, ui
 
 m = Map(
@@ -15,8 +19,10 @@ m = Map(
     )
 )
 
+layer_id = "GridLayer"
+
 deck_grid_layer = {
-    "@@type": "GridLayer",
+    "@@type": layer_id,
     "id": "GridLayer",
     "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json",
     "extruded": True,
@@ -37,6 +43,17 @@ use_deckgl()
 @render_maplibregl
 def render_map():
     return m
+
+
+# @reactive.Effect
+# @reactive.event(input.render_map_layer_GridLayer)
+@render.code
+def picking_object():
+    obj = input.render_map_layer_GridLayer()
+    print(obj)
+    # return json.dumps(obj, indent=2) if obj else "Pick a feature!"
+    # return f"{obj['count']}" if obj else "Pick a feature!"
+    return json.dumps(obj["points"], indent=2) if obj else "Pick a feature!"
 
 
 if __name__ == "__main__":
