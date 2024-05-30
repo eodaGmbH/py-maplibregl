@@ -1,6 +1,6 @@
 // import { getCustomMapMethods } from "./mapmethods";
 // import deck from "https://esm.sh/deck.gl@9.0.16";
-import { getTextFromFeature } from "./utils";
+import { getTextFromFeature, renderPickingObject } from "./utils";
 
 function getJSONConverter() {
   if (typeof deck === "undefined") {
@@ -106,16 +106,18 @@ export default class PyMapLibreGL {
     this._map.getSource(sourceId).setData(data);
   }
 
-  addDeckOverlay(deckLayers) {
+  addDeckOverlay(deckLayers, tooltip_template = null) {
     if (typeof this._JSONConverter === "undefined") {
       console.log("deck or JSONConverter is undefined");
       return;
     }
+
     const layers = deckLayers.map((deckLayer) =>
       this._JSONConverter.convert(
         Object.assign(deckLayer, {
-          onHover: ({ object }) => {
-            console.log(object);
+          // Use this for a maplibregl tooltip
+          onHover: ({ layer, coordinate, object }) => {
+            console.log(layer.id, coordinate, object);
 
             // Add even listener
             if (typeof Shiny !== "undefined") {
@@ -130,19 +132,16 @@ export default class PyMapLibreGL {
     // console.log("deckLayers", layers);
 
     // Just as a POC, Use mustache template, maybe set tooltip via onHover using Popups from maplibregl
-    function getTooltip({ object }) {
-      return (
-        object &&
-        Object.entries(object)
-          .map(([k, v]) => `${k}: ${v}`)
-          .join(", ")
-      );
+    function getTooltip(template) {
+      return ({ layer, object }) => {
+        return object && renderPickingObject(object, template);
+      };
     }
 
     const deckOverlay = new deck.MapboxOverlay({
       interleaved: true,
       layers: layers,
-      getTooltip,
+      getTooltip: tooltip_template ? getTooltip(tooltip_template) : null,
     });
     this._map.addControl(deckOverlay);
   }

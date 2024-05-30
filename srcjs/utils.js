@@ -15,4 +15,10 @@ function getTextFromFeature(feature, property, template) {
   return feature.properties[property];
 }
 
-export { getTextFromFeature };
+function renderPickingObject(object, template) {
+  const text = mustache.render(template, object);
+  // console.log(text);
+  return text;
+}
+
+export { getTextFromFeature, renderPickingObject };

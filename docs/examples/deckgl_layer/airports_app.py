@@ -46,9 +46,13 @@ deck_arc_layer = {
     "getSourceColor": [0, 128, 200],
     "getTargetColor": [200, 0, 80],
     "getWidth": 2,
+    "pickable": True,
 }
 
-m.add_deck_layers([deck_geojson_layer, deck_arc_layer])
+m.add_deck_layers(
+    [deck_geojson_layer, deck_arc_layer],
+    tooltip_template="{{ &properties.name }}",
+)
 
 # Shiny Express
 use_deckgl()
