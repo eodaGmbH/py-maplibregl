@@ -4,7 +4,7 @@ import { JSONConfiguration, JSONConverter } from "@deck.gl/json";
 // import * as aggLayers from "@deck.gl/aggregation-layers";
 import * as deckLayerCatalog from "./deck-layers";
 
-import { getTextFromFeature } from "./utils";
+import { getTextFromFeature, getDeckTooltip } from "./utils";
 
 function applyMapMethod(map, call) {
   const [methodName, params] = call;
@@ -67,7 +67,7 @@ function getCustomMapMethods(maplibregl, map) {
       map.getSource(sourceId).setData(data);
     },
 
-    addDeckOverlay: function (deckLayers) {
+    addDeckOverlay: function (deckLayers, tooltip_template = null) {
       const configuration = new JSONConfiguration({ layers: deckLayerCatalog });
       const jsonConverter = new JSONConverter({ configuration });
       // console.log("jsonConverter", jsonConverter);
@@ -84,6 +84,7 @@ function getCustomMapMethods(maplibregl, map) {
       const deckOverlay = new MapboxOverlay({
         interleaved: true,
         layers: layers,
+        getTooltip: tooltip_template ? getDeckTooltip(tooltip_template) : null,
       });
       map.addControl(deckOverlay);
     },
