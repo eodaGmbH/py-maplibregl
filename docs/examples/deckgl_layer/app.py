@@ -34,7 +34,7 @@ deck_grid_layer = {
     "pickable": True,
 }
 
-m.add_deck_layers([deck_grid_layer])
+m.add_deck_layers([deck_grid_layer], tooltip_template="Number of points: {{ count }}")
 
 # Shiny Express
 use_deckgl()

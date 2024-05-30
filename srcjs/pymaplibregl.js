@@ -113,7 +113,7 @@ export default class PyMapLibreGL {
         Object.assign(deckLayer, {
           // Use this for a maplibregl tooltip
           onHover: ({ layer, coordinate, object }) => {
-            console.log(layer.id, coordinate, object);
+            // console.log(layer.id, coordinate, object);
 
             // Add even listener
             if (typeof Shiny !== "undefined") {
