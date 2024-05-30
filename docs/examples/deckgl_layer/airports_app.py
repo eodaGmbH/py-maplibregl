@@ -30,6 +30,7 @@ deck_geojson_layer = {
     "getPointRadius": "@@=11 - properties.scalerank",
     "getFillColor": [200, 0, 80, 180],
     "autoHighlight": True,
+    "pickable": True,
 }
 
 deck_arc_layer = {

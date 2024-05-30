@@ -112,13 +112,28 @@ export default class PyMapLibreGL {
       return;
     }
     const layers = deckLayers.map((deckLayer) =>
-      this._JSONConverter.convert(deckLayer),
+      this._JSONConverter.convert(
+        Object.assign(deckLayer, {
+          onHover: ({ object }) => console.log(object),
+        }),
+      ),
     );
-    console.log("layers", layers);
+    // console.log("deckLayers", layers);
+
+    // Just as a POC, Use mustache template, maybe set tooltip via onHover using Popups from maplibregl
+    function getTooltip({ object }) {
+      return (
+        object &&
+        Object.entries(object)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(", ")
+      );
+    }
 
     const deckOverlay = new deck.MapboxOverlay({
       interleaved: true,
       layers: layers,
+      getTooltip,
     });
     this._map.addControl(deckOverlay);
   }

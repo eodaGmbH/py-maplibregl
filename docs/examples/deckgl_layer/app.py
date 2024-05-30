@@ -25,6 +25,7 @@ deck_grid_layer = {
     "getElevationWeight": "@@=SPACES",
     "elevationScale": 4,
     "cellSize": 200,
+    "pickable": True,
 }
 
 m.add_deck_layers([deck_grid_layer])
