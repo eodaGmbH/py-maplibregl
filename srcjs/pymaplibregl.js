@@ -1,6 +1,4 @@
-// import { getCustomMapMethods } from "./mapmethods";
-// import deck from "https://esm.sh/deck.gl@9.0.16";
-import { getTextFromFeature, renderPickingObject } from "./utils";
+import { getTextFromFeature, getDeckTooltip } from "./utils";
 
 function getJSONConverter() {
   if (typeof deck === "undefined") {
@@ -27,8 +25,6 @@ export default class PyMapLibreGL {
     // TODO: Do not add by default
     this._map.addControl(new maplibregl.NavigationControl());
 
-    // this.customMapMethods = getCustomMapMethods(maplibregl, this._map);
-    // console.log("Custom methods", Object.keys(this.customMapMethods));
     this._JSONConverter = getJSONConverter();
   }
 
@@ -131,17 +127,10 @@ export default class PyMapLibreGL {
     );
     // console.log("deckLayers", layers);
 
-    // Just as a POC, Use mustache template, maybe set tooltip via onHover using Popups from maplibregl
-    function getTooltip(template) {
-      return ({ layer, object }) => {
-        return object && renderPickingObject(object, template);
-      };
-    }
-
     const deckOverlay = new deck.MapboxOverlay({
       interleaved: true,
       layers: layers,
-      getTooltip: tooltip_template ? getTooltip(tooltip_template) : null,
+      getTooltip: tooltip_template ? getDeckTooltip(tooltip_template) : null,
     });
     this._map.addControl(deckOverlay);
   }

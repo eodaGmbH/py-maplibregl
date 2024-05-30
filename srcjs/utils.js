@@ -15,10 +15,14 @@ function getTextFromFeature(feature, property, template) {
   return feature.properties[property];
 }
 
-function renderPickingObject(object, template) {
-  const text = mustache.render(template, object);
-  // console.log(text);
-  return text;
+function renderPickingObject(template, object) {
+  return mustache.render(template, object);
 }
 
-export { getTextFromFeature, renderPickingObject };
+// Just as a POC, maybe set tooltip via onHover using Popups from maplibregl
+function getDeckTooltip(template) {
+  return ({ layer, object }) => {
+    return object && renderPickingObject(template, object);
+  };
+}
+export { getTextFromFeature, getDeckTooltip };
