@@ -274,5 +274,7 @@ class Map(object):
         )
         return output
 
-    def add_deck_layers(self, layers: list[dict], tooltip_template: str = None) -> None:
+    def add_deck_layers(
+        self, layers: list[dict], tooltip_template: str | dict = None
+    ) -> None:
         self.add_call("addDeckOverlay", layers, tooltip_template)
