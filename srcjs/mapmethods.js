@@ -12,9 +12,25 @@ function applyMapMethod(map, call) {
   map[methodName](...params);
 }
 
+function _convertDeckLayer(deckLayers) {
+  // TODO: Move jsonConverter on top of this module!?
+  const configuration = new JSONConfiguration({ layers: deckLayerCatalog });
+  const jsonConverter = new JSONConverter({ configuration });
+  // console.log("jsonConverter", jsonConverter);
+  return deckLayers.map((deckLayer) =>
+    jsonConverter.convert(
+      Object.assign(deckLayer, {
+        onHover: ({ object }) => console.log(object),
+      }),
+    ),
+  );
+}
+
 // TODO: Duplicated code, use for Shiny and Ipywidget
 // Custom map methods
 function getCustomMapMethods(maplibregl, map) {
+  let deckOverlay = null;
+
   return {
     addTooltip: function (layerId, property = null, template = null) {
       const popupOptions = {
@@ -68,25 +84,22 @@ function getCustomMapMethods(maplibregl, map) {
     },
 
     addDeckOverlay: function (deckLayers, tooltip_template = null) {
-      const configuration = new JSONConfiguration({ layers: deckLayerCatalog });
-      const jsonConverter = new JSONConverter({ configuration });
-      // console.log("jsonConverter", jsonConverter);
-      const layers = deckLayers.map((deckLayer) =>
-        jsonConverter.convert(
-          Object.assign(deckLayer, {
-            onHover: ({ object }) => console.log(object),
-          }),
-        ),
-      );
-
+      const layers = _convertDeckLayer(deckLayers);
       console.log("deckLayers", layers);
 
-      const deckOverlay = new MapboxOverlay({
+      deckOverlay = new MapboxOverlay({
         interleaved: true,
         layers: layers,
         getTooltip: tooltip_template ? getDeckTooltip(tooltip_template) : null,
       });
       map.addControl(deckOverlay);
+    },
+
+    setDeckLayers: function (deckLayers) {
+      console.log("Updating Deck.GL layers");
+      const layers = _convertDeckLayer(deckLayers);
+      // console.log("deckLayers", layers);
+      deckOverlay.setProps({ layers });
     },
   };
 }
