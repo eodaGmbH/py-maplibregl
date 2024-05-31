@@ -17,13 +17,23 @@ function getTextFromFeature(feature, property, template) {
 
 function renderPickingObject(template, object, layerId) {
   // console.log("Trying to get tooltip for layerId = " + layerId);
+  const default_style = {
+    background: "white",
+    color: "black",
+    "border-radius": "5px",
+  };
   if (typeof template === "object") {
-    return template[layerId] && mustache.render(template[layerId], object);
+    return (
+      template[layerId] && {
+        html: mustache.render(template[layerId], object),
+        style: default_style,
+      }
+    );
   }
 
   return {
     html: mustache.render(template, object),
-    style: { background: "white", color: "black", "border-radius": "5px" },
+    style: default_style,
   };
 }
 
@@ -40,10 +50,12 @@ function deckLayerOnHover(map, tooltip_template) {
     closeOnClick: false,
     closeButton: false,
   });
+  map.on("mouseout", (e) => popup.remove());
   return ({ layer, coordinate, object }) => {
     if (object) {
+      console.log(tooltip_template);
       popup
-        .setHTML(getDeckTooltip(tooltip_template)({ layer, object }))
+        .setHTML(mustache.render(tooltip_template, object))
         .setLngLat(coordinate);
       popup.addTo(map);
     } else popup.remove();
