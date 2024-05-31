@@ -21,7 +21,10 @@ function renderPickingObject(template, object, layerId) {
     return template[layerId] && mustache.render(template[layerId], object);
   }
 
-  return mustache.render(template, object);
+  return {
+    html: mustache.render(template, object),
+    style: { background: "white", color: "black", "border-radius": "5px" },
+  };
 }
 
 // Just as a POC, maybe set tooltip via onHover using Popups from maplibregl
