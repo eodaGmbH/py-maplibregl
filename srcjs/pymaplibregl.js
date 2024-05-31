@@ -108,7 +108,20 @@ export default class PyMapLibreGL {
       return;
     }
 
-    const layers = deckLayers.map((deckLayer) =>
+    const layers = this._convertDeckLayers(deckLayers, tooltip_template);
+    // console.log("deckLayers", layers);
+
+    // Use 'this._deckOverlay', so that we can update the overlay via 'setProps'
+    this._deckOverlay = new deck.MapboxOverlay({
+      interleaved: true,
+      layers: layers,
+      getTooltip: tooltip_template ? getDeckTooltip(tooltip_template) : null,
+    });
+    this._map.addControl(this._deckOverlay);
+  }
+
+  _convertDeckLayers(deckLayers, tooltip_template = null) {
+    return deckLayers.map((deckLayer) =>
       this._JSONConverter.convert(
         Object.assign(deckLayer, {
           /* Use tooltip from maplibre.gl
@@ -129,15 +142,12 @@ export default class PyMapLibreGL {
         }),
       ),
     );
-    // console.log("deckLayers", layers);
+  }
 
-    // Use 'this._deckOverlay', so that we can update the overlay via 'setProps'
-    const deckOverlay = new deck.MapboxOverlay({
-      interleaved: true,
-      layers: layers,
-      getTooltip: tooltip_template ? getDeckTooltip(tooltip_template) : null,
-    });
-    this._map.addControl(deckOverlay);
+  setDeckLayers(deckLayers) {
+    console.log("Updating Deck.GL layers");
+    const layers = this._convertDeckLayers(deckLayers);
+    this._deckOverlay.setProps({ layers });
   }
 
   render(calls) {
@@ -153,6 +163,7 @@ export default class PyMapLibreGL {
           "addControl",
           "setSourceData",
           "addDeckOverlay",
+          "setDeckLayers",
         ].includes(name)
       ) {
         console.log("Custom method", name, params);

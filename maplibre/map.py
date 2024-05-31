@@ -277,4 +277,8 @@ class Map(object):
     def add_deck_layers(
         self, layers: list[dict], tooltip_template: str | dict = None
     ) -> None:
+        """Add Deck.GL layers to the layer stack"""
         self.add_call("addDeckOverlay", layers, tooltip_template)
+
+    def set_deck_layers(self, layers: list[dict]):
+        self.add_call("setDeckLayers", layers)

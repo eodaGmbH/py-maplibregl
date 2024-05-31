@@ -51,7 +51,7 @@ function deckLayerOnHover(map, tooltip_template) {
     closeButton: false,
   });
   map.on("mouseout", (e) => popup.remove());
-  return ({ layer, coordinate, object }) => {
+  return ({ coordinate, object }) => {
     if (object) {
       console.log(tooltip_template);
       popup
