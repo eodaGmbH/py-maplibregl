@@ -1,10 +1,12 @@
 import { MapboxOverlay } from "@deck.gl/mapbox";
 import { JSONConfiguration, JSONConverter } from "@deck.gl/json";
-// import * as coreLayers from "@deck.gl/layers";
-// import * as aggLayers from "@deck.gl/aggregation-layers";
 import * as deckLayerCatalog from "./deck-layers";
 
 import { getTextFromFeature, getDeckTooltip } from "./utils";
+
+const jsonConverter = new JSONConverter({
+  configuration: new JSONConfiguration({ layers: deckLayerCatalog }),
+});
 
 function applyMapMethod(map, call) {
   const [methodName, params] = call;
@@ -13,10 +15,6 @@ function applyMapMethod(map, call) {
 }
 
 function _convertDeckLayer(deckLayers) {
-  // TODO: Move jsonConverter on top of this module!?
-  const configuration = new JSONConfiguration({ layers: deckLayerCatalog });
-  const jsonConverter = new JSONConverter({ configuration });
-  // console.log("jsonConverter", jsonConverter);
   return deckLayers.map((deckLayer) =>
     jsonConverter.convert(
       Object.assign(deckLayer, {
