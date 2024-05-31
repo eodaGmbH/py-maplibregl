@@ -19,11 +19,10 @@ m = Map(
     )
 )
 
-layer_id = "GridLayer"
 
 deck_grid_layer = {
-    "@@type": layer_id,
-    "id": "GridLayer",
+    "@@type": "GridLayer",
+    "id": "MyAwesomeGridLayer",
     "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json",
     "extruded": True,
     "getPosition": "@@=COORDINATES",
@@ -45,14 +44,10 @@ def render_map():
     return m
 
 
-# @reactive.Effect
-# @reactive.event(input.render_map_layer_GridLayer)
 @render.code
 def picking_object():
     obj = input.render_map_layer_GridLayer()
     print(obj)
-    # return json.dumps(obj, indent=2) if obj else "Pick a feature!"
-    # return f"{obj['count']}" if obj else "Pick a feature!"
     return json.dumps(obj["points"], indent=2) if obj else "Pick a feature!"
 
 

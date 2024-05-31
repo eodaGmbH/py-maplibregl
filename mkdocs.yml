@@ -13,6 +13,7 @@ nav:
   - Get started:
       - Welcome to MapLibre: index.md
       - Layers: layers.md
+      - Deck.GL Layers: deckgl.md
       - Shiny: shiny.md
       - Jupyter: jupyter.md
       - Changelog: changelog.md
@@ -34,7 +35,7 @@ nav:
       - Where is the ISS: examples/where_is_the_iss/index.md
       - WMS: examples/wms/index.md
       - Layer Order: examples/layer_order/index.md
-      - DeckGL Layer: examples/deckgl_layer/index.md
+      - Deck.GL Layer: examples/deckgl_layer/index.md
 
 plugins:
   - search:
