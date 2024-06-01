@@ -39,7 +39,7 @@ def deck_grid_layer(cell_size: int = DEFAULT_CELL_SIZE):
     }
 
 
-m.add_deck_layers([deck_grid_layer()], tooltip_template="Number of points: {{ count }}")
+m.add_deck_layers([deck_grid_layer()], tooltip="Number of points: {{ count }}")
 
 # Shiny Express
 use_deckgl()

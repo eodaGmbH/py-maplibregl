@@ -51,7 +51,7 @@ deck_arc_layer = {
 
 m.add_deck_layers(
     [deck_geojson_layer, deck_arc_layer],
-    tooltip_template={
+    tooltip={
         "airports": "{{ &properties.name }}",
         "arcs": "gps_code: {{ properties.gps_code }}",
     },

@@ -274,16 +274,15 @@ class Map(object):
         )
         return output
 
-    def add_deck_layers(
-        self, layers: list[dict], tooltip_template: str | dict = None
-    ) -> None:
+    def add_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
         """Add Deck.GL layers to the layer stack
 
         Args:
             layers (list[dict]): A list of dictionaries containing the Deck.GL layers to be added.
-            tooltip_template (str | dict): ...
+            tooltip (str | dict): Either a single mustache template string applied to all layers
+                or a dictionary where keys are layer ids and values are mustache template strings.
         """
-        self.add_call("addDeckOverlay", layers, tooltip_template)
+        self.add_call("addDeckOverlay", layers, tooltip)
 
     def set_deck_layers(self, layers: list[dict]):
         """Update Deck.GL layers

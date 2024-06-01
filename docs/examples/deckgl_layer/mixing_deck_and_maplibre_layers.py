@@ -53,7 +53,7 @@ m.add_layer(maplibre_circle_layer)
 m.add_tooltip("circles", "name")
 m.add_deck_layers(
     [deck_arc_layer],
-    tooltip_template={
+    tooltip={
         "arcs": "gps_code: {{ properties.gps_code }}",
     },
 )

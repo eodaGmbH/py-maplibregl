@@ -5,7 +5,6 @@ import json
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
 from maplibre.ui import use_deckgl
-
 # from shiny import reactive
 from shiny.express import input, render, ui
 
@@ -33,7 +32,7 @@ deck_grid_layer = {
     "pickable": True,
 }
 
-m.add_deck_layers([deck_grid_layer], tooltip_template="Number of points: {{ count }}")
+m.add_deck_layers([deck_grid_layer], tooltip="Number of points: {{ count }}")
 
 # Shiny Express
 use_deckgl()
