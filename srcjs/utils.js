@@ -44,8 +44,8 @@ function getDeckTooltip(template) {
   };
 }
 
-// Exp
-function deckLayerOnHover(map, tooltip) {
+// Use MapLibre Popup as tooltip for Deck.GL layers
+function getDeckMapLibrePopupTooltip(map, tooltip) {
   const popup = new maplibregl.Popup({
     closeOnClick: false,
     closeButton: false,
@@ -53,11 +53,11 @@ function deckLayerOnHover(map, tooltip) {
   map.on("mouseout", (e) => popup.remove());
   return ({ coordinate, object }) => {
     if (object) {
-      console.log(tooltip);
+      // console.log(tooltip);
       popup.setHTML(mustache.render(tooltip, object)).setLngLat(coordinate);
       popup.addTo(map);
     } else popup.remove();
   };
 }
 
-export { getTextFromFeature, getDeckTooltip, deckLayerOnHover };
+export { getTextFromFeature, getDeckTooltip, getDeckMapLibrePopupTooltip };

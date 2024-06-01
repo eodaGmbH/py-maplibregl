@@ -1,4 +1,8 @@
-import { getTextFromFeature, getDeckTooltip, deckLayerOnHover } from "./utils";
+import {
+  getTextFromFeature,
+  getDeckTooltip,
+  getDeckMapLibrePopupTooltip,
+} from "./utils";
 
 function getJSONConverter() {
   if (typeof deck === "undefined") {
@@ -9,6 +13,7 @@ function getJSONConverter() {
   return new deck.JSONConverter({ configuration });
 }
 
+// TODO: Rename to 'MapLibreWidget'
 export default class PyMapLibreGL {
   constructor(mapOptions) {
     this._id = mapOptions.container;
@@ -102,46 +107,36 @@ export default class PyMapLibreGL {
     this._map.getSource(sourceId).setData(data);
   }
 
-  addDeckOverlay(deckLayers, tooltip_template = null) {
+  addDeckOverlay(deckLayers, tooltip = null) {
     if (typeof this._JSONConverter === "undefined") {
       console.log("deck or JSONConverter is undefined");
       return;
     }
 
-    const layers = this._convertDeckLayers(deckLayers, tooltip_template);
-    // console.log("deckLayers", layers);
-
-    // Use 'this._deckOverlay', so that we can update the overlay via 'setProps'
+    const layers = this._convertDeckLayers(deckLayers, tooltip);
     this._deckOverlay = new deck.MapboxOverlay({
       interleaved: true,
       layers: layers,
-      getTooltip: tooltip_template ? getDeckTooltip(tooltip_template) : null,
+      // getTooltip: tooltip ? getDeckTooltip(tooltip) : null,
     });
     this._map.addControl(this._deckOverlay);
   }
 
   _convertDeckLayers(deckLayers, tooltip = null) {
     return deckLayers.map((deckLayer) => {
-      const getTooltip = deckLayerOnHover(this._map, tooltip);
-      return this._JSONConverter.convert(
-        Object.assign(deckLayer, {
-          /* Use tooltip from maplibre.gl
-            onHover: tooltip
-              ? deckLayerOnHover(this._map, tooltip_template)
-              : null,
-            */
-          onHover: ({ layer, coordinate, object }) => {
-            // console.log(layer.id, coordinate, object);
-            getTooltip({ coordinate, object });
-            // Add event listener
-            if (typeof Shiny !== "undefined") {
-              const inputName = `${this._id}_layer_${deckLayer.id}`;
-              // console.log("deckInputName", inputName);
-              Shiny.onInputChange(inputName, object);
-            }
-          },
-        }),
-      );
+      const tooltip_ =
+        typeof tooltip === "object" ? tooltip[deckLayer.id] : tooltip;
+      const getTooltip = getDeckMapLibrePopupTooltip(this._map, tooltip_);
+      deckLayer.onHover = ({ layer, coordinate, object }) => {
+        if (tooltip_) getTooltip({ coordinate, object });
+
+        // Add event listener
+        if (typeof Shiny !== "undefined") {
+          const inputName = `${this._id}_layer_${deckLayer.id}`;
+          Shiny.onInputChange(inputName, object);
+        }
+      };
+      return this._JSONConverter.convert(deckLayer);
     });
   }
 
