@@ -120,18 +120,19 @@ export default class PyMapLibreGL {
     this._map.addControl(this._deckOverlay);
   }
 
-  _convertDeckLayers(deckLayers, tooltip_template = null) {
-    return deckLayers.map((deckLayer) =>
-      this._JSONConverter.convert(
+  _convertDeckLayers(deckLayers, tooltip = null) {
+    return deckLayers.map((deckLayer) => {
+      const getTooltip = deckLayerOnHover(this._map, tooltip);
+      return this._JSONConverter.convert(
         Object.assign(deckLayer, {
           /* Use tooltip from maplibre.gl
-          onHover: tooltip_template
-            ? deckLayerOnHover(this._map, tooltip_template)
-            : null,
-          */
+            onHover: tooltip
+              ? deckLayerOnHover(this._map, tooltip_template)
+              : null,
+            */
           onHover: ({ layer, coordinate, object }) => {
             // console.log(layer.id, coordinate, object);
-
+            getTooltip({ coordinate, object });
             // Add event listener
             if (typeof Shiny !== "undefined") {
               const inputName = `${this._id}_layer_${deckLayer.id}`;
@@ -140,8 +141,8 @@ export default class PyMapLibreGL {
             }
           },
         }),
-      ),
-    );
+      );
+    });
   }
 
   setDeckLayers(deckLayers) {

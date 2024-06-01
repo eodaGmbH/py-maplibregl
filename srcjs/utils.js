@@ -45,7 +45,7 @@ function getDeckTooltip(template) {
 }
 
 // Exp
-function deckLayerOnHover(map, tooltip_template) {
+function deckLayerOnHover(map, tooltip) {
   const popup = new maplibregl.Popup({
     closeOnClick: false,
     closeButton: false,
@@ -53,10 +53,8 @@ function deckLayerOnHover(map, tooltip_template) {
   map.on("mouseout", (e) => popup.remove());
   return ({ coordinate, object }) => {
     if (object) {
-      console.log(tooltip_template);
-      popup
-        .setHTML(mustache.render(tooltip_template, object))
-        .setLngLat(coordinate);
+      console.log(tooltip);
+      popup.setHTML(mustache.render(tooltip, object)).setLngLat(coordinate);
       popup.addTo(map);
     } else popup.remove();
   };
