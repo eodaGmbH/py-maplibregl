@@ -81,14 +81,14 @@ function getCustomMapMethods(maplibregl, map) {
       map.getSource(sourceId).setData(data);
     },
 
-    addDeckOverlay: function (deckLayers, tooltip_template = null) {
+    addDeckOverlay: function (deckLayers, tooltip = null) {
       const layers = _convertDeckLayer(deckLayers);
       console.log("deckLayers", layers);
 
       deckOverlay = new MapboxOverlay({
         interleaved: true,
         layers: layers,
-        getTooltip: tooltip_template ? getDeckTooltip(tooltip_template) : null,
+        getTooltip: tooltip ? getDeckTooltip(tooltip) : null,
       });
       map.addControl(deckOverlay);
     },

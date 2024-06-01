@@ -15,32 +15,23 @@ function getTextFromFeature(feature, property, template) {
   return feature.properties[property];
 }
 
-function renderPickingObject(template, object, layerId) {
-  // console.log("Trying to get tooltip for layerId = " + layerId);
-  const default_style = {
+// Use build-in tooltip of Deck.GL
+function getDeckTooltip(template) {
+  const style = {
     background: "white",
     color: "black",
-    "border-radius": "5px",
+    "border-radius": "3px",
   };
-  if (typeof template === "object") {
-    return (
-      template[layerId] && {
-        html: mustache.render(template[layerId], object),
-        style: default_style,
-      }
-    );
-  }
-
-  return {
-    html: mustache.render(template, object),
-    style: default_style,
-  };
-}
-
-// Just as a POC, maybe set tooltip via onHover using Popups from maplibregl
-function getDeckTooltip(template) {
   return ({ layer, object }) => {
-    return object && renderPickingObject(template, object, layer.id);
+    if (object) {
+      const template_ =
+        typeof template === "object" ? template[layer.id] : template;
+      return (
+        template_ && { html: mustache.render(template_, object), style: style }
+      );
+    }
+
+    return null;
   };
 }
 
