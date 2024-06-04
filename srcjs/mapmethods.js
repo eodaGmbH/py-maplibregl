@@ -83,8 +83,7 @@ function getCustomMapMethods(maplibregl, map) {
 
     addDeckOverlay: function (deckLayers, tooltip = null) {
       const layers = _convertDeckLayer(deckLayers);
-      console.log("deckLayers", layers);
-
+      // console.log("deckLayers", layers);
       deckOverlay = new MapboxOverlay({
         interleaved: true,
         layers: layers,
@@ -93,11 +92,14 @@ function getCustomMapMethods(maplibregl, map) {
       map.addControl(deckOverlay);
     },
 
-    setDeckLayers: function (deckLayers) {
+    setDeckLayers: function (deckLayers, tooltip = null) {
       console.log("Updating Deck.GL layers");
       const layers = _convertDeckLayer(deckLayers);
       // console.log("deckLayers", layers);
-      deckOverlay.setProps({ layers });
+      deckOverlay.setProps({
+        layers,
+        getTooltip: tooltip ? getDeckTooltip(tooltip) : null,
+      });
     },
   };
 }

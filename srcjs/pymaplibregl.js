@@ -125,7 +125,9 @@ export default class PyMapLibreGL {
   _convertDeckLayers(deckLayers, tooltip = null) {
     return deckLayers.map((deckLayer) => {
       const tooltip_ =
-        typeof tooltip !== null && tooltip === "object" ? tooltip[deckLayer.id] : tooltip;
+        tooltip && typeof tooltip === "object"
+          ? tooltip[deckLayer.id]
+          : tooltip;
       const getTooltip = getDeckMapLibrePopupTooltip(this._map, tooltip_);
       deckLayer.onHover = ({ layer, coordinate, object }) => {
         if (tooltip_) getTooltip({ coordinate, object });
