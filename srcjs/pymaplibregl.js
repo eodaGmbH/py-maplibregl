@@ -125,7 +125,7 @@ export default class PyMapLibreGL {
   _convertDeckLayers(deckLayers, tooltip = null) {
     return deckLayers.map((deckLayer) => {
       const tooltip_ =
-        typeof tooltip === "object" ? tooltip[deckLayer.id] : tooltip;
+        typeof tooltip !== null && tooltip === "object" ? tooltip[deckLayer.id] : tooltip;
       const getTooltip = getDeckMapLibrePopupTooltip(this._map, tooltip_);
       deckLayer.onHover = ({ layer, coordinate, object }) => {
         if (tooltip_) getTooltip({ coordinate, object });
@@ -140,9 +140,9 @@ export default class PyMapLibreGL {
     });
   }
 
-  setDeckLayers(deckLayers) {
+  setDeckLayers(deckLayers, tooltip = null) {
     console.log("Updating Deck.GL layers");
-    const layers = this._convertDeckLayers(deckLayers);
+    const layers = this._convertDeckLayers(deckLayers, tooltip);
     this._deckOverlay.setProps({ layers });
   }
 

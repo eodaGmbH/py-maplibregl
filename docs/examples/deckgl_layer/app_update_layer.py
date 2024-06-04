@@ -39,7 +39,8 @@ def deck_grid_layer(cell_size: int = DEFAULT_CELL_SIZE):
     }
 
 
-m.add_deck_layers([deck_grid_layer()], tooltip="Number of points: {{ count }}")
+tooltip = "Number of points: {{ count }}"
+m.add_deck_layers([deck_grid_layer()], tooltip=tooltip)
 
 # Shiny Express
 use_deckgl()
@@ -69,7 +70,7 @@ def picking_object():
 async def update_layer():
     print(input.update_layer())
     async with MapContext("render_map") as m:
-        m.set_deck_layers([deck_grid_layer(input.cell_size())])
+        m.set_deck_layers([deck_grid_layer(input.cell_size())], tooltip)
 
 
 if __name__ == "__main__":

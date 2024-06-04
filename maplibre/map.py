@@ -284,11 +284,12 @@ class Map(object):
         """
         self.add_call("addDeckOverlay", layers, tooltip)
 
-    def set_deck_layers(self, layers: list[dict]):
+    def set_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
         """Update Deck.GL layers
 
         Args:
             layers (list[dict]): A list of dictionaries containing the Deck.GL layers to be updated.
                 New layers will be added. Missing layers will be removed.
+            tooltip (str | dict): Must be set to keep tooltip even if it did not change.
         """
-        self.add_call("setDeckLayers", layers)
+        self.add_call("setDeckLayers", layers, tooltip)
