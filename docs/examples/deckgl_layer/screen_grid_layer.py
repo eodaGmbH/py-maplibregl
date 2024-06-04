@@ -13,27 +13,34 @@ m = Map(
     MapOptions(
         style=Carto.POSITRON,
         center=(-122.4, 37.74),
-        zoom=12,
+        zoom=11,
         hash=True,
         pitch=40,
     )
 )
 
 
-deck_grid_layer = {
-    "@@type": "GridLayer",
-    "id": "GridLayer",
+deck_screen_grid_layer = {
+    "@@type": "ScreenGridLayer",
+    "id": "MyAwesomeScreenGridLayer",
     "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json",
-    "extruded": True,
+    "cellSizePixels": 50,
+    "colorRange": [
+        [0, 25, 0, 25],
+        [0, 85, 0, 85],
+        [0, 127, 0, 127],
+        [0, 170, 0, 170],
+        [0, 190, 0, 190],
+        [0, 255, 0, 255],
+    ],
     "getPosition": "@@=COORDINATES",
-    "getColorWeight": "@@=SPACES",
-    "getElevationWeight": "@@=SPACES",
-    "elevationScale": 4,
-    "cellSize": 200,
+    "getWeight": "@@=SPACES",
+    "opacity": 0.8,
     "pickable": True,
+    # "gpuAggregation": False,
 }
-
-m.add_deck_layers([deck_grid_layer], tooltip="Number of points: {{ count }}")
+tooltip = "{{ weight }}"
+m.add_deck_layers([deck_screen_grid_layer], tooltip=tooltip)
 
 # Shiny Express
 use_deckgl()
@@ -46,7 +53,7 @@ def render_map():
 
 @render.code
 def picking_object():
-    obj = input.render_map_layer_GridLayer()
+    obj = input.render_map_layer_MyAwesomeScreenGridLayer()
     print(obj)
     return json.dumps(obj["points"], indent=2) if obj else "Pick a feature!"
 
