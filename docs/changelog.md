@@ -1,5 +1,9 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.2.0
+
+* Support Deck.GL layers (#28)
+
 ## maplibre v0.1.6
 
 * Add `before_id` parameter to `add_layer` method (#45, #47)
