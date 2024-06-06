@@ -38,3 +38,26 @@ def output_maplibregl(id_: str, height: [int | str] = 200) -> Tag:
         class_=_shiny_output_class,
         style=f"height: {height}",
     )
+
+
+DECKGL_VERSION = "9.0.16"
+
+deckgl_dep = HTMLDependency(
+    name="deckgl",
+    version=DECKGL_VERSION,
+    source={"href": f"https://unpkg.com/deck.gl@{DECKGL_VERSION}/"},
+    script={"src": "dist.min.js", "type": "module"},
+)
+
+DECKGL_VERSION = "9.0.16"
+
+deckgl_json_dep = HTMLDependency(
+    name="deckgljson",
+    version=DECKGL_VERSION,
+    source={"href": f"https://unpkg.com/@deck.gl/json@{DECKGL_VERSION}/"},
+    script={"src": "dist.min.js", "type": "module"},
+)
+
+
+def use_deckgl() -> Tag:
+    return ui.div(deckgl_dep, deckgl_json_dep)

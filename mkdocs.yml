@@ -13,6 +13,7 @@ nav:
   - Get started:
       - Welcome to MapLibre: index.md
       - Layers: layers.md
+      - Deck.GL Layers: deckgl.md
       - Shiny: shiny.md
       - Jupyter: jupyter.md
       - Changelog: changelog.md
@@ -23,17 +24,19 @@ nav:
       - Basemaps: api/basemaps.md
       - Markers and controls: api/controls.md
   - Examples:
-      - Every person in manhattan: examples/every_person_in_manhattan/index.md
-      - Vancouver property value: examples/vancouver_blocks/index.md
-      - Earthquake clusters: examples/earthquake_clusters/index.md
-      - Airport markers: examples/airports/index.md
-      - 3D Indoor mapping: examples/3d_indoor_mapping/index.md
+      - Every Person in Manhattan: examples/every_person_in_manhattan/index.md
+      - Vancouver Property Value: examples/vancouver_blocks/index.md
+      - Earthquake Clusters: examples/earthquake_clusters/index.md
+      - Airport Markers: examples/airports/index.md
+      - 3D Indoor Mapping: examples/3d_indoor_mapping/index.md
       - Custom basemap: examples/custom_basemap/index.md
       - GeoPandas: examples/geopandas/index.md
       - H3 Grid UK Road Safety: examples/road_safety/index.md
       - Where is the ISS: examples/where_is_the_iss/index.md
       - WMS: examples/wms/index.md
       - Layer Order: examples/layer_order/index.md
+      - Deck.GL Layer: examples/deckgl_layer/index.md
+      - Multiple Deck.GL Layers: examples/deckgl_multiple_layers/index.md
 
 plugins:
   - search:

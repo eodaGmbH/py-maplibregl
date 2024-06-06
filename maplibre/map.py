@@ -241,10 +241,11 @@ class Map(object):
         value = "visible" if visible else "none"
         self.add_call("setLayoutProperty", layer_id, "visibility", value)
 
-    def to_html(self, **kwargs) -> str:
+    def to_html(self, title: str = "My Awesome Map", **kwargs) -> str:
         """Render to html
 
         Args:
+            title (str): The Title of the HTML document.
             **kwargs (Any): Additional keyword arguments that are passed to the template.
                 Currently, `style` is the only supported keyword argument.
 
@@ -257,7 +258,38 @@ class Map(object):
         """
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
+        add_deckgl_headers = "addDeckOverlay" in [
+            item[0] for item in self._message_queue
+        ]
+        headers = (
+            [
+                '<script src="https://unpkg.com/deck.gl@9.0.16/dist.min.js"></script>',
+                '<script src="https://unpkg.com/@deck.gl/json@9.0.16/dist.min.js"></script>',
+            ]
+            if add_deckgl_headers
+            else []
+        )
         output = Template(html_template).render(
-            js="\n".join([js_lib, js_snippet]), **kwargs
+            js="\n".join([js_lib, js_snippet]), title=title, headers=headers, **kwargs
         )
         return output
+
+    def add_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
+        """Add Deck.GL layers to the layer stack
+
+        Args:
+            layers (list[dict]): A list of dictionaries containing the Deck.GL layers to be added.
+            tooltip (str | dict): Either a single mustache template string applied to all layers
+                or a dictionary where keys are layer ids and values are mustache template strings.
+        """
+        self.add_call("addDeckOverlay", layers, tooltip)
+
+    def set_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
+        """Update Deck.GL layers
+
+        Args:
+            layers (list[dict]): A list of dictionaries containing the Deck.GL layers to be updated.
+                New layers will be added. Missing layers will be removed.
+            tooltip (str | dict): Must be set to keep tooltip even if it did not change.
+        """
+        self.add_call("setDeckLayers", layers, tooltip)

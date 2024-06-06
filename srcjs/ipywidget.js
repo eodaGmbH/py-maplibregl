@@ -1,4 +1,5 @@
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
+
 import { applyMapMethod, getCustomMapMethods } from "./mapmethods";
 
 function createContainer(model) {
@@ -39,7 +40,7 @@ function createMap(mapOptions, model) {
   return map;
 }
 
-export function render({ model, el }) {
+function render({ model, el }) {
   console.log("maplibregl", maplibregl.version);
 
   const container = createContainer(model);
@@ -84,3 +85,5 @@ export function render({ model, el }) {
 
   el.appendChild(container);
 }
+
+export default { render };

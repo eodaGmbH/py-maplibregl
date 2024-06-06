@@ -23,11 +23,15 @@ pip install git+https://github.com/eodaGmbH/py-maplibregl@dev
 pip install "maplibre[all] @ git+https://github.com/eodaGmbH/py-maplibregl@dev"
 ```
 
-## Getting started
+## Quickstart
 
-```bash
-docker run --rm -p 8050:8050 ghcr.io/eodagmbh/py-maplibregl/vancouver-blocks:latest
+```python
+from maplibre import Map, MapOptions
+
+m = Map(MapOptions(center=(-123.1256, 49.24658), zoom=9))
 ```
+
+## Documentation
 
 * [Basic usage](https://eodagmbh.github.io/py-maplibregl/)
 * [API Documentation](https://eodagmbh.github.io/py-maplibregl/api/map/)

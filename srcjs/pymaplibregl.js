@@ -1,6 +1,19 @@
-// import { getCustomMapMethods } from "./mapmethods";
-import { getTextFromFeature } from "./utils";
+import {
+  getTextFromFeature,
+  getDeckTooltip,
+  getDeckMapLibrePopupTooltip,
+} from "./utils";
 
+function getJSONConverter() {
+  if (typeof deck === "undefined") {
+    return;
+  }
+
+  const configuration = new deck.JSONConfiguration({ classes: deck });
+  return new deck.JSONConverter({ configuration });
+}
+
+// TODO: Rename to 'MapLibreWidget'
 export default class PyMapLibreGL {
   constructor(mapOptions) {
     this._id = mapOptions.container;
@@ -16,8 +29,8 @@ export default class PyMapLibreGL {
 
     // TODO: Do not add by default
     this._map.addControl(new maplibregl.NavigationControl());
-    // this.customMapMethods = getCustomMapMethods(maplibregl, this._map);
-    // console.log("Custom methods", Object.keys(this.customMapMethods));
+
+    this._JSONConverter = getJSONConverter();
   }
 
   getMap() {
@@ -94,6 +107,47 @@ export default class PyMapLibreGL {
     this._map.getSource(sourceId).setData(data);
   }
 
+  addDeckOverlay(deckLayers, tooltip = null) {
+    if (typeof this._JSONConverter === "undefined") {
+      console.log("deck or JSONConverter is undefined");
+      return;
+    }
+
+    const layers = this._convertDeckLayers(deckLayers, tooltip);
+    this._deckOverlay = new deck.MapboxOverlay({
+      interleaved: true,
+      layers: layers,
+      // getTooltip: tooltip ? getDeckTooltip(tooltip) : null,
+    });
+    this._map.addControl(this._deckOverlay);
+  }
+
+  _convertDeckLayers(deckLayers, tooltip = null) {
+    return deckLayers.map((deckLayer) => {
+      const tooltip_ =
+        tooltip && typeof tooltip === "object"
+          ? tooltip[deckLayer.id]
+          : tooltip;
+      const getTooltip = getDeckMapLibrePopupTooltip(this._map, tooltip_);
+      deckLayer.onHover = ({ layer, coordinate, object }) => {
+        if (tooltip_) getTooltip({ coordinate, object });
+
+        // Add event listener
+        if (typeof Shiny !== "undefined") {
+          const inputName = `${this._id}_layer_${deckLayer.id}`;
+          Shiny.onInputChange(inputName, object);
+        }
+      };
+      return this._JSONConverter.convert(deckLayer);
+    });
+  }
+
+  setDeckLayers(deckLayers, tooltip = null) {
+    console.log("Updating Deck.GL layers");
+    const layers = this._convertDeckLayers(deckLayers, tooltip);
+    this._deckOverlay.setProps({ layers });
+  }
+
   render(calls) {
     calls.forEach(([name, params]) => {
       // Custom method
@@ -106,6 +160,8 @@ export default class PyMapLibreGL {
           "addPopup",
           "addControl",
           "setSourceData",
+          "addDeckOverlay",
+          "setDeckLayers",
         ].includes(name)
       ) {
         console.log("Custom method", name, params);

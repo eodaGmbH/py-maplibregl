@@ -51,6 +51,7 @@ map_options = MapOptions(
     style=Carto.POSITRON,
     bounds=tuple(bbox),
     fit_bounds_options={"padding": 20},
+    hash=True,
 )
 
 
