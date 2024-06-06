@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)
 
 MapLibre for Python provides Python bindings for [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
+Furthermore, [Deck.GL Layers](https://deck.gl/docs/api-reference/layers) can be mixed with [MapLibre Layers](https://maplibre.org/maplibre-style-spec/layers/).
 
 It integrates seamlessly into [Shiny for Python](https://github.com/posit-dev/py-shiny) and [Jupyter](https://jupyter.org/).
 
