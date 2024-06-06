@@ -67,5 +67,5 @@ def render_map():
 
 
 if __name__ == "__main__":
-    with open("docs/examples/deckgl_layer/app.html", "w") as f:
+    with open("docs/examples/deckgl_multiple_layers/app.html", "w") as f:
         f.write(m.to_html())
