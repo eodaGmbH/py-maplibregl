@@ -12,6 +12,7 @@ function createContainer(model) {
 
 function createMap(mapOptions, model) {
   const map = new maplibregl.Map(mapOptions);
+  /*
   if (mapOptions.navigationControl === undefined) {
     mapOptions.navigationControl = true;
   }
@@ -19,7 +20,7 @@ function createMap(mapOptions, model) {
   if (mapOptions.navigationControl) {
     map.addControl(new maplibregl.NavigationControl());
   }
-
+  */
   map.on("mouseover", () => {
     map.getCanvas().style.cursor = "pointer";
   });
