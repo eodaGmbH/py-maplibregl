@@ -3,6 +3,7 @@
 import requests as req
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
+from maplibre.controls import NavigationControl
 from maplibre.ui import use_deckgl
 from shiny.express import input, render, ui
 
@@ -19,6 +20,7 @@ m = Map(
         pitch=30,
     )
 )
+m.add_control(NavigationControl())
 
 deck_geojson_layer = {
     "@@type": "GeoJsonLayer",

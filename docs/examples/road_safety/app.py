@@ -12,6 +12,7 @@ from maplibre import (
     output_maplibregl,
     render_maplibregl,
 )
+from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
@@ -72,6 +73,7 @@ h3_layer = Layer(
 
 def create_map() -> Map:
     m = Map(map_options)
+    m.add_control(NavigationControl())
     m.add_layer(h3_layer)
     m.add_tooltip("road-safety", "count")
     return m

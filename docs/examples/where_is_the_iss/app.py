@@ -8,6 +8,7 @@ from maplibre import (
     output_maplibregl,
     render_maplibregl,
 )
+from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
 
@@ -51,6 +52,7 @@ def server(input, output, session):
     @render_maplibregl
     def mapylibre():
         m = Map(MapOptions(center=lng_lat, zoom=3))
+        m.add_control(NavigationControl())
         m.set_paint_property("water", "fill-color", "darkblue")
         m.add_source(
             SOURCE_ID_ISS_LAST_POSITIONS, GeoJSONSource(data=feature_collection)

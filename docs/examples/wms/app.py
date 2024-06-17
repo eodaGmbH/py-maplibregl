@@ -1,6 +1,7 @@
 import webbrowser
 
 from maplibre import Layer, LayerType, Map, MapOptions
+from maplibre.controls import NavigationControl
 from maplibre.sources import RasterTileSource
 
 SOURCE_ID = "wms-test-source"
@@ -17,12 +18,13 @@ wms_layer = Layer(type=LayerType.RASTER, source=SOURCE_ID, id=LAYER_ID)
 map_options = MapOptions(zoom=8, center=(-74.5447, 40.6892))
 
 m = Map(map_options=map_options)
+m.add_control(NavigationControl())
 m.add_source(SOURCE_ID, wms_source)
 m.add_layer(wms_layer)
 
-temp_file = "/tmp/pymaplibregl.html"
+filename = "docs/examples/wms/app.html"
 
-with open(temp_file, "w") as f:
+with open(filename, "w") as f:
     f.write(m.to_html(style="height: 800px;"))
 
-webbrowser.open(temp_file)
+webbrowser.open(filename)
