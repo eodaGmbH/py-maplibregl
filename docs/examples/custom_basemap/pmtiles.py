@@ -33,13 +33,13 @@ custom_basemap = construct_basemap_style(
             "type": "fill",
             "paint": {"fill-color": "steelblue"},
         },
-        {
-            "id": "roads",
-            "source": "pmtiles",
-            "source-layer": "roads",
-            "type": "line",
-            "paint": {"line-color": "black"},
-        },
+        Layer(
+            id="roads",
+            source="pmtiles",
+            source_layer="roads",
+            type=LayerType.LINE,
+            paint={"line-color": "black"},
+        ),
         Layer(
             id="mask",
             source="pmtiles",
@@ -60,17 +60,6 @@ map_options = MapOptions(
 def create_map():
     m = Map(map_options)
     m.add_control(NavigationControl())
-    m.add_layer(
-        Layer(
-            type=LayerType.CIRCLE,
-            id="earthquakes",
-            source=GeoJSONSource(
-                data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
-            ),
-            paint={"circle-color": "yellow", "circle-radius": 5},
-        )
-    )
-    m.add_popup("earthquakes", "mag")
     return m
 
 
