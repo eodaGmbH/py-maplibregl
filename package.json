@@ -27,6 +27,7 @@
     "@deck.gl/json": "^9.0.16",
     "@deck.gl/layers": "^9.0.16",
     "@deck.gl/mapbox": "^9.0.16",
-    "mustache": "^4.2.0"
+    "mustache": "^4.2.0",
+    "pmtiles": "^3.0.6"
   }
 }
