@@ -28,7 +28,7 @@ export default class PyMapLibreGL {
     });
 
     // TODO: Do not add by default
-    this._map.addControl(new maplibregl.NavigationControl());
+    // this._map.addControl(new maplibregl.NavigationControl());
 
     this._JSONConverter = getJSONConverter();
   }
