@@ -10,7 +10,13 @@ from maplibre import (
     render_maplibregl,
 )
 from maplibre.basemaps import Carto
-from maplibre.controls import Marker, MarkerOptions, Popup, PopupOptions
+from maplibre.controls import (
+    Marker,
+    MarkerOptions,
+    NavigationControl,
+    Popup,
+    PopupOptions,
+)
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import GeometryType, df_to_geojson
 from shiny import App, ui
@@ -69,6 +75,7 @@ popup_options = PopupOptions(close_button=False)
 
 def create_map() -> Map:
     m = Map(map_options)
+    m.add_control(NavigationControl())
     m.add_layer(airport_circles)
     for _, r in airports_data.iterrows():
         marker = Marker(

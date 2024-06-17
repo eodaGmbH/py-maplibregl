@@ -3,6 +3,7 @@
 import requests as req
 from maplibre import Layer, LayerType, Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto, construct_carto_basemap_url
+from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 from shiny.express import input, render, ui
 
@@ -25,6 +26,7 @@ m = Map(
         hash=True,
     )
 )
+m.add_control(NavigationControl())
 m.add_layer(
     Layer(
         id="urban-areas-fill",

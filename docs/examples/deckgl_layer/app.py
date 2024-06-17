@@ -4,6 +4,7 @@ import json
 
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
+from maplibre.controls import NavigationControl
 from maplibre.ui import use_deckgl
 
 # from shiny import reactive
@@ -18,7 +19,7 @@ m = Map(
         pitch=40,
     )
 )
-
+m.add_control(NavigationControl())
 
 deck_grid_layer = {
     "@@type": "GridLayer",

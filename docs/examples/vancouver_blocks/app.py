@@ -10,7 +10,7 @@ from maplibre import (
     render_maplibregl,
 )
 from maplibre.basemaps import Carto
-from maplibre.controls import ScaleControl
+from maplibre.controls import NavigationControl, ScaleControl
 from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
 
@@ -64,6 +64,7 @@ map_options = MapOptions(
 
 def create_map() -> Map:
     m = Map(map_options)
+    m.add_control(NavigationControl())
     m.add_control(ScaleControl(), position="bottom-left")
     m.add_source(SOURCE_ID, vancouver_blocks_source)
     m.add_layer(vancouver_blocks_lines)
