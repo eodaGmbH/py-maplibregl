@@ -1,5 +1,9 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.2.2
+
+* Add support for PMTiles (#55)
+
 ## maplibre v0.2.1
 
 * Do not add navigation control by default (#31)
