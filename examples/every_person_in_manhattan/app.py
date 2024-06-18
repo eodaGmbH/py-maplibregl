@@ -13,7 +13,7 @@ from maplibre import (
     render_maplibregl,
 )
 from maplibre.basemaps import Carto
-from maplibre.controls import ScaleControl
+from maplibre.controls import NavigationControl, ScaleControl
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import df_to_geojson
 from shiny import App, reactive, ui
@@ -57,6 +57,7 @@ map_options = MapOptions(
 
 def create_map() -> Map:
     m = Map(map_options)
+    m.add_control(NavigationControl())
     m.add_control(ScaleControl(), position="bottom-left")
     m.add_layer(every_person_in_manhattan_circles)
     return m

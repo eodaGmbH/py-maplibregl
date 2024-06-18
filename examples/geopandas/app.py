@@ -2,6 +2,7 @@ import sys
 import webbrowser
 
 from maplibre import Layer, LayerType, Map, MapOptions
+from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import geopandas_to_geojson
 
@@ -28,6 +29,7 @@ map_options = MapOptions(bounds=df_geo.total_bounds)
 
 def create_map():
     m = Map(map_options)
+    m.add_control(NavigationControl())
     m.add_layer(wilderness_layer)
     m.add_tooltip(LAYER_ID, "NAME")
     return m

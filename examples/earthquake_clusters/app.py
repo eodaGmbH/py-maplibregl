@@ -9,6 +9,7 @@ from maplibre import (
     render_maplibregl,
 )
 from maplibre.basemaps import Carto
+from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
 
@@ -74,6 +75,7 @@ map_options = MapOptions(style=Carto.POSITRON, center=CENTER, zoom=3, hash=True)
 
 def create_map() -> Map:
     m = Map(map_options)
+    m.add_control(NavigationControl())
     m.add_source(EARTHQUAKE_SOURCE, earthquakes_source)
     m.add_layer(earthquake_clusters)
     m.add_layer(earthquake_circles)

@@ -1,11 +1,11 @@
-import sys
 import webbrowser
 
 from maplibre import Layer, LayerType, Map, MapOptions
 from maplibre.basemaps import construct_basemap_style
+from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 
-file_name = "/tmp/pymaplibregl_temp.html"
+file_name = "docs/examples/custom_basemap/app.html"
 
 bg_layer = Layer(
     type=LayerType.BACKGROUND,
@@ -45,6 +45,7 @@ map_options = MapOptions(
 
 def create_map():
     m = Map(map_options)
+    m.add_control(NavigationControl())
     m.add_layer(
         Layer(
             type=LayerType.CIRCLE,
@@ -61,9 +62,6 @@ def create_map():
 
 if __name__ == "__main__":
     m = create_map()
-    if len(sys.argv) == 2:
-        file_name = sys.argv[1]
-
     with open(file_name, "w") as f:
         f.write(m.to_html())
 
