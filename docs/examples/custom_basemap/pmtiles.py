@@ -1,12 +1,12 @@
+# Example taken from here: https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles/
+
 import webbrowser
 
 from maplibre import Layer, LayerType, Map, MapOptions, render_maplibregl
 from maplibre.basemaps import construct_basemap_style
 from maplibre.controls import NavigationControl
-from maplibre.sources import GeoJSONSource
 from shiny.express import input, render, ui
 
-# see example: https://maplibre.org/maplibre-gl-js/docs/examples/pmtiles/
 PMTILES_URL = "https://pmtiles.io/protomaps(vector)ODbL_firenze.pmtiles"
 
 pmtiles_source = {
@@ -15,24 +15,16 @@ pmtiles_source = {
     "attribution": '© <a href="https://openstreetmap.org">OpenStreetMap</a>',
 }
 
-bg_layer = Layer(
-    type=LayerType.BACKGROUND,
-    id="background",
-    source=None,
-    paint={"background-color": "pink", "background-opacity": 0.8},
-)
-
 custom_basemap = construct_basemap_style(
     sources={"pmtiles": pmtiles_source},
     layers=[
-        # bg_layer,
-        {
-            "id": "buildings",
-            "source": "pmtiles",
-            "source-layer": "landuse",
-            "type": "fill",
-            "paint": {"fill-color": "steelblue"},
-        },
+        Layer(
+            id="buildings",
+            source="pmtiles",
+            source_layer="landuse",
+            type=LayerType.FILL,
+            paint={"fill-color": "steelblue"},
+        ),
         Layer(
             id="roads",
             source="pmtiles",
