@@ -61,7 +61,7 @@ def render_map():
 
 
 if __name__ == "__main__":
-    file_name = "docs/examples/custom_basemap/app.html"
+    file_name = "docs/examples/pmtiles/app.html"
 
     m = create_map()
     with open(file_name, "w") as f:

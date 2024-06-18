@@ -1,6 +1,13 @@
 import requests
-from maplibre import (Layer, LayerType, Map, MapContext, MapOptions,
-                      output_maplibregl, render_maplibregl)
+from maplibre import (
+    Layer,
+    LayerType,
+    Map,
+    MapContext,
+    MapOptions,
+    output_maplibregl,
+    render_maplibregl,
+)
 from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, ui
