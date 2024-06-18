@@ -10,6 +10,13 @@ function createContainer(model) {
   return container;
 }
 
+function updateModel(model, map) {
+  model.set("center", map.getCenter());
+  model.set("zoom", map.getZoom());
+  model.set("bounds", map.getBounds());
+  model.save_changes();
+}
+
 function createMap(mapOptions, model) {
   const map = new maplibregl.Map(mapOptions);
   /*
@@ -34,8 +41,17 @@ function createMap(mapOptions, model) {
     model.save_changes();
   });
 
+  map.on("zoomend", (e) => {
+    updateModel(model, map);
+  });
+
+  map.on("moveend", (e) => {
+    updateModel(model, map);
+  });
+
   map.once("load", () => {
     map.resize();
+    updateModel(model, map);
   });
 
   return map;

@@ -33,7 +33,12 @@ class MapWidget(AnyWidget, Map):
     map_options = traitlets.Dict().tag(sync=True)
     calls = traitlets.List().tag(sync=True)
     height = traitlets.Union([traitlets.Int(), traitlets.Unicode()]).tag(sync=True)
+
+    # TODO: Rename to lng_lat_clicked?
     lng_lat = traitlets.Dict().tag(sync=True)
+    center = traitlets.Dict().tag(sync=True)
+    zoom = traitlets.Float().tag(sync=True)
+    bounds = traitlets.Dict().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
         self.calls = []
