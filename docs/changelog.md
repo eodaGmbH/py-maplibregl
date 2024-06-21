@@ -1,6 +1,6 @@
 # Changelog for MapLibre for Python
 
-## maplibre v0.2.3
+## maplibre v0.2.3 (not released)
 
 * Add interactive attributes to IpyWidget
   * `Map.center`
