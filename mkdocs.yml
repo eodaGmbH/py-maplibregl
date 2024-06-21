@@ -37,7 +37,7 @@ nav:
       - Layer Order: examples/layer_order/index.md
       - Deck.GL Layer: examples/deckgl_layer/index.md
       - Multiple Deck.GL Layers: examples/deckgl_multiple_layers/index.md
-
+      - PMTiles: examples/pmtiles/index.md
 plugins:
   - search:
   - mkdocstrings:

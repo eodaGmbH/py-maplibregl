@@ -1,3 +1,7 @@
+import { Protocol } from "pmtiles";
+let protocol = new Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+
 import {
   getTextFromFeature,
   getDeckTooltip,
