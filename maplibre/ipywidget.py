@@ -28,12 +28,17 @@ class MapWidget(AnyWidget, Map):
 
     _esm = join(Path(__file__).parent, "srcjs", "ipywidget.js")
     _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
-    _use_message_queue = False
+    _use_message_queue = True
     _rendered = traitlets.Bool(False, config=True).tag(sync=True)
     map_options = traitlets.Dict().tag(sync=True)
     calls = traitlets.List().tag(sync=True)
     height = traitlets.Union([traitlets.Int(), traitlets.Unicode()]).tag(sync=True)
-    lng_lat = traitlets.Dict().tag(sync=True)
+
+    # Interactions
+    clicked = traitlets.Dict().tag(sync=True)
+    center = traitlets.Dict().tag(sync=True)
+    zoom = traitlets.Float().tag(sync=True)
+    bounds = traitlets.Dict().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
         self.calls = []
