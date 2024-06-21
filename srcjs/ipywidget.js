@@ -37,7 +37,7 @@ function createMap(mapOptions, model) {
   });
 
   map.on("click", (e) => {
-    model.set("lng_lat", e.lngLat);
+    model.set("map_clicked", e.lngLat);
     model.save_changes();
   });
 
