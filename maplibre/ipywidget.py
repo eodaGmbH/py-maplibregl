@@ -35,7 +35,7 @@ class MapWidget(AnyWidget, Map):
     height = traitlets.Union([traitlets.Int(), traitlets.Unicode()]).tag(sync=True)
 
     # Interactions
-    map_clicked = traitlets.Dict().tag(sync=True)
+    clicked = traitlets.Dict().tag(sync=True)
     center = traitlets.Dict().tag(sync=True)
     zoom = traitlets.Float().tag(sync=True)
     bounds = traitlets.Dict().tag(sync=True)
