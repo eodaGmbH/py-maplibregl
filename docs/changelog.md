@@ -1,12 +1,16 @@
 # Changelog for MapLibre for Python
 
-## maplibre v0.2.3 (not released)
+## maplibre v0.2.3 (unreleased)
 
 * Add interactive attributes to IpyWidget
   * `Map.center`
   * `Map.bounds`
   * `Map.zoom`
   * `Map.lat_lng` > `Map.clicked` (rename)
+* Change map option types
+  * MapOptions.zoom: int > float
+  * MapOptions.bearing: int > float
+  * MapOptions.pitch: int > float
 
 ## maplibre v0.2.2
 
