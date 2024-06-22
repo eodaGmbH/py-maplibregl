@@ -19,7 +19,7 @@ class MapOptions(BaseModel):
     """Map options
 
     Note:
-        See [MapOptions](https://maplibre.org/maplibre-gl-js/docs/API/types/MapOptions/) for more details.
+        See [MapOptions](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapOptions) for more details.
     """
 
     model_config = ConfigDict(
@@ -27,7 +27,7 @@ class MapOptions(BaseModel):
     )
     antialias: bool = None
     attribution_control: bool = Field(None, serialization_alias="attributionControl")
-    bearing: int = None
+    bearing: float = None
     bearing_snap: int = Field(None, serialization_alias="bearingSnap")
     bounds: tuple = None
     box_zoom: bool = Field(None, serialization_alias="boxZoom")
@@ -45,10 +45,10 @@ class MapOptions(BaseModel):
     max_zoom: int = Field(None, serialization_alias="maxZoom")
     min_pitch: int = Field(None, serialization_alias="minPitch")
     min_zoom: int = Field(None, serialization_alias="minZoom")
-    pitch: int = None
+    pitch: float = None
     scroll_zoom: bool = Field(None, serialization_alias="scrollZoom")
     style: Union[str, Carto, dict] = construct_carto_basemap_url(Carto.DARK_MATTER)
-    zoom: int = None
+    zoom: float = None
 
     @field_validator("style")
     def validate_style(cls, v):
