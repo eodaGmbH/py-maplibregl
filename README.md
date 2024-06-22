@@ -6,6 +6,7 @@
 [![Conda package](https://img.shields.io/conda/vn/conda-forge/maplibre.svg)](https://anaconda.org/conda-forge/maplibre)
 [![Build status](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-maplibregl/pytest.yml?branch=main)](https://img.shields.io/github/actions/workflow/status/eodaGmbH/py-maplibregl/pytest.yml?branch=main)
 [![License](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)](https://img.shields.io/github/license/eodaGmbH/py-maplibregl)
+[![MapLibre](https://img.shields.io/badge/MapLibre.GL-v3.6.2-blue.svg)](https://github.com/maplibre/maplibre-gl-js/releases/tag/v3.6.2)
 
 MapLibre for Python provides Python bindings for [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
 Furthermore, [Deck.GL Layers](https://deck.gl/docs/api-reference/layers) can be mixed with [MapLibre Layers](https://maplibre.org/maplibre-style-spec/layers/).
