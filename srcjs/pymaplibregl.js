@@ -165,6 +165,18 @@ export default class PyMapLibreGL {
   addMapboxDraw(options, position) {
     const draw = new MapboxDraw(options);
     this._map.addControl(draw, position);
+
+    // Add event listener
+    if (typeof Shiny !== "undefined") {
+      this._map.on("draw.selectionchange", (e) => {
+        // console.log("draw, selected features", e.features);
+        // console.log(draw.getAll());
+        const inputName = `${this._id}_draw_selected_features`;
+        const object = { features: e.features, random: Math.random() };
+        console.log(inputName, object);
+        Shiny.onInputChange(inputName, object);
+      });
+    }
   }
 
   render(calls) {

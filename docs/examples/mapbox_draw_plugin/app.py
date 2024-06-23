@@ -25,6 +25,7 @@ draw_options = {
     "displayControlsDefault": False,
     "controls": {
         "polygon": True,
+        "line_string": True,
         "trash": True,
     },
 }
@@ -35,8 +36,15 @@ use_mapboxgl_draw()
 
 
 @render_maplibregl
-def render_map():
+def maplibre():
     return m
+
+
+@render.code
+def selected_features():
+    obj = input.maplibre_draw_selected_features()
+    print(obj)
+    return json.dumps(obj["features"], indent=2) if obj else "Pick some features!"
 
 
 if __name__ == "__main__":
