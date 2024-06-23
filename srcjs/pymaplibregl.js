@@ -44,7 +44,7 @@ export default class PyMapLibreGL {
     this._JSONConverter = getJSONConverter();
 
     // Just a test
-    if (typeof MapboxDraw !== "undefined") this.addMapboxDraw();
+    // if (typeof MapboxDraw !== "undefined") this.addMapboxDraw();
   }
 
   getMap() {
@@ -162,15 +162,9 @@ export default class PyMapLibreGL {
     this._deckOverlay.setProps({ layers });
   }
 
-  addMapboxDraw() {
-    const draw = new MapboxDraw({
-      displayControlsDefault: false,
-      controls: {
-        polygon: true,
-        trash: true,
-      },
-    });
-    this._map.addControl(draw);
+  addMapboxDraw(options, position) {
+    const draw = new MapboxDraw(options);
+    this._map.addControl(draw, position);
   }
 
   render(calls) {
@@ -187,6 +181,7 @@ export default class PyMapLibreGL {
           "setSourceData",
           "addDeckOverlay",
           "setDeckLayers",
+          "addMapboxDraw",
         ].includes(name)
       ) {
         console.log("Custom method", name, params);

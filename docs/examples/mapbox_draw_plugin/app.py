@@ -4,7 +4,7 @@ import json
 
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
-from maplibre.controls import NavigationControl
+from maplibre.controls import ControlPosition, NavigationControl
 from maplibre.ui import use_mapboxgl_draw
 
 # from shiny import reactive
@@ -21,6 +21,14 @@ m = Map(
 )
 m.add_control(NavigationControl())
 
+draw_options = {
+    "displayControlsDefault": False,
+    "controls": {
+        "polygon": True,
+        "trash": True,
+    },
+}
+m.add_call("addMapboxDraw", draw_options, ControlPosition.TOP_LEFT.value)
 
 # Shiny Express
 use_mapboxgl_draw()
