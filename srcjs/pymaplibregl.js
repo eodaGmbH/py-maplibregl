@@ -17,6 +17,13 @@ function getJSONConverter() {
   return new deck.JSONConverter({ configuration });
 }
 
+// MapboxDraw must be imported before this one
+if (typeof MapboxDraw !== "undefined") {
+  MapboxDraw.constants.classes.CONTROL_BASE = "maplibregl-ctrl";
+  MapboxDraw.constants.classes.CONTROL_PREFIX = "maplibregl-ctrl-";
+  MapboxDraw.constants.classes.CONTROL_GROUP = "maplibregl-ctrl-group";
+}
+
 // TODO: Rename to 'MapLibreWidget'
 export default class PyMapLibreGL {
   constructor(mapOptions) {
@@ -35,6 +42,9 @@ export default class PyMapLibreGL {
     // this._map.addControl(new maplibregl.NavigationControl());
 
     this._JSONConverter = getJSONConverter();
+
+    // Just a test
+    if (typeof MapboxDraw !== "undefined") this.addMapboxDraw();
   }
 
   getMap() {
@@ -150,6 +160,17 @@ export default class PyMapLibreGL {
     console.log("Updating Deck.GL layers");
     const layers = this._convertDeckLayers(deckLayers, tooltip);
     this._deckOverlay.setProps({ layers });
+  }
+
+  addMapboxDraw() {
+    const draw = new MapboxDraw({
+      displayControlsDefault: false,
+      controls: {
+        polygon: true,
+        trash: true,
+      },
+    });
+    this._map.addControl(draw);
   }
 
   render(calls) {
