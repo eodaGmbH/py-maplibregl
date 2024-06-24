@@ -2,11 +2,24 @@ import { MapboxOverlay } from "@deck.gl/mapbox";
 import { JSONConfiguration, JSONConverter } from "@deck.gl/json";
 import * as deckLayerCatalog from "./deck-layers";
 
+// Mapbox Draw Plugin: https://github.com/mapbox/mapbox-gl-draw
+// import MapboxDraw from "https://esm.sh/@mapbox/mapbox-gl-draw@1.4.3";
+// import "https://esm.sh/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.css";
+// import "./css/mapbox-gl-draw.css";
+import MapboxDraw from "./mapbox-draw-plugin";
+// console.log(MapboxDraw.constants.classes);
+
 import { getTextFromFeature, getDeckTooltip } from "./utils";
 
 const jsonConverter = new JSONConverter({
   configuration: new JSONConfiguration({ layers: deckLayerCatalog }),
 });
+
+/*
+MapboxDraw.constants.classes.CONTROL_BASE = "maplibregl-ctrl";
+MapboxDraw.constants.classes.CONTROL_PREFIX = "maplibregl-ctrl-";
+MapboxDraw.constants.classes.CONTROL_GROUP = "maplibregl-ctrl-group";
+*/
 
 function applyMapMethod(map, call) {
   const [methodName, params] = call;
@@ -100,6 +113,11 @@ function getCustomMapMethods(maplibregl, map) {
         layers,
         getTooltip: tooltip ? getDeckTooltip(tooltip) : null,
       });
+    },
+
+    addMapboxDraw(options, position) {
+      const draw = new MapboxDraw(options);
+      map.addControl(draw, position);
     },
   };
 }

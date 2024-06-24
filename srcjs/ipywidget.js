@@ -1,6 +1,8 @@
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
 import { Protocol } from "https://esm.sh/pmtiles@3.0.6";
 
+import "./css/maplibre-gl.css";
+
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
