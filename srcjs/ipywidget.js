@@ -60,6 +60,13 @@ function createMap(mapOptions, model) {
     updateModel(model, map);
   });
 
+  map.on("draw.selectionchange", (e) => {
+    const features = e.features;
+    console.log("selection changed", features);
+    model.set("draw_features_selected", features);
+    model.save_changes();
+  });
+
   return map;
 }
 

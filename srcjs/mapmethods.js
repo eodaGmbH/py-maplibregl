@@ -38,6 +38,7 @@ function _convertDeckLayer(deckLayers) {
 }
 
 // TODO: Duplicated code, use for Shiny and Ipywidget
+// At the moment it is only used for Ipywidget
 // Custom map methods
 function getCustomMapMethods(maplibregl, map) {
   let deckOverlay = null;

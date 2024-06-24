@@ -41,6 +41,7 @@ class MapWidget(AnyWidget, Map):
     center = traitlets.Dict().tag(sync=True)
     zoom = traitlets.Float().tag(sync=True)
     bounds = traitlets.Dict().tag(sync=True)
+    draw_features_selected = traitlets.List().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
         self.calls = []
