@@ -258,10 +258,14 @@ class Map(object):
         """
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
+        headers = []
+
+        # Deck.GL headers
         add_deckgl_headers = "addDeckOverlay" in [
             item[0] for item in self._message_queue
         ]
-        headers = (
+        # TODO: Set version in constants
+        deckgl_headers = (
             [
                 '<script src="https://unpkg.com/deck.gl@9.0.16/dist.min.js"></script>',
                 '<script src="https://unpkg.com/@deck.gl/json@9.0.16/dist.min.js"></script>',
@@ -269,8 +273,26 @@ class Map(object):
             if add_deckgl_headers
             else []
         )
+
+        # Mapbox Draw headers
+        add_mapbox_draw_headers = "addMapboxDraw" in [
+            item[0] for item in self._message_queue
+        ]
+        # TODO: Set version in constants
+        mapbox_draw_headers = (
+            [
+                '<script src="https://www.unpkg.com/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.js"></script>',
+                "<link rel='stylesheet' href='https://www.unpkg.com/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.css' type='text/css' />",
+            ]
+            if add_mapbox_draw_headers
+            else []
+        )
+
         output = Template(html_template).render(
-            js="\n".join([js_lib, js_snippet]), title=title, headers=headers, **kwargs
+            js="\n".join([js_lib, js_snippet]),
+            title=title,
+            headers=headers + deckgl_headers + mapbox_draw_headers,
+            **kwargs,
         )
         return output
 

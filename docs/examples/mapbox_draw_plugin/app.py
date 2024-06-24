@@ -1,6 +1,7 @@
 # Shiny Express App
 
 import json
+import webbrowser
 
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
@@ -48,5 +49,8 @@ def selected_features():
 
 
 if __name__ == "__main__":
-    with open("docs/examples/mapbox_draw_plugin/app.html", "w") as f:
+    filename = "docs/examples/mapbox_draw_plugin/app.html"
+    with open(filename, "w") as f:
         f.write(m.to_html())
+
+    webbrowser.open(filename)
