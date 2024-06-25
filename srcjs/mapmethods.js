@@ -42,6 +42,7 @@ function _convertDeckLayer(deckLayers) {
 // Custom map methods
 function getCustomMapMethods(maplibregl, map) {
   let deckOverlay = null;
+  let draw = null;
 
   return {
     addTooltip: function (layerId, property = null, template = null) {
@@ -117,8 +118,12 @@ function getCustomMapMethods(maplibregl, map) {
     },
 
     addMapboxDraw(options, position) {
-      const draw = new MapboxDraw(options);
+      draw = new MapboxDraw(options);
       map.addControl(draw, position);
+    },
+
+    getMapboxDraw: function () {
+      return draw;
     },
   };
 }

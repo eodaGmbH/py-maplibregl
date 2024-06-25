@@ -85,6 +85,18 @@ function render({ model, el }) {
   // to avoid duplicated imports (current bug in esbuild)
   const customMapMethods = getCustomMapMethods(maplibregl, map);
 
+  // Add event listeners for MapboxDraw
+  // TODO: Only add listeners if 'addMapboxDraw is called'
+  const drawEvents = ["draw.create", "draw.update", "draw.delete"];
+  for (let i in drawEvents) {
+    map.on(drawEvents[i], (e) => {
+      const draw = customMapMethods.getMapboxDraw();
+      console.log("features", draw.getAll());
+      model.set("draw_feature_collection_all", draw.getAll());
+      model.save_changes();
+    });
+  }
+
   const apply = (calls) => {
     calls.forEach((call) => {
       // Custom map call
