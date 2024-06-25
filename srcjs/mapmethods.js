@@ -117,9 +117,10 @@ function getCustomMapMethods(maplibregl, map) {
       });
     },
 
-    addMapboxDraw(options, position) {
+    addMapboxDraw(options, position, geojson = null) {
       draw = new MapboxDraw(options);
       map.addControl(draw, position);
+      if (geojson) draw.add(geojson);
     },
 
     getMapboxDraw: function () {

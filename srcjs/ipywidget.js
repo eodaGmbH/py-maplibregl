@@ -87,7 +87,12 @@ function render({ model, el }) {
 
   // Add event listeners for MapboxDraw
   // TODO: Only add listeners if 'addMapboxDraw is called'
-  const drawEvents = ["draw.create", "draw.update", "draw.delete"];
+  const drawEvents = [
+    "draw.create",
+    "draw.update",
+    "draw.delete",
+    "draw.render",
+  ];
   for (let i in drawEvents) {
     map.on(drawEvents[i], (e) => {
       const draw = customMapMethods.getMapboxDraw();
