@@ -162,9 +162,10 @@ export default class PyMapLibreGL {
     this._deckOverlay.setProps({ layers });
   }
 
-  addMapboxDraw(options, position) {
+  addMapboxDraw(options, position, geojson = null) {
     const draw = new MapboxDraw(options);
     this._map.addControl(draw, position);
+    if (geojson) draw.add(geojson);
 
     // Add event listener
     if (typeof Shiny !== "undefined") {

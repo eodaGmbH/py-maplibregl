@@ -11,6 +11,24 @@ from maplibre.ui import use_mapboxgl_draw
 # from shiny import reactive
 from shiny.express import input, render, ui
 
+geojson_feature = {
+    "id": "xyz",
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+        "coordinates": [
+            [
+                [-122.4523683552298, 37.775540942000546],
+                [-122.41910082339776, 37.75932501909665],
+                [-122.43487191413453, 37.72543546737114],
+                [-122.46053073611722, 37.729612763886834],
+                [-122.4523683552298, 37.775540942000546],
+            ]
+        ],
+        "type": "Polygon",
+    },
+}
+
 m = Map(
     MapOptions(
         style=Carto.POSITRON,
@@ -30,7 +48,9 @@ draw_options = {
         "trash": True,
     },
 }
-m.add_call("addMapboxDraw", draw_options, ControlPosition.TOP_LEFT.value)
+m.add_call(
+    "addMapboxDraw", draw_options, ControlPosition.TOP_LEFT.value, geojson_feature
+)
 
 # Shiny Express
 use_mapboxgl_draw()
