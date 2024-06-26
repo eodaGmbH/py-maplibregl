@@ -67,7 +67,7 @@ def maplibre():
 
 @render.code
 def selected_features():
-    obj = input.maplibre_draw_selected_features()
+    obj = input.maplibre_draw_features_selected()
     print(obj)
     return json.dumps(obj["features"], indent=2) if obj else "Pick some features!"
 

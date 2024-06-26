@@ -170,9 +170,7 @@ export default class PyMapLibreGL {
     // Add event listener
     if (typeof Shiny !== "undefined") {
       this._map.on("draw.selectionchange", (e) => {
-        // console.log("draw, selected features", e.features);
-        // console.log(draw.getAll());
-        const inputName = `${this._id}_draw_selected_features`;
+        const inputName = `${this._id}_draw_features_selected`;
         const object = { features: e.features, random: Math.random() };
         console.log(inputName, object);
         Shiny.onInputChange(inputName, object);
