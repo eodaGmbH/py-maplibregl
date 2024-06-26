@@ -4,6 +4,7 @@ import os
 import pathlib
 from tempfile import mkdtemp
 
+# TODO: from pydantic import BaseModel as PydanticBaseModel
 from pydantic import BaseModel as BaseModel_
 from pydantic import ConfigDict
 

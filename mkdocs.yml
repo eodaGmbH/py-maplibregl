@@ -38,6 +38,7 @@ nav:
       - Deck.GL Layer: examples/deckgl_layer/index.md
       - Multiple Deck.GL Layers: examples/deckgl_multiple_layers/index.md
       - PMTiles: examples/pmtiles/index.md
+      - Mapbox Draw Plugin: examples/mapbox_draw_plugin/index.md
 plugins:
   - search:
   - mkdocstrings:

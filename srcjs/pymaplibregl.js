@@ -17,6 +17,13 @@ function getJSONConverter() {
   return new deck.JSONConverter({ configuration });
 }
 
+// MapboxDraw must be imported before this one
+if (typeof MapboxDraw !== "undefined") {
+  MapboxDraw.constants.classes.CONTROL_BASE = "maplibregl-ctrl";
+  MapboxDraw.constants.classes.CONTROL_PREFIX = "maplibregl-ctrl-";
+  MapboxDraw.constants.classes.CONTROL_GROUP = "maplibregl-ctrl-group";
+}
+
 // TODO: Rename to 'MapLibreWidget'
 export default class PyMapLibreGL {
   constructor(mapOptions) {
@@ -35,6 +42,9 @@ export default class PyMapLibreGL {
     // this._map.addControl(new maplibregl.NavigationControl());
 
     this._JSONConverter = getJSONConverter();
+
+    // Just a test
+    // if (typeof MapboxDraw !== "undefined") this.addMapboxDraw();
   }
 
   getMap() {
@@ -152,6 +162,22 @@ export default class PyMapLibreGL {
     this._deckOverlay.setProps({ layers });
   }
 
+  addMapboxDraw(options, position, geojson = null) {
+    const draw = new MapboxDraw(options);
+    this._map.addControl(draw, position);
+    if (geojson) draw.add(geojson);
+
+    // Add event listener
+    if (typeof Shiny !== "undefined") {
+      this._map.on("draw.selectionchange", (e) => {
+        const inputName = `${this._id}_draw_features_selected`;
+        const object = { features: e.features, random: Math.random() };
+        console.log(inputName, object);
+        Shiny.onInputChange(inputName, object);
+      });
+    }
+  }
+
   render(calls) {
     calls.forEach(([name, params]) => {
       // Custom method
@@ -166,6 +192,7 @@ export default class PyMapLibreGL {
           "setSourceData",
           "addDeckOverlay",
           "setDeckLayers",
+          "addMapboxDraw",
         ].includes(name)
       ) {
         console.log("Custom method", name, params);

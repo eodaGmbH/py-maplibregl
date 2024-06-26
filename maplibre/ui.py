@@ -8,6 +8,7 @@ from shiny.module import resolve_id
 
 from ._constants import __version__, _shiny_output_class
 
+# TODO: extract maplibregl version
 maplibregl_dep = HTMLDependency(
     "maplibregl",
     version="3.6.2",
@@ -49,6 +50,7 @@ deckgl_dep = HTMLDependency(
     script={"src": "dist.min.js", "type": "module"},
 )
 
+# TODO: Remove duplicated constant
 DECKGL_VERSION = "9.0.16"
 
 deckgl_json_dep = HTMLDependency(
@@ -61,3 +63,20 @@ deckgl_json_dep = HTMLDependency(
 
 def use_deckgl() -> Tag:
     return ui.div(deckgl_dep, deckgl_json_dep)
+
+
+MAPBOXGL_DRAW_VERSION = "1.4.3"
+
+mapboxgl_draw_dep = HTMLDependency(
+    name="mapbox-gl-draw-plugin",
+    version=MAPBOXGL_DRAW_VERSION,
+    source={
+        "href": f"https://www.unpkg.com/@mapbox/mapbox-gl-draw@{MAPBOXGL_DRAW_VERSION}/dist/"
+    },
+    script={"src": "mapbox-gl-draw.js", "type": "module"},
+    stylesheet={"href": "mapbox-gl-draw.css"},
+)
+
+
+def use_mapboxgl_draw() -> Tag:
+    return ui.div(mapboxgl_draw_dep)

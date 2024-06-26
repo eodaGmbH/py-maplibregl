@@ -1,6 +1,7 @@
-__version__ = "0.2.3"
+__version__ = "0.2.4"
 _shiny_output_class = "shiny-maplibregl-output"
 
+# TODO: Remove from here
 # tmp
 _points = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/scatterplot/manhattan.json"
 _geojson = "https://docs.mapbox.com/mapbox-gl-js/assets/indoor-3d-map.geojson"

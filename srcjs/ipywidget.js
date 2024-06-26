@@ -1,6 +1,8 @@
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
 import { Protocol } from "https://esm.sh/pmtiles@3.0.6";
 
+import "./css/maplibre-gl.css";
+
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
@@ -58,6 +60,13 @@ function createMap(mapOptions, model) {
     updateModel(model, map);
   });
 
+  map.on("draw.selectionchange", (e) => {
+    const features = e.features;
+    console.log("selection changed", features);
+    model.set("draw_features_selected", features);
+    model.save_changes();
+  });
+
   return map;
 }
 
@@ -75,6 +84,23 @@ function render({ model, el }) {
   // As a  Workaround we need to pass maplibregl module to customMapMethods
   // to avoid duplicated imports (current bug in esbuild)
   const customMapMethods = getCustomMapMethods(maplibregl, map);
+
+  // Add event listeners for MapboxDraw
+  // TODO: Only add listeners if 'addMapboxDraw is called'
+  const drawEvents = [
+    "draw.create",
+    "draw.update",
+    "draw.delete",
+    "draw.render",
+  ];
+  for (let i in drawEvents) {
+    map.on(drawEvents[i], (e) => {
+      const draw = customMapMethods.getMapboxDraw();
+      console.log("features", draw.getAll());
+      model.set("draw_feature_collection_all", draw.getAll());
+      model.save_changes();
+    });
+  }
 
   const apply = (calls) => {
     calls.forEach((call) => {

@@ -6,10 +6,11 @@ from pathlib import Path
 import traitlets
 from anywidget import AnyWidget
 
-from .controls import Control, ControlPosition
-from .layer import Layer
+# from .controls import Control, ControlPosition
+# from .layer import Layer
 from .map import Map, MapOptions
-from .sources import Source
+
+# from .sources import Source
 
 
 class MapWidget(AnyWidget, Map):
@@ -27,7 +28,8 @@ class MapWidget(AnyWidget, Map):
     """
 
     _esm = join(Path(__file__).parent, "srcjs", "ipywidget.js")
-    _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
+    # _css = join(Path(__file__).parent, "srcjs", "maplibre-gl.css")
+    _css = join(Path(__file__).parent, "srcjs", "ipywidget.css")
     _use_message_queue = True
     _rendered = traitlets.Bool(False, config=True).tag(sync=True)
     map_options = traitlets.Dict().tag(sync=True)
@@ -39,6 +41,8 @@ class MapWidget(AnyWidget, Map):
     center = traitlets.Dict().tag(sync=True)
     zoom = traitlets.Float().tag(sync=True)
     bounds = traitlets.Dict().tag(sync=True)
+    draw_features_selected = traitlets.List().tag(sync=True)
+    draw_feature_collection_all = traitlets.Dict().tag(sync=True)
 
     def __init__(self, map_options=MapOptions(), **kwargs) -> None:
         self.calls = []

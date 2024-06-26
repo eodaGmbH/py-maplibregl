@@ -12,6 +12,7 @@ from ._utils import BaseModel, get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import Control, ControlPosition, Marker
 from .layer import Layer
+from .plugins import MapboxDrawOptions
 from .sources import Source
 
 
@@ -258,10 +259,14 @@ class Map(object):
         """
         js_lib = read_internal_file("srcjs", "index.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
+        headers = []
+
+        # Deck.GL headers
         add_deckgl_headers = "addDeckOverlay" in [
             item[0] for item in self._message_queue
         ]
-        headers = (
+        # TODO: Set version in constants
+        deckgl_headers = (
             [
                 '<script src="https://unpkg.com/deck.gl@9.0.16/dist.min.js"></script>',
                 '<script src="https://unpkg.com/@deck.gl/json@9.0.16/dist.min.js"></script>',
@@ -269,11 +274,34 @@ class Map(object):
             if add_deckgl_headers
             else []
         )
+
+        # Mapbox Draw headers
+        add_mapbox_draw_headers = "addMapboxDraw" in [
+            item[0] for item in self._message_queue
+        ]
+        # TODO: Set version in constants
+        mapbox_draw_headers = (
+            [
+                # "<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js'></script>",
+                # "<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css' type='text/css' />",
+                "<script src='https://www.unpkg.com/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.js'></script>",
+                "<link rel='stylesheet' href='https://www.unpkg.com/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.css' type='text/css' />",
+            ]
+            if add_mapbox_draw_headers
+            else []
+        )
+
         output = Template(html_template).render(
-            js="\n".join([js_lib, js_snippet]), title=title, headers=headers, **kwargs
+            js="\n".join([js_lib, js_snippet]),
+            title=title,
+            headers=headers + deckgl_headers + mapbox_draw_headers,
+            **kwargs,
         )
         return output
 
+    # -------------------------
+    # Plugins
+    # -------------------------
     def add_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
         """Add Deck.GL layers to the layer stack
 
@@ -293,3 +321,23 @@ class Map(object):
             tooltip (str | dict): Must be set to keep tooltip even if it did not change.
         """
         self.add_call("setDeckLayers", layers, tooltip)
+
+    def add_mapbox_draw(
+        self,
+        options: dict | MapboxDrawOptions = None,
+        position: str | ControlPosition = ControlPosition.TOP_LEFT,
+        geojson: dict = None,
+    ) -> None:
+        """Add MapboxDraw controls to the map
+
+        Args:
+            options (dict | MapboxDrawOptions): MapboxDraw options.
+            position (str | ControlPosition): The position of the MapboxDraw controls.
+            geojson (dict): A GeoJSON Feature, FeatureCollection or Geometry to be added to the draw layer.
+        """
+        if isinstance(options, MapboxDrawOptions):
+            options = options.to_dict()
+
+        self.add_call(
+            "addMapboxDraw", options or {}, ControlPosition(position).value, geojson
+        )
