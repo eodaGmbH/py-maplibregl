@@ -40,6 +40,7 @@ m = Map(
     )
 )
 m.add_control(NavigationControl())
+m.add_control(ScaleControl(), ControlPosition.BOTTOM_RIGHT)
 
 draw_options = {
     "displayControlsDefault": False,
@@ -49,12 +50,8 @@ draw_options = {
         "trash": True,
     },
 }
-add_mapbox_draw(m, geojson=geojson_feature, position=ControlPosition.BOTTOM_LEFT)
-m.add_control(ScaleControl(), ControlPosition.BOTTOM_RIGHT)
 
-# m.add_call(
-#    "addMapboxDraw", draw_options, ControlPosition.TOP_LEFT.value, geojson_feature
-# )
+m.add_mapbox_draw(geojson=geojson_feature)
 
 # Shiny Express
 use_mapboxgl_draw()

@@ -296,6 +296,8 @@ class Map(object):
         )
         return output
 
+    # Plugins
+    # -------------------------
     def add_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
         """Add Deck.GL layers to the layer stack
 
@@ -315,3 +317,14 @@ class Map(object):
             tooltip (str | dict): Must be set to keep tooltip even if it did not change.
         """
         self.add_call("setDeckLayers", layers, tooltip)
+
+    def add_mapbox_draw(
+        self,
+        options: dict = None,
+        position: str | ControlPosition = ControlPosition.TOP_LEFT,
+        geojson: dict = None,
+    ) -> None:
+        """Add a mapbox draw (controls) to the map"""
+        self.add_call(
+            "addMapboxDraw", options or {}, ControlPosition(position).value, geojson
+        )
