@@ -40,21 +40,18 @@ m = Map(
     )
 )
 m.add_control(NavigationControl())
-m.add_control(ScaleControl(), ControlPosition.BOTTOM_RIGHT)
+m.add_control(ScaleControl(), ControlPosition.BOTTOM_LEFT)
 
-draw_options_dict = {
-    "displayControlsDefault": False,
-    "controls": {
-        "polygon": True,
-        "line_string": True,
-        "trash": True,
-    },
-}
+# Optional: only activate a given set of controls
 draw_options = MapboxDrawOptions(
     display_controls_default=False,
     controls=MapboxDrawControls(polygon=True, line_string=True, trash=True),
 )
-m.add_mapbox_draw(draw_options, geojson=geojson_feature)
+# Use options from above
+# m.add_mapbox_draw(draw_options, geojson=geojson_feature)
+
+# If no options are passed, all controls are activated by default
+m.add_mapbox_draw(geojson=geojson_feature)
 
 # Shiny Express
 use_mapboxgl_draw()

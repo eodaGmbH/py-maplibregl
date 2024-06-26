@@ -282,7 +282,9 @@ class Map(object):
         # TODO: Set version in constants
         mapbox_draw_headers = (
             [
-                '<script src="https://www.unpkg.com/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.js"></script>',
+                # "<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.js'></script>",
+                # "<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.4.3/mapbox-gl-draw.css' type='text/css' />",
+                "<script src='https://www.unpkg.com/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.js'></script>",
                 "<link rel='stylesheet' href='https://www.unpkg.com/@mapbox/mapbox-gl-draw@1.4.3/dist/mapbox-gl-draw.css' type='text/css' />",
             ]
             if add_mapbox_draw_headers
