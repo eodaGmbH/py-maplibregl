@@ -330,6 +330,10 @@ class Map(object):
     ) -> None:
         """Add MapboxDraw controls to the map
 
+        Note:
+            See [MapboxDraw API Reference](https://github.com/mapbox/mapbox-gl-draw/blob/main/docs/API.md)
+                for available options.
+
         Args:
             options (dict | MapboxDrawOptions): MapboxDraw options.
             position (str | ControlPosition): The position of the MapboxDraw controls.

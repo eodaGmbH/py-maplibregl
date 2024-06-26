@@ -7,4 +7,5 @@
 ::: maplibre.ipywidget.MapWidget
     options:
         inherited_members: false
-      
+
+::: maplibre.plugins
