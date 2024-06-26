@@ -6,7 +6,7 @@ import webbrowser
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
 from maplibre.controls import ControlPosition, NavigationControl, ScaleControl
-from maplibre.plugins import add_mapbox_draw
+from maplibre.plugins import MapboxDrawControls, MapboxDrawOptions
 from maplibre.ui import use_mapboxgl_draw
 
 # from shiny import reactive
@@ -42,7 +42,7 @@ m = Map(
 m.add_control(NavigationControl())
 m.add_control(ScaleControl(), ControlPosition.BOTTOM_RIGHT)
 
-draw_options = {
+draw_options_dict = {
     "displayControlsDefault": False,
     "controls": {
         "polygon": True,
@@ -50,8 +50,11 @@ draw_options = {
         "trash": True,
     },
 }
-
-m.add_mapbox_draw(geojson=geojson_feature)
+draw_options = MapboxDrawOptions(
+    display_controls_default=False,
+    controls=MapboxDrawControls(polygon=True, line_string=True, trash=True),
+)
+m.add_mapbox_draw(draw_options, geojson=geojson_feature)
 
 # Shiny Express
 use_mapboxgl_draw()

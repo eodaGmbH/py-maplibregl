@@ -1,15 +1,22 @@
 from __future__ import annotations
 
-from .controls import ControlPosition
-from .map import Map
+from pydantic import Field
+
+from ._utils import BaseModel
 
 
-def add_mapbox_draw(
-    map_: Map,
-    options: dict = None,
-    position: str | ControlPosition = ControlPosition.TOP_LEFT,
-    geojson: dict = None,
-) -> None:
-    map_.add_call(
-        "addMapboxDraw", options or {}, ControlPosition(position).value, geojson
+class MapboxDrawControls(BaseModel):
+    point: bool = False
+    line_string: bool = False
+    polygon: bool = False
+    trash: bool = False
+    combine_features: bool = False
+    uncombine_features: bool = False
+
+
+class MapboxDrawOptions(BaseModel):
+    display_controls_default: bool = Field(
+        True, serialization_alias="displayControlsDefault"
     )
+    controls: MapboxDrawControls = None
+    box_select: bool = Field(True, serialization_alias="boxSelect")

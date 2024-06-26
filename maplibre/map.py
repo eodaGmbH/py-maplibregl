@@ -12,6 +12,7 @@ from ._utils import BaseModel, get_output_dir, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import Control, ControlPosition, Marker
 from .layer import Layer
+from .plugins import MapboxDrawOptions
 from .sources import Source
 
 
@@ -296,6 +297,7 @@ class Map(object):
         )
         return output
 
+    # -------------------------
     # Plugins
     # -------------------------
     def add_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
@@ -320,11 +322,20 @@ class Map(object):
 
     def add_mapbox_draw(
         self,
-        options: dict = None,
+        options: dict | MapboxDrawOptions = None,
         position: str | ControlPosition = ControlPosition.TOP_LEFT,
         geojson: dict = None,
     ) -> None:
-        """Add a mapbox draw (controls) to the map"""
+        """Add MapboxDraw controls to the map
+
+        Args:
+            options (dict | MapboxDrawOptions): MapboxDraw options.
+            position (str | ControlPosition): The position of the MapboxDraw controls.
+            geojson (dict): A GeoJSON Feature, FeatureCollection or Geometry to be added to the draw layer.
+        """
+        if isinstance(options, MapboxDrawOptions):
+            options = options.to_dict()
+
         self.add_call(
             "addMapboxDraw", options or {}, ControlPosition(position).value, geojson
         )
