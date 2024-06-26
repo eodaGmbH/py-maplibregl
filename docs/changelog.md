@@ -2,7 +2,7 @@
 
 ## maplibre v0.2.4
 
-* Add `MapboxDraw` plugin
+* Add `MapboxDraw` plugin (#59)
 * Add Shiny input concerned to `MapboxDraw`:
   * `<output_id>.draw_features_selected`
 * Add interactive attributes to IpyWidget concerned to `MapboxDraw`:
