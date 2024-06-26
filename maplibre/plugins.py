@@ -6,6 +6,8 @@ from ._utils import BaseModel
 
 
 class MapboxDrawControls(BaseModel):
+    """MapboxDraw controls"""
+
     point: bool = False
     line_string: bool = False
     polygon: bool = False
@@ -15,6 +17,8 @@ class MapboxDrawControls(BaseModel):
 
 
 class MapboxDrawOptions(BaseModel):
+    """MapboxDraw Options"""
+
     display_controls_default: bool = Field(
         True, serialization_alias="displayControlsDefault"
     )
