@@ -23,6 +23,7 @@ pymaplibregl_dep = HTMLDependency(
     version=__version__,
     source={"package": "maplibre", "subdir": "srcjs"},
     script={"src": "pywidget.js", "type": "module"},
+    stylesheet={"href": "pywidget.css"},
     all_files=False,
 )
 

@@ -24,19 +24,21 @@ m = Map(
 m.add_control(NavigationControl())
 m.add_control(ScaleControl(), ControlPosition.BOTTOM_LEFT)
 
-m.add_call(
-    "addControl",
-    "InfoBoxControl",
-    {
-        "cssText": "padding: 20px; font-size: 20px;font-family: monospace;",
-        "content": "<h1>Awesome control.</h1><p>And some text.</p>",
-    },
-    ControlPosition.TOP_LEFT.value,
-)
+# m.add_call(
+#    "addControl",
+#    "InfoBoxControl",
+#    {
+#        "cssText": "padding: 20px; font-size: 20px;font-family: monospace;",
+#        "content": "<h1>Awesome control.</h1><p>And some text.</p>",
+#    },
+#    ControlPosition.TOP_LEFT.value,
+# )
+
 m.add_call(
     "addControl",
     "LayerSwitcherControl",
     {"layerIds": ["landcover", "water", "landuse"]},
+    ControlPosition.TOP_LEFT.value,
 )
 
 

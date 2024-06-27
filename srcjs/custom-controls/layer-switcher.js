@@ -1,3 +1,5 @@
+import "../css/custom-layer-switcher-control.css"
+
 function createSelect(layers) {
   const select = document.createElement("select");
   select.id = "layer-switcher";
@@ -21,8 +23,11 @@ function createMenu(layerIds, map) {
     link.id = id;
     link.href = "#";
     link.textContent = id;
+    /*
     link.style.cssText =
       "display: block; text-align: center; background-color: white; padding: 5px; border-bottom: 1px solid rgba(0, 0, 0, 0.25); text-decoration: none";
+     */
+    link.className = 'active';
     link.onclick = function (e) {
       const idClicked = this.textContent;
       console.log(idClicked);
@@ -30,10 +35,12 @@ function createMenu(layerIds, map) {
       console.log(visibility);
       if (visibility === "visible") {
         map.setLayoutProperty(idClicked, "visibility", "none");
+        this.className = "";
         return;
       }
 
       map.setLayoutProperty(idClicked, "visibility", "visible");
+      this.className = "active";
     };
     menu.appendChild(link);
   }
@@ -49,8 +56,8 @@ export default class LayerSwitcherControl {
     this._map = map;
     this._container = document.createElement("div");
     // this._container.classList.add("maplibregl-ctrl", "maplibregl-ctrl-group");
-    // this._container.className = "maplibregl-ctrl maplibregl-ctrl-group";
-    this._container.className = "maplibregl-ctrl";
+    // this._container.className = "maplibregl-ctrl maplibregl-ctrl-group layer-switcher-ctrl";
+    this._container.className = "maplibregl-ctrl layer-switcher-ctrl";
     this._container.style.cssText = this._options.cssText || "padding: 5px;";
     // this._container.innerHTML = "We out here.";
 
