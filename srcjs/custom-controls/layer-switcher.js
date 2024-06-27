@@ -13,7 +13,8 @@ function createMenu(layerIds, map) {
     link.id = layerId;
     link.href = "#";
     link.textContent = layerId;
-    if (map.getLayoutProperty(layerId, "visibility") === "visible") {
+    const visibility = map.getLayoutProperty(layerId, "visibility");
+    if (typeof visibility === "undefined" || visibility === "visible") {
       link.className = "active";
     }
 
@@ -21,7 +22,7 @@ function createMenu(layerIds, map) {
       const layerIdClicked = this.textContent;
       const visibility = map.getLayoutProperty(layerIdClicked, "visibility");
       console.log(layerIdClicked, visibility);
-      if (visibility === "visible") {
+      if (typeof visibility === "undefined" || visibility === "visible") {
         map.setLayoutProperty(layerIdClicked, "visibility", "none");
         this.className = "";
         return;
