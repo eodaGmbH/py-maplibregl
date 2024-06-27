@@ -72,7 +72,7 @@ def create_map():
     m.add_control(
         LayerSwitcherControl(
             layer_ids=["buildings", "roads", "mask"],
-            css_text="padding: 5px; border: 1px solid darkgrey; border-radius: 4px",
+            css_text="padding: 5px; border: 1px solid darkgrey; border-radius: 4px;",
         ),
         position=ControlPosition.TOP_LEFT,
     )
