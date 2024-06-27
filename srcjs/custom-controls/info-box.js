@@ -6,9 +6,8 @@ export default class InfoBoxControl {
   onAdd(map) {
     this._map = map;
     this._container = document.createElement("div");
-    // this._container.classList.add("maplibregl-ctrl", "maplibregl-ctrl-group");
     this._container.className = "maplibregl-ctrl maplibregl-ctrl-group";
-    this._container.style.cssText = this._options.cssText || "";
+    this._container.style.cssText = this._options.cssText || "padding: 10px;";
     this._container.innerHTML = this._options.content || "We out here.";
     return this._container;
   }

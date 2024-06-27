@@ -154,6 +154,15 @@ class ScaleControl(Control):
 # Custom controls
 # -------------------------
 class LayerSwitcherControl(Control):
+    """LayerSwitcher control"""
+
     theme: Literal["default", "simple"] = "default"
     layer_ids: list = Field([], serialization_alias="layerIds")
+    css_text: str = Field(None, serialization_alias="cssText")
+
+
+class InfoBoxControl(Control):
+    """InfoBox control"""
+
+    content: str
     css_text: str = Field(None, serialization_alias="cssText")

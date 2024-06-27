@@ -7,6 +7,7 @@ from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
 from maplibre.controls import (
     ControlPosition,
+    InfoBoxControl,
     LayerSwitcherControl,
     NavigationControl,
     ScaleControl,
@@ -35,7 +36,7 @@ m.add_control(ScaleControl(), ControlPosition.BOTTOM_LEFT)
 #    ControlPosition.TOP_LEFT.value,
 # )
 
-
+m.add_control(InfoBoxControl(content="Toggle layers"), ControlPosition.TOP_LEFT)
 m.add_control(
     LayerSwitcherControl(
         layer_ids=["water", "landcover"],
