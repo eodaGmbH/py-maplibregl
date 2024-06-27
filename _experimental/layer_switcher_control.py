@@ -35,15 +35,14 @@ m.add_control(ScaleControl(), ControlPosition.BOTTOM_LEFT)
 #    ControlPosition.TOP_LEFT.value,
 # )
 
-# m.add_call(
-#    "addControl",
-#    "LayerSwitcherControl",
-#    {"layerIds": ["landcover", "water", "landuse"]},
-#    ControlPosition.TOP_LEFT.value,
-# )
 
 m.add_control(
-    LayerSwitcherControl(layer_ids=["water", "landcover"]), ControlPosition.TOP_LEFT
+    LayerSwitcherControl(
+        layer_ids=["water", "landcover"],
+        theme="default",
+        # css_text="padding: 10px; border: 1px solid black; border-radius: 3x;font-size: 15px;",
+    ),
+    ControlPosition.TOP_LEFT,
 )
 
 

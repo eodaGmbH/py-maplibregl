@@ -156,3 +156,4 @@ class ScaleControl(Control):
 class LayerSwitcherControl(Control):
     theme: Literal["default", "simple"] = "default"
     layer_ids: list = Field([], serialization_alias="layerIds")
+    css_text: str = Field(None, serialization_alias="cssText")

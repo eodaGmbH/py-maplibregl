@@ -2,6 +2,7 @@ import "../css/custom-layer-switcher-control.css";
 
 const THEMES = {
   default: "layer-switcher-ctrl",
+  simple: "layer-switcher-ctrl-simple",
 };
 
 function createMenu(layerIds, map) {
@@ -44,6 +45,7 @@ export default class LayerSwitcherControl {
     this._container = document.createElement("div");
     this._container.classList.add("maplibregl-ctrl");
     this._container.classList.add(THEMES[this._options.theme || "default"]);
+    this._container.style.cssText = this._options.cssText || "";
     const layerIds = this._options.layerIds;
     this._container.appendChild(createMenu(layerIds, map));
     return this._container;

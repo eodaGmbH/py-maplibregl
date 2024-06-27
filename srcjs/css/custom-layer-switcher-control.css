@@ -1,5 +1,5 @@
 /* Default */
-._layer-switcher-ctrl {
+.layer-switcher-ctrl {
   background-color: #ffffff;
 }
 
@@ -11,7 +11,6 @@
   margin: 0;
   padding: 5px 10px 5px 10px;
   text-decoration: none;
-  _border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid black;
   text-align: center;
 }
@@ -31,6 +30,34 @@
 }
 
 /* Simple */
+.layer-switcher-ctrl-simple {
+  background-color: #ffffff;
+}
+
+.layer-switcher-ctrl-simple a {
+  background-color: #ffffff;
+  color: darkgrey;
+  display: block;
+  margin: 0;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+.layer-switcher-ctrl-simple a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+}
+
+.layer-switcher-ctrl-simple a.active {
+  color: #404040;
+}
+
+.layer-switcher-ctrl-simple a.active:hover {
+  _background: #3074a4;
+  color: darkgrey;
+}
 
 /*
 See https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/
