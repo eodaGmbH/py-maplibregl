@@ -33,6 +33,11 @@ m.add_call(
     },
     ControlPosition.TOP_LEFT.value,
 )
+m.add_call(
+    "addControl",
+    "LayerSwitcherControl",
+    {"layerIds": ["landcover", "water", "landuse"]},
+)
 
 
 @render_maplibregl
