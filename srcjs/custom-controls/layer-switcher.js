@@ -53,4 +53,8 @@ export default class LayerSwitcherControl {
     this._container.parentNode.removeChild(this._container);
     this._map = undefined;
   }
+
+  getDefaultPosition() {
+    return "top-left";
+  }
 }

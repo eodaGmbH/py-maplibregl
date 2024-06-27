@@ -1,3 +1,4 @@
+/* Default */
 ._layer-switcher-ctrl {
   background-color: #ffffff;
 }
@@ -28,6 +29,8 @@
 .layer-switcher-ctrl a.active:hover {
   background: #3074a4;
 }
+
+/* Simple */
 
 /*
 See https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/

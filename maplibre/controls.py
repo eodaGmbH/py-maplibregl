@@ -2,11 +2,11 @@
 
 See also https://docs.mapbox.com/mapbox-gl-js/api/markers/
 """
+
 from enum import Enum
 from typing import Literal, Union
 
-from pydantic import BaseModel as PydanticBaseModel
-from pydantic import ConfigDict, Field
+from pydantic import Field
 
 from ._utils import BaseModel
 
@@ -148,3 +148,11 @@ class ScaleControl(Control):
     # _name: str = ControlType.SCALE.value
     max_width: int = Field(None, serialization_alias="maxWidth")
     unit: Literal["imperial", "metric", "nautical"] = "metric"
+
+
+# -------------------------
+# Custom controls
+# -------------------------
+class LayerSwitcherControl(Control):
+    theme: Literal["default", "simple"] = "default"
+    layer_ids: list = Field([], serialization_alias="layerIds")

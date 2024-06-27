@@ -5,11 +5,12 @@ import webbrowser
 
 from maplibre import Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
-from maplibre.controls import ControlPosition, NavigationControl, ScaleControl
-from maplibre.plugins import MapboxDrawControls, MapboxDrawOptions
-from maplibre.ui import use_mapboxgl_draw
-
-# from shiny import reactive
+from maplibre.controls import (
+    ControlPosition,
+    LayerSwitcherControl,
+    NavigationControl,
+    ScaleControl,
+)
 from shiny.express import input, render, ui
 
 m = Map(
@@ -34,11 +35,15 @@ m.add_control(ScaleControl(), ControlPosition.BOTTOM_LEFT)
 #    ControlPosition.TOP_LEFT.value,
 # )
 
-m.add_call(
-    "addControl",
-    "LayerSwitcherControl",
-    {"layerIds": ["landcover", "water", "landuse"]},
-    ControlPosition.TOP_LEFT.value,
+# m.add_call(
+#    "addControl",
+#    "LayerSwitcherControl",
+#    {"layerIds": ["landcover", "water", "landuse"]},
+#    ControlPosition.TOP_LEFT.value,
+# )
+
+m.add_control(
+    LayerSwitcherControl(layer_ids=["water", "landcover"]), ControlPosition.TOP_LEFT
 )
 
 
