@@ -1,5 +1,10 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.2.5
+
+* Add custom `LayerSwitcherControl` (#69)
+* Add custom `InfoBoxControl` (#74)
+
 ## maplibre v0.2.4
 
 * Add `MapboxDraw` plugin (#59)

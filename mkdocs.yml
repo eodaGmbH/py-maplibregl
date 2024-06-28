@@ -39,6 +39,7 @@ nav:
       - Multiple Deck.GL Layers: examples/deckgl_multiple_layers/index.md
       - PMTiles: examples/pmtiles/index.md
       - Mapbox Draw Plugin: examples/mapbox_draw_plugin/index.md
+      - Layer Switcher: examples/layer_switcher/index.md
 plugins:
   - search:
   - mkdocstrings:

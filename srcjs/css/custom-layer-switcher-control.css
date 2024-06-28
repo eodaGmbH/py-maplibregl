@@ -1,0 +1,106 @@
+/* Default */
+.layer-switcher-ctrl {
+  background-color: #ffffff;
+}
+
+.layer-switcher-ctrl a {
+  background-color: #ffffff;
+  _color: #404040;
+  color: darkgrey;
+  display: block;
+  margin: 0;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+.layer-switcher-ctrl a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+}
+
+.layer-switcher-ctrl a.active {
+  background-color: #3887be;
+  color: #ffffff;
+}
+
+.layer-switcher-ctrl a.active:hover {
+  background: #3074a4;
+}
+
+/* Simple */
+.layer-switcher-ctrl-simple {
+  background-color: #ffffff;
+}
+
+.layer-switcher-ctrl-simple a {
+  background-color: #ffffff;
+  color: darkgrey;
+  display: block;
+  margin: 0;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+.layer-switcher-ctrl-simple a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+}
+
+.layer-switcher-ctrl-simple a.active {
+  color: #404040;
+}
+
+.layer-switcher-ctrl-simple a.active:hover {
+  _background: #3074a4;
+  color: darkgrey;
+}
+
+/*
+See https://docs.mapbox.com/mapbox-gl-js/example/toggle-layers/
+ */
+/*
+#menu {
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    right: 10px;
+    border-radius: 3px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+}
+
+#menu a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    margin: 0;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#menu a:last-child {
+    border: none;
+}
+
+#menu a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+#menu a.active {
+    background-color: #3887be;
+    color: #ffffff;
+}
+
+#menu a.active:hover {
+    background: #3074a4;
+}
+*/

@@ -2,6 +2,12 @@ import { Protocol } from "pmtiles";
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
+// Add custom controls
+import InfoBoxControl from "./custom-controls/info-box";
+import LayerSwitcherControl from "./custom-controls/layer-switcher";
+maplibregl.LayerSwitcherControl = LayerSwitcherControl;
+maplibregl.InfoBoxControl = InfoBoxControl;
+
 import {
   getTextFromFeature,
   getDeckTooltip,

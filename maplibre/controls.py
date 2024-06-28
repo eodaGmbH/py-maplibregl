@@ -2,11 +2,11 @@
 
 See also https://docs.mapbox.com/mapbox-gl-js/api/markers/
 """
+
 from enum import Enum
 from typing import Literal, Union
 
-from pydantic import BaseModel as PydanticBaseModel
-from pydantic import ConfigDict, Field
+from pydantic import Field
 
 from ._utils import BaseModel
 
@@ -145,6 +145,34 @@ class ScaleUnit(Enum):
 class ScaleControl(Control):
     """Scale control"""
 
-    # _name: str = ControlType.SCALE.value
     max_width: int = Field(None, serialization_alias="maxWidth")
     unit: Literal["imperial", "metric", "nautical"] = "metric"
+
+
+# -------------------------
+# Custom controls
+# -------------------------
+class LayerSwitcherControl(Control):
+    """Layer switcher control
+
+    Attributes:
+        layer_ids (list): A list of layer ids to be shown in the layer switcher control.
+        theme (Literal["default", "simple"]): The theme of the layer switcher control.
+        css_text (str): Optional inline style declaration of the control.
+    """
+
+    layer_ids: list = Field([], serialization_alias="layerIds")
+    theme: Literal["default", "simple"] = "default"
+    css_text: str = Field(None, serialization_alias="cssText")
+
+
+class InfoBoxControl(Control):
+    """InfoBox control
+
+    Attributes:
+        content (str): Content (HTML or plain text) to be displayed in the info box.
+        css_text (str): Optional inline style declaration of the control.
+    """
+
+    content: str
+    css_text: str = Field(None, serialization_alias="cssText")
