@@ -22,7 +22,8 @@ pymaplibregl_dep = HTMLDependency(
     "pymaplibregl",
     version=__version__,
     source={"package": "maplibre", "subdir": "srcjs"},
-    script={"src": "index.js", "type": "module"},
+    script={"src": "pywidget.js", "type": "module"},
+    stylesheet={"href": "pywidget.css"},
     all_files=False,
 )
 
@@ -51,7 +52,7 @@ deckgl_dep = HTMLDependency(
 )
 
 # TODO: Remove duplicated constant
-DECKGL_VERSION = "9.0.16"
+# DECKGL_VERSION = "9.0.16"
 
 deckgl_json_dep = HTMLDependency(
     name="deckgljson",

@@ -1,6 +1,6 @@
 {
   "name": "pymaplibregl",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "...",
   "main": "index.js",
   "directories": {
@@ -8,8 +8,8 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "esbuild srcjs/index.js --bundle --minify --outfile=maplibre/srcjs/index.js",
-    "build-dev": "esbuild srcjs/index.js --bundle --outfile=maplibre/srcjs/index.js",
+    "build": "esbuild srcjs/index.js --bundle --minify --outfile=maplibre/srcjs/pywidget.js",
+    "build-dev": "esbuild srcjs/index.js --bundle --outfile=maplibre/srcjs/pywidget.js",
     "build-ipywidget": "esbuild srcjs/ipywidget.js --bundle --minify --format=esm --outfile=maplibre/srcjs/ipywidget.js",
     "build-ipywidget-dev": "esbuild srcjs/ipywidget.js --bundle --format=esm --outfile=maplibre/srcjs/ipywidget.js",
     "build-rwidget": "esbuild srcjs/rwidget.js --bundle --minify --outfile=../r-maplibregl/inst/htmlwidgets/maplibre.js",

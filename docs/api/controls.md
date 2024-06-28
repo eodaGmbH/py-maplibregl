@@ -17,3 +17,7 @@
 ::: maplibre.controls.NavigationControl
 
 ::: maplibre.controls.GeolocateControl
+
+::: maplibre.controls.InfoBoxControl
+
+::: maplibre.controls.LayerSwitcherControl

@@ -257,9 +257,10 @@ class Map(object):
             >>> with open("/tmp/map.html", "w") as f:
             ...     f.write(map.to_html(style="height: 800px;") # doctest: +SKIP
         """
-        js_lib = read_internal_file("srcjs", "index.js")
+        js_lib = read_internal_file("srcjs", "pywidget.js")
         js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
-        headers = []
+        css = read_internal_file("srcjs", "pywidget.css")
+        headers = [f"<style>{css}</style>"]
 
         # Deck.GL headers
         add_deckgl_headers = "addDeckOverlay" in [
