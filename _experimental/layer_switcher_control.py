@@ -3,7 +3,7 @@
 import json
 import webbrowser
 
-from maplibre import Map, MapOptions, render_maplibregl
+from maplibre import Layer, LayerType, Map, MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
 from maplibre.controls import (
     ControlPosition,
@@ -12,6 +12,7 @@ from maplibre.controls import (
     NavigationControl,
     ScaleControl,
 )
+from maplibre.sources import GeoJSONSource
 from shiny.express import input, render, ui
 
 m = Map(
@@ -23,23 +24,34 @@ m = Map(
         pitch=40,
     )
 )
+m.add_layer(
+    Layer(
+        type=LayerType.LINE,
+        id="test",
+        source=GeoJSONSource(
+            data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/bart.geo.json"
+        ),
+        paint={"line-width": 4, "line-color": "red"},
+    )
+)
 m.add_control(NavigationControl())
 m.add_control(ScaleControl(), ControlPosition.BOTTOM_LEFT)
 
-# m.add_call(
-#    "addControl",
-#    "InfoBoxControl",
-#    {
-#        "cssText": "padding: 20px; font-size: 20px;font-family: monospace;",
-#        "content": "<h1>Awesome control.</h1><p>And some text.</p>",
-#    },
-#    ControlPosition.TOP_LEFT.value,
-# )
+m.add_call(
+    "addControl",
+    "LayerOpacityControl",
+    {
+        "layerIds": ["water", "test"],
+        # "cssText": "padding: 20px; font-size: 20px;font-family: monospace;",
+        # "content": "<h1>Awesome control.</h1><p>And some text.</p>",
+    },
+    ControlPosition.TOP_LEFT.value,
+)
 
 m.add_control(InfoBoxControl(content="Toggle layers"), ControlPosition.TOP_LEFT)
 m.add_control(
     LayerSwitcherControl(
-        layer_ids=["water", "landcover"],
+        layer_ids=["water", "landcover", "test"],
         theme="default",
         # css_text="padding: 10px; border: 1px solid black; border-radius: 3x;font-size: 15px;",
     ),
