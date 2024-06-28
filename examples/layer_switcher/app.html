@@ -7,8 +7,6 @@
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"/>
 <style>.layer-switcher-ctrl{background-color:#fff}.layer-switcher-ctrl a{background-color:#fff;_color:#404040;color:#a9a9a9;display:block;margin:0;padding:5px 10px;text-decoration:none;border-bottom:1px solid black;text-align:center}.layer-switcher-ctrl a:hover{background-color:#f8f8f8;color:#404040}.layer-switcher-ctrl a.active{background-color:#3887be;color:#fff}.layer-switcher-ctrl a.active:hover{background:#3074a4}.layer-switcher-ctrl-simple{background-color:#fff}.layer-switcher-ctrl-simple a{background-color:#fff;color:#a9a9a9;display:block;margin:0;padding:5px 10px;text-decoration:none;border-bottom:1px solid black;text-align:center}.layer-switcher-ctrl-simple a:hover{background-color:#f8f8f8;color:#404040}.layer-switcher-ctrl-simple a.active{color:#404040}.layer-switcher-ctrl-simple a.active:hover{_background:#3074a4;color:#a9a9a9}
 </style>
-<script src="https://unpkg.com/deck.gl@9.0.16/dist.min.js"></script>
-<script src="https://unpkg.com/@deck.gl/json@9.0.16/dist.min.js"></script>
 <body>
 <div id="pymaplibregl" style="height:600px;"></div>
 <script>
@@ -27,7 +25,7 @@ mustache/mustache.mjs:
 
 // ...
 (() => {
-    var data = {"mapOptions": {"center": [-122.4, 37.74], "hash": true, "pitch": 40, "style": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json", "zoom": 12}, "calls": [["addControl", ["NavigationControl", {"showCompass": true, "showZoom": true, "visualizePitch": false}, "top-right"]], ["addDeckOverlay", [[{"@@type": "GridLayer", "id": "GridLayer", "data": "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-bike-parking.json", "extruded": true, "getPosition": "@@=COORDINATES", "getColorWeight": "@@=SPACES", "getElevationWeight": "@@=SPACES", "elevationScale": 4, "cellSize": 200, "pickable": true}], "Number of points: {{ count }}"]]]};
+    var data = {"mapOptions": {"center": [11.2415, 43.7798], "style": {"name": "nice-style", "version": 8, "sources": {"pmtiles": {"type": "vector", "url": "pmtiles://https://pmtiles.io/protomaps(vector)ODbL_firenze.pmtiles", "attribution": "\u00a9 <a href=\"https://openstreetmap.org\">OpenStreetMap</a>"}}, "layers": [{"id": "buildings", "type": "fill", "layout": {"visibility": "none"}, "paint": {"fill-color": "red"}, "source": "pmtiles", "source-layer": "landuse"}, {"id": "roads", "type": "line", "paint": {"line-color": "black"}, "source": "pmtiles", "source-layer": "roads"}, {"id": "mask", "type": "fill", "layout": {"visibility": "none"}, "paint": {"fill-color": "yellow"}, "source": "pmtiles", "source-layer": "mask"}]}, "zoom": 12.5}, "calls": [["addControl", ["NavigationControl", {"showCompass": true, "showZoom": true, "visualizePitch": false}, "top-right"]], ["addControl", ["InfoBoxControl", {"content": "Toggle layers of PMTiles source", "cssText": "padding: 10px; background-color: yellow; color: steelblue; font-weight: bold;"}, "top-left"]], ["addControl", ["LayerSwitcherControl", {"theme": "default", "layerIds": ["buildings", "roads", "mask"], "cssText": "padding: 5px; border: 1px solid darkgrey; border-radius: 4px;"}, "top-left"]]]};
     pymaplibregl(data);
 })();
 </script>
