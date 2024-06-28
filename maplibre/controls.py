@@ -2,6 +2,7 @@
 
 See also https://docs.mapbox.com/mapbox-gl-js/api/markers/
 """
+
 from enum import Enum
 from typing import Literal, Union
 
