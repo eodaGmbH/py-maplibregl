@@ -145,7 +145,6 @@ class ScaleUnit(Enum):
 class ScaleControl(Control):
     """Scale control"""
 
-    # _name: str = ControlType.SCALE.value
     max_width: int = Field(None, serialization_alias="maxWidth")
     unit: Literal["imperial", "metric", "nautical"] = "metric"
 
@@ -154,15 +153,26 @@ class ScaleControl(Control):
 # Custom controls
 # -------------------------
 class LayerSwitcherControl(Control):
-    """LayerSwitcher control"""
+    """Layer switcher control
 
-    theme: Literal["default", "simple"] = "default"
+    Attributes:
+        layer_ids (list): A list of layer ids to be shown in the layer switcher control.
+        theme (Literal["default", "simple"]): The theme of the layer switcher control.
+        css_text (str): Optional inline style declaration of the control.
+    """
+
     layer_ids: list = Field([], serialization_alias="layerIds")
+    theme: Literal["default", "simple"] = "default"
     css_text: str = Field(None, serialization_alias="cssText")
 
 
 class InfoBoxControl(Control):
-    """InfoBox control"""
+    """InfoBox control
+
+    Attributes:
+        content (str): Content (HTML or plain text) to be displayed in the info box.
+        css_text (str): Optional inline style declaration of the control.
+    """
 
     content: str
     css_text: str = Field(None, serialization_alias="cssText")
