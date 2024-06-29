@@ -24,10 +24,11 @@ m = Map(
         pitch=40,
     )
 )
+layer_id = "this-is-a-very-log-id-for-my-awesome-layer"
 m.add_layer(
     Layer(
         type=LayerType.LINE,
-        id="test",
+        id=layer_id,
         source=GeoJSONSource(
             data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/bart.geo.json"
         ),
@@ -41,7 +42,7 @@ m.add_call(
     "addControl",
     "LayerOpacityControl",
     {
-        "layerIds": ["water", "test"],
+        "layerIds": ["water", layer_id],
         # "cssText": "padding: 20px; font-size: 20px;font-family: monospace;",
         # "content": "<h1>Awesome control.</h1><p>And some text.</p>",
     },

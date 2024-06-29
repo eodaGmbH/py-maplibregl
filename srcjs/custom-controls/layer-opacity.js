@@ -16,7 +16,7 @@ function createSlider(map, layerId) {
     map.setPaintProperty(layerId, prop, value);
   };
   const div = document.createElement("div");
-  div.style.cssText =
+  div.style.cssText = // "display: flex; flex-direction: column; align-items: center;";
     "display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid black; padding-bottom: 10px;";
   div.appendChild(label);
   div.appendChild(slider);
