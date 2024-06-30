@@ -1,5 +1,9 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.2.6 (unreleased)
+
+* Add function to save map and display it in the browser
+
 ## maplibre v0.2.5
 
 * Add custom `LayerSwitcherControl` (#69)
