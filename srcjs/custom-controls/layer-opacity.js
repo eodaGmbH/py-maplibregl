@@ -1,11 +1,20 @@
+import { createToggleLayerLink } from "../utils";
+
+function createLabel(layerId) {
+  const label = document.createElement("span");
+  label.innerHTML = layerId;
+  return label;
+}
+
 function getOpacityPropName(map, layerId) {
   const layer = map.getLayer(layerId);
   return `${layer.type}-opacity`;
 }
 
-function createSlider(map, layerId) {
-  const label = document.createElement("span");
-  label.innerHTML = layerId;
+function createSlider(map, layerId, toggleLayers = false) {
+  const label = toggleLayers
+    ? createToggleLayerLink(map, layerId)
+    : createLabel(layerId);
   const slider = document.createElement("input");
   slider.type = "range";
   slider.min = "0";
@@ -13,6 +22,7 @@ function createSlider(map, layerId) {
   slider.step = "0.1";
 
   // This might fail if layer is not already added to the map
+  // TODO: Put it in a try catch statement
   const prop = getOpacityPropName(map, layerId);
   const currentValue = map.getPaintProperty(layerId, prop) || 1;
   console.log("currentValue", currentValue);
@@ -44,8 +54,9 @@ export default class LayerOpacityControl {
     this._container.className = "maplibregl-ctrl maplibregl-ctrl-group";
     this._container.style.cssText = this._options.cssText || "padding: 5px;";
     const layerIds = this._options.layerIds || [];
+    const toggleLayers = this._options.toggleLayers || false;
     for (const layerId of layerIds) {
-      const slider = createSlider(map, layerId);
+      const slider = createSlider(map, layerId, toggleLayers);
       this._container.appendChild(slider);
     }
     return this._container;

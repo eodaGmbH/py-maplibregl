@@ -51,4 +51,36 @@ function getDeckMapLibrePopupTooltip(map, tooltip) {
   };
 }
 
-export { getTextFromFeature, getDeckTooltip, getDeckMapLibrePopupTooltip };
+// Used in controls
+function createToggleLayerLink(map, layerId) {
+  const link = document.createElement("a");
+  link.id = layerId;
+  link.href = "#";
+  link.textContent = layerId;
+  const visibility = map.getLayoutProperty(layerId, "visibility");
+  if (typeof visibility === "undefined" || visibility === "visible") {
+    link.className = "active";
+  }
+
+  link.onclick = function (e) {
+    const layerIdClicked = this.textContent;
+    const visibility = map.getLayoutProperty(layerIdClicked, "visibility");
+    console.log(layerIdClicked, visibility);
+    if (typeof visibility === "undefined" || visibility === "visible") {
+      map.setLayoutProperty(layerIdClicked, "visibility", "none");
+      this.className = "";
+      return;
+    }
+
+    map.setLayoutProperty(layerIdClicked, "visibility", "visible");
+    this.className = "active";
+  };
+  return link;
+}
+
+export {
+  getTextFromFeature,
+  getDeckTooltip,
+  getDeckMapLibrePopupTooltip,
+  createToggleLayerLink,
+};

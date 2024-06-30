@@ -43,6 +43,7 @@ m.add_call(
     "LayerOpacityControl",
     {
         "layerIds": ["water", layer_id],
+        "toggleLayers": True,
         # "cssText": "padding: 20px; font-size: 20px;font-family: monospace;",
         # "content": "<h1>Awesome control.</h1><p>And some text.</p>",
     },
