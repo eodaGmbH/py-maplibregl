@@ -1,3 +1,8 @@
+function getOpacityPropName(map, layerId) {
+  const layer = map.getLayer(layerId);
+  return `${layer.type}-opacity`;
+}
+
 function createSlider(map, layerId) {
   const label = document.createElement("span");
   label.innerHTML = layerId;
@@ -6,13 +11,18 @@ function createSlider(map, layerId) {
   slider.min = "0";
   slider.max = "1.0";
   slider.step = "0.1";
+
+  // This might fail if layer is not already added to the map
+  const prop = getOpacityPropName(map, layerId);
+  const currentValue = map.getPaintProperty(layerId, prop) || 1;
+  console.log("currentValue", currentValue);
+  slider.value = currentValue;
+
   slider.style.width = "100px";
   slider.oninput = function (e) {
-    const layer = map.getLayer(layerId);
-    const prop = `${layer.type}-opacity`;
+    const prop = getOpacityPropName(map, layerId);
     const value = parseFloat(this.value);
     console.log(prop, value);
-    // layer.setPaintProperty(prop, value);
     map.setPaintProperty(layerId, prop, value);
   };
   const div = document.createElement("div");

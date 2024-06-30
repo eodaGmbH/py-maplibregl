@@ -32,7 +32,7 @@ m.add_layer(
         source=GeoJSONSource(
             data="https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/bart.geo.json"
         ),
-        paint={"line-width": 4, "line-color": "red"},
+        paint={"line-width": 4, "line-color": "red", "line-opacity": 0.55},
     )
 )
 m.add_control(NavigationControl())
@@ -52,7 +52,7 @@ m.add_call(
 m.add_control(InfoBoxControl(content="Toggle layers"), ControlPosition.TOP_LEFT)
 m.add_control(
     LayerSwitcherControl(
-        layer_ids=["water", "landcover", "test"],
+        layer_ids=["water", layer_id],
         theme="default",
         # css_text="padding: 10px; border: 1px solid black; border-radius: 3x;font-size: 15px;",
     ),
