@@ -61,6 +61,7 @@ def get_bounds(geojson: dict) -> list:
     return list(shapely.bounds(shapely.from_geojson(json.dumps(geojson))))
 
 
+# TODO: Add as method to Map object
 def save_map(map: Map, filename: str = None, preview=True, **kwargs) -> str:
     if not filename:
         filename = get_temp_filename()

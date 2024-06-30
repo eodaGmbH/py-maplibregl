@@ -27,6 +27,7 @@ mkdocs = "^1.5.3"
 mkdocstrings = {extras = ["python"], version = "^0.24.0"}
 mkdocs-material = "^9.5.3"
 geopandas = "^0.14.2"
+geodatasets = "^2023.12.0"
 
 [tool.poetry.extras]
 all = ["pandas", "geopandas"]

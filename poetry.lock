@@ -472,6 +472,21 @@ s3 = ["boto3 (>=1.3.1)"]
 test = ["fiona[s3]", "pytest (>=7)", "pytest-cov", "pytz"]
 
 [[package]]
+name = "geodatasets"
+version = "2023.12.0"
+description = "Spatial data examples"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "geodatasets-2023.12.0-py3-none-any.whl", hash = "sha256:6abf6dc2b5ec930465b19c33a1ba4211bf8aebbd544495ae9a5e81d9ca3ca294"},
+    {file = "geodatasets-2023.12.0.tar.gz", hash = "sha256:8867fa6966aeae3fe854697c9fb7d429666ae7ae8edda9b77c87c8e616ba6c65"},
+]
+
+[package.dependencies]
+pooch = "*"
+
+[[package]]
 name = "geopandas"
 version = "0.14.4"
 description = "Geographic pandas extensions"
@@ -1304,6 +1319,28 @@ files = [
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
+
+[[package]]
+name = "pooch"
+version = "1.8.2"
+description = "A friend to fetch your data files"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pooch-1.8.2-py3-none-any.whl", hash = "sha256:3529a57096f7198778a5ceefd5ac3ef0e4d06a6ddaf9fc2d609b806f25302c47"},
+    {file = "pooch-1.8.2.tar.gz", hash = "sha256:76561f0de68a01da4df6af38e9955c4c9d1a5c90da73f7e40276a5728ec83d10"},
+]
+
+[package.dependencies]
+packaging = ">=20.0"
+platformdirs = ">=2.5.0"
+requests = ">=2.19.0"
+
+[package.extras]
+progress = ["tqdm (>=4.41.0,<5.0.0)"]
+sftp = ["paramiko (>=2.7.0)"]
+xxhash = ["xxhash (>=1.4.3)"]
 
 [[package]]
 name = "prompt-toolkit"
@@ -2361,4 +2398,4 @@ all = ["geopandas", "pandas"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "85d82d79a6f0f533da61b87ffd133ec303ef597868c2c50deb826408a6b1c98f"
+content-hash = "1bf5ec57673ef66fb87e867e516f3114fc7cdefed40872108aa34528b9dffa0d"
