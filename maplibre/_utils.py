@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import pathlib
 from tempfile import mkdtemp
+from uuid import uuid4
 
 # TODO: from pydantic import BaseModel as PydanticBaseModel
 from pydantic import BaseModel as BaseModel_
@@ -13,7 +14,7 @@ def fix_keys(d: dict) -> dict:
     return {k.replace("_", "-"): v for k, v in d.items() if v is not None}
 
 
-def get_output_dir(output_dir: str = None, prefix: str = "pymaplibregl_") -> str:
+def get_output_dir(output_dir: str = None, prefix: str = "py-maplibre-gl-") -> str:
     if not output_dir:
         output_dir = mkdtemp(prefix=prefix)
     else:
@@ -22,8 +23,12 @@ def get_output_dir(output_dir: str = None, prefix: str = "pymaplibregl_") -> str
     return output_dir
 
 
+def get_temp_filename(file_extension: str = ".html") -> str:
+    return get_output_dir() + os.sep + str(uuid4()).replace("-", "") + file_extension
+
+
 def get_internal_file_path(*args):
-    print(os.path.dirname(__file__))
+    # print(os.path.dirname(__file__))
     return os.path.join(os.path.dirname(__file__), *args)
 
 
