@@ -5,8 +5,10 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 // Add custom controls
 import InfoBoxControl from "./custom-controls/info-box";
 import LayerSwitcherControl from "./custom-controls/layer-switcher";
+import LayerOpacityControl from "./custom-controls/layer-opacity";
 maplibregl.LayerSwitcherControl = LayerSwitcherControl;
 maplibregl.InfoBoxControl = InfoBoxControl;
+maplibregl.LayerOpacityControl = LayerOpacityControl;
 
 import {
   getTextFromFeature,
