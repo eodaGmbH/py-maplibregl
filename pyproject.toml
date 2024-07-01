@@ -18,6 +18,7 @@ pydantic = ">=2.5.3"
 anywidget = ">=0.9.0"
 pandas = {version = "^2.1.4", optional = true}
 geopandas = {version = "^0.14.2", optional = true}
+pillow = "^10.4.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
