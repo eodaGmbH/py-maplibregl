@@ -9,7 +9,11 @@ default_layer_types = {
 }
 default_layer_styles = {
     LayerType.FILL.value: {
-        "paint": {"fill-color": "darkred", "fill-outline-color": "white"}
+        "paint": {
+            "fill-color": "darkred",
+            "fill-outline-color": "white",
+            "fill-opacity": 0.6,
+        },
     },
     LayerType.LINE.value: {"paint": {"line-color": "steelblue"}},
     LayerType.CIRCLE.value: {"paint": {"circle-color": "darkgreen"}},

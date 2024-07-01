@@ -3,8 +3,10 @@ import webbrowser
 import geodatasets
 import geopandas as gpd
 import maplibre.settings
+import pandas as pd
+from colour import Color
 from maplibre.basemaps import Carto
-from maplibre.express import create_map
+from maplibre.express import create_map, random_colors
 
 # maplibre.settings.default_layer_types["polygon"] = "line"
 # maplibre.settings.default_layer_types["multipolygon"] = "line"
@@ -16,7 +18,13 @@ from maplibre.express import create_map
 # data = gpd.read_file(geodatasets.get_path("ny.bb"))
 data = gpd.read_file(geodatasets.get_path("geoda.airbnb"))
 
-m = create_map(data, style=Carto.POSITRON)
+n = 10
+# colors = random_colors(n)
+colors = [str(color) for color in list(Color("yellow").range_to("red", n))]
+data["color"] = pd.cut(data["population"], n, labels=False).apply(lambda i: colors[i])
+# data["color"] = "green"
+
+m = create_map(data, style=Carto.POSITRON, color_column="color")
 
 filename = "/tmp/py-maplibre-express.html"
 with open(filename, "w") as f:
