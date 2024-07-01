@@ -5,6 +5,7 @@ import geopandas as gpd
 import maplibre.settings
 import pandas as pd
 from colour import Color
+from maplibre import colors as ml_colors
 from maplibre.basemaps import Carto
 from maplibre.express import create_map, random_colors
 
@@ -20,7 +21,9 @@ data = gpd.read_file(geodatasets.get_path("geoda.airbnb"))
 
 n = 10
 # colors = random_colors(n)
-colors = [str(color) for color in list(Color("yellow").range_to("red", n))]
+# colors = [str(color) for color in list(Color("yellow").range_to("red", n))]
+
+colors = ml_colors.color_palette("yellow", "red", n)
 data["color"] = pd.cut(data["population"], n, labels=False).apply(lambda i: colors[i])
 # data["color"] = "green"
 

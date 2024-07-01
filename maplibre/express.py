@@ -25,6 +25,10 @@ def random_colors(n: int) -> list:
     return ["#%06X" % randint(0, 0xFFFFF) for i in range(n)]
 
 
+def rgb_to_hex(rgb: tuple) -> str:
+    return "#{:02x}{:02x}{:02x}".format(*rgb)
+
+
 def create_map(
     data: GeoDataFrame = None,
     controls: list = [NavigationControl()],
