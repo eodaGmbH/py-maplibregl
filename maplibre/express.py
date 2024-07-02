@@ -37,7 +37,9 @@ def rgb_to_hex(rgb: tuple) -> str:
     return "#{:02x}{:02x}{:02x}".format(*rgb)
 
 
-def cut(data: pd.DataFrame, column: str, n: int = 10) -> tuple:
+# TODO: Use bins instead of n
+def cut(data: pd.DataFrame, column: str, n: int = None) -> tuple:
+    n = n or 10
     categories, bins = pd.cut(data[column], n, retbins=True, labels=False)
     return categories, bins
 
@@ -45,7 +47,7 @@ def cut(data: pd.DataFrame, column: str, n: int = 10) -> tuple:
 def create_color_column(
     data: pd.DataFrame,
     column: str,
-    n: int = 10,
+    n: int = None,
     source_color: str = "yellow",
     target_color: str = "red",
 ) -> pd.DataFrame:
@@ -56,12 +58,16 @@ def create_color_column(
     )
 
 
+# TODO: Rename create layer from geopandas
 def create_layer(
     data: GeoDataFrame,
     color: str = None,
-    n_bins: int = 10,
+    n_bins: int = None,
     source_color: str = "yellow",
     target_color: str = "darkred",
+    layer_type: str = None,
+    paint: dict = None,
+    layer_id: str = None,
 ) -> Layer:
     if str(data.crs) != "EPSG:4326":
         data = data.to_crs("EPSG:4326")
@@ -71,68 +77,22 @@ def create_layer(
             data, color, n=n_bins, source_color=source_color, target_color=target_color
         )
 
-    layer_type = default_layer_types[data.type[0].lower()]
-    paint = default_layer_styles[layer_type]["paint"]
+    layer_type = layer_type or default_layer_types[data.type[0].lower()]
+    paint = paint or default_layer_styles[layer_type]["paint"]
     if color:
         paint[f"{layer_type}-color"] = ["get", "_color"]
 
-    return Layer(
+    layer = Layer(
         type=LayerType(layer_type).value,
         source=GeoJSONSource(data=geopandas_to_geojson(data)),
         paint=paint,
     )
+    if layer_id:
+        layer.id = layer_id
+
+    return layer
 
 
-"""
-def create_map_(
-    data: GeoDataFrame = None,
-    controls: list = [NavigationControl()],
-    fit_bounds: bool = True,
-    tooltip: bool = True,
-    color: str = None,
-    color_column: str = None,
-    map_class=Map,
-    **kwargs,
-) -> Map:
-    if str(data.crs) != "EPSG:4326":
-        data = data.to_crs("EPSG:4326")
-
-    if color:
-        df_color = create_color_column(data, color)
-        data[["color", "category"]] = df_color
-        color_column = "color"
-
-    source = GeoJSONSource(data=geopandas_to_geojson(data))
-    map_options = MapOptions(**kwargs)
-    if fit_bounds:
-        map_options.bounds = data.total_bounds
-
-    m = map_class(map_options)
-
-    for control in controls:
-        m.add_control(control)
-
-    layer_type = default_layer_types[data.type[0].lower()]
-    paint = default_layer_styles[layer_type]["paint"]
-    if color_column:
-        paint[f"{layer_type}-color"] = ["get", color_column]
-
-    layer = Layer(
-        type=LayerType(layer_type).value,
-        source=source,
-        paint=paint,
-    )
-    m.add_layer(layer)
-
-    # Add tooltip
-    if tooltip:
-        m.add_tooltip(layer.id)
-
-    return m
-"""
-
-
-# -----
 def create_map(
     data: GeoDataFrame = None,
     controls: list = [NavigationControl()],
