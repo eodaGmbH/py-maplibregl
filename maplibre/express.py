@@ -15,11 +15,13 @@ except ImportError as e:
     print(e)
     GeoDataFrame = None
 
+"""
 try:
     import pandas as pd
 except ImportError as e:
     print(e)
     pd = None
+"""
 
 COLOR_COLUMN = "_color"
 
@@ -30,36 +32,6 @@ class GeoDataFrameML(GeoDataFrame):
 
     def to_maplibre_map(self):
         pass
-
-
-"""
-def rgb_to_hex(rgb: tuple) -> str:
-    return "#{:02x}{:02x}{:02x}".format(*rgb)
-"""
-
-
-# TODO: Use bins instead of n
-"""
-def cut(data: pd.DataFrame, column: str, n: int = None) -> tuple:
-    n = n or 10
-    categories, bins = pd.cut(data[column], n, retbins=True, labels=False)
-    return categories, bins
-"""
-
-"""
-def create_color_column(
-    data: pd.DataFrame,
-    column: str,
-    n: int = None,
-    source_color: str = "yellow",
-    target_color: str = "red",
-) -> pd.DataFrame:
-    categories, bins = cut(data, column, n)
-    colors = create_color_palette(source_color, target_color, n)
-    return pd.DataFrame(
-        dict(color=categories.apply(lambda i: colors[i]), category=categories)
-    )
-"""
 
 
 def create_layer_from_geo_data_frame(
