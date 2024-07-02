@@ -1,6 +1,4 @@
-from random import randint
-
-from .colors import color_palette
+from .colors import create_color_palette
 from .controls import *
 from .layer import Layer, LayerType
 from .map import Map, MapOptions
@@ -29,10 +27,6 @@ class GeoDataFrameML(GeoDataFrame):
         pass
 
 
-def random_colors(n: int) -> list:
-    return ["#%06X" % randint(0, 0xFFFFF) for i in range(n)]
-
-
 def rgb_to_hex(rgb: tuple) -> str:
     return "#{:02x}{:02x}{:02x}".format(*rgb)
 
@@ -52,7 +46,7 @@ def create_color_column(
     target_color: str = "red",
 ) -> pd.DataFrame:
     categories, bins = cut(data, column, n)
-    colors = color_palette(source_color, target_color, n)
+    colors = create_color_palette(source_color, target_color, n)
     return pd.DataFrame(
         dict(color=categories.apply(lambda i: colors[i]), category=categories)
     )
@@ -75,7 +69,7 @@ def create_layer(
     if color:
         if data[color].apply(type).unique()[0] in [int, float]:
             categories, bins = pd.cut(data[color], n_bins, retbins=True, labels=False)
-            colors = color_palette(source_color, target_color, len(bins))
+            colors = create_color_palette(source_color, target_color, len(bins))
             data["_color"] = [colors[value] for value in categories]
             data["_category"] = categories
 
@@ -91,7 +85,7 @@ def create_layer(
         else:
             categories = list(pd.Categorical(data[color]).codes)
             # pd.Categorical(data[color]).categories
-            colors = color_palette(source_color, target_color, len(categories))
+            colors = create_color_palette(source_color, target_color, len(categories))
             data["_color"] = [colors[value] for value in categories]
             data["_category"] = categories
 
