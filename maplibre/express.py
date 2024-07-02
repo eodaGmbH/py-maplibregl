@@ -74,6 +74,12 @@ def create_layer(
 
     if color:
         if data[color].apply(type).unique()[0] in [int, float]:
+            categories, bins = pd.cut(data[color], n_bins, retbins=True, labels=False)
+            colors = color_palette(source_color, target_color, len(bins))
+            data["_color"] = [colors[value] for value in categories]
+            data["_category"] = categories
+
+            """"
             data[["_color", "_category"]] = create_color_column(
                 data,
                 color,
@@ -81,8 +87,10 @@ def create_layer(
                 source_color=source_color,
                 target_color=target_color,
             )
+            """
         else:
             categories = list(pd.Categorical(data[color]).codes)
+            # pd.Categorical(data[color]).categories
             colors = color_palette(source_color, target_color, len(categories))
             data["_color"] = [colors[value] for value in categories]
             data["_category"] = categories
