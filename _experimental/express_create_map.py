@@ -23,11 +23,12 @@ n = 10
 # colors = random_colors(n)
 # colors = [str(color) for color in list(Color("yellow").range_to("red", n))]
 
-colors = ml_colors.color_palette("yellow", "red", n)
-data["color"] = pd.cut(data["population"], n, labels=False).apply(lambda i: colors[i])
+# colors = ml_colors.color_palette("yellow", "red", n)
+# data["color"] = pd.cut(data["population"], n, labels=False).apply(lambda i: colors[i])
 # data["color"] = "green"
 
-m = create_map(data, style=Carto.POSITRON, color_column="color")
+# m = create_map(data, style=Carto.POSITRON, color_column="color")
+m = create_map(data, style=Carto.POSITRON, color="population")
 
 filename = "/tmp/py-maplibre-express.html"
 with open(filename, "w") as f:
