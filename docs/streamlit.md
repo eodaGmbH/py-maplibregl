@@ -1,3 +1,6 @@
+Use `maplibre.streamlit.st_maplibre` to add a MapLibre map to your [Streamlit](https://streamlit.io/) app:
+
+```python
 import streamlit as st
 from maplibre import Map, MapOptions
 from maplibre.basemaps import Carto
@@ -38,3 +41,4 @@ m.add_control(NavigationControl())
 m.add_deck_layers([create_layer(cell_size)], tooltip="Number of points: {{ count }}")
 
 st_maplibre(m)
+```

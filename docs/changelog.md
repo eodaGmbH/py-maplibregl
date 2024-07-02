@@ -3,6 +3,7 @@
 ## maplibre v0.2.6 (unreleased)
 
 * Add function to save map and display it in the browser
+* Add `streamlit.components.v1.iframe` component
 
 ## maplibre v0.2.5
 
