@@ -28,7 +28,7 @@ n = 10
 # data["color"] = "green"
 
 # m = create_map(data, style=Carto.POSITRON, color_column="color")
-m = create_map(data, style=Carto.POSITRON, color="population", n_bins=4)
+m = create_map(data, style=Carto.POSITRON, color="community", n_bins=4)
 
 filename = "/tmp/py-maplibre-express.html"
 with open(filename, "w") as f:
