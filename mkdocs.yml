@@ -16,6 +16,7 @@ nav:
       - Deck.GL Layers: deckgl.md
       - Shiny: shiny.md
       - Jupyter: jupyter.md
+      - Streamlit: streamlit.md
       - Changelog: changelog.md
   - API Documentation:
       - Map: api/map.md
