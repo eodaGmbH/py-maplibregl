@@ -82,17 +82,10 @@ def create_layer(
                 target_color=target_color,
             )
         else:
-            categories = pd.Categorical(data[color]).codes
+            categories = list(pd.Categorical(data[color]).codes)
             colors = color_palette(source_color, target_color, len(categories))
-            data["_color"] = [colors[int(value)] for value in categories]
+            data["_color"] = [colors[value] for value in categories]
             data["_category"] = categories
-            """
-            data[["_color", "_category"]] = (
-                # categories.apply(lambda i: colors[i]),
-                [colors[int(value)] for value in categories],
-                categories,
-            )
-            """
 
     layer_type = layer_type or default_layer_types[data.type[0].lower()]
     paint = paint or default_layer_styles[layer_type]["paint"]
