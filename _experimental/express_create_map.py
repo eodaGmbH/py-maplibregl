@@ -7,9 +7,9 @@ import pandas as pd
 from colour import Color
 from maplibre import colors as ml_colors
 from maplibre.basemaps import Carto
-from maplibre.express import create_map, random_colors
+from maplibre.express import ColorPalette, create_map
 
-# maplibre.settings.default_layer_types["polygon"] = "line"
+maplibre.settings.default_layer_types["polygon"] = "line"
 # maplibre.settings.default_layer_types["multipolygon"] = "line"
 
 # data = gpd.read_file(
@@ -28,7 +28,7 @@ n = 10
 # data["color"] = "green"
 
 # m = create_map(data, style=Carto.POSITRON, color_column="color")
-m = create_map(data, style=Carto.POSITRON, color="population", n_bins=4)
+m = create_map(data, color="population", n=4, pal=ColorPalette("green", "yellow"))
 
 filename = "/tmp/py-maplibre-express.html"
 with open(filename, "w") as f:

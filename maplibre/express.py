@@ -1,4 +1,7 @@
-from .colors import create_color_palette
+from __future__ import annotations
+
+# from .basemaps import Carto
+from .colors import ColorPalette, create_color_palette
 from .controls import *
 from .layer import Layer, LayerType
 from .map import Map, MapOptions
@@ -18,6 +21,8 @@ except ImportError as e:
     print(e)
     pd = None
 
+COLOR_COLUMN = "_color"
+
 
 class GeoDataFrameML(GeoDataFrame):
     def to_maplibre_layer(self):
@@ -27,17 +32,21 @@ class GeoDataFrameML(GeoDataFrame):
         pass
 
 
+"""
 def rgb_to_hex(rgb: tuple) -> str:
     return "#{:02x}{:02x}{:02x}".format(*rgb)
+"""
 
 
 # TODO: Use bins instead of n
+"""
 def cut(data: pd.DataFrame, column: str, n: int = None) -> tuple:
     n = n or 10
     categories, bins = pd.cut(data[column], n, retbins=True, labels=False)
     return categories, bins
+"""
 
-
+"""
 def create_color_column(
     data: pd.DataFrame,
     column: str,
@@ -50,73 +59,65 @@ def create_color_column(
     return pd.DataFrame(
         dict(color=categories.apply(lambda i: colors[i]), category=categories)
     )
+"""
 
 
-# TODO: Rename create layer from geopandas
-def create_layer(
+def create_layer_from_geo_data_frame(
     data: GeoDataFrame,
     color: str = None,
-    n_bins: int = None,
-    source_color: str = "yellow",
-    target_color: str = "darkred",
-    layer_type: str = None,
+    pal: ColorPalette = None,
+    n: int = None,
     paint: dict = None,
-    layer_id: str = None,
+    type_: str = None,
+    id_: str = None,
+    filter_: list = None,
 ) -> Layer:
+    """Create a layer from a geo(pandas) data frame"""
     if str(data.crs) != "EPSG:4326":
         data = data.to_crs("EPSG:4326")
 
     if color:
-        if data[color].apply(type).unique()[0] in [int, float]:
-            categories, bins = pd.cut(data[color], n_bins, retbins=True, labels=False)
-            colors = create_color_palette(source_color, target_color, len(bins))
-            data["_color"] = [colors[value] for value in categories]
-            data["_category"] = categories
-
-            """"
-            data[["_color", "_category"]] = create_color_column(
-                data,
-                color,
-                n=n_bins,
-                source_color=source_color,
-                target_color=target_color,
-            )
-            """
+        pal = pal or ColorPalette()
+        n = n or 6
+        if type(data[color][0]) in [int, float]:
+            data[COLOR_COLUMN], codes, _ = pal.numeric(data[color], n)
         else:
-            categories = list(pd.Categorical(data[color]).codes)
-            # pd.Categorical(data[color]).categories
-            colors = create_color_palette(source_color, target_color, len(categories))
-            data["_color"] = [colors[value] for value in categories]
-            data["_category"] = categories
+            data[COLOR_COLUMN], codes, _ = pal.factor(data[color])
 
-    layer_type = layer_type or default_layer_types[data.type[0].lower()]
-    paint = paint or default_layer_styles[layer_type]["paint"]
+    type_ = type_ or default_layer_types[data.type[0].lower()]
+    paint = paint or default_layer_styles[type_]["paint"]
     if color:
-        paint[f"{layer_type}-color"] = ["get", "_color"]
+        paint[f"{type_}-color"] = ["get", COLOR_COLUMN]
 
     layer = Layer(
-        type=LayerType(layer_type).value,
+        type=LayerType(type_).value,
         source=GeoJSONSource(data=geopandas_to_geojson(data)),
         paint=paint,
+        # filter=filter_ or [],
     )
-    if layer_id:
-        layer.id = layer_id
+    if id_:
+        layer.id = id_
+
+    if filter_:
+        layer.filter = filter_
 
     return layer
 
 
 def create_map(
-    data: GeoDataFrame = None,
+    data: GeoDataFrame,
+    # style=Carto.DARK_MATTER,
     controls: list = [NavigationControl()],
     fit_bounds: bool = True,
     tooltip: bool = True,
     color: str = None,
-    n_bins: int = 10,
+    map_options: MapOptions = MapOptions(),
     map_class=Map,
-    layer_options: dict = {},
+    layer_id: str = None,
+    ret_layer_id: bool = False,
     **kwargs,
-) -> Map:
-    map_options = MapOptions(**kwargs)
+) -> Map | tuple:
+    # map_options = MapOptions(**kwargs)
     if fit_bounds:
         map_options.bounds = data.total_bounds
 
@@ -125,10 +126,13 @@ def create_map(
     for control in controls:
         m.add_control(control)
 
-    layer = create_layer(data, color=color, n_bins=n_bins, **layer_options)
+    layer = create_layer_from_geo_data_frame(data, color=color, id_=layer_id, **kwargs)
     m.add_layer(layer)
 
     if tooltip:
         m.add_tooltip(layer.id)
+
+    if ret_layer_id:
+        return m, layer.id
 
     return m

@@ -60,15 +60,16 @@ class ColorPalette(object):
     def pal(self, n: int) -> list[str]:
         return create_color_palette(self.source_color, self.target_color, n)
 
-    def get_colors(self, codes: Any, n: int):
+    def get_colors(self, codes: Any):
+        n = max(codes) + 1
         pal = self.pal(n)
         return [pal[code] for code in codes]
 
     def numeric(self, values: Any, n: int) -> tuple:
-        codes, borders = pd.cut(values, n, retbins=True, labels=False)
-        return self.get_colors(codes, n), codes, borders
+        codes, breaks = pd.cut(values, n, retbins=True, labels=False)
+        return self.get_colors(codes), codes, breaks
 
     def factor(self, values: Any) -> tuple:
-        values_ = pd.Categorical(values)
-        codes, categories = values_.codes, values_.categories
-        return self.get_colors(codes, len(categories)), codes, categories
+        values = pd.Categorical(values)
+        codes, categories = values.codes, values.categories
+        return self.get_colors(codes), codes, categories
