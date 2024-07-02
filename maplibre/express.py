@@ -56,11 +56,35 @@ def create_color_column(
     )
 
 
-def create_layer(data: GeoDataFrame, color: str = None):
-    pass
+def create_layer(
+    data: GeoDataFrame,
+    color: str = None,
+    n_bins: int = 10,
+    source_color: str = "yellow",
+    target_color: str = "darkred",
+) -> Layer:
+    if str(data.crs) != "EPSG:4326":
+        data = data.to_crs("EPSG:4326")
+
+    if color:
+        data[["_color", "_category"]] = create_color_column(
+            data, color, n=n_bins, source_color=source_color, target_color=target_color
+        )
+
+    layer_type = default_layer_types[data.type[0].lower()]
+    paint = default_layer_styles[layer_type]["paint"]
+    if color:
+        paint[f"{layer_type}-color"] = ["get", "_color"]
+
+    return Layer(
+        type=LayerType(layer_type).value,
+        source=GeoJSONSource(data=geopandas_to_geojson(data)),
+        paint=paint,
+    )
 
 
-def create_map(
+"""
+def create_map_(
     data: GeoDataFrame = None,
     controls: list = [NavigationControl()],
     fit_bounds: bool = True,
@@ -101,6 +125,37 @@ def create_map(
     m.add_layer(layer)
 
     # Add tooltip
+    if tooltip:
+        m.add_tooltip(layer.id)
+
+    return m
+"""
+
+
+# -----
+def create_map(
+    data: GeoDataFrame = None,
+    controls: list = [NavigationControl()],
+    fit_bounds: bool = True,
+    tooltip: bool = True,
+    color: str = None,
+    n_bins: int = 10,
+    map_class=Map,
+    layer_options: dict = {},
+    **kwargs,
+) -> Map:
+    map_options = MapOptions(**kwargs)
+    if fit_bounds:
+        map_options.bounds = data.total_bounds
+
+    m = map_class(map_options)
+
+    for control in controls:
+        m.add_control(control)
+
+    layer = create_layer(data, color=color, n_bins=n_bins, **layer_options)
+    m.add_layer(layer)
+
     if tooltip:
         m.add_tooltip(layer.id)
 
