@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-# from .basemaps import Carto
-from .colors import ColorPalette, create_color_palette
+from .basemaps import Carto
+from .colors import ColorPalette
 from .controls import *
 from .layer import Layer, LayerType
 from .map import Map, MapOptions
@@ -10,23 +10,15 @@ from .sources import GeoJSONSource
 from .utils import geopandas_to_geojson
 
 try:
-    from geopandas import GeoDataFrame
+    import geopandas as gpd
 except ImportError as e:
     print(e)
-    GeoDataFrame = None
-
-"""
-try:
-    import pandas as pd
-except ImportError as e:
-    print(e)
-    pd = None
-"""
+    gpd = None
 
 COLOR_COLUMN = "_color"
 
 
-class GeoDataFrameML(GeoDataFrame):
+class _GeoDataFrameML(gpd.GeoDataFrame):
     def to_maplibre_layer(self):
         pass
 
@@ -34,8 +26,19 @@ class GeoDataFrameML(GeoDataFrame):
         pass
 
 
+# TODO: Use this class as parameter in 'create_map'?
+class _GPDLayerOptions:
+    color: str = None  # Maybe do not put this one to the options
+    pal: ColorPalette = None
+    n: int
+    paint: dict = None
+    type: str = None
+    id: str = None
+    filter: list = None
+
+
 def create_layer_from_geo_data_frame(
-    data: GeoDataFrame,
+    data: gpd.GeoDataFrame,
     color: str = None,
     pal: ColorPalette = None,
     n: int = None,
@@ -65,6 +68,7 @@ def create_layer_from_geo_data_frame(
         type=LayerType(type_).value,
         source=GeoJSONSource(data=geopandas_to_geojson(data)),
         paint=paint,
+        # TODO: Allow 'None' for 'filter' attribute in 'Layer' class
         # filter=filter_ or [],
     )
     if id_:
@@ -76,33 +80,54 @@ def create_layer_from_geo_data_frame(
     return layer
 
 
+def _create_tooltip_template(tooltip_props) -> str:
+    template = "<br>".join([f"{prop}: " + "{{" + prop + "}}" for prop in tooltip_props])
+    return template
+
+
+# TODO: How to add control positions
 def create_map(
-    data: GeoDataFrame,
-    # style=Carto.DARK_MATTER,
+    data: gpd.GeoDataFrame | str,
+    style=Carto.POSITRON,
     controls: list = [NavigationControl()],
     fit_bounds: bool = True,
     tooltip: bool = True,
-    color: str = None,
+    tooltip_props: list = None,
     map_options: MapOptions = MapOptions(),
     map_class=Map,
+    # layer options
+    color: str = None,
     layer_id: str = None,
+    layer_type: str = None,
     ret_layer_id: bool = False,
-    **kwargs,
-) -> Map | tuple:
-    # map_options = MapOptions(**kwargs)
+    **layer_kwargs,
+) -> Map | tuple[Map, str]:
+    """Create a map and add a layer from a geo(pandas) data frame"""
+    if type(data) is str:
+        data = gpd.read_file(data)
+
     if fit_bounds:
         map_options.bounds = data.total_bounds
+
+    if style:
+        map_options.style = style
 
     m = map_class(map_options)
 
     for control in controls:
         m.add_control(control)
 
-    layer = create_layer_from_geo_data_frame(data, color=color, id_=layer_id, **kwargs)
+    layer = create_layer_from_geo_data_frame(
+        data, color=color, id_=layer_id, type_=layer_type, **layer_kwargs
+    )
     m.add_layer(layer)
 
     if tooltip:
-        m.add_tooltip(layer.id)
+        template = None
+        if tooltip_props:
+            template = _create_tooltip_template(tooltip_props)
+
+        m.add_tooltip(layer.id, template=template)
 
     if ret_layer_id:
         return m, layer.id
