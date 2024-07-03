@@ -13,7 +13,12 @@ except ImportError as e:
 
 
 def create_random_color_palette(n: int) -> list:
-    return ["#%06X" % randint(0, 0xFFFFF) for i in range(n)]
+    # return ["#%06X" % randint(0, 0xFFFFF) for i in range(n)]
+    return [
+        # rgb_to_hex((randint(0, 255), randint(0, 255), randint(0, 255)))
+        rgb_to_hex(tuple([randint(0, 255) for _ in range(3)]))
+        for _ in range(n)
+    ]
 
 
 def color_to_rgb(color):
@@ -53,12 +58,15 @@ def create_color_palette(source_color: str, target_color: str, n: int) -> list[s
 
 
 class ColorPalette(object):
-    def __init__(self, source_color: str = "yellow", target_color: str = "darkred"):
-        self.source_color = source_color
-        self.target_color = target_color
+    def __init__(self, color1: str = None, color2: str = None):
+        self.color1 = color1
+        self.color2 = color2
 
     def pal(self, n: int) -> list[str]:
-        return create_color_palette(self.source_color, self.target_color, n)
+        if self.color1 is None or self.color2 is None:
+            return create_random_color_palette(n)
+
+        return create_color_palette(self.color1, self.color2, n)
 
     def get_colors(self, codes: Any):
         n = max(codes) + 1
