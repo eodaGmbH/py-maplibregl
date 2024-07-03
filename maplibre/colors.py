@@ -13,15 +13,10 @@ except ImportError as e:
 
 
 def create_random_color_palette(n: int) -> list:
-    # return ["#%06X" % randint(0, 0xFFFFF) for i in range(n)]
-    return [
-        # rgb_to_hex((randint(0, 255), randint(0, 255), randint(0, 255)))
-        rgb_to_hex(tuple([randint(0, 255) for _ in range(3)]))
-        for _ in range(n)
-    ]
+    return [rgb_to_hex(tuple([randint(0, 255) for _ in range(3)])) for _ in range(n)]
 
 
-def color_to_rgb(color):
+def color_to_rgb(color) -> tuple:
     return ImageColor.getrgb(color)
 
 
@@ -30,18 +25,18 @@ def rgb_to_hex(rgb: tuple) -> str:
 
 
 def create_rgb_color_palette(
-    source_rgb_color: tuple,
-    target_rgb_color: tuple,
+    source_rgb: tuple,
+    target_rgb: tuple,
     n: int,
     max_value: int = 255,
 ) -> list[tuple]:
     n = n - 1
-    steps = tuple(map(lambda i, j: (i - j) / n, target_rgb_color, source_rgb_color))
-    r, g, b = source_rgb_color
+    steps = tuple(map(lambda i, j: (i - j) / n, target_rgb, source_rgb))
+    r, g, b = source_rgb
     step_r, step_g, step_b = steps
     result = [
         (r + (i * step_r), g + (i * step_g), b + (i * step_b)) for i in range(n)
-    ] + [target_rgb_color]
+    ] + [target_rgb]
     if max_value == 255:
         return [tuple([round(item) for item in rgb]) for rgb in result]
 
