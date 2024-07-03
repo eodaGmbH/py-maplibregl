@@ -63,15 +63,18 @@ class ColorPalette(object):
 
         return create_color_palette(self.color1, self.color2, n)
 
+    # codes: list, array or pd.Series of type int
     def get_colors(self, codes: Any):
         n = max(codes) + 1
         pal = self.pal(n)
         return [pal[code] for code in codes]
 
+    # values: list, array or pd.Series of type str
     def numeric(self, values: Any, n: int) -> tuple:
         codes, breaks = pd.cut(values, n, retbins=True, labels=False)
         return self.get_colors(codes), codes, breaks
 
+    # values: list, array or pd.Series of type str
     def factor(self, values: Any) -> tuple:
         values = pd.Categorical(values)
         codes, categories = values.codes, values.categories
