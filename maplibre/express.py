@@ -91,6 +91,7 @@ def create_map(
     style=Carto.POSITRON,
     controls: list = [NavigationControl()],
     fit_bounds: bool = True,
+    # set_centroid: bool = False,
     tooltip: bool = True,
     tooltip_props: list = None,
     map_options: MapOptions = MapOptions(),
@@ -106,8 +107,12 @@ def create_map(
     if type(data) is str:
         data = gpd.read_file(data)
 
-    if fit_bounds:
+    if fit_bounds:  # and not set_centroid:
         map_options.bounds = data.total_bounds
+
+    # if set_centroid:
+    #    centroid = data.dissolve().centroid[0]
+    #    map_options.center = (centroid.x, centroid.y)
 
     if style:
         map_options.style = style
