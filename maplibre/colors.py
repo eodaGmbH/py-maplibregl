@@ -20,6 +20,7 @@ def color_to_rgb(color) -> tuple:
     return ImageColor.getrgb(color)
 
 
+# int(x * 255.9999) if rgb between 0 and 1
 def rgb_to_hex(rgb: tuple) -> str:
     return "#{:02x}{:02x}{:02x}".format(*rgb)
 

@@ -143,42 +143,32 @@ def _create_tooltip_template(tooltip_props) -> str:
     return template
 
 
-# TODO: How to add control positions
-"""
 def create_map(
     data: gpd.GeoDataFrame | str,
+    color_column: str = None,
     style=Carto.POSITRON,
     controls: list = [NavigationControl()],
     fit_bounds: bool = True,
-    # set_centroid: bool = False,
     tooltip: bool = True,
     tooltip_props: list = None,
-    map_options: MapOptions = MapOptions(),
     map_class=Map,
-    # layer options
-    color: str = None,
-    layer_id: str = None,
-    layer_type: str = None,
+    layer_options: LayerOptions = LayerOptions(),
     ret_layer_id: bool = False,
-    **layer_kwargs,
+    **kwargs,
 ) -> Map | tuple[Map, str]:
+    map_options = MapOptions(style=style, **kwargs)
+    # map_options.style = style
     if type(data) is str:
         data = gpd.read_file(data)
 
-    if fit_bounds:  # and not set_centroid:
+    if fit_bounds:
         map_options.bounds = data.total_bounds
 
-    if style:
-        map_options.style = style
-
     m = map_class(map_options)
-
     for control in controls:
         m.add_control(control)
 
-    layer = create_layer(
-        data, color=color, id_=layer_id, type_=layer_type, **layer_kwargs
-    )
+    layer = create_layer(data, color_column, layer_options)
     m.add_layer(layer)
 
     if tooltip:
@@ -192,4 +182,3 @@ def create_map(
         return m, layer.id
 
     return m
-"""
