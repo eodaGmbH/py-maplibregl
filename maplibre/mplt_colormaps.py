@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 try:
@@ -12,37 +14,31 @@ except ImportError as e:
     to_rgb = None
 
 
-def pal(name: str = "viridis", n: int = 6, ret_hex: bool = True) -> list:
-    # colors = colormaps[name].resampled(n).colors
-    cmap = colormaps[name]
+def create_colors(cmap_name: str = "viridis", n: int = 6, ret_hex: bool = True) -> list:
+    cmap = colormaps[cmap_name].resampled(n)
     colors = [cmap(i) for i in range(n)]
     if ret_hex:
         return [to_hex(color) for color in colors]
 
     return colors
-    # if ret_hex:
-    # return [to_hex(color) for color in colors]
-
-    # return colors
 
 
-class Pal(object):
-    def __init__(self, name: str = "viridis"):
-        self.name = name
-
-    def map_colors(self, codes: Any, ret_hex: bool = True) -> list[str]:
-        n = max(codes) + 1
-        return [pal(self.name, n, ret_hex)[code] for code in codes]
+def map_colors(cmap_name: str, codes: Any, ret_hex: bool = True) -> list[str]:
+    n = max(codes) + 1
+    return [create_colors(cmap_name, n, ret_hex)[code] for code in codes]
 
 
-# values: list, array or pd.Series of type str
-def pal_numeric(values: Any, bins: Any, p=Pal()) -> tuple:
-    codes, breaks = pd.cut(values, bins, retbins=True, labels=False)
-    return p.map_colors(codes), codes, breaks
+class ColorBrewer(object):
+    def __init__(self, cmap_name: str = "viridis"):
+        self.cmap_name = cmap_name
 
+    def numeric(self, values: Any, bins: Any) -> tuple:
+        # values: list, np.array or pd.Series
+        codes, breaks = pd.cut(values, bins, retbins=True, labels=False)
+        return map_colors(self.cmap_name, codes), codes, breaks
 
-# values: list, array or pd.Series of type str
-def pal_factor(values: Any, p=Pal()) -> tuple:
-    values = pd.Categorical(values)
-    codes, categories = values.codes, values.categories
-    return p.map_colors(codes), codes, categories
+    def factor(self, values: Any) -> tuple:
+        # values: list, array or pd.Series
+        values = pd.Categorical(values)
+        codes, categories = values.codes, values.categories
+        return map_colors(self.cmap_name, codes), codes, categories
