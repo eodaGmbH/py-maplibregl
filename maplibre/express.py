@@ -2,11 +2,15 @@ from __future__ import annotations
 
 from typing import Any
 
+from pydantic import BaseModel as PydanticBaseModel
+
 from .basemaps import Carto
-from .colors import ColorPalette
+
+# from .colors import ColorPalette
 from .controls import *
 from .layer import Layer, LayerType
 from .map import Map, MapOptions
+from .mplt_colormaps import ColorBrewer
 from .settings import default_layer_styles, default_layer_types
 from .sources import GeoJSONSource
 from .utils import geopandas_to_geojson
@@ -25,11 +29,62 @@ def get_centroid(data: gpd.GeoDataFrame) -> tuple:
     return centroid.x, centroid.y
 
 
-class GeoDataFrame(gpd.GeoDataFrame):
-    def to_maplibre_layer(self, color=None) -> Layer:
-        return create_layer_from_geo_data_frame(self, color=color)
+class LayerOptions(PydanticBaseModel):
+    color_column: str = None
+    cmap: str = "YlOrRd"
+    bins: Any = 10
+    paint: dict = None
+    type: str = None
+    id: str = None
+    filter: list = None
 
-    def to_maplibre_map(self):
+
+def create_layer(
+    data: gpd.GeoDataFrame,
+    color_column: str = None,
+    options: LayerOptions = LayerOptions(),
+) -> Layer:
+    if str(data.crs) != "EPSG:4326":
+        data = data.to_crs("EPSG:4326")
+
+    if color_column:
+        if type(data[color_column][0]) is not str:
+            data[COLOR_COLUMN], codes, _ = ColorBrewer(options.cmap).numeric(
+                data[color_column], options.bins
+            )
+        else:
+            data[COLOR_COLUMN], codes, _ = ColorBrewer().factor(data[color_column])
+
+    layer_type = options.type or default_layer_types[data.type[0].lower()]
+    paint = options.paint or default_layer_styles[layer_type]["paint"]
+    if color_column:
+        paint[f"{layer_type}-color"] = ["get", COLOR_COLUMN]
+
+    layer = Layer(
+        type=LayerType(layer_type).value,
+        source=GeoJSONSource(data=geopandas_to_geojson(data)),
+        paint=paint,
+    )
+
+    if options.id:
+        layer.id = options.id
+
+    if options.filter:
+        layer.filter = options.filter
+
+    return layer
+
+
+class GeoDataFrame(gpd.GeoDataFrame):
+    def to_maplibre_source(self) -> GeoJSONSource:
+        return GeoJSONSource(data=geopandas_to_geojson(self))
+
+    def to_maplibre_layer(
+        self, color_column=None, layer_options: LayerOptions = LayerOptions()
+    ) -> Layer:
+        return create_layer(self, color_column, layer_options)
+
+    def to_maplibre_map(self) -> Map:
         pass
 
 
@@ -38,17 +93,7 @@ def read_file(filename: Any, **kwargs) -> GeoDataFrame:
     return GeoDataFrame(data)
 
 
-# TODO: Use this class as parameter in 'create_map'?
-class _LayerOptions:
-    color: str = None
-    pal: ColorPalette = None
-    bins: int
-    paint: dict = None
-    type: str = None
-    id: str = None
-    filter: list = None
-
-
+"""
 def create_layer_from_geo_data_frame(
     data: gpd.GeoDataFrame,
     color: str = None,
@@ -59,7 +104,7 @@ def create_layer_from_geo_data_frame(
     id_: str = None,
     filter_: list = None,
 ) -> Layer:
-    """Create a layer from a geo(pandas) data frame"""
+    
     if str(data.crs) != "EPSG:4326":
         data = data.to_crs("EPSG:4326")
 
@@ -90,6 +135,7 @@ def create_layer_from_geo_data_frame(
         layer.filter = filter_
 
     return layer
+"""
 
 
 def _create_tooltip_template(tooltip_props) -> str:
@@ -98,6 +144,7 @@ def _create_tooltip_template(tooltip_props) -> str:
 
 
 # TODO: How to add control positions
+"""
 def create_map(
     data: gpd.GeoDataFrame | str,
     style=Carto.POSITRON,
@@ -115,16 +162,11 @@ def create_map(
     ret_layer_id: bool = False,
     **layer_kwargs,
 ) -> Map | tuple[Map, str]:
-    """Create a map and add a layer from a geo(pandas) data frame"""
     if type(data) is str:
         data = gpd.read_file(data)
 
     if fit_bounds:  # and not set_centroid:
         map_options.bounds = data.total_bounds
-
-    # if set_centroid:
-    #    centroid = data.dissolve().centroid[0]
-    #    map_options.center = (centroid.x, centroid.y)
 
     if style:
         map_options.style = style
@@ -134,7 +176,7 @@ def create_map(
     for control in controls:
         m.add_control(control)
 
-    layer = create_layer_from_geo_data_frame(
+    layer = create_layer(
         data, color=color, id_=layer_id, type_=layer_type, **layer_kwargs
     )
     m.add_layer(layer)
@@ -150,3 +192,4 @@ def create_map(
         return m, layer.id
 
     return m
+"""

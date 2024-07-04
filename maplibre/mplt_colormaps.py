@@ -14,6 +14,7 @@ except ImportError as e:
     to_rgb = None
 
 
+# Run 'list(colormaps)' to get available colormaps
 def create_colors(cmap_name: str = "viridis", n: int = 6, ret_hex: bool = True) -> list:
     cmap = colormaps[cmap_name].resampled(n)
     colors = [cmap(i) for i in range(n)]
