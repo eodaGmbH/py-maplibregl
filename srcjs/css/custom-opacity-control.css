@@ -1,0 +1,15 @@
+.layer-opacity-ctrl #menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.layer-opacity-ctrl a {
+  background-color: #ffffff;
+  color: darkgrey;
+  border: 0;
+  text-decoration: none;
+  text-align: center;
+}
