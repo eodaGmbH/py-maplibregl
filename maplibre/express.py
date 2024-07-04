@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from .basemaps import Carto
 from .colors import ColorPalette
 from .controls import *
@@ -18,19 +20,29 @@ except ImportError as e:
 COLOR_COLUMN = "_color"
 
 
-class _GeoDataFrameML(gpd.GeoDataFrame):
-    def to_maplibre_layer(self):
-        pass
+def get_centroid(data: gpd.GeoDataFrame) -> tuple:
+    centroid = data.dissolve().centroid[0]
+    return centroid.x, centroid.y
+
+
+class GeoDataFrame(gpd.GeoDataFrame):
+    def to_maplibre_layer(self, color=None) -> Layer:
+        return create_layer_from_geo_data_frame(self, color=color)
 
     def to_maplibre_map(self):
         pass
 
 
+def read_file(filename: Any, **kwargs) -> GeoDataFrame:
+    data = gpd.read_file(filename, **kwargs)
+    return GeoDataFrame(data)
+
+
 # TODO: Use this class as parameter in 'create_map'?
-class _GPDLayerOptions:
-    color: str = None  # Maybe do not put this one to the options
+class _LayerOptions:
+    color: str = None
     pal: ColorPalette = None
-    n: int
+    bins: int
     paint: dict = None
     type: str = None
     id: str = None
