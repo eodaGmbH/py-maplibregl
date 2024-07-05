@@ -5,11 +5,14 @@ import geopandas as gpd
 
 # from maplibre.express import ColorPalette, MapOptions, create_map
 import maplibre.express as mx
-import maplibre.settings
-import pandas as pd
-from colour import Color
-from maplibre import colors as ml_colors
+
+# from maplibre import colors as ml_colors
 from maplibre.basemaps import Carto
+
+# import maplibre.settings
+# import pandas as pd
+# from colour import Color
+
 
 # maplibre.settings.default_layer_types["polygon"] = "line"
 # maplibre.settings.default_layer_types["multipolygon"] = "line"

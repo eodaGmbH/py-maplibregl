@@ -5,8 +5,6 @@ from typing import Any
 from pydantic import BaseModel as PydanticBaseModel
 
 from .basemaps import Carto
-
-# from .colors import ColorPalette
 from .controls import *
 from .layer import Layer, LayerType
 from .map import Map, MapOptions
@@ -61,16 +59,18 @@ def create_layer(
         paint[f"{layer_type}-color"] = ["get", COLOR_COLUMN]
 
     layer = Layer(
+        id=options.id,
         type=LayerType(layer_type).value,
         source=GeoJSONSource(data=geopandas_to_geojson(data)),
         paint=paint,
+        filter=options.filter,
     )
 
-    if options.id:
-        layer.id = options.id
+    # if options.id:
+    #    layer.id = options.id
 
-    if options.filter:
-        layer.filter = options.filter
+    # if options.filter:
+    #    layer.filter = options.filter
 
     return layer
 

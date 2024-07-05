@@ -60,16 +60,20 @@ class Layer(BaseModel):
         >>> layer = Layer(id="test-layer", type=LayerType.CIRCLE, source="test-source")
     """
 
-    id: str = Field(default_factory=lambda: str(uuid4()))
+    id: Optional[str] = Field(default_factory=lambda: str(uuid4()))
     type: LayerType
-    filter: list = None
-    layout: dict = None
-    max_zoom: int = Field(None, serialization_alias="maxzoom")
-    metadata: dict = None
-    min_zoom: int = Field(None, serialization_alias="minzoom")
-    paint: dict = None
+    filter: Optional[list] = None
+    layout: Optional[dict] = None
+    max_zoom: Optional[int] = Field(None, serialization_alias="maxzoom")
+    metadata: Optional[dict] = None
+    min_zoom: Optional[int] = Field(None, serialization_alias="minzoom")
+    paint: Optional[dict] = None
     source: Union[str, Source, dict, None] = None
-    source_layer: str = Field(None, serialization_alias="source-layer")
+    source_layer: Optional[str] = Field(None, serialization_alias="source-layer")
+
+    @field_validator("id")
+    def validate_id(cls, v):
+        return v or str(uuid4())
 
     @field_validator("source")
     def validate_source(cls, v):

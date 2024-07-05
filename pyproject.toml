@@ -16,9 +16,9 @@ htmltools = ">=0.5.1"
 jinja2 = ">=3.1.3"
 pydantic = ">=2.5.3"
 anywidget = ">=0.9.0"
-pandas = {version = "^2.1.4", optional = true}
-geopandas = {version = "^0.14.2", optional = true}
-pillow = "^10.4.0"
+pandas = {version = "*", optional = true}
+geopandas = {version = "*", optional = true}
+pillow = "*"
 matplotlib = {version = "*", optional = true}
 
 [tool.poetry.group.dev.dependencies]

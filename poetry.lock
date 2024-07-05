@@ -2868,4 +2868,4 @@ all = ["geopandas", "matplotlib", "pandas"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "15463c4498846c0de890c67bc498ed5abf349945096d286909d4860973747928"
+content-hash = "2b2eb11837ab7f8143c78717b66682e55e729a39f924073909573d7da81f4556"
