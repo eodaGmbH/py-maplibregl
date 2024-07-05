@@ -19,6 +19,7 @@ anywidget = ">=0.9.0"
 pandas = {version = "^2.1.4", optional = true}
 geopandas = {version = "^0.14.2", optional = true}
 pillow = "^10.4.0"
+matplotlib = {version = "*", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
@@ -31,7 +32,7 @@ geopandas = "^0.14.2"
 geodatasets = "^2023.12.0"
 
 [tool.poetry.extras]
-all = ["pandas", "geopandas"]
+all = ["pandas", "geopandas", "matplotlib"]
 
 [tool.black]
 line-lenght = 120
