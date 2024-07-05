@@ -1,6 +1,12 @@
 import geopandas as gpd
 from geodatasets import get_path
-from maplibre.express import LayerOptions, MapOptions, create_layer, create_map
+from maplibre.express import (
+    GeoJSONSource,
+    LayerOptions,
+    MapOptions,
+    create_layer,
+    create_map,
+)
 
 
 def test_create_map():
@@ -29,3 +35,13 @@ def test_create_layer_from_geo_data_frame():
     print(layer)
 
     assert layer.id == "geo-pandas-data-frame"
+
+
+def test_geo_data_frame_extension():
+    data = gpd.read_file(get_path("ny.bb"))
+
+    source = data.iloc[0:1].maplibre.to_source()
+    print(source)
+
+    assert source.type == "geojson"
+    assert isinstance(source, GeoJSONSource)

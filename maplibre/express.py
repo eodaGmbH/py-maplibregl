@@ -16,12 +16,14 @@ from .utils import geopandas_to_geojson
 try:
     import geopandas as gpd
     import pandas as pd
+    from geopandas import read_file
 except ImportError as e:
     print(e)
     gpd = None
     pd = None
 
 COLOR_COLUMN = "_color"
+DEFAULT_CMAP = "viridis"
 
 
 def get_centroid(data: gpd.GeoDataFrame) -> tuple:
@@ -30,7 +32,6 @@ def get_centroid(data: gpd.GeoDataFrame) -> tuple:
 
 
 class LayerOptions(PydanticBaseModel):
-    cmap: str = "YlOrRd"
     paint: Optional[dict] = None
     type: Optional[str] = None
     id: Optional[str] = None
@@ -41,6 +42,7 @@ def create_layer(
     data: gpd.GeoDataFrame,
     color_column: str = None,
     bins: Any = None,
+    cmap: str = DEFAULT_CMAP,
     options: LayerOptions = LayerOptions(),
 ) -> Layer:
     if str(data.crs) != "EPSG:4326":
@@ -48,13 +50,11 @@ def create_layer(
 
     if color_column:
         if bins:
-            data[COLOR_COLUMN], codes, _ = ColorBrewer(options.cmap).numeric(
+            data[COLOR_COLUMN], codes, _ = ColorBrewer(cmap).numeric(
                 data[color_column], bins
             )
         else:
-            data[COLOR_COLUMN], codes, _ = ColorBrewer(options.cmap).factor(
-                data[color_column]
-            )
+            data[COLOR_COLUMN], codes, _ = ColorBrewer(cmap).factor(data[color_column])
 
     layer_type = options.type or default_layer_types[data.type[0].lower()]
     paint = options.paint or default_layer_styles[layer_type]["paint"]
@@ -82,21 +82,17 @@ class _MapLibreGL(object):
 
     def to_layer(
         self,
-        color_column=None,
+        color_column: str = None,
         bins: Any = None,
+        cmap: str = DEFAULT_CMAP,
         layer_options: LayerOptions = LayerOptions(),
     ) -> Layer:
-        return create_layer(self._gdf, color_column, bins, layer_options)
+        return create_layer(
+            self._gdf, color_column, bins=bins, cmap=cmap, options=layer_options
+        )
 
     def to_map(self, color_column: str = None, bins: Any = None, **kwargs) -> Map:
         return create_map(self._gdf, color_column, bins, **kwargs)
-
-
-"""
-def read_file(filename: Any, **kwargs) -> GeoDataFrame:
-    data = gpd.read_file(filename, **kwargs)
-    return GeoDataFrame(data)
-"""
 
 
 def _create_tooltip_template(tooltip_props) -> str:
@@ -108,6 +104,7 @@ def create_map(
     data: gpd.GeoDataFrame | str,
     color_column: str = None,
     bins: Any = None,
+    cmap: str = DEFAULT_CMAP,
     style=Carto.POSITRON,
     controls: list = [NavigationControl()],
     fit_bounds: bool = True,
@@ -132,7 +129,9 @@ def create_map(
     for control in controls:
         m.add_control(control)
 
-    layer = create_layer(data, color_column, bins=bins, options=layer_options)
+    layer = create_layer(
+        data, color_column, bins=bins, cmap=cmap, options=layer_options
+    )
     m.add_layer(layer)
 
     if tooltip:
