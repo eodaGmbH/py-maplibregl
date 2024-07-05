@@ -1,4 +1,4 @@
-from maplibre.colors import ColorPalette
+from colors import ColorPalette
 
 
 def test_color_palette():
