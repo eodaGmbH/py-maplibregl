@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel as PydanticBaseModel
 
@@ -28,27 +28,27 @@ def get_centroid(data: gpd.GeoDataFrame) -> tuple:
 
 
 class LayerOptions(PydanticBaseModel):
-    color_column: str = None
+    # color_column: Optional[str] = None
     cmap: str = "YlOrRd"
-    bins: Any = 10
-    paint: dict = None
-    type: str = None
-    id: str = None
-    filter: list = None
+    paint: Optional[dict] = None
+    type: Optional[str] = None
+    id: Optional[str] = None
+    filter: Optional[list] = None
 
 
 def create_layer(
     data: gpd.GeoDataFrame,
     color_column: str = None,
+    bins: Any = None,
     options: LayerOptions = LayerOptions(),
 ) -> Layer:
     if str(data.crs) != "EPSG:4326":
         data = data.to_crs("EPSG:4326")
 
     if color_column:
-        if type(data[color_column][0]) is not str:
+        if bins:
             data[COLOR_COLUMN], codes, _ = ColorBrewer(options.cmap).numeric(
-                data[color_column], options.bins
+                data[color_column], bins
             )
         else:
             data[COLOR_COLUMN], codes, _ = ColorBrewer().factor(data[color_column])
@@ -74,9 +74,12 @@ class GeoDataFrame(gpd.GeoDataFrame):
         return GeoJSONSource(data=geopandas_to_geojson(self))
 
     def to_maplibre_layer(
-        self, color_column=None, layer_options: LayerOptions = LayerOptions()
+        self,
+        color_column=None,
+        bins: Any = None,
+        layer_options: LayerOptions = LayerOptions(),
     ) -> Layer:
-        return create_layer(self, color_column, layer_options)
+        return create_layer(self, color_column, bins, layer_options)
 
     def to_maplibre_map(self) -> Map:
         pass
@@ -95,6 +98,7 @@ def _create_tooltip_template(tooltip_props) -> str:
 def create_map(
     data: gpd.GeoDataFrame | str,
     color_column: str = None,
+    bins: Any = None,
     style=Carto.POSITRON,
     controls: list = [NavigationControl()],
     fit_bounds: bool = True,
@@ -116,7 +120,7 @@ def create_map(
     for control in controls:
         m.add_control(control)
 
-    layer = create_layer(data, color_column, layer_options)
+    layer = create_layer(data, color_column, bins=bins, options=layer_options)
     m.add_layer(layer)
 
     if tooltip:
