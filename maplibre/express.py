@@ -15,9 +15,11 @@ from .utils import geopandas_to_geojson
 
 try:
     import geopandas as gpd
+    import pandas as pd
 except ImportError as e:
     print(e)
     gpd = None
+    pd = None
 
 COLOR_COLUMN = "_color"
 
@@ -28,7 +30,6 @@ def get_centroid(data: gpd.GeoDataFrame) -> tuple:
 
 
 class LayerOptions(PydanticBaseModel):
-    # color_column: Optional[str] = None
     cmap: str = "YlOrRd"
     paint: Optional[dict] = None
     type: Optional[str] = None
@@ -71,27 +72,31 @@ def create_layer(
     return layer
 
 
-class GeoDataFrame(gpd.GeoDataFrame):
-    def to_maplibre_source(self) -> GeoJSONSource:
-        return GeoJSONSource(data=geopandas_to_geojson(self))
+@pd.api.extensions.register_dataframe_accessor("maplibre")
+class _MapLibreGL(object):
+    def __init__(self, gdf: gpd.GeoDataFrame):
+        self._gdf = gdf
 
-    def to_maplibre_layer(
+    def to_source(self) -> GeoJSONSource:
+        return GeoJSONSource(data=geopandas_to_geojson(self._gdf))
+
+    def to_layer(
         self,
         color_column=None,
         bins: Any = None,
         layer_options: LayerOptions = LayerOptions(),
     ) -> Layer:
-        return create_layer(self, color_column, bins, layer_options)
+        return create_layer(self._gdf, color_column, bins, layer_options)
 
-    def to_maplibre_map(
-        self, color_column: str = None, bins: Any = None, **kwargs
-    ) -> Map:
-        return create_map(self, color_column, bins, **kwargs)
+    def to_map(self, color_column: str = None, bins: Any = None, **kwargs) -> Map:
+        return create_map(self._gdf, color_column, bins, **kwargs)
 
 
+"""
 def read_file(filename: Any, **kwargs) -> GeoDataFrame:
     data = gpd.read_file(filename, **kwargs)
     return GeoDataFrame(data)
+"""
 
 
 def _create_tooltip_template(tooltip_props) -> str:
