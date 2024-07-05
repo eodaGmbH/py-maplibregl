@@ -51,7 +51,9 @@ def create_layer(
                 data[color_column], bins
             )
         else:
-            data[COLOR_COLUMN], codes, _ = ColorBrewer().factor(data[color_column])
+            data[COLOR_COLUMN], codes, _ = ColorBrewer(options.cmap).factor(
+                data[color_column]
+            )
 
     layer_type = options.type or default_layer_types[data.type[0].lower()]
     paint = options.paint or default_layer_styles[layer_type]["paint"]
@@ -81,8 +83,10 @@ class GeoDataFrame(gpd.GeoDataFrame):
     ) -> Layer:
         return create_layer(self, color_column, bins, layer_options)
 
-    def to_maplibre_map(self) -> Map:
-        pass
+    def to_maplibre_map(
+        self, color_column: str = None, bins: Any = None, **kwargs
+    ) -> Map:
+        return create_map(self, color_column, bins, **kwargs)
 
 
 def read_file(filename: Any, **kwargs) -> GeoDataFrame:
@@ -107,11 +111,14 @@ def create_map(
     map_class=Map,
     layer_options: LayerOptions = LayerOptions(),
     ret_layer_id: bool = False,
-    **kwargs,
+    map_options=None,
 ) -> Map | tuple[Map, str]:
-    map_options = MapOptions(style=style, **kwargs)
     if type(data) is str:
         data = gpd.read_file(data)
+
+    map_options = map_options or MapOptions()
+    if style:
+        map_options.style = style
 
     if fit_bounds:
         map_options.bounds = data.total_bounds

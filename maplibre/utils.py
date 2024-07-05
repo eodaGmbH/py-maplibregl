@@ -9,13 +9,15 @@ from .map import Map
 
 try:
     from pandas import DataFrame
-except ImportError:
+except ImportError as e:
+    print(e)
     DataFrame = None
 
 
 try:
     from geopandas import GeoDataFrame
-except ImportError:
+except ImportError as e:
+    print(e)
     GeoDataFrame = None
 
 
@@ -51,23 +53,23 @@ def df_to_geojson(
     return geojson
 
 
-def get_bounds(geojson: dict) -> list:
+def get_bounds(geojson: dict) -> list | None:
     try:
         import shapely
-    except ImportError:
-        print("shapely is not installed")
+    except ImportError as e:
+        print(e)
         return
 
     return list(shapely.bounds(shapely.from_geojson(json.dumps(geojson))))
 
 
 # TODO: Add as method to Map object
-def save_map(map: Map, filename: str = None, preview=True, **kwargs) -> str:
+def save_map(m: Map, filename: str = None, preview=True, **kwargs) -> str:
     if not filename:
         filename = get_temp_filename()
 
     with open(filename, "w") as f:
-        f.write(map.to_html(**kwargs))
+        f.write(m.to_html(**kwargs))
 
     if preview:
         webbrowser.open(filename)
