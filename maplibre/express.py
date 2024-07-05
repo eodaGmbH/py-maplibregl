@@ -66,12 +66,6 @@ def create_layer(
         filter=options.filter,
     )
 
-    # if options.id:
-    #    layer.id = options.id
-
-    # if options.filter:
-    #    layer.filter = options.filter
-
     return layer
 
 
@@ -93,51 +87,6 @@ def read_file(filename: Any, **kwargs) -> GeoDataFrame:
     return GeoDataFrame(data)
 
 
-"""
-def create_layer_from_geo_data_frame(
-    data: gpd.GeoDataFrame,
-    color: str = None,
-    pal: ColorPalette = None,
-    n: int = None,
-    paint: dict = None,
-    type_: str = None,
-    id_: str = None,
-    filter_: list = None,
-) -> Layer:
-    
-    if str(data.crs) != "EPSG:4326":
-        data = data.to_crs("EPSG:4326")
-
-    if color:
-        pal = pal or ColorPalette()
-        n = n or 6
-        if type(data[color][0]) in [int, float]:
-            data[COLOR_COLUMN], codes, _ = pal.numeric(data[color], n)
-        else:
-            data[COLOR_COLUMN], codes, _ = pal.factor(data[color])
-
-    type_ = type_ or default_layer_types[data.type[0].lower()]
-    paint = paint or default_layer_styles[type_]["paint"]
-    if color:
-        paint[f"{type_}-color"] = ["get", COLOR_COLUMN]
-
-    layer = Layer(
-        type=LayerType(type_).value,
-        source=GeoJSONSource(data=geopandas_to_geojson(data)),
-        paint=paint,
-        # TODO: Allow 'None' for 'filter' attribute in 'Layer' class
-        # filter=filter_ or [],
-    )
-    if id_:
-        layer.id = id_
-
-    if filter_:
-        layer.filter = filter_
-
-    return layer
-"""
-
-
 def _create_tooltip_template(tooltip_props) -> str:
     template = "<br>".join([f"{prop}: " + "{{" + prop + "}}" for prop in tooltip_props])
     return template
@@ -157,7 +106,6 @@ def create_map(
     **kwargs,
 ) -> Map | tuple[Map, str]:
     map_options = MapOptions(style=style, **kwargs)
-    # map_options.style = style
     if type(data) is str:
         data = gpd.read_file(data)
 
