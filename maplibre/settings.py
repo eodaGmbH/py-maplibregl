@@ -1,3 +1,4 @@
+# TODO: Rename to options and remove 'default' from var names
 from .layer import LayerType
 
 default_layer_types = {
