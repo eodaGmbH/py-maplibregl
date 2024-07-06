@@ -8,8 +8,20 @@ path = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geo
 
 data = mx.read_file(path)
 
+color_column = {
+    "property": "valuePerSqm",
+    "stops": [
+        [0, "grey"],
+        [1000, "yellow"],
+        [5000, "orange"],
+        [10000, "darkred"],
+        [50000, "lightblue"],
+    ],
+}
+
 m = data.maplibre.to_map(
-    "valuePerSqm",
+    # "valuePerSqm",
+    color_column,
     bins=[-1, 1000, 5000, 10000, 50000, 100000, np.inf],
     cmap="YlOrRd",
     # extrusion_column="valuePerSqm",

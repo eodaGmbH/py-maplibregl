@@ -40,7 +40,7 @@ class LayerOptions(PydanticBaseModel):
 
 def create_layer(
     data: gpd.GeoDataFrame,
-    color_column: str = None,
+    color_column: str | list = None,
     bins: Any = None,
     cmap: str = DEFAULT_CMAP,
     extrusion_column: str | list = None,
@@ -49,7 +49,7 @@ def create_layer(
     if str(data.crs) != "EPSG:4326":
         data = data.to_crs("EPSG:4326")
 
-    if color_column:
+    if color_column is not None and type(color_column) is str:
         if bins is not None:
             data[COLOR_COLUMN], codes, _ = ColorBrewer(cmap).numeric(
                 data[color_column], bins
@@ -62,13 +62,15 @@ def create_layer(
         layer_type = LayerType.FILL_EXTRUSION.value
 
     paint = options.paint or default_layer_styles[layer_type]["paint"]
-    if color_column:
-        paint[f"{layer_type}-color"] = ["get", COLOR_COLUMN]
+    if color_column is not None:
+        paint[f"{layer_type}-color"] = (
+            ["get", COLOR_COLUMN] if type(color_column) is str else color_column
+        )
 
     if extrusion_column is not None:
         paint["fill-extrusion-height"] = (
             ["get", extrusion_column]
-            if type(extrusion_column) == str
+            if type(extrusion_column) is str
             else extrusion_column
         )
 
@@ -93,7 +95,7 @@ class _MapLibreGL(object):
 
     def to_layer(
         self,
-        color_column: str = None,
+        color_column: str | list = None,
         bins: Any = None,
         cmap: str = DEFAULT_CMAP,
         extrusion_column: str | list = None,
@@ -110,7 +112,7 @@ class _MapLibreGL(object):
 
     def to_map(
         self,
-        color_column: str = None,
+        color_column: str | list = None,
         bins: Any = None,
         extrusion_column: str | list = None,
         **kwargs,
@@ -127,7 +129,7 @@ def _create_tooltip_template(tooltip_props) -> str:
 
 def create_map(
     data: gpd.GeoDataFrame | str,
-    color_column: str = None,
+    color_column: str | list = None,
     bins: Any = None,
     cmap: str = DEFAULT_CMAP,
     extrusion_column: str | list = None,
