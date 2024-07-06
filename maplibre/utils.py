@@ -1,11 +1,7 @@
 from __future__ import annotations
 
 import json
-import webbrowser
 from enum import Enum
-
-from ._utils import get_temp_filename
-from .map import Map
 
 try:
     from pandas import DataFrame
@@ -61,17 +57,3 @@ def get_bounds(geojson: dict) -> list | None:
         return
 
     return list(shapely.bounds(shapely.from_geojson(json.dumps(geojson))))
-
-
-# TODO: Add as method to Map object
-def save_map(m: Map, filename: str = None, preview=True, **kwargs) -> str:
-    if not filename:
-        filename = get_temp_filename()
-
-    with open(filename, "w") as f:
-        f.write(m.to_html(**kwargs))
-
-    if preview:
-        webbrowser.open(filename)
-
-    return filename
