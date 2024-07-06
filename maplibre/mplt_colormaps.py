@@ -14,8 +14,14 @@ except ImportError as e:
     to_rgb = None
 
 
+from .branca_colormaps import create_colors
+
+
 # Run 'list(colormaps)' to get available colormaps
-def create_colors(cmap_name: str = "viridis", n: int = 6, ret_hex: bool = True) -> list:
+def create_colors_(
+    cmap_name: str = "viridis", n: int = 6, ret_hex: bool = True
+) -> list:
+    print("matplotlib cmaps")
     cmap = colormaps[cmap_name].resampled(n)
     colors = [cmap(i) for i in range(n)]
     if ret_hex:
@@ -26,7 +32,8 @@ def create_colors(cmap_name: str = "viridis", n: int = 6, ret_hex: bool = True) 
 
 def map_colors(cmap_name: str, codes: Any, ret_hex: bool = True) -> list[str]:
     n = max(codes) + 1
-    return [create_colors(cmap_name, n, ret_hex)[code] for code in codes]
+    colors = create_colors_(cmap_name, n, ret_hex)
+    return [colors[code] for code in codes]
 
 
 class ColorBrewer(object):
@@ -35,9 +42,8 @@ class ColorBrewer(object):
 
     def numeric(self, values: Any, bins: Any) -> tuple:
         # values: list, np.array or pd.Series
-        # codes, breaks = pd.cut(values, bins, retbins=True, labels=False)
-        # return map_colors(self.cmap_name, codes), codes, breaks
-        out = pd.cut(list(values), bins)
+        values = list(values)
+        out = pd.cut(values, bins)
         return map_colors(self.cmap_name, out.codes), out.codes, out.categories
 
     def factor(self, values: Any) -> tuple:

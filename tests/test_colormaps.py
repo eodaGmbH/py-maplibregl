@@ -20,13 +20,13 @@ def test_numeric():
     x = [1, 2, 3, 1, 4, 3]
     bins = 2
 
-    color_brewer = colorutils.ColorBrewer()
+    color_brewer = colorutils.ColorBrewer("viridis")
     colors, codes, _ = color_brewer.numeric(x, bins=bins)
     print(colors, codes)
 
     assert len(colors) == len(x)
-    assert len(set(colors)) == 2
-    assert len(set(codes)) == 2
+    assert len(set(colors)) == bins
+    assert len(set(codes)) == bins
     assert colors[0] == "#440154"
     assert colors[-1] == "#fde725"
 
