@@ -49,7 +49,7 @@ def create_layer(
         data = data.to_crs("EPSG:4326")
 
     if color_column:
-        if bins:
+        if bins is not None:
             data[COLOR_COLUMN], codes, _ = ColorBrewer(cmap).numeric(
                 data[color_column], bins
             )

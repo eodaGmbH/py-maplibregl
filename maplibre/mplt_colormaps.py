@@ -35,8 +35,10 @@ class ColorBrewer(object):
 
     def numeric(self, values: Any, bins: Any) -> tuple:
         # values: list, np.array or pd.Series
-        codes, breaks = pd.cut(values, bins, retbins=True, labels=False)
-        return map_colors(self.cmap_name, codes), codes, breaks
+        # codes, breaks = pd.cut(values, bins, retbins=True, labels=False)
+        # return map_colors(self.cmap_name, codes), codes, breaks
+        out = pd.cut(list(values), bins)
+        return map_colors(self.cmap_name, out.codes), out.codes, out.categories
 
     def factor(self, values: Any) -> tuple:
         # values: list, array or pd.Series
