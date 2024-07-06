@@ -21,18 +21,30 @@ color_column = {
 }
 """
 
-m = data.maplibre.to_map(
+m, layer_id = data.maplibre.to_map(
     "valuePerSqm",
     # color_column,
     bins=[-1, 1000, 5000, 10000, 50000, 100000, np.inf],
     cmap="viridis",
     # extrusion_column="valuePerSqm",
-    # extrusion_column=["*", 10, ["sqrt", ["get", "valuePerSqm"]]],
+    extrusion_column=["*", 10, ["sqrt", ["get", "valuePerSqm"]]],
     controls=[
         mx.NavigationControl(),
         mx.ScaleControl(),
     ],
     map_options=mx.MapOptions(pitch=45),
+    ret_layer_id=True,
 )
+print(layer_id)
+m.add_layer(
+    mx.Layer(
+        id="line",
+        type=mx.LayerType.LINE,
+        source=layer_id,
+        paint={"line-color": "yellow", "line-width": 2},
+    ),
+    before_id=layer_id,
+)
+m.add_control(mx.LayerSwitcherControl(layer_ids=[layer_id, "line"]))
 filename = m.save("/tmp/py-maplibre-gl-express.html", preview=True)
 print(filename)
