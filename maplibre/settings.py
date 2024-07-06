@@ -18,4 +18,7 @@ default_layer_styles = {
     },
     LayerType.LINE.value: {"paint": {"line-color": "steelblue"}},
     LayerType.CIRCLE.value: {"paint": {"circle-color": "darkgreen"}},
+    LayerType.FILL_EXTRUSION.value: {
+        "paint": {"fill-extrusion-color": "darkgreen", "fill-extrusion-opacity": 0.6}
+    },
 }

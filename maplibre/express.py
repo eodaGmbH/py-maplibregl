@@ -43,6 +43,7 @@ def create_layer(
     color_column: str = None,
     bins: Any = None,
     cmap: str = DEFAULT_CMAP,
+    extrusion_column: str | list = None,
     options: LayerOptions = LayerOptions(),
 ) -> Layer:
     if str(data.crs) != "EPSG:4326":
@@ -57,9 +58,19 @@ def create_layer(
             data[COLOR_COLUMN], codes, _ = ColorBrewer(cmap).factor(data[color_column])
 
     layer_type = options.type or default_layer_types[data.type[0].lower()]
+    if extrusion_column is not None:
+        layer_type = LayerType.FILL_EXTRUSION.value
+
     paint = options.paint or default_layer_styles[layer_type]["paint"]
     if color_column:
         paint[f"{layer_type}-color"] = ["get", COLOR_COLUMN]
+
+    if extrusion_column is not None:
+        paint["fill-extrusion-height"] = (
+            ["get", extrusion_column]
+            if type(extrusion_column) == str
+            else extrusion_column
+        )
 
     layer = Layer(
         id=options.id,
@@ -85,14 +96,28 @@ class _MapLibreGL(object):
         color_column: str = None,
         bins: Any = None,
         cmap: str = DEFAULT_CMAP,
+        extrusion_column: str | list = None,
         layer_options: LayerOptions = LayerOptions(),
     ) -> Layer:
         return create_layer(
-            self._gdf, color_column, bins=bins, cmap=cmap, options=layer_options
+            self._gdf,
+            color_column,
+            bins=bins,
+            cmap=cmap,
+            extrusion_column=extrusion_column,
+            options=layer_options,
         )
 
-    def to_map(self, color_column: str = None, bins: Any = None, **kwargs) -> Map:
-        return create_map(self._gdf, color_column, bins, **kwargs)
+    def to_map(
+        self,
+        color_column: str = None,
+        bins: Any = None,
+        extrusion_column: str | list = None,
+        **kwargs,
+    ) -> Map:
+        return create_map(
+            self._gdf, color_column, bins, extrusion_column=extrusion_column, **kwargs
+        )
 
 
 def _create_tooltip_template(tooltip_props) -> str:
@@ -105,8 +130,9 @@ def create_map(
     color_column: str = None,
     bins: Any = None,
     cmap: str = DEFAULT_CMAP,
+    extrusion_column: str | list = None,
     style=Carto.POSITRON,
-    controls: list = [NavigationControl()],
+    controls: list = [NavigationControl(), ScaleControl()],
     fit_bounds: bool = True,
     tooltip: bool = True,
     tooltip_props: list = None,
@@ -130,7 +156,12 @@ def create_map(
         m.add_control(control)
 
     layer = create_layer(
-        data, color_column, bins=bins, cmap=cmap, options=layer_options
+        data,
+        color_column,
+        bins=bins,
+        cmap=cmap,
+        extrusion_column=extrusion_column,
+        options=layer_options,
     )
     m.add_layer(layer)
 

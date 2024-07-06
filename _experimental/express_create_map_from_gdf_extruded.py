@@ -1,4 +1,5 @@
 import maplibre.express as mx
+
 # import pandas as pd
 import numpy as np
 
@@ -11,6 +12,8 @@ m = data.maplibre.to_map(
     "valuePerSqm",
     bins=[-1, 1000, 5000, 10000, 50000, 100000, np.inf],
     cmap="YlOrRd",
+    # extrusion_column="valuePerSqm",
+    extrusion_column=["*", 10, ["sqrt", ["get", "valuePerSqm"]]],
     controls=[
         mx.NavigationControl(),
         mx.ScaleControl(),
