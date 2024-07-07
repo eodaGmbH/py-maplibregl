@@ -32,7 +32,7 @@ def create_colors_(
 
 def map_colors(cmap_name: str, codes: Any, ret_hex: bool = True) -> list[str]:
     n = max(codes) + 1
-    colors = create_colors_(cmap_name, n, ret_hex)
+    colors = create_colors(cmap_name, n, ret_hex)
     return [colors[code] for code in codes]
 
 
