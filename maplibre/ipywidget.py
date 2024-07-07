@@ -36,15 +36,11 @@ class MapWidget(AnyWidget, Map):
     calls = traitlets.List().tag(sync=True)
     height = traitlets.Union([traitlets.Int(), traitlets.Unicode()]).tag(sync=True)
 
-    # Interactions
+    # Interactions Map
     clicked = traitlets.Dict().tag(sync=True)
     view_state = traitlets.Dict().tag(sync=True)
 
-    # TODO: obsolete, use 'view_state' instead
-    center = traitlets.Dict().tag(sync=True)
-    zoom = traitlets.Float().tag(sync=True)
-    bounds = traitlets.Dict().tag(sync=True)
-
+    # Interactions MapboxDraw plugin
     draw_features_selected = traitlets.List().tag(sync=True)
     draw_feature_collection_all = traitlets.Dict().tag(sync=True)
 

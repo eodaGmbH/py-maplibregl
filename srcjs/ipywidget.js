@@ -23,10 +23,6 @@ function createContainer(model) {
 }
 
 function updateModel(model, map) {
-  model.set("center", map.getCenter());
-  model.set("zoom", map.getZoom());
-  model.set("bounds", map.getBounds());
-
   const viewState = {
     center: map.getCenter(),
     zoom: map.getZoom(),
