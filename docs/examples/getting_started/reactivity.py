@@ -22,7 +22,7 @@ app_ui = ui.page_fluid(
     ui.output_text_verbatim("coords", placeholder=True),
     ui.div("Click on a feature to print its props.", style="padding: 10px;"),
     ui.output_text_verbatim("props", placeholder=True),
-    ui.div("View state.", style="padding: 10px;"),
+    ui.div("Move map or zoom to update view state.", style="padding: 10px;"),
     ui.output_text_verbatim("view_state", placeholder=True),
     ui.input_slider("radius", "Radius", value=CIRCLE_RADIUS, min=1, max=10),
 )
@@ -55,7 +55,7 @@ def server(input, output, session):
 
     @render.text
     def props():
-        return str(input.mapgl_layer_earthquakes())
+        return str(input.mapgl_feature_clicked())
 
     @reactive.Effect
     @reactive.event(input.radius)

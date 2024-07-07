@@ -81,8 +81,7 @@ export default class PyMapLibreGL {
     if (typeof Shiny !== "undefined") {
       this._map.on("click", layer.id, (e) => {
         console.log(e, e.features[0]);
-        const layerId_ = layer.id.replaceAll("-", "_");
-        const inputName = `${this._id}_layer_${layerId_}`;
+        const inputName = `${this._id}_feature_clicked`;
         const feature = {
           props: e.features[0].properties,
           layer_id: layer.id,
