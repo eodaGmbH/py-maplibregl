@@ -37,12 +37,27 @@ if (typeof Shiny !== "undefined") {
 
       // ...
       map.on("click", (e) => {
-        console.log(e);
-        const inputName = `${el.id}`;
+        // console.log(e);
+        const inputName = `${el.id}_clicked`;
         const data = { coords: e.lngLat, point: e.point };
         console.log(inputName, data);
         Shiny.onInputChange(inputName, data);
       });
+
+      for (const event of ["zoomend", "moveend"]) {
+        map.on(event, (e) => {
+          // TODO: extract to function 'getViewState(map)'
+          const viewState = {
+            center: map.getCenter(),
+            zoom: map.getZoom(),
+            bounds: map.getBounds(),
+            bearing: map.getBearing(),
+            pitch: map.getPitch(),
+          };
+          const inputName = `${el.id}_view_state`;
+          Shiny.onInputChange(inputName, viewState);
+        });
+      }
 
       const messageHandlerName = `pymaplibregl-${el.id}`;
       console.log(messageHandlerName);
