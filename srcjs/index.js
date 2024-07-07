@@ -1,8 +1,8 @@
 import PyMapLibreGL from "./pymaplibregl";
+import { getViewState } from "./utils";
 
-const version = "0.1.0";
-
-console.log("pymaplibregl", version);
+const version = "0.2.6.1";
+console.log("py-maplibregl", version);
 
 if (typeof Shiny === "undefined") {
   window.pymaplibregl = function ({ mapOptions, calls }) {
@@ -44,18 +44,10 @@ if (typeof Shiny !== "undefined") {
         Shiny.onInputChange(inputName, data);
       });
 
-      for (const event of ["zoomend", "moveend"]) {
+      for (const event of ["load", "zoomend", "moveend"]) {
         map.on(event, (e) => {
-          // TODO: extract to function 'getViewState(map)'
-          const viewState = {
-            center: map.getCenter(),
-            zoom: map.getZoom(),
-            bounds: map.getBounds(),
-            bearing: map.getBearing(),
-            pitch: map.getPitch(),
-          };
           const inputName = `${el.id}_view_state`;
-          Shiny.onInputChange(inputName, viewState);
+          Shiny.onInputChange(inputName, getViewState(map));
         });
       }
 

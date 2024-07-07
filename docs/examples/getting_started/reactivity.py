@@ -8,6 +8,7 @@ from maplibre import (
     output_maplibregl,
     render_maplibregl,
 )
+from maplibre.controls import NavigationControl
 from maplibre.sources import GeoJSONSource
 from shiny import App, reactive, render, ui
 
@@ -39,7 +40,8 @@ circle_layer = Layer(
 def server(input, output, session):
     @render_maplibregl
     def mapgl():
-        m = Map(zoom=3)
+        m = Map(zoom=3, pitch=40)
+        m.add_control(NavigationControl())
         m.add_layer(circle_layer)
         return m
 
