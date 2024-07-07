@@ -38,9 +38,13 @@ class MapWidget(AnyWidget, Map):
 
     # Interactions
     clicked = traitlets.Dict().tag(sync=True)
+    view_state = traitlets.Dict().tag(sync=True)
+
+    # TODO: obsolete, use 'view_state' instead
     center = traitlets.Dict().tag(sync=True)
     zoom = traitlets.Float().tag(sync=True)
     bounds = traitlets.Dict().tag(sync=True)
+
     draw_features_selected = traitlets.List().tag(sync=True)
     draw_feature_collection_all = traitlets.Dict().tag(sync=True)
 

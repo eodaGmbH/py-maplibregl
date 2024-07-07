@@ -26,6 +26,15 @@ function updateModel(model, map) {
   model.set("center", map.getCenter());
   model.set("zoom", map.getZoom());
   model.set("bounds", map.getBounds());
+
+  const viewState = {
+    center: map.getCenter(),
+    zoom: map.getZoom(),
+    bounds: map.getBounds(),
+    bearing: map.getBearing(),
+    pitch: map.getPitch(),
+  };
+  model.set("view_state", viewState);
   model.save_changes();
 }
 
