@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import json
 import os.path
+import webbrowser
 from typing import Union
 
 from jinja2 import Template
 from pydantic import ConfigDict, Field, field_validator
 
 from ._templates import html_template, js_template
-from ._utils import BaseModel, get_output_dir, read_internal_file
+from ._utils import BaseModel, get_output_dir, get_temp_filename, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import Control, ControlPosition, Marker
 from .layer import Layer
@@ -118,7 +119,7 @@ class Map(object):
     def add_control(
         self,
         control: Control,
-        position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
+        position: [str | ControlPosition, None] = None,
     ) -> None:
         """Add a control to the map
 
@@ -126,6 +127,7 @@ class Map(object):
             control (Control): The control to be added to the map.
             position (str | ControlPosition): The position of the control.
         """
+        position = position or control._default_position
         self.add_call(
             "addControl",
             control.type,
@@ -300,6 +302,16 @@ class Map(object):
         )
         return output
 
+    def save(self, filename: str = None, preview=True, **kwargs) -> str:
+        """Save as html file
+
+        Args:
+            filename (str): The name of the file to be saved. If `None` a temporary file is generated.
+            preview (bool): Whether the file should be previewed or not.
+            **kwargs (Any): Additional keyword arguments that are passed to the template.
+        """
+        return save_map(self, filename, preview=preview, **kwargs)
+
     # -------------------------
     # Plugins
     # -------------------------
@@ -346,3 +358,16 @@ class Map(object):
         self.add_call(
             "addMapboxDraw", options or {}, ControlPosition(position).value, geojson
         )
+
+
+def save_map(m: Map, filename: str = None, preview=True, **kwargs) -> str:
+    if not filename:
+        filename = get_temp_filename()
+
+    with open(filename, "w") as f:
+        f.write(m.to_html(**kwargs))
+
+    if preview:
+        webbrowser.open(filename)
+
+    return filename

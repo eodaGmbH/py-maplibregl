@@ -3,6 +3,8 @@
 See also https://docs.mapbox.com/mapbox-gl-js/api/markers/
 """
 
+from __future__ import annotations
+
 from enum import Enum
 from typing import Literal, Union
 
@@ -86,9 +88,18 @@ class ControlPosition(Enum):
 
 
 class Control(BaseModel):
+    _default_position: str = ControlPosition.TOP_RIGHT
+
     @property
-    def type(self):
+    def type(self) -> str:
         return self.__class__.__name__
+
+    """
+    @property
+    def default_position(self) -> str | ControlPosition:
+        return self._default_position
+
+    """
 
 
 class AttributionControl(Control):
@@ -112,14 +123,13 @@ class FullscreenControl(Control):
         >>> map.add_control(FullscreenControl(), ControlPosition.BOTTOM_LEFT)
     """
 
-    # _name: str = ControlType.FULLSCREEN.value
     pass
 
 
 class GeolocateControl(Control):
     """Geolocate control"""
 
-    # _name: str = ControlType.GEOLOCATE.value
+    _default_position: str = ControlPosition.TOP_LEFT
     position_options: dict = Field(None, serialization_alias="positionOptions")
     show_accuracy_circle: bool = Field(True, serialization_alias="showAccuracyCircle")
     show_user_heading: bool = Field(False, serialization_alias="showUserHeading")
@@ -130,7 +140,6 @@ class GeolocateControl(Control):
 class NavigationControl(Control):
     """Navigation control"""
 
-    # _name: str = ControlType.NAVIGATION.value
     show_compass: bool = Field(True, serialization_alias="showCompass")
     show_zoom: bool = Field(True, serialization_alias="showZoom")
     visualize_pitch: bool = Field(False, serialization_alias="visualizePitch")
@@ -145,6 +154,7 @@ class ScaleUnit(Enum):
 class ScaleControl(Control):
     """Scale control"""
 
+    _default_position: str = ControlPosition.BOTTOM_LEFT
     max_width: int = Field(None, serialization_alias="maxWidth")
     unit: Literal["imperial", "metric", "nautical"] = "metric"
 

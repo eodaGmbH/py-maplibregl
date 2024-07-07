@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "maplibre"
-version = "0.2.6"
+version = "0.2.6.1"
 description = "Python bindings for MapLibre GL JS"
 authors = ["Stefan Kuethe <stefan.kuethe@eoda.de>"]
 readme = "README.md"
@@ -16,8 +16,10 @@ htmltools = ">=0.5.1"
 jinja2 = ">=3.1.3"
 pydantic = ">=2.5.3"
 anywidget = ">=0.9.0"
-pandas = {version = "^2.1.4", optional = true}
-geopandas = {version = "^0.14.2", optional = true}
+pandas = {version = "*", optional = true}
+geopandas = {version = "*", optional = true}
+pillow = "*"
+matplotlib = {version = "*", optional = true}
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
@@ -27,9 +29,10 @@ mkdocs = "^1.5.3"
 mkdocstrings = {extras = ["python"], version = "^0.24.0"}
 mkdocs-material = "^9.5.3"
 geopandas = "^0.14.2"
+geodatasets = "^2023.12.0"
 
 [tool.poetry.extras]
-all = ["pandas", "geopandas"]
+all = ["pandas", "geopandas", "matplotlib"]
 
 [tool.black]
 line-lenght = 120

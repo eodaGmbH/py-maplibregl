@@ -1,21 +1,19 @@
 from __future__ import annotations
 
 import json
-import webbrowser
 from enum import Enum
-
-from ._utils import get_temp_filename
-from .map import Map
 
 try:
     from pandas import DataFrame
-except ImportError:
+except ImportError as e:
+    print(e)
     DataFrame = None
 
 
 try:
     from geopandas import GeoDataFrame
-except ImportError:
+except ImportError as e:
+    print(e)
     GeoDataFrame = None
 
 
@@ -51,24 +49,11 @@ def df_to_geojson(
     return geojson
 
 
-def get_bounds(geojson: dict) -> list:
+def get_bounds(geojson: dict) -> list | None:
     try:
         import shapely
-    except ImportError:
-        print("shapely is not installed")
+    except ImportError as e:
+        print(e)
         return
 
     return list(shapely.bounds(shapely.from_geojson(json.dumps(geojson))))
-
-
-def save_map(map: Map, filename: str = None, preview=True, **kwargs) -> str:
-    if not filename:
-        filename = get_temp_filename()
-
-    with open(filename, "w") as f:
-        f.write(map.to_html(**kwargs))
-
-    if preview:
-        webbrowser.open(filename)
-
-    return filename

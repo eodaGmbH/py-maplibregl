@@ -1,5 +1,9 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.2.7 (unreleased)
+
+...
+
 ## maplibre v0.2.6
 
 * Add function in `maplibre.utils` to save map and display it in the browser
