@@ -4,6 +4,8 @@
 
 * Shiny
   * Add `input.{output_id}_view_state` dict containing `{"center", "zoom", "bounds", "pitch", "bearing"}`
+  * Rename `input.{output_id}` to `input.{output_id}_clicked`
+  * Rename `input.{output_id}_layer_{layer_id}` to `input.{output_id}_feature_clicked` returning `layer_id`
 
 * Ipywidget
   * Add `Map.view_state` dict containing `{"center", "zoom", "bounds", "pitch", "bearing"}` (#89)
