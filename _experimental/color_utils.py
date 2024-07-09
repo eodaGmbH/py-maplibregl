@@ -9,6 +9,7 @@ except ImportError as e:
     print(e)
     branca_color_brewer = None
 
+# TODO> Move to options
 FALLBACK_COLOR = "#000000"
 
 
@@ -21,8 +22,7 @@ def color_brewer(cmap: str, n: int) -> list:
     return branca_color_brewer(cmap, n)
 
 
-# TODO: Rename to create categorical_color_expression
-def create_color_expression(
+def create_categorical_color_expression(
     values: Any, column_name: str, cmap: str = "viridis"
 ) -> list | None:
     if not color_brewer:
