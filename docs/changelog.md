@@ -1,5 +1,14 @@
 # Changelog for MapLibre for Python
 
+## maplibre v0.2.7 (unreleased)
+
+* Shiny
+  * Add `input.{output_id}_view_state` dict containing `{"center", "zoom", "bounds", "pitch", "bearing"}`
+
+* Ipywidget
+  * Add `Map.view_state` dict containing `{"center", "zoom", "bounds", "pitch", "bearing"}` 
+  * Remove `Map.center`, `Map.zoom`, `Map.bounds`
+
 ## maplibre v0.2.6
 
 * Add function in `maplibre.utils` to save map and display it in the browser
