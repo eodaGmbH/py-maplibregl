@@ -30,7 +30,7 @@ app = App(app_ui, server)
 
 * `input.{output_id}_clicked`: Sends coordinates of the clicked location on the map.
 * `input.{output_id}_feature_clicked`: Sends the properties of the clicked feature and its layer id.
-* * `input.{output_id}_view_state`: Sends the current view state. Fired when the view state is changed.
+* `input.{output_id}_view_state`: Sends the current view state. Fired when the view state is changed.
 
 ### Map updates
 
