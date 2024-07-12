@@ -51,4 +51,19 @@ function getDeckMapLibrePopupTooltip(map, tooltip) {
   };
 }
 
-export { getTextFromFeature, getDeckTooltip, getDeckMapLibrePopupTooltip };
+function getViewState(map) {
+  return {
+    center: map.getCenter(),
+    zoom: map.getZoom(),
+    bounds: map.getBounds(),
+    bearing: map.getBearing(),
+    pitch: map.getPitch(),
+  };
+}
+
+export {
+  getTextFromFeature,
+  getDeckTooltip,
+  getDeckMapLibrePopupTooltip,
+  getViewState,
+};

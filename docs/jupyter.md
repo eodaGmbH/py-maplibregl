@@ -48,19 +48,4 @@ _ = widgets.interact(
     lambda mag_min: m.set_filter(layer_id, [">=", ["get", "mag"], mag_min]),
     mag_min=(1, 8, 1)
 )
-
-# Observe map-on-click event
-from IPython.display import clear_output
-
-output = widgets.Output()
-
-
-def log_lng_lat(lng_lat):
-    with output:
-        clear_output()
-        print(lng_lat.new)
-
-
-m.observe(log_lng_lat, names="lng_lat")
-output
 ```

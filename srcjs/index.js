@@ -1,8 +1,8 @@
 import PyMapLibreGL from "./pymaplibregl";
+import { getViewState } from "./utils";
 
-const version = "0.1.0";
-
-console.log("pymaplibregl", version);
+const version = "0.2.6.1";
+console.log("py-maplibregl", version);
 
 if (typeof Shiny === "undefined") {
   window.pymaplibregl = function ({ mapOptions, calls }) {
@@ -37,12 +37,19 @@ if (typeof Shiny !== "undefined") {
 
       // ...
       map.on("click", (e) => {
-        console.log(e);
-        const inputName = `${el.id}`;
+        // console.log(e);
+        const inputName = `${el.id}_clicked`;
         const data = { coords: e.lngLat, point: e.point };
         console.log(inputName, data);
         Shiny.onInputChange(inputName, data);
       });
+
+      for (const event of ["load", "zoomend", "moveend"]) {
+        map.on(event, (e) => {
+          const inputName = `${el.id}_view_state`;
+          Shiny.onInputChange(inputName, getViewState(map));
+        });
+      }
 
       const messageHandlerName = `pymaplibregl-${el.id}`;
       console.log(messageHandlerName);

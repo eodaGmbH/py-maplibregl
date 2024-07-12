@@ -28,10 +28,9 @@ app = App(app_ui, server)
 
 [MapLibre for Python](https://github.com/eodaGmbH/py-maplibregl) provides the following reactive inputs:
 
-* `map-on-click` event: Sends the coordinates of the location that was clicked on. The name of the __input__ event corresponds to the __output id__.
-    For `output_maplibregl("maplibre")` you need to listen to `input.maplibre`.
-* `feature-on-click` event: Sends the properties of the feature that was clicked on. The name of the __ìnput__ is made up of the __output id__ + `layer` + __layer id__. 
-    For `output_maplibregl("maplibre")` and a layer with `id=test` you need to listen to `input.maplibre_layer_test`.
+* `input.{output_id}_clicked`: Sends coordinates of the clicked location on the map.
+* `input.{output_id}_feature_clicked`: Sends the properties of the clicked feature and its layer id.
+* `input.{output_id}_view_state`: Sends the current view state. Fired when the view state is changed.
 
 ### Map updates
 
