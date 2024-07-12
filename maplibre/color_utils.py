@@ -17,7 +17,7 @@ def color_brewer(cmap: str, n: int) -> list:
     n = int(n)
     if n == 2:
         colors = branca_color_brewer(cmap)
-        return [colors[i] for i in [1, -1]]
+        return [colors[i] for i in [0, -1]]
 
     return branca_color_brewer(cmap, n)
 
@@ -43,17 +43,20 @@ def create_categorical_color_expression(
 
 
 # TODO: Allow to pass colors
-def create_numeric_color_expression_from_steps(
-    column_name: str, steps: list, cmap="viridis"
+def create_numeric_color_expression_from_breaks(
+    column_name: str, breaks: list, cmap="viridis"
 ) -> list | None:
-    colors = color_brewer(cmap, len(steps))
+    n = len(breaks)
+    colors = color_brewer(cmap, n + 1)
     # TODO: Extract this step to helper function
     expression = (
         ["step", ["get", column_name]]
         + list(
-            chain.from_iterable([[color, step] for color, step in zip(colors, steps)])
+            chain.from_iterable(
+                [[color, step] for color, step in zip(colors[0:n], breaks)]
+            )
         )
-        + [FALLBACK_COLOR]
+        + [colors[-1]]  # [FALLBACK_COLOR]
     )
     return expression
 

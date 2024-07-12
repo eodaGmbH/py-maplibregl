@@ -45,8 +45,8 @@ class CoreLayer(object):
                     cmap=cmap,
                 )
             elif isinstance(bins, list):
-                self._color_expression = create_numeric_color_expression_from_steps(
-                    column_name=color_column, steps=bins, cmap=cmap
+                self._color_expression = create_numeric_color_expression_from_breaks(
+                    column_name=color_column, breaks=bins, cmap=cmap
                 )
             else:
                 self._color_expression = create_categorical_color_expression(
