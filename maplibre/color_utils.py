@@ -28,7 +28,7 @@ def create_categorical_color_expression(
     if not color_brewer:
         return
 
-    unique_values = list(set(values))
+    unique_values = sorted(list(set(values)))
     colors = color_brewer(cmap, len(unique_values))
     expression = (
         ["match", ["get", column_name]]
