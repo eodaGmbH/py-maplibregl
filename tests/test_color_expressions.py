@@ -1,6 +1,7 @@
 from maplibre.color_utils import (
     create_categorical_color_expression,
     create_numeric_color_expression_from_breaks,
+    create_numeric_color_expression_from_quantiles,
 )
 
 
@@ -48,5 +49,29 @@ def test_numeric_color_expression_from_breaks():
         2,
         "#21908c",
         6,
+        "#fde725",
+    ]
+
+
+def test_numeric_color_expression_from_quantiles():
+    # Prepare
+    values = [1, 4, 2, 8, 9, 2, 3, 4]
+    column_name = "test"
+    quantiles = [0.25, 0.75]
+
+    # Act
+    expression = create_numeric_color_expression_from_quantiles(
+        values, q=quantiles, column_name=column_name
+    )
+    print(expression)
+
+    # Assert
+    assert expression == [
+        "step",
+        ["get", "test"],
+        "#440154",
+        2.0,
+        "#21908c",
+        5.0,
         "#fde725",
     ]

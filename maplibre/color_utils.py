@@ -66,6 +66,7 @@ def create_numeric_color_expression(
 ) -> tuple | None:
     step = (max(values) - min(values)) / n
     breaks = [min(values) + i * step for i in range(n)]
+    # return create_numeric_color_expression_from_breaks(column_name, breaks, cmap)
     colors = color_brewer(cmap, n + 1)
 
     expression = (
@@ -79,3 +80,16 @@ def create_numeric_color_expression(
     )
 
     return expression, breaks, colors
+
+
+def create_numeric_color_expression_from_quantiles(
+    values: Any, q: list, column_name: str, cmap: str = "viridis"
+):
+    try:
+        import numpy as np
+    except ImportError as e:
+        print(e)
+        return
+
+    breaks = np.quantile(values, q)
+    return create_numeric_color_expression_from_breaks(column_name, breaks, cmap)
