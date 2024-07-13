@@ -24,10 +24,7 @@ def color_brewer(cmap: str, n: int) -> list:
 
 def create_categorical_color_expression(
     values: Any, column_name: str, cmap: str = "viridis"
-) -> list | None:
-    if not color_brewer:
-        return
-
+) -> tuple:
     unique_values = sorted(list(set(values)))
     colors = color_brewer(cmap, len(unique_values))
     expression = (
@@ -39,36 +36,15 @@ def create_categorical_color_expression(
         )
         + [FALLBACK_COLOR]
     )
-    return expression
+    return expression, unique_values, colors
 
 
 # TODO: Allow to pass colors
 def create_numeric_color_expression_from_breaks(
     column_name: str, breaks: list, cmap="viridis"
-) -> list | None:
+) -> tuple:
     n = len(breaks)
     colors = color_brewer(cmap, n + 1)
-    # TODO: Extract this step to helper function
-    expression = (
-        ["step", ["get", column_name]]
-        + list(
-            chain.from_iterable(
-                [[color, step] for color, step in zip(colors[0:n], breaks)]
-            )
-        )
-        + [colors[-1]]  # [FALLBACK_COLOR]
-    )
-    return expression
-
-
-def create_numeric_color_expression(
-    values: Any, n: int, column_name: str, cmap: str = "viridis"
-) -> tuple | None:
-    step = (max(values) - min(values)) / n
-    breaks = [min(values) + i * step for i in range(n)]
-    # return create_numeric_color_expression_from_breaks(column_name, breaks, cmap)
-    colors = color_brewer(cmap, n + 1)
-
     expression = (
         ["step", ["get", column_name]]
         + list(
@@ -78,13 +54,20 @@ def create_numeric_color_expression(
         )
         + [colors[-1]]
     )
-
     return expression, breaks, colors
+
+
+def create_numeric_color_expression(
+    values: Any, n: int, column_name: str, cmap: str = "viridis"
+) -> tuple:
+    step = (max(values) - min(values)) / n
+    breaks = [min(values) + i * step for i in range(n)]
+    return create_numeric_color_expression_from_breaks(column_name, breaks, cmap)
 
 
 def create_numeric_color_expression_from_quantiles(
     values: Any, q: list, column_name: str, cmap: str = "viridis"
-):
+) -> tuple | None:
     try:
         import numpy as np
     except ImportError as e:

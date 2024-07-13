@@ -1,5 +1,6 @@
 from maplibre.color_utils import (
     create_categorical_color_expression,
+    create_numeric_color_expression,
     create_numeric_color_expression_from_breaks,
     create_numeric_color_expression_from_quantiles,
 )
@@ -12,11 +13,13 @@ def test_create_categorical_color_expression():
     cmap = "viridis"
 
     # Act
-    cat_expression = create_categorical_color_expression(values, column_name, cmap)
-    print(cat_expression)
+    expression, unique_values, colors = create_categorical_color_expression(
+        values, column_name, cmap
+    )
+    print(expression, unique_values, colors)
 
     # Assert
-    assert cat_expression == [
+    assert expression == [
         "match",
         ["get", "letter"],
         "A",
@@ -30,6 +33,15 @@ def test_create_categorical_color_expression():
 def test_create_numeric_color_expression():
     # Prepare
     values = [1, 4, 2, 8, 9]
+    n = 3
+    column_name = "test"
+
+    # Act
+    expression, breaks, colors = create_numeric_color_expression(values, n, column_name)
+    print(expression, breaks, colors)
+
+    # Assert
+    colors = ["#440154", "#31678d", "#35b678", "#fde725"]
 
 
 def test_numeric_color_expression_from_breaks():
@@ -38,8 +50,10 @@ def test_numeric_color_expression_from_breaks():
     breaks = [2, 6]
 
     # Act
-    expression = create_numeric_color_expression_from_breaks(column_name, breaks)
-    print(expression)
+    expression, breaks, colors = create_numeric_color_expression_from_breaks(
+        column_name, breaks
+    )
+    print(expression, breaks, colors)
 
     # Assert
     assert expression == [
@@ -60,10 +74,10 @@ def test_numeric_color_expression_from_quantiles():
     quantiles = [0.25, 0.75]
 
     # Act
-    expression = create_numeric_color_expression_from_quantiles(
+    expression, breaks, colors = create_numeric_color_expression_from_quantiles(
         values, q=quantiles, column_name=column_name
     )
-    print(expression)
+    print(expression, breaks, colors)
 
     # Assert
     assert expression == [
