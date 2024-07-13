@@ -9,7 +9,9 @@ except ImportError as e:
     print(e)
     branca_color_brewer = None
 
-# TODO> Move to options
+CMAPS_JSON = "https://raw.githubusercontent.com/python-visualization/branca/main/branca/_schemes.json"
+
+# TODO: Move to options
 FALLBACK_COLOR = "#000000"
 
 
@@ -61,7 +63,8 @@ def create_numeric_color_expression(
     values: Any, n: int, column_name: str, cmap: str = "viridis"
 ) -> tuple:
     step = (max(values) - min(values)) / n
-    breaks = [min(values) + i * step for i in range(n)]
+    # breaks = [min(values) + i * step for i in range(n)]
+    breaks = [min(values) + step + i * step for i in range(n - 1)]
     return create_numeric_color_expression_from_breaks(column_name, breaks, cmap)
 
 
@@ -76,3 +79,13 @@ def create_numeric_color_expression_from_quantiles(
 
     breaks = np.quantile(values, q)
     return create_numeric_color_expression_from_breaks(column_name, breaks, cmap)
+
+
+def list_cmaps() -> list | None:
+    try:
+        import requests
+    except ImportError as e:
+        print(e)
+        return
+
+    return list(requests.get(CMAPS_JSON).json().keys())
