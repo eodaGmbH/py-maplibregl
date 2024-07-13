@@ -16,10 +16,6 @@ from .sources import GeoJSONSource
 from .utils import geopandas_to_geojson
 
 
-def _get_color_expression():
-    pass
-
-
 class CoreLayer(object):
     def __init__(
         self,
@@ -27,7 +23,9 @@ class CoreLayer(object):
         layer_type: LayerType | str,
         color_column: str = None,
         cmap: str = "viridis",
-        bins: int | list = None,
+        n: int = None,
+        q: list = None,
+        breaks: list = None,
         **kwargs,
     ):
         if isinstance(data, str):
@@ -37,29 +35,35 @@ class CoreLayer(object):
         kwargs["type"] = layer_type
         self._layer = Layer(**kwargs)
         if color_column:
-            if isinstance(bins, int):
-                self._color_expression, breaks, colors = (
-                    create_numeric_color_expression(
+            _breaks = None
+            _categories = None
+            if n is not None:
+                color_expression, _breaks, _colors = create_numeric_color_expression(
+                    values=data[color_column], n=n, column_name=color_column, cmap=cmap
+                )
+            elif breaks is not None:
+                color_expression, _breaks, _colors = (
+                    create_numeric_color_expression_from_breaks(
+                        column_name=color_column, breaks=breaks, cmap=cmap
+                    )
+                )
+            elif q is not None:
+                color_expression, _breaks, _colors = (
+                    create_numeric_color_expression_from_quantiles(
                         values=data[color_column],
-                        n=bins,
+                        q=q,
                         column_name=color_column,
                         cmap=cmap,
                     )
                 )
-            elif isinstance(bins, list):
-                self._color_expression, breaks, colors = (
-                    create_numeric_color_expression_from_breaks(
-                        column_name=color_column, breaks=bins, cmap=cmap
-                    )
-                )
             else:
-                self._color_expression, unique_values, colors = (
+                color_expression, _categories, _colors = (
                     create_categorical_color_expression(
                         values=data[color_column], column_name=color_column, cmap=cmap
                     )
                 )
 
-            self._layer.paint = {f"{layer_type}-color": self._color_expression}
+            self._layer.paint = {f"{layer_type}-color": color_expression}
 
         self._layer.source = GeoJSONSource(data=geopandas_to_geojson(data))
 
