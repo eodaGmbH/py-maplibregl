@@ -15,8 +15,10 @@ from .map import Map, MapOptions
 from .sources import GeoJSONSource
 from .utils import geopandas_to_geojson
 
+DEFAULT_COLOR = "darkred"
 
-class CoreLayer(object):
+
+class GeoJSON(object):
     def __init__(
         self,
         data: GeoDataFrame | str,
@@ -32,7 +34,11 @@ class CoreLayer(object):
             data = read_file(data)
 
         self.bounds = data.total_bounds
+        layer_type = LayerType(layer_type).value
         kwargs["type"] = layer_type
+        if "paint" not in kwargs:
+            kwargs["paint"] = {f"{layer_type}-color": DEFAULT_COLOR}
+
         self._layer = Layer(**kwargs)
         if color_column:
             _breaks = None
@@ -63,7 +69,7 @@ class CoreLayer(object):
                     )
                 )
 
-            self._layer.paint = {f"{layer_type}-color": color_expression}
+            self._layer.paint[f"{layer_type}-color"] = color_expression
 
         self._layer.source = GeoJSONSource(data=geopandas_to_geojson(data))
 
@@ -92,3 +98,74 @@ class CoreLayer(object):
             m.add_tooltip(self._layer.id)
 
         return m
+
+
+class Circle(GeoJSON):
+    def __init__(
+        self,
+        data: GeoDataFrame | str,
+        color_column: str = None,
+        cmap: str = "viridis",
+        n: int = None,
+        q: list = None,
+        breaks: list = None,
+        **kwargs,
+    ):
+        super().__init__(
+            data, LayerType.CIRCLE, color_column, cmap, n, q, breaks, **kwargs
+        )
+
+
+class Fill(GeoJSON):
+    def __init__(
+        self,
+        data: GeoDataFrame | str,
+        color_column: str = None,
+        cmap: str = "viridis",
+        n: int = None,
+        q: list = None,
+        breaks: list = None,
+        # fill_outline_color: str = None,
+        **kwargs,
+    ):
+        super().__init__(
+            data, LayerType.FILL, color_column, cmap, n, q, breaks, **kwargs
+        )
+
+
+class Line(GeoJSON):
+    def __init__(
+        self,
+        data: GeoDataFrame | str,
+        color_column: str = None,
+        cmap: str = "viridis",
+        n: int = None,
+        q: list = None,
+        breaks: list = None,
+        **kwargs,
+    ):
+        super().__init__(
+            data, LayerType.LINE, color_column, cmap, n, q, breaks, **kwargs
+        )
+
+
+class FillExtrusion(GeoJSON):
+    def __init__(
+        self,
+        data: GeoDataFrame | str,
+        color_column: str = None,
+        cmap: str = "viridis",
+        n: int = None,
+        q: list = None,
+        breaks: list = None,
+        extrusion: Any = None,
+        **kwargs,
+    ):
+        super().__init__(
+            data, LayerType.FILL_EXTRUSION, color_column, cmap, n, q, breaks, **kwargs
+        )
+        if extrusion:
+            if isinstance(extrusion, str):
+                extrusion = ["get", extrusion]
+
+            self._layer.paint["fill-extrusion-height"] = extrusion
