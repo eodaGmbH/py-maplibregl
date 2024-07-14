@@ -125,9 +125,12 @@ class Fill(GeoJSON):
         n: int = None,
         q: list = None,
         breaks: list = None,
-        # fill_outline_color: str = None,
+        fill_outline_color: str = None,
         **kwargs,
     ):
+        if "paint" not in kwargs and fill_outline_color is not None:
+            kwargs["paint"] = {"fill-outline-color": fill_outline_color}
+
         super().__init__(
             data, LayerType.FILL, color_column, cmap, n, q, breaks, **kwargs
         )
