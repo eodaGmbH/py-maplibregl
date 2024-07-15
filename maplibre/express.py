@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 try:
+    import pandas as pd
     from geopandas import GeoDataFrame, read_file
 except ImportError as e:
     print(e)
+    pd = None
     GeoDataFrame = None
     read_file = None
 
@@ -17,6 +19,16 @@ from .utils import geopandas_to_geojson
 
 CRS = "EPSG:4326"
 DEFAULT_COLOR = "darkred"
+
+if pd is not None:
+
+    @pd.api.extensions.register_dataframe_accessor("maplibre")
+    class MapLibreAccessor(object):
+        def __init__(self, gdf: GeoDataFrame):
+            self._gdf = gdf
+
+        def to_source(self) -> GeoJSONSource:
+            return GeoJSONSource(data=geopandas_to_geojson(self._gdf))
 
 
 class GeoJSON(object):
@@ -182,35 +194,3 @@ class FillExtrusion(GeoJSON):
                 fill_extrusion_height = ["get", fill_extrusion_height]
 
             self._layer.paint["fill-extrusion-height"] = fill_extrusion_height
-
-
-# -------------------------
-
-
-def get_pmtiles_header_and_meta_data(path):
-    try:
-        import requests as req
-        from pmtiles.reader import MemorySource, Reader
-    except ImportError as e:
-        print(e)
-        return
-
-    if not path.startswith("http"):
-        return
-
-    header_length = 127
-    r = req.get(path, headers={"Range": f"bytes=0-{header_length}"})
-    header = Reader(MemorySource(r.content)).header()
-    r = req.get(
-        path,
-        headers={
-            "Range": f"bytes=0-{header['metadata_offset']+header['metadata_length']}"
-        },
-    )
-    meta_data = Reader(MemorySource(r.content)).metadata()
-    return header, meta_data
-
-
-class PMTiles(object):
-    def __init__(self, path: str):
-        pass
