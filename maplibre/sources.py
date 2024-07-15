@@ -86,3 +86,44 @@ class RasterTileSource(Source):
     @property
     def type(self) -> str:
         return SourceType.RASTER.value
+
+
+class VectorTileSource(Source):
+    """Vector tile source
+
+    Examples:
+        >>> from maplibre.sources import VectorTileSource
+        >>> vector_source = VectorTileSource(
+        ...     tiles=["https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf"],
+        ...     tile_size=256,
+        ...     min_zoom=0,
+        ...     max_zoom=6,
+        ... )
+
+    Notes:
+        when defining a layer remember to add also the source_layer="name of vector tile layer"
+        eg:
+        >>> from maplibre import LayerType, Layer
+        >>> vector_layer = Layer(
+        ...     type=LayerType.LINE,
+        ...     id="countries",
+        ...     source=vector_source,
+        ...     paint={"fill-color": "lightgreen", "fill-outline-color": "black"},
+        ...     source_layer="countries"
+        ...     ) 
+    """
+
+    attribution: str = None
+    bounds: tuple = None
+    max_zoom: int = Field(None, serialization_alias="maxzoom")
+    min_zoom: int = Field(None, serialization_alias="minzoom")
+    scheme: str = None
+    tile_size: int = Field(None, serialization_alias="tileSize")
+    tiles: Union[tuple, list] = None
+    url: str = None
+    volatile: bool = None
+
+    @computed_field
+    @property
+    def type(self) -> str:
+        return SourceType.VECTOR.value
