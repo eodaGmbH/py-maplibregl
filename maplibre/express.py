@@ -15,6 +15,7 @@ from .map import Map, MapOptions
 from .sources import GeoJSONSource
 from .utils import geopandas_to_geojson
 
+CRS = "EPSG:4326"
 DEFAULT_COLOR = "darkred"
 
 
@@ -33,13 +34,21 @@ class GeoJSON(object):
         if isinstance(data, str):
             data = read_file(data)
 
+        if str(data.crs) != CRS:
+            data = data.to_crs(CRS)
+
         self.bounds = data.total_bounds
+
+        # Create layer
         layer_type = LayerType(layer_type).value
         kwargs["type"] = layer_type
         if "paint" not in kwargs:
             kwargs["paint"] = {f"{layer_type}-color": DEFAULT_COLOR}
 
         self._layer = Layer(**kwargs)
+
+        # Set color expression
+        # TODO: Extract this step to separate function
         if color_column:
             _breaks = None
             _categories = None
@@ -161,14 +170,47 @@ class FillExtrusion(GeoJSON):
         n: int = None,
         q: list = None,
         breaks: list = None,
-        extrusion: Any = None,
+        fill_extrusion_height: Any = None,
+        # fill_extrusion_base: Any = None
         **kwargs,
     ):
         super().__init__(
             data, LayerType.FILL_EXTRUSION, color_column, cmap, n, q, breaks, **kwargs
         )
-        if extrusion:
-            if isinstance(extrusion, str):
-                extrusion = ["get", extrusion]
+        if fill_extrusion_height:
+            if isinstance(fill_extrusion_height, str):
+                fill_extrusion_height = ["get", fill_extrusion_height]
 
-            self._layer.paint["fill-extrusion-height"] = extrusion
+            self._layer.paint["fill-extrusion-height"] = fill_extrusion_height
+
+
+# -------------------------
+
+
+def get_pmtiles_header_and_meta_data(path):
+    try:
+        import requests as req
+        from pmtiles.reader import MemorySource, Reader
+    except ImportError as e:
+        print(e)
+        return
+
+    if not path.startswith("http"):
+        return
+
+    header_length = 127
+    r = req.get(path, headers={"Range": f"bytes=0-{header_length}"})
+    header = Reader(MemorySource(r.content)).header()
+    r = req.get(
+        path,
+        headers={
+            "Range": f"bytes=0-{header['metadata_offset']+header['metadata_length']}"
+        },
+    )
+    meta_data = Reader(MemorySource(r.content)).metadata()
+    return header, meta_data
+
+
+class PMTiles(object):
+    def __init__(self, path: str):
+        pass

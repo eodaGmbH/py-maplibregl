@@ -10,7 +10,7 @@ filename = (
         color_column="valuePerSqm",
         q=[0.25, 0.5, 0.75, 0.9],
         cmap="YlOrRd",
-        extrusion=["*", 10, ["sqrt", ["get", "valuePerSqm"]]],
+        fill_extrusion_height=["*", 10, ["sqrt", ["get", "valuePerSqm"]]],
     )
     .to_map(style=mx.basemaps.Carto.POSITRON, pitch=35)
     .save("/tmp/py-maplibre-express.html", preview=True)
