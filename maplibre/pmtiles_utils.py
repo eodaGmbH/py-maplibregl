@@ -65,4 +65,16 @@ class PMTilesMetaData(BaseModel):
 
 class PMTiles(object):
     def __init__(self, path: str):
+        self.path = path
+
+    @property
+    def header(self) -> dict:
+        return get_pmtiles_header(self.path)
+
+    @property
+    def meta_data(self) -> PMTilesMetaData:
+        metadata = get_pmtiles_metadata(self.path)
+        return PMTilesMetaData(**metadata)
+
+    def layers(self, layer_ids: list = None) -> list:
         pass
