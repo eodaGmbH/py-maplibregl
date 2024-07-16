@@ -25,7 +25,7 @@ def test_get_pmtiles_metadata():
     path = DemoPMTiles.data_source_coop_openstreetmap
 
     # Act
-    metadata = get_pmtiles_metadata(path)
+    header, metadata = get_pmtiles_metadata(path)
     print(metadata.keys())
 
     metadata_model = PMTilesMetaData(**metadata)
