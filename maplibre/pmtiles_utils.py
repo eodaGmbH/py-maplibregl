@@ -5,7 +5,7 @@ import json
 from typing import Optional
 
 from pmtiles.reader import MemorySource, Reader
-from pmtiles.tile import Compression, deserialize_header
+from pmtiles.tile import Compression, TileType, deserialize_header
 from pydantic import BaseModel
 
 from .sources import RasterTileSource, SourceType
@@ -43,6 +43,7 @@ class PMTilesHeader(BaseModel):
     max_lat_e7: int
     min_zoom: int
     max_zoom: int
+    tile_type: TileType
 
     @property
     def bounds(self):
@@ -111,10 +112,13 @@ class PMTiles(object):
         pass
 
     def to_source(self, **kwargs):
-        if self.meta_data.type == SourceType.RASTER.value:
-            return RasterTileSource(
+        if self.header.tile_type in [TileType.PNG, TileType.JPEG, TileType.WEBP]:
+            source = RasterTileSource(
                 url=f"pmtiles://{self.path}",
-                attribution=self.meta_data.attribution,
             )
+            if self.meta_data.attribution:
+                source.attribution = self.meta_data.attribution
+
+            return source
 
         return
