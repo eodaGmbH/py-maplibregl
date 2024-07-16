@@ -8,6 +8,8 @@ from pmtiles.reader import MemorySource, Reader
 from pmtiles.tile import Compression, deserialize_header
 from pydantic import BaseModel
 
+from .sources import RasterTileSource, SourceType
+
 try:
     import requests
 except ImportError as e:
@@ -26,27 +28,35 @@ class DemoPMTiles(object):
     )
     pmtiles_io_stamen = "https://pmtiles.io/stamen_toner(raster)CC-BY+ODbL_z3.pmtiles"
     r2_public_protomaps_com_us_zcta = "https://r2-public.protomaps.com/protomaps-sample-datasets/cb_2018_us_zcta510_500k.pmtiles"
+    pmtiles_io_ugs_mt_whitney = (
+        "https://pmtiles.io/usgs-mt-whitney-8-15-webp-512.pmtiles"
+    )
 
 
-def range_request(path: str, offset: int, length: int) -> requests.Response:
-    headers = {"Range": f"bytes={offset}-{offset+length}"}
-    return requests.get(path, headers=headers)
+class PMTilesHeader(BaseModel):
+    version: int
+    metadata_offset: int
+    metadata_length: int
+    min_lon_e7: int
+    min_lat_e7: int
+    max_lon_e7: int
+    max_lat_e7: int
+    min_zoom: int
+    max_zoom: int
 
-
-def get_pmtiles_header(path: str) -> dict:
-    response = range_request(path, PMTILES_HEADER_OFFSET, PMTILES_HEADER_LENGTH)
-    return deserialize_header(response.content)
-
-
-def get_pmtiles_metadata(path: str) -> dict:
-    header = get_pmtiles_header(path)
-    response = range_request(path, header["metadata_offset"], header["metadata_length"])
-    get_bytes = MemorySource(response.content)
-    metadata = get_bytes(0, header["metadata_length"])
-    if header["internal_compression"] == Compression.GZIP:
-        metadata = gzip.decompress(metadata)
-
-    return json.loads(metadata)
+    @property
+    def bounds(self):
+        return tuple(
+            [
+                v / 1e7
+                for v in [
+                    self.min_lon_e7,
+                    self.min_lat_e7,
+                    self.max_lon_e7,
+                    self.max_lat_e7,
+                ]
+            ]
+        )
 
 
 class PMTilesMetaData(BaseModel):
@@ -63,18 +73,48 @@ class PMTilesMetaData(BaseModel):
         return [vector_layer["id"] for vector_layer in self.vector_layers]
 
 
+def range_request(path: str, offset: int, length: int) -> requests.Response:
+    headers = {"Range": f"bytes={offset}-{offset+length}"}
+    return requests.get(path, headers=headers)
+
+
+def get_pmtiles_header(path: str) -> dict:
+    response = range_request(path, PMTILES_HEADER_OFFSET, PMTILES_HEADER_LENGTH)
+    return deserialize_header(response.content)
+
+
+def get_pmtiles_metadata(path: str) -> tuple:
+    header = get_pmtiles_header(path)
+    response = range_request(path, header["metadata_offset"], header["metadata_length"])
+    get_bytes = MemorySource(response.content)
+    metadata = get_bytes(0, header["metadata_length"])
+    if header["internal_compression"] == Compression.GZIP:
+        metadata = gzip.decompress(metadata)
+
+    return header, json.loads(metadata)
+
+
 class PMTiles(object):
     def __init__(self, path: str):
         self.path = path
+        self._header, self._metadata = get_pmtiles_metadata(path)
 
     @property
-    def header(self) -> dict:
-        return get_pmtiles_header(self.path)
+    def header(self) -> PMTilesHeader:
+        return PMTilesHeader(**self._header)
 
     @property
     def meta_data(self) -> PMTilesMetaData:
-        metadata = get_pmtiles_metadata(self.path)
-        return PMTilesMetaData(**metadata)
+        return PMTilesMetaData(**self._metadata)
 
     def layers(self, layer_ids: list = None) -> list:
         pass
+
+    def to_source(self, **kwargs):
+        if self.meta_data.type == SourceType.RASTER.value:
+            return RasterTileSource(
+                url=f"pmtiles://{self.path}",
+                attribution=self.meta_data.attribution,
+            )
+
+        return
