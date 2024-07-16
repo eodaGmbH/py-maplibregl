@@ -4,11 +4,11 @@ import gzip
 import json
 from typing import Optional
 
-from pmtiles.reader import MemorySource, Reader
+from pmtiles.reader import MemorySource
 from pmtiles.tile import Compression, TileType, deserialize_header
 from pydantic import BaseModel
 
-from .sources import RasterTileSource, SourceType
+from .sources import RasterTileSource
 
 try:
     import requests
@@ -30,6 +30,9 @@ class DemoPMTiles(object):
     r2_public_protomaps_com_us_zcta = "https://r2-public.protomaps.com/protomaps-sample-datasets/cb_2018_us_zcta510_500k.pmtiles"
     pmtiles_io_ugs_mt_whitney = (
         "https://pmtiles.io/usgs-mt-whitney-8-15-webp-512.pmtiles"
+    )
+    pmtiles_io_vector_firenze_base_layer = (
+        "https://pmtiles.io/protomaps(vector)ODbL_firenze.pmtiles"
     )
 
 
@@ -108,17 +111,27 @@ class PMTiles(object):
     def meta_data(self) -> PMTilesMetaData:
         return PMTilesMetaData(**self._metadata)
 
+    @property
+    def protocol_url(self) -> str:
+        return f"pmtiles://{self.path}"
+
     def layers(self, layer_ids: list = None) -> list:
         pass
 
     def to_source(self, **kwargs):
         if self.header.tile_type in [TileType.PNG, TileType.JPEG, TileType.WEBP]:
-            source = RasterTileSource(
-                url=f"pmtiles://{self.path}",
-            )
+            source = RasterTileSource(url=self.protocol_url)
             if self.meta_data.attribution:
                 source.attribution = self.meta_data.attribution
 
             return source
+        elif self.header.tile_type == TileType.MVT:
+            source = dict(type="vector", url=self.protocol_url)
+            if self.meta_data.attribution:
+                source["attribution"] = self.meta_data.attribution
+            return source
 
         return
+
+    def to_basemap_style(self):
+        pass
