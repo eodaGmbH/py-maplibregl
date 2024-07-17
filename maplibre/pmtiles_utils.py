@@ -8,6 +8,8 @@ from pmtiles.reader import MemorySource
 from pmtiles.tile import Compression, TileType, deserialize_header
 from pydantic import BaseModel
 
+from .basemaps import construct_basemap_style
+from .layer import Layer, LayerType
 from .sources import RasterTileSource
 
 try:
@@ -133,5 +135,23 @@ class PMTiles(object):
 
         return
 
-    def to_basemap_style(self):
-        pass
+    def to_basemap_style(self, layers: list) -> dict:
+        source_id = self.meta_data.name or "pmtiles"
+        # Simple layer defs
+        # layers: [layer_id (source_layer), layer_type, color]
+        layers_ = []
+        for layer in layers:
+            source_layer, layer_type, color = layer
+            layer_type = LayerType(layer_type).value
+            layers_.append(
+                Layer(
+                    id=source_layer,
+                    source=source_id,
+                    source_layer=source_layer,
+                    type=layer_type,
+                    paint={f"{layer_type}-color": color},
+                )
+            )
+        return construct_basemap_style(
+            sources={source_id: self.to_source()}, layers=layers_
+        )
