@@ -135,23 +135,30 @@ class PMTiles(object):
 
         return
 
-    def to_basemap_style(self, layers: list) -> dict:
+    def to_basemap_style(self, layer_styles: list) -> dict:
         source_id = self.meta_data.name or "pmtiles"
+        default_opacity = 1.0
         # Simple layer defs
-        # layers: [layer_id (source_layer), layer_type, color]
-        layers_ = []
-        for layer in layers:
-            source_layer, layer_type, color = layer
+        # layers: [layer_id (source_layer), layer_type, color, opacity]
+        layers = []
+        for layer_style in layer_styles:
+            if len(layer_style) == 3:
+                layer_style.append(default_opacity)
+
+            source_layer, layer_type, color, opacity = layer_style
             layer_type = LayerType(layer_type).value
-            layers_.append(
+            layers.append(
                 Layer(
                     id=source_layer,
                     source=source_id,
                     source_layer=source_layer,
                     type=layer_type,
-                    paint={f"{layer_type}-color": color},
+                    paint={
+                        f"{layer_type}-color": color,
+                        f"{layer_type}-opacity": opacity,
+                    },
                 )
             )
         return construct_basemap_style(
-            sources={source_id: self.to_source()}, layers=layers_
+            sources={source_id: self.to_source()}, layers=layers
         )

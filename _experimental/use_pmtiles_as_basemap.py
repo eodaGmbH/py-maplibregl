@@ -2,12 +2,13 @@ from maplibre import Layer, LayerType, Map, MapOptions
 from maplibre.controls import LayerSwitcherControl
 from maplibre.pmtiles_utils import DemoPMTiles, PMTiles
 
-tiles = PMTiles(DemoPMTiles.pmtiles_io_vector_firenze_base_layer)
+# tiles = PMTiles(DemoPMTiles.pmtiles_io_vector_firenze_base_layer)
+tiles = PMTiles(DemoPMTiles.data_source_coop_openstreetmap)
 style = tiles.to_basemap_style(
     [
         ["water", LayerType.FILL, "blue"],
         ["roads", LayerType.LINE, "black"],
-        ["buildings", LayerType.FILL, "darkred"],
+        ["buildings", LayerType.FILL, "darkred", 0.4],
         ["transit", LayerType.LINE, "yellow"],
         ["pois", LayerType.CIRCLE, "pink"],
     ]
