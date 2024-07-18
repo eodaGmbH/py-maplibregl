@@ -10,7 +10,7 @@ from pydantic import BaseModel
 
 from .basemaps import construct_basemap_style
 from .layer import Layer, LayerType
-from .sources import RasterTileSource
+from .sources import RasterTileSource, VectorTileSource
 
 try:
     import requests
@@ -110,7 +110,7 @@ class PMTiles(object):
         return PMTilesHeader(**self._header)
 
     @property
-    def meta_data(self) -> PMTilesMetaData:
+    def metadata(self) -> PMTilesMetaData:
         return PMTilesMetaData(**self._metadata)
 
     @property
@@ -123,35 +123,37 @@ class PMTiles(object):
     def to_source(self, **kwargs):
         if self.header.tile_type in [TileType.PNG, TileType.JPEG, TileType.WEBP]:
             source = RasterTileSource(url=self.protocol_url)
-            if self.meta_data.attribution:
-                source.attribution = self.meta_data.attribution
+            if self.metadata.attribution:
+                source.attribution = self.metadata.attribution
 
             return source
+
         elif self.header.tile_type == TileType.MVT:
-            source = dict(type="vector", url=self.protocol_url)
-            if self.meta_data.attribution:
-                source["attribution"] = self.meta_data.attribution
+            source = VectorTileSource(url=self.protocol_url)
+            if self.metadata.attribution:
+                source.attribution = self.metadata.attribution
+
             return source
 
         return
 
     def to_basemap_style(self, layer_styles: list) -> dict:
-        source_id = self.meta_data.name or "pmtiles"
+        source_id = self.metadata.name or "pmtiles"
         default_opacity = 1.0
-        # Simple layer defs
+        # Simple layer specs / props
         # layers: [layer_id (source_layer), layer_type, color, opacity]
         layers = []
         for layer_style in layer_styles:
             if len(layer_style) == 3:
                 layer_style.append(default_opacity)
 
-            source_layer, layer_type, color, opacity = layer_style
+            layer_id, layer_type, color, opacity = layer_style
             layer_type = LayerType(layer_type).value
             layers.append(
                 Layer(
-                    id=source_layer,
+                    id=layer_id,
                     source=source_id,
-                    source_layer=source_layer,
+                    source_layer=layer_id,
                     type=layer_type,
                     paint={
                         f"{layer_type}-color": color,
