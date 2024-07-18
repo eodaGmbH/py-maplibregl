@@ -1,7 +1,9 @@
-from maplibre import MapOptions
+from maplibre import MapOptions, render_maplibregl
 from maplibre.basemaps import Carto
 from maplibre.controls import NavigationControl
 from maplibre.ipywidget import MapWidget as Map
+from maplibre.ui import use_deckgl, use_h3
+from shiny.express import app, ui
 
 m = Map(
     MapOptions(
@@ -27,4 +29,15 @@ h3_hexagon_layer = {
 }
 
 m.add_deck_layers([h3_hexagon_layer], tooltip="{{ hex }} count: {{ count }}")
-m.save("/tmp/py-maplibre-express.html")
+
+use_h3()
+use_deckgl()
+
+
+@render_maplibregl
+def render_map():
+    return m
+
+
+if __name__ == "__main__":
+    m.save("/tmp/py-maplibre-express.html", preview=True)
