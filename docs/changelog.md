@@ -2,6 +2,8 @@
 
 ## maplibre v0.2.7 (unreleased)
 
+* Add `sources.VectorTileSource` ([Martenz](https://github.com/Martenz))
+
 * Shiny
   * Add `input.{output_id}_view_state` dict containing `{"center", "zoom", "bounds", "pitch", "bearing"}`
   * Rename `input.{output_id}` to `input.{output_id}_clicked`
