@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Union
+from typing import Optional, Union
 
 from pydantic import ConfigDict, Field, computed_field
 
@@ -34,7 +34,6 @@ class GeoJSONSource(Source):
 
     Examples:
         >>> from maplibre.sources import GeoJSONSource
-
         >>> source = GeoJSONSource(data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson")
     """
 
@@ -110,7 +109,7 @@ class VectorTileSource(Source):
         ...     source=vector_source,
         ...     paint={"fill-color": "lightgreen", "fill-outline-color": "black"},
         ...     source_layer="countries"
-        ...     ) 
+        ...     )
     """
 
     attribution: str = None
@@ -118,7 +117,6 @@ class VectorTileSource(Source):
     max_zoom: int = Field(None, serialization_alias="maxzoom")
     min_zoom: int = Field(None, serialization_alias="minzoom")
     scheme: str = None
-    tile_size: int = Field(None, serialization_alias="tileSize")
     tiles: Union[tuple, list] = None
     url: str = None
     volatile: bool = None

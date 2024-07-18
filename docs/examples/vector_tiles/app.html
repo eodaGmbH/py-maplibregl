@@ -25,7 +25,7 @@ mustache/mustache.mjs:
 
 // ...
 (() => {
-    var data = {"mapOptions": {"center": [11, 42], "hash": true, "style": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json", "zoom": 3}, "calls": [["addControl", ["NavigationControl", {"showCompass": true, "showZoom": true, "visualizePitch": false}, "top-right"]], ["addLayer", [{"id": "countries", "type": "fill", "paint": {"fill-color": "lightgreen", "fill-outline-color": "black"}, "source": {"maxzoom": 6, "minzoom": 0, "tiles": ["https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf"], "type": "vector"}, "source-layer": "countries"}, null]]]};
+    var data = {"mapOptions": {"center": [11, 42], "hash": true, "style": "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json", "zoom": 3}, "calls": [["addControl", ["NavigationControl", {"showCompass": true, "showZoom": true, "visualizePitch": false}, "top-right"]], ["addLayer", [{"id": "countries", "type": "fill", "paint": {"fill-color": "lightgreen", "fill-outline-color": "black"}, "source": {"maxzoom": 6, "minzoom": 0, "tiles": ["https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf"], "type": "vector"}, "source-layer": "countries"}, null]], ["addTooltip", ["countries", null, null]]]};
     pymaplibregl(data);
 })();
 </script>

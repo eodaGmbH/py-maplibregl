@@ -41,6 +41,7 @@ nav:
       - PMTiles: examples/pmtiles/index.md
       - Mapbox Draw Plugin: examples/mapbox_draw_plugin/index.md
       - Layer Switcher: examples/layer_switcher/index.md
+      - Vector Tiles: examples/vector_tiles/index.md
 plugins:
   - search:
   - mkdocstrings:
