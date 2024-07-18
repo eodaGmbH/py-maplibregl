@@ -34,7 +34,9 @@ class GeoJSONSource(Source):
 
     Examples:
         >>> from maplibre.sources import GeoJSONSource
-        >>> source = GeoJSONSource(data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson")
+
+        >>> geojson = "https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
+        >>> source = GeoJSONSource(data=geojson)
     """
 
     data: Union[str, dict]
@@ -63,7 +65,8 @@ class RasterTileSource(Source):
 
     Examples:
         >>> from maplibre.sources import RasterTileSource
-        >>> raster_source = RasterTileSource(
+
+        >>> raster_tile_source = RasterTileSource(
         ...     tiles=["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
         ...     tile_size=256,
         ...     min_zoom=0,
@@ -92,24 +95,21 @@ class VectorTileSource(Source):
 
     Examples:
         >>> from maplibre.sources import VectorTileSource
-        >>> vector_source = VectorTileSource(
+        >>> from maplibre import LayerType, Layer
+
+        >>> vector_tile_source = VectorTileSource(
         ...     tiles=["https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf"],
-        ...     tile_size=256,
         ...     min_zoom=0,
         ...     max_zoom=6,
         ... )
 
-    Notes:
-        when defining a layer remember to add also the source_layer="name of vector tile layer"
-        eg:
-        >>> from maplibre import LayerType, Layer
-        >>> vector_layer = Layer(
+        >>> layer = Layer(
         ...     type=LayerType.LINE,
         ...     id="countries",
-        ...     source=vector_source,
+        ...     source=vector_tile_source,
+        ...     source_layer="countries",
         ...     paint={"fill-color": "lightgreen", "fill-outline-color": "black"},
-        ...     source_layer="countries"
-        ...     )
+        ... )
     """
 
     attribution: str = None
