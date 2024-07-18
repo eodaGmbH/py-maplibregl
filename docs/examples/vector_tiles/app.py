@@ -15,7 +15,8 @@ VECTOR_TILES_URL = "https://demotiles.maplibre.org/tiles/tiles.json"
 LAYER_ID = "countries"
 
 vector_source = VectorTileSource(
-    tiles=["https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf"],
+    url=VECTOR_TILES_URL,
+    # tiles=["https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf"],
     min_zoom=0,
     max_zoom=6,
 )
