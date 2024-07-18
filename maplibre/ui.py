@@ -8,10 +8,11 @@ from shiny.module import resolve_id
 
 from ._constants import __version__, _shiny_output_class
 
-# TODO: extract maplibregl version
+MAPLIBREGL_VERSION = "3.6.2"
+
 maplibregl_dep = HTMLDependency(
     "maplibregl",
-    version="3.6.2",
+    version=MAPLIBREGL_VERSION,
     source={"package": "maplibre", "subdir": "srcjs"},
     script={"src": "maplibre-gl.js", "type": "module"},
     stylesheet={"href": "maplibre-gl.css"},
