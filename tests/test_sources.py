@@ -21,3 +21,25 @@ def test_geojson_source():
         "clusterRadius": 2,
         "clusterMinPoints": 10,
     }
+
+
+def test_vector_tile_source():
+    # Prepare
+    tiles = ["https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf"]
+    min_zoom = 0
+    max_zoom = 6
+
+    # Act
+    vector_tile_source = VectorTileSource(
+        tiles=tiles, min_zoom=min_zoom, max_zoom=max_zoom
+    )
+    print(vector_tile_source)
+    print(vector_tile_source.to_dict())
+
+    # Assert
+    assert vector_tile_source.to_dict() == {
+        "maxzoom": max_zoom,
+        "minzoom": min_zoom,
+        "tiles": tiles,
+        "type": "vector",
+    }
