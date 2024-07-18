@@ -270,7 +270,8 @@ class Map(object):
         # TODO: Set version in constants
         deckgl_headers = (
             [
-                '<script src="https://unpkg.com/h3-js"></script>',
+                # '<script src="https://unpkg.com/h3-js"></script>',
+                '<script src="https://unpkg.com/h3-js@4.1.0/dist/h3-js.umd.js"></script>',
                 '<script src="https://unpkg.com/deck.gl@9.0.16/dist.min.js"></script>',
                 '<script src="https://unpkg.com/@deck.gl/json@9.0.16/dist.min.js"></script>',
             ]
