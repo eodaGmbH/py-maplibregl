@@ -103,7 +103,11 @@ def get_pmtiles_metadata(path: str) -> tuple:
 class PMTiles(object):
     def __init__(self, path: str):
         self.path = path
-        self._header, self._metadata = get_pmtiles_metadata(path)
+        try:
+            self._header, self._metadata = get_pmtiles_metadata(path)
+        except Exception as e:
+            print(e)
+            self._header, self._metadata = dict(), dict()
 
     @property
     def header(self) -> PMTilesHeader:
