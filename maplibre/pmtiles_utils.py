@@ -113,9 +113,17 @@ def get_pmtiles_header(path: str) -> dict:
 
 def get_pmtiles_metadata(path: str) -> tuple:
     header = get_pmtiles_header(path)
-    response = range_request(path, header["metadata_offset"], header["metadata_length"])
-    get_bytes = MemorySource(response.content)
-    metadata = get_bytes(0, header["metadata_length"])
+    if path.startswith("http"):
+        response = range_request(
+            path, header["metadata_offset"], header["metadata_length"]
+        )
+        get_bytes = MemorySource(response.content)
+        metadata = get_bytes(0, header["metadata_length"])
+    else:
+        with open(path, "rb") as f:
+            get_bytes = MmapSource(f)
+            metadata = get_bytes(header["metadata_offset"], header["metadata_length"])
+
     if header["internal_compression"] == Compression.GZIP:
         metadata = gzip.decompress(metadata)
 
@@ -187,6 +195,7 @@ class PMTiles(object):
                     },
                 )
             )
+
         return construct_basemap_style(
             sources={source_id: self.to_source()}, layers=layers
         )
