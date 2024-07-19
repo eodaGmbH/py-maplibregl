@@ -1,7 +1,7 @@
 from maplibre.pmtiles_utils import (
     DemoPMTiles,
     PMTiles,
-    PMTilesMetaData,
+    PMTilesMetadata,
     get_pmtiles_header,
     get_pmtiles_metadata,
 )
@@ -28,7 +28,7 @@ def test_get_pmtiles_metadata():
     header, metadata = get_pmtiles_metadata(path)
     print(metadata.keys())
 
-    metadata_model = PMTilesMetaData(**metadata)
+    metadata_model = PMTilesMetadata(**metadata)
     print(metadata_model)
     print(metadata_model.layer_ids)
 

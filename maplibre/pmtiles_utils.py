@@ -78,7 +78,7 @@ class PMTilesHeader(BaseModel):
         )
 
 
-class PMTilesMetaData(BaseModel):
+class PMTilesMetadata(BaseModel):
     # bounds: tuple
     name: Optional[str] = None
     description: Optional[str] = None
@@ -144,8 +144,8 @@ class PMTiles(object):
         return PMTilesHeader(**self._header)
 
     @property
-    def metadata(self) -> PMTilesMetaData:
-        return PMTilesMetaData(**self._metadata)
+    def metadata(self) -> PMTilesMetadata:
+        return PMTilesMetadata(**self._metadata)
 
     @property
     def protocol_url(self) -> str:
