@@ -4,7 +4,7 @@ import gzip
 import json
 from typing import Optional
 
-from pmtiles.reader import MemorySource
+from pmtiles.reader import MemorySource, MmapSource
 from pmtiles.tile import Compression, TileType, deserialize_header
 from pydantic import BaseModel
 
@@ -49,6 +49,19 @@ class PMTilesHeader(BaseModel):
     min_zoom: int
     max_zoom: int
     tile_type: TileType
+    tile_data_offset: int
+    tile_data_length: int
+    addressed_tiles_count: int
+    tile_entries_count: int
+    tile_contents_count: int
+    clustered: bool
+    center_zoom: int
+    center_lon_e7: int
+    center_lat_e7: int
+
+    @property
+    def center(self):
+        return tuple([v / 1e7 for v in [self.center_lon_e7, self.center_lat_e7]])
 
     @property
     def bounds(self):
@@ -85,8 +98,17 @@ def range_request(path: str, offset: int, length: int) -> requests.Response:
 
 
 def get_pmtiles_header(path: str) -> dict:
-    response = range_request(path, PMTILES_HEADER_OFFSET, PMTILES_HEADER_LENGTH)
-    return deserialize_header(response.content)
+    if path.startswith("http"):
+        response = range_request(path, PMTILES_HEADER_OFFSET, PMTILES_HEADER_LENGTH)
+        return deserialize_header(response.content)
+
+    with open(path, "rb") as f:
+        get_bytes = MmapSource(f)
+        header = deserialize_header(
+            get_bytes(PMTILES_HEADER_OFFSET, PMTILES_HEADER_LENGTH)
+        )
+
+    return header
 
 
 def get_pmtiles_metadata(path: str) -> tuple:
