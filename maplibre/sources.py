@@ -2,10 +2,19 @@ from __future__ import annotations
 
 from enum import Enum
 from typing import Optional, Union
+from uuid import uuid4
 
-from pydantic import ConfigDict, Field, computed_field
+from pydantic import Field, computed_field, field_validator
 
 from ._utils import BaseModel
+from .utils import geopandas_to_geojson
+
+try:
+    from geopandas import GeoDataFrame, read_file
+except ImportError:
+    GeoDataFrame, read_file = None, None
+
+CRS = "EPSG:4326"
 
 
 class SourceType(Enum):
@@ -21,12 +30,6 @@ class SourceType(Enum):
 
 class Source(BaseModel):
     pass
-    # model_config = ConfigDict(validate_assignment=True, extra="forbid")
-
-    """
-    def model_dump(self):
-        return super().model_dump(exclude_none=True, by_alias=True)
-    """
 
 
 class GeoJSONSource(Source):
@@ -40,19 +43,33 @@ class GeoJSONSource(Source):
     """
 
     data: Union[str, dict]
-    attribution: str = None
-    buffer: int = None
-    cluster: bool = None
-    cluster_max_zoom: int = Field(None, serialization_alias="clusterMaxZoom")
-    cluster_min_points: int = Field(None, serialization_alias="clusterMinPoints")
-    cluster_properties: dict = Field(None, serialization_alias="clusterProperties")
-    cluster_radius: int = Field(None, serialization_alias="clusterRadius")
-    filter: list = None
-    generate_id: bool = Field(None, serialization_alias="generateId")
-    line_metrics: bool = Field(None, serialization_alias="lineMetrics")
-    maxzoom: int = None
-    promote_id: Union[str, dict] = Field(None, serialization_alias="promoteId")
-    tolerance: float = None
+    attribution: Optional[str] = None
+    buffer: Optional[int] = None
+    cluster: Optional[bool] = None
+    cluster_max_zoom: Optional[int] = Field(None, serialization_alias="clusterMaxZoom")
+    cluster_min_points: Optional[int] = Field(
+        None, serialization_alias="clusterMinPoints"
+    )
+    cluster_properties: Optional[dict] = Field(
+        None, serialization_alias="clusterProperties"
+    )
+    cluster_radius: Optional[int] = Field(None, serialization_alias="clusterRadius")
+    filter: Optional[list] = None
+    generate_id: Optional[bool] = Field(None, serialization_alias="generateId")
+    line_metrics: Optional[bool] = Field(None, serialization_alias="lineMetrics")
+    min_zoom: Optional[int] = Field(None, serialization_alias="minzoom")
+    max_zoom: Optional[int] = Field(None, serialization_alias="maxzoom")
+    promote_id: Union[str, dict, None] = Field(None, serialization_alias="promoteId")
+    tolerance: Optional[float] = None
+
+    """
+    @field_validator("data")
+    def validate_data(cls, v):
+        if isinstance(v, GeoDataFrame):
+            return geopandas_to_geojson(v)
+
+        return v
+    """
 
     @computed_field
     @property
@@ -125,3 +142,30 @@ class VectorTileSource(Source):
     @property
     def type(self) -> str:
         return SourceType.VECTOR.value
+
+
+class SimpleFeatures(object):
+    def __init__(self, data: GeoDataFrame | str, source_id: str = None):
+        if isinstance(data, str):
+            data = read_file(data)
+
+        if str(data.crs) != CRS:
+            data = data.to_crs(CRS)
+
+        self._data = data
+        self._source_id = source_id or str(uuid4())
+
+    @property
+    def bounds(self) -> tuple:
+        return self._data.total_bounds
+
+    @property
+    def source_id(self) -> str:
+        return self._source_id
+
+    def to_source(self, **kwargs) -> GeoJSONSource:
+        kwargs["data"] = geopandas_to_geojson(self._data)
+        return GeoJSONSource(**kwargs)
+
+    def to_sources_dict(self, **kwargs) -> dict:
+        return {self.source_id: self.to_source(**kwargs)}

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os.path
 import webbrowser
 from typing import Union
 
@@ -9,7 +8,7 @@ from jinja2 import Template
 from pydantic import ConfigDict, Field, field_validator
 
 from ._templates import html_template, js_template
-from ._utils import BaseModel, get_output_dir, get_temp_filename, read_internal_file
+from ._utils import BaseModel, get_temp_filename, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
 from .controls import Control, ControlPosition, Marker
 from .layer import Layer
@@ -159,6 +158,13 @@ class Map(object):
             layer = layer.to_dict()
 
         self.add_call("addLayer", layer, before_id)
+
+    def add_layers(self, layers: list, sources: dict = None):
+        for source_id, source in sources.items():
+            self.add_source(source_id, source)
+
+        for layer in layers:
+            self.add_layer(layer)
 
     def add_marker(self, marker: Marker) -> None:
         """Add a marker to the map
