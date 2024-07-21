@@ -147,6 +147,10 @@ class SimpleFeatures(object):
         self._source_id = source_id or str(uuid4())
 
     @property
+    def crs(self):
+        return self._data.crs
+
+    @property
     def bounds(self) -> tuple:
         return self._data.total_bounds
 
