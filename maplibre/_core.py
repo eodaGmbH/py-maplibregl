@@ -1,12 +1,14 @@
 from __future__ import annotations
 
-from pydantic import BaseModel as BaseModel_
-from pydantic import ConfigDict
+from pydantic import BaseModel, ConfigDict
 
 
-class MapLibreBaseModel(BaseModel_):
+class MapLibreBaseModel(BaseModel):
     model_config = ConfigDict(
-        validate_assignment=True, extra="forbid", use_enum_values=True
+        validate_assignment=True,
+        extra="forbid",
+        use_enum_values=True,
+        arbitrary_types_allowed=True,
     )
 
     def to_dict(self) -> dict:
