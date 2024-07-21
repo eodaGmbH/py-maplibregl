@@ -6,11 +6,7 @@ from pathlib import Path
 import traitlets
 from anywidget import AnyWidget
 
-# from .controls import Control, ControlPosition
-# from .layer import Layer
 from .map import Map, MapOptions
-
-# from .sources import Source
 
 
 class MapWidget(AnyWidget, Map):
