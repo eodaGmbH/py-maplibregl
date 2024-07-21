@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from pydantic import Field, computed_field, field_validator
 
-from ._core import BaseModel
+from ._core import MapLibreBaseModel
 from .utils import geopandas_to_geojson
 
 try:
@@ -28,7 +28,7 @@ class SourceType(Enum):
     VIDEO = "video"
 
 
-class Source(BaseModel):
+class Source(MapLibreBaseModel):
     pass
 
 

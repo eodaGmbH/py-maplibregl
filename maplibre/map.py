@@ -7,7 +7,7 @@ from typing import Union
 from jinja2 import Template
 from pydantic import ConfigDict, Field, field_validator
 
-from ._core import BaseModel
+from ._core import MapLibreBaseModel
 from ._templates import html_template, js_template
 from ._utils import get_temp_filename, read_internal_file
 from .basemaps import Carto, construct_carto_basemap_url
@@ -22,7 +22,7 @@ except ImportError:
     GeoDataFrame = None
 
 
-class MapOptions(BaseModel):
+class MapOptions(MapLibreBaseModel):
     """Map options
 
     Note:

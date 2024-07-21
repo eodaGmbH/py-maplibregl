@@ -4,7 +4,7 @@ from pydantic import BaseModel as BaseModel_
 from pydantic import ConfigDict
 
 
-class BaseModel(BaseModel_):
+class MapLibreBaseModel(BaseModel_):
     model_config = ConfigDict(
         validate_assignment=True, extra="forbid", use_enum_values=True
     )

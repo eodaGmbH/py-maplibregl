@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from pydantic import Field, field_validator
 
-from ._core import BaseModel
+from ._core import MapLibreBaseModel
 from ._utils import fix_keys
 from .sources import Source
 
@@ -37,7 +37,7 @@ class LayerType(Enum):
     BACKGROUND = "background"
 
 
-class Layer(BaseModel):
+class Layer(MapLibreBaseModel):
     """Layer properties
 
     Notes:
