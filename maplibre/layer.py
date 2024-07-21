@@ -6,7 +6,8 @@ from uuid import uuid4
 
 from pydantic import Field, field_validator
 
-from ._utils import BaseModel, fix_keys
+from ._core import BaseModel
+from ._utils import fix_keys
 from .sources import Source
 
 

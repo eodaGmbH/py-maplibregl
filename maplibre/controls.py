@@ -8,7 +8,7 @@ from typing import Literal, Union
 
 from pydantic import Field
 
-from ._utils import BaseModel
+from ._core import BaseModel
 
 
 class PopupOptions(BaseModel):

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import Field
 
-from ._utils import BaseModel
+from ._core import BaseModel
 
 
 class MapboxDrawControls(BaseModel):

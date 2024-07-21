@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from pydantic import Field, computed_field, field_validator
 
-from ._utils import BaseModel
+from ._core import BaseModel
 from .utils import geopandas_to_geojson
 
 try:
