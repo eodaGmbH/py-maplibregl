@@ -62,15 +62,6 @@ class GeoJSONSource(Source):
     promote_id: Union[str, dict, None] = Field(None, serialization_alias="promoteId")
     tolerance: Optional[float] = None
 
-    """
-    @field_validator("data")
-    def validate_data(cls, v):
-        if isinstance(v, GeoDataFrame):
-            return geopandas_to_geojson(v)
-
-        return v
-    """
-
     @computed_field
     @property
     def type(self) -> str:

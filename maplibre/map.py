@@ -13,7 +13,12 @@ from .basemaps import Carto, construct_carto_basemap_url
 from .controls import Control, ControlPosition, Marker
 from .layer import Layer
 from .plugins import MapboxDrawOptions
-from .sources import Source
+from .sources import SimpleFeatures, Source
+
+try:
+    from geopandas import GeoDataFrame
+except ImportError:
+    GeoDataFrame = None
 
 
 class MapOptions(BaseModel):
@@ -99,10 +104,12 @@ class Map(object):
     """
 
     # TODO: Rename to add_map_call
+    """
     def add_call_(self, func_name: str, params: list) -> None:
         self._message_queue.append(
             {"name": "applyFunc", "data": {"funcName": func_name, "params": params}}
         )
+    """
 
     def add_call(self, method_name: str, *args) -> None:
         """Add a method call that is executed on the map instance
@@ -133,13 +140,16 @@ class Map(object):
             ControlPosition(position).value,
         )
 
-    def add_source(self, id: str, source: [Source | dict]) -> None:
+    def add_source(self, id: str, source: [Source | dict | GeoDataFrame]) -> None:
         """Add a source to the map
 
         Args:
             id (str): The unique ID of the source.
-            source (Source | dict): The source to be added to the map.
+            source (Source | dict | GeoDataFrame): The source to be added to the map.
         """
+        if GeoDataFrame is not None and isinstance(source, GeoDataFrame):
+            source = SimpleFeatures(source).to_source()
+
         if isinstance(source, Source):
             source = source.to_dict()
 
