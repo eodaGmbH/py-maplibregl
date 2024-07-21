@@ -83,9 +83,16 @@ class Map(object):
 
     MESSAGE = "not implemented yet"
 
-    def __init__(self, map_options: MapOptions = MapOptions(), **kwargs):
+    def __init__(
+        self,
+        map_options: MapOptions = MapOptions(),
+        sources: dict = None,
+        layers: list = None,
+        **kwargs,
+    ):
         self.map_options = map_options.to_dict() | kwargs
         self._message_queue = []
+        self.add_layers(layers, sources)
 
     def __iter__(self):
         for k, v in self.to_dict().items():
@@ -170,7 +177,9 @@ class Map(object):
 
         self.add_call("addLayer", layer, before_id)
 
-    def add_layers(self, layers: list, sources: dict = None):
+    def add_layers(self, layers: list = None, sources: dict = None):
+        layers = layers or []
+        sources = sources or dict()
         for source_id, source in sources.items():
             self.add_source(source_id, source)
 

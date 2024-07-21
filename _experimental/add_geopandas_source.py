@@ -7,8 +7,11 @@ path = "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1
 
 data = read_file(path)
 
-m = Map(MapOptions(style=Carto.POSITRON, bounds=data.total_bounds))
+m = Map(
+    MapOptions(style=Carto.POSITRON, bounds=data.total_bounds),
+    layers=[Layer(type=LayerType.LINE, source=data)],
+)
 # m.add_source("states", data)
 # m.add_layer(Layer(type=LayerType.LINE, source="states"))
-m.add_layer(Layer(type=LayerType.LINE, source=data))
+# m.add_layer(Layer(type=LayerType.LINE, source=data))
 m.save("/tmp/py-maplibre-express.html")
