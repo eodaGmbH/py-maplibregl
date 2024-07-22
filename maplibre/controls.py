@@ -85,6 +85,7 @@ class ControlPosition(Enum):
     BOTTOM_RIGHT = "bottom-right"
 
 
+# TODO: Add position attribute but exclude it from model_dump
 class Control(MapLibreBaseModel):
     @property
     def type(self):
