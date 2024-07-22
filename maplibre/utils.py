@@ -47,11 +47,11 @@ def df_to_geojson(
     return geojson
 
 
-def get_bounds(geojson: dict) -> list:
+def get_bounds(geojson: dict) -> tuple | None:
     try:
         import shapely
     except ImportError as e:
         print(e)
         return
 
-    return list(shapely.bounds(shapely.from_geojson(json.dumps(geojson))))
+    return tuple(shapely.bounds(shapely.from_geojson(json.dumps(geojson))))

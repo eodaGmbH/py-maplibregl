@@ -9,6 +9,7 @@ from pydantic import Field, field_validator
 from ._core import MapLibreBaseModel
 from ._utils import fix_keys
 from .sources import SimpleFeatures, Source
+from .utils import get_bounds
 
 try:
     from geopandas import GeoDataFrame
@@ -94,3 +95,13 @@ class Layer(MapLibreBaseModel):
             return fix_keys(v)
 
         return v
+
+    @property
+    def bounds(self) -> tuple | None:
+        try:
+            bounds = get_bounds(self.source["data"])
+        except Exception as e:
+            # print(e)
+            bounds = None
+
+        return bounds
