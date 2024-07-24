@@ -133,7 +133,7 @@ class Map(object):
     def add_control(
         self,
         control: Control,
-        position: [str | ControlPosition] = ControlPosition.TOP_RIGHT,
+        position: [str | ControlPosition] = None,
     ) -> None:
         """Add a control to the map
 
@@ -141,6 +141,7 @@ class Map(object):
             control (Control): The control to be added to the map.
             position (str | ControlPosition): The position of the control.
         """
+        position = position or control.position
         self.add_call(
             "addControl",
             control.type,

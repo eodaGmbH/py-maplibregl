@@ -4,7 +4,7 @@ See also https://docs.mapbox.com/mapbox-gl-js/api/markers/
 """
 
 from enum import Enum
-from typing import Literal, Union
+from typing import Literal, Optional, Union
 
 from pydantic import Field
 
@@ -87,6 +87,10 @@ class ControlPosition(Enum):
 
 # TODO: Add position attribute but exclude it from model_dump
 class Control(MapLibreBaseModel):
+    position: Union[ControlPosition, str] = Field(
+        ControlPosition.TOP_RIGHT, exclude=True
+    )
+
     @property
     def type(self):
         return self.__class__.__name__
