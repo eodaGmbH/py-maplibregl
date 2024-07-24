@@ -88,11 +88,15 @@ class Map(object):
         map_options: MapOptions = MapOptions(),
         sources: dict = None,
         layers: list = None,
+        controls: list = None,
         **kwargs,
     ):
         self.map_options = map_options.to_dict() | kwargs
         self._message_queue = []
         self.add_layers(layers, sources)
+        if controls:
+            for control in controls:
+                self.add_control(control)
 
     def __iter__(self):
         for k, v in self.to_dict().items():
