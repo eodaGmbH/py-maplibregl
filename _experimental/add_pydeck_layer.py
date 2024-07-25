@@ -2,6 +2,7 @@ import json
 
 import pandas as pd
 from maplibre import Map, MapOptions
+from maplibre.controls import NavigationControl
 from pydeck import Layer as PyDeckLayer
 
 UK_ACCIDENTS_DATA = (
@@ -9,7 +10,9 @@ UK_ACCIDENTS_DATA = (
     "deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"
 )
 
+print("loading")
 df = pd.read_csv(UK_ACCIDENTS_DATA)
+print("loaded")
 
 layer = PyDeckLayer(
     "HexagonLayer",
@@ -24,6 +27,7 @@ layer = PyDeckLayer(
     coverage=1,
 )
 
-m = Map(MapOptions(center=(1.415, 52.2323), zoom=6))
-m.add_deck_layers([json.loads(layer.to_json())])
+m = Map(MapOptions(center=(1.415, 52.2323), zoom=6), controls=[NavigationControl()])
+# m.add_deck_layers([json.loads(layer.to_json())])
+m.add_deck_layers([layer])
 m.save("/tmp/py-maplibre-express.html")

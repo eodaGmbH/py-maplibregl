@@ -21,6 +21,19 @@ try:
 except ImportError:
     GeoDataFrame = None
 
+try:
+    import pydeck
+except ImportError:
+    pydeck = None
+
+
+def parse_deck_layers(layers: list[dict | pydeck.Layer]) -> list[dict]:
+    for i, layer in enumerate(layers):
+        if isinstance(layer, pydeck.Layer):
+            layers[i] = json.loads(layer.to_json())
+
+    return layers
+
 
 class MapOptions(MapLibreBaseModel):
     """Map options
@@ -91,7 +104,9 @@ class Map(object):
         controls: list = None,
         **kwargs,
     ):
-        self.map_options = map_options.to_dict() | kwargs
+        self.map_options = (
+            map_options.to_dict() | kwargs
+        )  # MapOptions(**kwargs).to_dict()
         self._message_queue = []
         self.add_layers(layers, sources)
         if controls:
@@ -341,7 +356,9 @@ class Map(object):
     # -------------------------
     # Plugins
     # -------------------------
-    def add_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
+    def add_deck_layers(
+        self, layers: list[dict | pydeck.Layer], tooltip: str | dict = None
+    ) -> None:
         """Add Deck.GL layers to the layer stack
 
         Args:
@@ -349,9 +366,12 @@ class Map(object):
             tooltip (str | dict): Either a single mustache template string applied to all layers
                 or a dictionary where keys are layer ids and values are mustache template strings.
         """
+        layers = parse_deck_layers(layers)
         self.add_call("addDeckOverlay", layers, tooltip)
 
-    def set_deck_layers(self, layers: list[dict], tooltip: str | dict = None) -> None:
+    def set_deck_layers(
+        self, layers: list[dict | pydeck.Layer], tooltip: str | dict = None
+    ) -> None:
         """Update Deck.GL layers
 
         Args:
@@ -359,6 +379,7 @@ class Map(object):
                 New layers will be added. Missing layers will be removed.
             tooltip (str | dict): Must be set to keep tooltip even if it did not change.
         """
+        layers = parse_deck_layers(layers)
         self.add_call("setDeckLayers", layers, tooltip)
 
     def add_mapbox_draw(
