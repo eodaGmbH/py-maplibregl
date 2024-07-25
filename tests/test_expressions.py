@@ -1,3 +1,4 @@
+import maplibre.colors as color_expr
 import maplibre.expressions as expr
 
 
@@ -67,3 +68,27 @@ def test_step_expression():
 
     assert e == expected_expr
     assert isinstance(e, list)
+
+
+def test_color_match_expression():
+    # Prepare
+    column = "cat"
+    categories = ["A", "B", "C", "B", "A"]
+
+    # Act
+    e = color_expr.color_match_expr(column, categories)
+    print(e)
+
+    # Assert
+    expected_expr = [
+        "match",
+        ["get", "cat"],
+        "A",
+        "#440154",
+        "B",
+        "#31678d",
+        "C",
+        "#35b678",
+        "#fde725",
+    ]
+    assert e == expected_expr
