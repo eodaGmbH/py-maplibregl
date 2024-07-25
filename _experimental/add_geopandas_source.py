@@ -27,6 +27,7 @@ m = Map(
     controls=[NavigationControl(), ScaleControl(position=ControlPosition.BOTTOM_LEFT)],
 )
 m.add_tooltip("states")
+# m.set_data("states", data[data.growth < 0.3])
 # m.add_control(NavigationControl(position="top-left"))
 # m.add_source("states", data)
 # m.add_layer(Layer(type=LayerType.LINE, source="states"))

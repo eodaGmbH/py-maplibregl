@@ -270,13 +270,16 @@ class Map(object):
         """
         self.add_call("setLayoutProperty", layer_id, prop, value)
 
-    def set_data(self, source_id: str, data: dict) -> None:
+    def set_data(self, source_id: str, data: dict | GeoDataFrame) -> None:
         """Update the data of a GeoJSON source
 
         Args:
             source_id (str): The name of the source to be updated.
             data (dict): The data of the source.
         """
+        if isinstance(data, GeoDataFrame):
+            data = SimpleFeatures(data).to_source().data
+
         self.add_call("setSourceData", source_id, data)
 
     def set_visibility(self, layer_id: str, visible: bool = True) -> None:
