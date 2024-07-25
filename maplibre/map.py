@@ -106,7 +106,7 @@ class Map(object):
     ):
         self.map_options = (
             map_options.to_dict() | kwargs
-        )  # MapOptions(**kwargs).to_dict()
+        )  # MapOptions(**kwargs).to_dict() # need to fix MapWidget, because height is passed as kwarg
         self._message_queue = []
         self.add_layers(layers, sources)
         if controls:
