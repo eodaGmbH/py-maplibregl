@@ -5,11 +5,11 @@ def test_match_expression():
     # Prepare
     column = "letter"
     categories = ["A", "B", "C"]
-    values = ["green", "blue", "red"]
-    default_value = "yellow"
+    colors = ["green", "blue", "red"]
+    fallback = "yellow"
 
     # Act
-    e = expr.match_expr(column, categories, values, default_value)
+    e = expr.match_expr(column, categories, colors, fallback)
     print(e)
 
     # Assert
@@ -40,3 +40,30 @@ def test_interpolate_linear():
     # Assert
     assert isinstance(e, list)
     assert e == ["interpolate", ["linear"], ["get", "growth"], 0, "yellow", 1.0, "red"]
+
+
+def test_step_expression():
+    # Prepare
+    column = "value"
+    stops = [100, 200, 300]
+    colors = ["yellow", "red", "green"]
+    fallback = "black"
+
+    # Act
+    e = expr.step_expr(column, stops, colors, fallback)
+    print(e)
+
+    expected_expr = [
+        "step",
+        ["get", "value"],
+        "yellow",
+        100,
+        "red",
+        200,
+        "green",
+        300,
+        "black",
+    ]
+
+    assert e == expected_expr
+    assert isinstance(e, list)

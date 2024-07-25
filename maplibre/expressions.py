@@ -33,5 +33,13 @@ def match_expr(column: str, categories: list, outputs: list[T], fallback: T) -> 
     )
 
 
-def step_expr(column: str, stops: list, outputs: list[T], default_fallback: T) -> list:
-    pass
+def step_expr(column: str, stops: list, outputs: list[T], fallback: T) -> list:
+    return (
+        ["step", get_column(column)]
+        + list(
+            itertools.chain.from_iterable(
+                [[output, stop] for output, stop in zip(outputs, stops)]
+            )
+        )
+        + [fallback]
+    )
