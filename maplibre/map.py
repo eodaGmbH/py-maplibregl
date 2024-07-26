@@ -27,9 +27,9 @@ except ImportError:
     pydeck = None
 
 
-def parse_deck_layers(layers: list[dict | pydeck.Layer]) -> list[dict]:
+def parse_deck_layers(layers: list[dict | "pydeck.Layer"]) -> list[dict]:
     for i, layer in enumerate(layers):
-        if isinstance(layer, pydeck.Layer):
+        if pydeck is not None and isinstance(layer, pydeck.Layer):
             layers[i] = json.loads(layer.to_json())
 
     return layers
@@ -360,7 +360,7 @@ class Map(object):
     # Plugins
     # -------------------------
     def add_deck_layers(
-        self, layers: list[dict | pydeck.Layer], tooltip: str | dict = None
+        self, layers: list[dict | "pydeck.Layer"], tooltip: str | dict = None
     ) -> None:
         """Add Deck.GL layers to the layer stack
 
@@ -373,7 +373,7 @@ class Map(object):
         self.add_call("addDeckOverlay", layers, tooltip)
 
     def set_deck_layers(
-        self, layers: list[dict | pydeck.Layer], tooltip: str | dict = None
+        self, layers: list[dict | "pydeck.Layer"], tooltip: str | dict = None
     ) -> None:
         """Update Deck.GL layers
 

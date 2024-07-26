@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from .expressions import match_expr, step_expr
+from .expressions import match_expr, quantile_step_expr, step_expr
 
 try:
     from branca.utilities import color_brewer as branca_color_brewer
@@ -12,6 +12,7 @@ except ImportError as e:
 
 CMAPS_JSON = "https://raw.githubusercontent.com/python-visualization/branca/main/branca/_schemes.json"
 # FALLBACK_COLOR = "#000000"
+DEFAULT_CMAP = "viridis"
 
 
 def color_brewer(cmap: str, n: int) -> list:
@@ -50,5 +51,9 @@ def color_interpolate_linear(column: str, stops: list, cmap: str = "viridis"):
     pass
 
 
-def color_quantiles(column: str, stops: list, values: Any, cmap="viridis") -> list:
-    pass
+def color_quantile_expr(column: str, probs: list, values: Any, cmap="viridis") -> list:
+    n = len(probs)
+    colors = color_brewer(cmap, n + 1)
+    return quantile_step_expr(
+        column, probs, outputs=colors[0:n], fallback=colors[-1], values=values
+    )

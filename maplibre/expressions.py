@@ -43,3 +43,16 @@ def step_expr(column: str, stops: list, outputs: list[T], fallback: T) -> list:
         )
         + [fallback]
     )
+
+
+def quantile_step_expr(
+    column: str, probs: list, outputs: list[T], fallback: T, values: list
+) -> list:
+    try:
+        import numpy as np
+    except ImportError as e:
+        print(e)
+        return []
+
+    stops = np.quantile(values, probs)
+    return step_expr(column, stops, outputs, fallback)

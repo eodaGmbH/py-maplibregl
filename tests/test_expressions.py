@@ -92,3 +92,25 @@ def test_color_match_expression():
         "#fde725",
     ]
     assert e == expected_expr
+
+
+def test_color_quantile_expr():
+    # Prepare
+    values = [1, 4, 2, 8, 9, 2, 3, 4]
+    column = "test"
+    probs = [0.25, 0.75]
+
+    # Act
+    e = color_expr.color_quantile_expr(column, probs=probs, values=values)
+    print(e)
+
+    # Assert
+    assert e == [
+        "step",
+        ["get", "test"],
+        "#440154",
+        2.0,
+        "#21908c",
+        5.0,
+        "#fde725",
+    ]
