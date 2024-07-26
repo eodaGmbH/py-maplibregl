@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import itertools
-from typing import Any, List, TypeVar
+from typing import Any, TypeVar
 
 from maplibre.colors import color_brewer
 
@@ -12,13 +12,14 @@ def get_column(column: str) -> list:
     return ["get", column]
 
 
-# TODO: Support property params (like ['zoom'])
-def interpolate_linear(column: str, stops: list, outputs: list) -> list:
+def interpolate(
+    property: str | list, stops: list, outputs: list, type: list = ["linear"]
+) -> list:
     assert len(stops) == len(outputs)
     return [
         "interpolate",
-        ["linear"],
-        get_column(column),
+        type,
+        get_column(property) if isinstance(property, str) else property,
     ] + list(
         itertools.chain.from_iterable(
             [[stop, output] for stop, output in zip(stops, outputs)]
@@ -39,10 +40,21 @@ def match_expr(column: str, categories: list, outputs: list[T], fallback: T) -> 
     )
 
 
-def step_expr(column: str, stops: list, outputs: list[T], fallback: T) -> list:
+# Property examples:
+# - ["zoom"],
+# - ["get", "column_name"]  same as "column_name"
+def step_expr(
+    property: str | list,
+    stops: list,
+    outputs: list[T],
+    fallback: T,
+) -> list:
     assert len(stops) == len(outputs)
     return (
-        ["step", get_column(column)]
+        [
+            "step",
+            get_column(property) if isinstance(property, str) else property,
+        ]
         + list(
             itertools.chain.from_iterable(
                 [[output, stop] for output, stop in zip(outputs, stops)]
@@ -94,13 +106,17 @@ def color_match_expr(column: str, categories: Any, cmap: str = "viridis"):
     return match_expr(column, categories, outputs=colors[0:n], fallback=colors[-1])
 
 
-def color_interpolate_linear(
-    column: str, stops: list, cmap: str = "Blues", colors: list = None
+def color_interpolate(
+    column: str,
+    stops: list,
+    cmap: str = "Blues",
+    colors: list = None,
+    type: list = list("linear"),
 ) -> list:
     n = len(stops)
     colors = colors or color_brewer(cmap, n)
-    return interpolate_linear(column, stops, outputs=colors)
+    return interpolate(column, stops, outputs=colors, type=type)
 
 
-def equal_bins_step_expression():
+def equal_bins_step_expr():
     pass

@@ -35,7 +35,7 @@ def test_interpolate_linear():
     colors = ["yellow", "red"]
 
     # Act
-    e = expr.interpolate_linear(column, stops, colors)
+    e = expr.interpolate(column, stops, colors)
     print(e)
 
     # Assert

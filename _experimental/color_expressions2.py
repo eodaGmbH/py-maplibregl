@@ -3,7 +3,7 @@ from geopandas import read_file
 from maplibre import Layer, LayerType, Map, MapOptions
 from maplibre.basemaps import Carto
 from maplibre.controls import ControlPosition, NavigationControl, ScaleControl
-from maplibre.expressions import color_match_expr, interpolate_linear
+from maplibre.expressions import color_match_expr, interpolate
 
 path = "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson"
 # path = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json"
