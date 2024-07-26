@@ -14,6 +14,7 @@ def get_column(column: str) -> list:
 
 # TODO: Support property params (like ['zoom'])
 def interpolate_linear(column: str, stops: list, outputs: list) -> list:
+    assert len(stops) == len(outputs)
     return [
         "interpolate",
         ["linear"],
@@ -26,6 +27,7 @@ def interpolate_linear(column: str, stops: list, outputs: list) -> list:
 
 
 def match_expr(column: str, categories: list, outputs: list[T], fallback: T) -> list:
+    assert len(categories) == len(outputs)
     return (
         ["match", get_column(column)]
         + list(
@@ -38,6 +40,7 @@ def match_expr(column: str, categories: list, outputs: list[T], fallback: T) -> 
 
 
 def step_expr(column: str, stops: list, outputs: list[T], fallback: T) -> list:
+    assert len(stops) == len(outputs)
     return (
         ["step", get_column(column)]
         + list(
@@ -52,6 +55,7 @@ def step_expr(column: str, stops: list, outputs: list[T], fallback: T) -> list:
 def quantile_step_expr(
     column: str, probs: list, outputs: list[T], fallback: T, values: list
 ) -> list:
+    assert len(probs) == len(outputs)
     try:
         import numpy as np
     except ImportError as e:
@@ -60,6 +64,11 @@ def quantile_step_expr(
 
     stops = np.quantile(values, probs)
     return step_expr(column, stops, outputs, fallback)
+
+
+# -----
+# ----- COLOR expression -------------------------
+# -----
 
 
 def color_quantile_step_expr(
@@ -85,5 +94,13 @@ def color_match_expr(column: str, categories: Any, cmap: str = "viridis"):
     return match_expr(column, categories, outputs=colors[0:n], fallback=colors[-1])
 
 
-def color_interpolate_linear(column: str, stops: list, cmap: str = "viridis"):
+def color_interpolate_linear(
+    column: str, stops: list, cmap: str = "Blues", colors: list = None
+) -> list:
+    n = len(stops)
+    colors = colors or color_brewer(cmap, n)
+    return interpolate_linear(column, stops, outputs=colors)
+
+
+def equal_bins_step_expression():
     pass

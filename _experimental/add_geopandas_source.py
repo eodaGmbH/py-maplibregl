@@ -21,8 +21,11 @@ m = Map(
             id="states",
             paint={
                 # "fill-color": expr.interpolate_linear("growth", [0, 1.0], ["yellow", "red"])
-                "fill-color": expr.color_quantile_step_expr(
-                    "growth", [0.1, 0.25, 0.5, 0.75], values=data.growth
+                # "fill-color": expr.color_quantile_step_expr(
+                #    "growth", [0.1, 0.25, 0.5, 0.75], values=data.growth
+                # )
+                "fill-color": expr.color_interpolate_linear(
+                    "growth", [0, 1.0], colors=["yellow", "red"]
                 )
             },
         )
