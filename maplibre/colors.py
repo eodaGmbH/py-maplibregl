@@ -1,9 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
-from .expressions import match_expr, quantile_step_expr, step_expr
-
 try:
     from branca.utilities import color_brewer as branca_color_brewer
 except ImportError as e:
@@ -32,28 +28,3 @@ def list_cmaps() -> list | None:
         return
 
     return list(requests.get(CMAPS_JSON).json().keys())
-
-
-def color_step_expr(column: str, stops: list, cmap="viridis") -> list:
-    n = len(stops)
-    colors = color_brewer(cmap, n + 1)
-    return step_expr(column, stops, outputs=colors[0:n], fallback=colors[-1])
-
-
-def color_match_expr(column: str, categories: Any, cmap: str = "viridis"):
-    categories = sorted(list(set(categories) - {None}))
-    n = len(categories)
-    colors = color_brewer(cmap, n + 1)
-    return match_expr(column, categories, outputs=colors[0:n], fallback=colors[-1])
-
-
-def color_interpolate_linear(column: str, stops: list, cmap: str = "viridis"):
-    pass
-
-
-def color_quantile_expr(column: str, probs: list, values: Any, cmap="viridis") -> list:
-    n = len(probs)
-    colors = color_brewer(cmap, n + 1)
-    return quantile_step_expr(
-        column, probs, outputs=colors[0:n], fallback=colors[-1], values=values
-    )

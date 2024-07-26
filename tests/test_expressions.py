@@ -1,4 +1,4 @@
-import maplibre.colors as color_expr
+# import maplibre.expressions
 import maplibre.expressions as expr
 
 
@@ -76,7 +76,7 @@ def test_color_match_expression():
     categories = ["A", "B", "C", "B", "A"]
 
     # Act
-    e = color_expr.color_match_expr(column, categories)
+    e = expr.color_match_expr(column, categories)
     print(e)
 
     # Assert
@@ -101,7 +101,7 @@ def test_color_quantile_expr():
     probs = [0.25, 0.75]
 
     # Act
-    e = color_expr.color_quantile_expr(column, probs=probs, values=values)
+    e = expr.color_quantile_step_expr(column, probs=probs, values=values)
     print(e)
 
     # Assert

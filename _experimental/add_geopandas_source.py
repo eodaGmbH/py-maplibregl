@@ -1,9 +1,9 @@
 # from maplibre.sources import SimpleFeatures
+import maplibre.expressions as expr
 from geopandas import read_file
 from maplibre import Layer, LayerType, Map, MapOptions
 from maplibre.basemaps import Carto
 from maplibre.controls import ControlPosition, NavigationControl, ScaleControl
-from maplibre.expressions import interpolate_linear
 
 # path = "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson"
 # path = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json"
@@ -20,7 +20,10 @@ m = Map(
             source=data,
             id="states",
             paint={
-                "fill-color": interpolate_linear("growth", [0, 1.0], ["yellow", "red"])
+                # "fill-color": expr.interpolate_linear("growth", [0, 1.0], ["yellow", "red"])
+                "fill-color": expr.color_quantile_step_expr(
+                    "growth", [0.1, 0.25, 0.5, 0.75], values=data.growth
+                )
             },
         )
     ],
