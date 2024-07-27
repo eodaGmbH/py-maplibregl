@@ -26,3 +26,9 @@ class DataSets:
         geometry_type="Polygon",
         bounds=(-123.2639151, 49.1995174, -123.0234703, 49.295612),
     )
+
+    indoor_3d_map: DataSet = DataSet(
+        url="https://maplibre.org/maplibre-gl-js/docs/assets/indoor-3d-map.geojson",
+        name="indoor_3d_map",
+        bounds=(-87.618347, 41.865559, -87.615411, 41.866868),
+    )
