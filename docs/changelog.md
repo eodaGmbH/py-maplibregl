@@ -10,6 +10,8 @@
   * `color_step_expr`
   * `color_quantile_expr`
   * `color_match_expr`
+  * `filter_expr`
+  * `range_filter`
 
 * Add support for `pydeck.Layer` for
   * `Map.add_deck_layers` and 
