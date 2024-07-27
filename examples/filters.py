@@ -1,5 +1,5 @@
 from maplibre import Layer, LayerType, Map, MapOptions
-from maplibre.__future__ import DataSets
+from maplibre.__future__.datasets import DataSets
 from maplibre.controls import NavigationControl
 from maplibre.expressions import filter_expr, interpolate, range_filter
 
