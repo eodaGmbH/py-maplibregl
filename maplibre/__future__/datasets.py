@@ -22,6 +22,7 @@ class DataSet(BaseModel):
         return read_file(self.url)
 
 
+# TODO: Create DataSets from yaml file
 class DataSets:
     vancouver_blocks: DataSet = DataSet(
         url="https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json",

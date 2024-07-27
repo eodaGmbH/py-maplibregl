@@ -2,6 +2,10 @@
 
 ## maplibre v0.2.7 (unreleased)
 
+* Add `maplibre.__future__`
+
+* Add `Map.fit_bounds`
+
 * Add expression helpers `maplibre.expressions`:
   * `interpolate`
   * `step_expr`
