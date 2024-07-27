@@ -114,3 +114,35 @@ def test_color_quantile_expr():
         5.0,
         "#fde725",
     ]
+
+
+def test_filter_expression():
+    # Prepare
+    column = "test"
+    operator = ">="
+    value = 0.5
+
+    # Act
+    e = expr.filter_expr(column, operator, value)
+    print(e)
+
+    # Assert
+    assert e == [">=", ["get", "test"], 0.5]
+
+
+def test_range_filter():
+    # Prepare
+    column = "test"
+    operators = (">", "<")
+    values = (0.5, 0.7)
+
+    # Act
+    e = expr.range_filter(column, values, operators)
+    print(e)
+
+    # Assert
+    assert e == [
+        "all",
+        [">", ["get", "test"], 0.5],
+        ["<", ["get", "test"], 0.7],
+    ]

@@ -106,6 +106,7 @@ def color_match_expr(column: str, categories: Any, cmap: str = "viridis"):
     return match_expr(column, categories, outputs=colors[0:n], fallback=colors[-1])
 
 
+"""
 def color_interpolate(
     column: str,
     stops: list,
@@ -116,7 +117,19 @@ def color_interpolate(
     n = len(stops)
     colors = colors or color_brewer(cmap, n)
     return interpolate(column, stops, outputs=colors, type=type)
+"""
 
 
 def equal_bins_step_expr():
     pass
+
+
+def filter_expr(column: str, operator: str, value: Any) -> list:
+    return [operator, get_column(column), value]
+
+
+def range_filter(
+    column, values: tuple | list, operators: tuple | list = (">=", "<=")
+) -> list:
+    assert len(values) == len(operators) == 2
+    return ["all"] + [[operators[i], get_column(column), values[i]] for i in range(2)]
