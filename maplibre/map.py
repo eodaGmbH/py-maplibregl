@@ -292,6 +292,17 @@ class Map(object):
         value = "visible" if visible else "none"
         self.add_call("setLayoutProperty", layer_id, "visibility", value)
 
+    def fit_bounds(
+        self,
+        bounds: tuple | list = None,
+        data: GeoDataFrame = None,
+        animate=False,
+        **kwargs,
+    ) -> None:
+        kwargs["animate"] = animate
+        bounds = tuple(bounds or data.total_bounds)
+        self.add_call("fitBounds", bounds, kwargs)
+
     def to_html(self, title: str = "My Awesome Map", **kwargs) -> str:
         """Render to html
 
