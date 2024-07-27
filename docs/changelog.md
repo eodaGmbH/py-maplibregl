@@ -3,9 +3,13 @@
 ## maplibre v0.2.7 (unreleased)
 
 * Add expression helpers `maplibre.expressions`:
-  * `interpolate_linear`
+  * `interpolate`
   * `step_expr`
+  * `quantile_expr`
   * `match_expr`
+  * `color_step_expr`
+  * `color_quantile_expr`
+  * `color_match_expr`
 
 * Add support for `pydeck.Layer` for
   * `Map.add_deck_layers` and 
