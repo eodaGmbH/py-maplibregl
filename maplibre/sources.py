@@ -137,14 +137,19 @@ class VectorTileSource(Source):
 
 class SimpleFeatures(object):
     def __init__(self, data: GeoDataFrame | str, source_id: str = None):
-        if isinstance(data, str):
-            data = read_file(data)
+        self._path = data if isinstance(data, str) else None
+        if self._path is not None:
+            data = read_file(self._path)
 
         if str(data.crs) != CRS:
             data = data.to_crs(CRS)
 
         self._data = data
         self._source_id = source_id or str(uuid4())
+
+    @property
+    def path(self):
+        return self._path
 
     @property
     def crs(self):
