@@ -5,7 +5,12 @@ from typing import Any, Optional, Union
 from pydantic import Field, model_validator
 
 from ..controls import NavigationControl
-from ..expressions import color_match_expr, color_quantile_step_expr, interpolate
+from ..expressions import (
+    color_match_expr,
+    color_quantile_step_expr,
+    color_step_expr,
+    interpolate,
+)
 from ..layer import Layer, LayerType
 from ..map import Map, MapOptions
 from ..settings import settings
@@ -67,6 +72,15 @@ class SimpleLayer(Layer):
         expr = color_quantile_step_expr(
             column, probs, values=self.sf.data[column], cmap=cmap
         )
+        self._set_paint_property("color", expr)
+        return self
+
+    def color_bin(
+        self, column: str, stops: list = None, n: int = None, cmap=settings.cmap
+    ) -> SimpleLayer:
+        if stops is None and n is None:
+            pass
+        expr = color_step_expr(column, stops, cmap)
         self._set_paint_property("color", expr)
         return self
 
