@@ -42,3 +42,9 @@ class DataSets:
         name="urban_areas",
         bounds=(-157.98399472, -46.26844166, 174.97002323, 69.35127106),
     )
+
+    earthquakes: DataSet = DataSet(
+        url="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
+        name="earthquakes",
+        bounds=None,
+    )
