@@ -158,6 +158,10 @@ class SimpleFeatures(object):
     def source_id(self) -> str:
         return self._source_id
 
+    @property
+    def data(self) -> GeoDataFrame:
+        return self._data
+
     def to_source(self, **kwargs) -> GeoJSONSource:
         kwargs["data"] = geopandas_to_geojson(self._data)
         return GeoJSONSource(**kwargs)
