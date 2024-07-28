@@ -99,3 +99,7 @@ def _create_prop_key(layer_type: str, prop: str) -> str:
 
 def fill(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
     return SimpleLayer(type=LayerType.FILL, sf=SimpleFeatures(data), **kwargs)
+
+
+def circle(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
+    return SimpleLayer(type=LayerType.CIRCLE, sf=SimpleFeatures(data), **kwargs)
