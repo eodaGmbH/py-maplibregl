@@ -24,7 +24,17 @@ class SimpleLayer(Layer):
 
     @model_validator(mode="before")
     def validate_this(cls, data: Any) -> Any:
-        data["source"] = data["sf"].to_source()
+        # Use path as data source if it is a GeoJSON url
+        sf_path = data["sf"].path
+        if (
+            sf_path is not None
+            and sf_path.startswith("http")
+            and sf_path.endswith("json")
+        ):
+            data["source"] = GeoJSONSource(data=sf_path)
+        else:
+            data["source"] = data["sf"].to_source()
+
         if "paint" not in data:
             layer_type = LayerType(data["type"]).value
             data["paint"] = {f"{layer_type}-color": settings.fallback_color}
@@ -34,6 +44,14 @@ class SimpleLayer(Layer):
     def _set_paint_property(self, prop, value):
         layer_type = LayerType(self.type).value
         self.paint[f"{layer_type}-{prop}"] = value
+
+    def color(self, value: str | list) -> SimpleLayer:
+        self._set_paint_property("color", value)
+        return self
+
+    def opacity(self, value: float) -> SimpleLayer:
+        self._set_paint_property("opacity", value)
+        return self
 
     def color_category(self, column: str, cmap: str = settings.cmap) -> SimpleLayer:
         expr = color_match_expr(column, categories=self.sf.data[column], cmap=cmap)
