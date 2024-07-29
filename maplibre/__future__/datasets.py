@@ -1,6 +1,8 @@
 from typing import Optional, Union
 
-from geopandas import read_file
+import geopandas as gpd
+
+# from geopandas import read_file
 from maplibre.sources import GeoJSONSource
 from pydantic import BaseModel
 
@@ -18,8 +20,8 @@ class DataSet(BaseModel):
     def read_bounds(self) -> tuple:
         return read_file(self.url).total_bounds
 
-    def read_data(self) -> "geopandas.GeoDataFrame":
-        return read_file(self.url)
+    def read_data(self) -> gpd.GeoDataFrame:
+        return gpd.read_file(self.url)
 
 
 # TODO: Create DataSets from yaml file
@@ -43,8 +45,16 @@ class DataSets:
         bounds=(-157.98399472, -46.26844166, 174.97002323, 69.35127106),
     )
 
-    earthquakes: DataSet = DataSet(
-        url="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
-        name="earthquakes",
-        bounds=None,
+    earthquakes: DataSet = (
+        DataSet(
+            url="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
+            name="earthquakes",
+            bounds=None,
+        ),
+    )
+
+    bart: DataSet = DataSet(
+        url="https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/bart.geo.json",
+        name="bart",
+        geometry_type=["Point", "MultiLineString", "Polygon"],
     )

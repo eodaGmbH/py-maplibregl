@@ -105,3 +105,17 @@ class Layer(MapLibreBaseModel):
             bounds = None
 
         return bounds
+
+    def set_paint_props(self, **props) -> Layer:
+        if self.paint is None:
+            self.paint = dict()
+
+        self.paint = self.paint | fix_keys(props)
+        return self
+
+    def set_layout_props(self, **props) -> Layer:
+        if self.layout is None:
+            self.layout = dict()
+
+        self.paint = self.paint | fix_keys(props)
+        return self

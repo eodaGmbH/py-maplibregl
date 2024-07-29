@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+from enum import Enum
 from typing import Any, TypeVar
 
 from maplibre.colors import color_brewer
@@ -8,8 +9,22 @@ from maplibre.colors import color_brewer
 T = TypeVar("T")
 
 
+class GeometryType(Enum):
+    POINT = "Point"
+    LINE_STRING = "LineString"
+    POLYGON = "Polygon"
+
+
 def get_column(column: str) -> list:
     return ["get", column]
+
+
+def get_geometry_type() -> list:
+    return ["geometry-type"]
+
+
+def geometry_type_filter(geom_type: GeometryType | str) -> list:
+    return ["==", get_geometry_type(), GeometryType(geom_type).value]
 
 
 def interpolate(

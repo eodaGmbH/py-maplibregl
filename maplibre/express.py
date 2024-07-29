@@ -1,3 +1,6 @@
+# DEPRECATED:
+# See maplibre.__future__.express for new version
+
 from __future__ import annotations
 
 try:

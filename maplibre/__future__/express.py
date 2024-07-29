@@ -4,11 +4,14 @@ from typing import Any, Optional, Union
 
 from pydantic import Field, model_validator
 
+from ..colors import color_brewer
 from ..controls import NavigationControl
 from ..expressions import (
+    GeometryType,
     color_match_expr,
     color_quantile_step_expr,
     color_step_expr,
+    geometry_type_filter,
     interpolate,
 )
 from ..layer import Layer, LayerType
@@ -117,3 +120,55 @@ def fill(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
 
 def circle(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
     return SimpleLayer(type=LayerType.CIRCLE, sf=SimpleFeatures(data), **kwargs)
+
+
+def line(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
+    pass
+
+
+# TODO: Add default layers to settings
+def fill_line_circle(source_id: str, colors: list = None) -> list:
+    if colors is not None:
+        assert len(colors) == 3
+    else:
+        colors = color_brewer(settings.cmap, 3)
+
+    fill_color, line_color, circle_color = colors
+
+    fill_layer = Layer(
+        type=LayerType.FILL,
+        source=source_id,
+        filter=geometry_type_filter(GeometryType.POLYGON),
+    ).set_paint_props(fill_color=fill_color)
+
+    line_layer = Layer(
+        type=LayerType.LINE,
+        source=source_id,
+        filter=geometry_type_filter(GeometryType.LINE_STRING),
+    ).set_paint_props(line_color=line_color)
+
+    circle_layer = Layer(
+        type=LayerType.CIRCLE,
+        source=source_id,
+        filter=geometry_type_filter(GeometryType.POINT),
+    ).set_paint_props(circle_color=circle_color)
+
+    return [fill_layer, line_layer, circle_layer]
+
+
+def map_this(data: gpd.GeoDataFrame | str, tooltip: bool = True, **kwargs) -> Map:
+    sf = SimpleFeatures(data)
+    layers = fill_line_circle(sf.source_id)
+    kwargs["bounds"] = sf.bounds
+    map_options = MapOptions(**kwargs)
+    m = Map(
+        map_options,
+        sources=sf.to_sources_dict(),
+        layers=layers,
+        controls=[NavigationControl()],
+    )
+    if tooltip:
+        for layer in layers:
+            m.add_tooltip(layer.id)
+
+    return m
