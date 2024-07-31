@@ -1,7 +1,6 @@
 import os
 from typing import Optional
 
-from fontTools.ttLib.tables.otTables import Paint
 from pydantic import BaseModel
 
 
@@ -31,7 +30,7 @@ class Settings(BaseModel):
     def set_maptiler_api_key(self, api_key: str) -> None:
         os.environ[self.maptiler_api_key_env_var] = api_key
 
-    def get_paint(self, layer_type: Optional[str] = None) -> list:
+    def get_paint_props(self, layer_type: str) -> dict:
         pass
 
 
