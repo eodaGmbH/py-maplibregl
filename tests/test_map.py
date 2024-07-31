@@ -6,15 +6,17 @@ from maplibre.map import MapOptions
 # TODO: Remove when refactoring of Map class is finished
 def test_kwargs_map_options():
     # Prepare
-    map_options = {"center": [0, 0], "zoom": 2}
+    map_options = {"center": (0, 0), "zoom": 2}
 
     # Act
     map = maplibre.Map(**map_options)
     print("dict map", dict(map))
 
     # Assert
-    assert map.to_dict()["mapOptions"] == map_options | {
-        "style": "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+    assert map.to_dict()["mapOptions"] == {
+        "center": (0, 0),
+        "zoom": 2,
+        "style": "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
     }
 
 

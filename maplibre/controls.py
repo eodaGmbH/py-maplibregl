@@ -4,14 +4,14 @@ See also https://docs.mapbox.com/mapbox-gl-js/api/markers/
 """
 
 from enum import Enum
-from typing import Literal, Union
+from typing import Literal, Optional, Union
 
 from pydantic import Field
 
-from ._utils import BaseModel
+from ._core import MapLibreBaseModel
 
 
-class PopupOptions(BaseModel):
+class PopupOptions(MapLibreBaseModel):
     """Popup options"""
 
     anchor: str = None
@@ -22,7 +22,7 @@ class PopupOptions(BaseModel):
     offset: Union[int, list, dict] = None
 
 
-class Popup(BaseModel):
+class Popup(MapLibreBaseModel):
     """Popup
 
     Attributes:
@@ -34,7 +34,7 @@ class Popup(BaseModel):
     options: Union[PopupOptions, dict] = {}
 
 
-class MarkerOptions(BaseModel):
+class MarkerOptions(MapLibreBaseModel):
     """Marker options"""
 
     anchor: str = None
@@ -47,7 +47,7 @@ class MarkerOptions(BaseModel):
     scale: int = None
 
 
-class Marker(BaseModel):
+class Marker(MapLibreBaseModel):
     """Marker
 
     Attributes:
@@ -85,7 +85,12 @@ class ControlPosition(Enum):
     BOTTOM_RIGHT = "bottom-right"
 
 
-class Control(BaseModel):
+# TODO: Add position attribute but exclude it from model_dump
+class Control(MapLibreBaseModel):
+    position: Union[ControlPosition, str] = Field(
+        ControlPosition.TOP_RIGHT, exclude=True
+    )
+
     @property
     def type(self):
         return self.__class__.__name__

@@ -2,6 +2,38 @@
 
 ## maplibre v0.2.7 (unreleased)
 
+* Add `maplibre.__future__`
+
+* Add `Map.fit_bounds`
+
+* Add expression helpers `maplibre.expressions`:
+  * `interpolate`
+  * `step_expr`
+  * `quantile_expr`
+  * `match_expr`
+  * `color_step_expr`
+  * `color_quantile_expr`
+  * `color_match_expr`
+  * `filter_expr`
+  * `range_filter`
+
+* Add support for `pydeck.Layer` for
+  * `Map.add_deck_layers` and 
+  * `Map.set_deck_layers`
+
+* Add `sources.SimpleFeatures` for `geopandas.GeoDataFrame` sources 
+
+* Support `geopandas.GeoDataFrame` as source in
+  * `Layer` and
+  * `Map.add_source`
+
+* Add more parameters to `Map` class for simpler map initialization:
+  * `layers`: list
+  * `sources`: dict
+  * `controls`: list
+
+* Add `position` attribute to `Control` classes
+
 * Add `sources.VectorTileSource` ([Martenz](https://github.com/Martenz))
 
 * Shiny

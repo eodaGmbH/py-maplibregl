@@ -1,6 +1,7 @@
 # import pytest
+from geopandas import GeoDataFrame, read_file
 from maplibre.layer import Layer, LayerType
-from maplibre.sources import GeoJSONSource, Source
+from maplibre.sources import GeoJSONSource
 
 
 def test_layer_keys():
@@ -58,3 +59,15 @@ def test_layer_dict_source():
 
     # Assert
     assert layer.to_dict()["source"] == source
+
+
+def test_layer_geopandas_source():
+    # Prepare
+    path = "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson"
+    data = read_file(path)
+
+    # Act
+    layer = Layer(type=LayerType.LINE, source=data)
+
+    # Assert
+    assert isinstance(layer.source, dict)

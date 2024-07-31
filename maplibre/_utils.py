@@ -5,10 +5,6 @@ import pathlib
 from tempfile import mkdtemp
 from uuid import uuid4
 
-# TODO: from pydantic import BaseModel as PydanticBaseModel
-from pydantic import BaseModel as BaseModel_
-from pydantic import ConfigDict
-
 
 def fix_keys(d: dict) -> dict:
     return {k.replace("_", "-"): v for k, v in d.items() if v is not None}
@@ -37,12 +33,3 @@ def read_internal_file(*args):
         content = f.read()
 
     return content
-
-
-class BaseModel(BaseModel_):
-    model_config = ConfigDict(
-        validate_assignment=True, extra="forbid", use_enum_values=True
-    )
-
-    def to_dict(self) -> dict:
-        return self.model_dump(by_alias=True, exclude_none=True)

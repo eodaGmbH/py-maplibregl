@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from pydantic import Field
 
-from ._utils import BaseModel
+from ._core import MapLibreBaseModel
 
 
-class MapboxDrawControls(BaseModel):
+class MapboxDrawControls(MapLibreBaseModel):
     """MapboxDraw controls"""
 
     point: bool = False
@@ -16,7 +16,7 @@ class MapboxDrawControls(BaseModel):
     uncombine_features: bool = False
 
 
-class MapboxDrawOptions(BaseModel):
+class MapboxDrawOptions(MapLibreBaseModel):
     """MapboxDraw Options"""
 
     display_controls_default: bool = Field(

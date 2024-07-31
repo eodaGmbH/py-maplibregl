@@ -2,9 +2,18 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, Field, model_serializer
+from geopandas import GeoDataFrame
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    computed_field,
+    field_validator,
+    model_serializer,
+)
 
 from maplibre import Layer, LayerType
+from maplibre.utils import geopandas_to_geojson
 
 
 class LineLayer(Layer):
@@ -42,3 +51,68 @@ class PaintProperties(BaseModel):
     background_emissive_strength: int = None
     background_opacity: int = None
     background_pattern: str = None
+
+
+class GeoJSONifyable(object):
+    def color(self, column: str):
+        pass
+
+    def color_quantile(self, column: str, q: list):
+        pass
+
+    def color_bins(self, column: str, n: int):
+        pass
+
+    def color_steps(self, column: str, steps: list):
+        pass
+
+
+class FeaturesCollection(object):
+    def __init__(self, data):
+        self._data = data
+
+    def color(
+        self,
+        column: str,
+        n: int = None,
+        q: list = None,
+        steps: list = None,
+        cmap: str = None,
+    ):
+        return self
+
+    def to_source(self):
+        pass
+
+    def fill(self, **kwargs):
+        pass
+
+    def line(self):
+        pass
+
+
+# FeaturesCollection("data").color("STATE").fill()
+
+from typing import TypeVar, Union
+
+from geopandas import GeoDataFrame
+
+PandasGeoDataFrame = TypeVar("geopandas.GeoDataFrame")
+
+
+class LineLayer(Layer):
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    data: Union[dict, GeoDataFrame]
+
+    @field_validator("data")
+    def data_validator(cls, v):
+        if isinstance(v, GeoDataFrame):
+            return geopandas_to_geojson(v)
+
+        return v
+
+
+def _create_layer_props(layer_type: str, props: dict) -> dict:
+    return {f"{layer_type}-{k}": v for k, v in props.items() if v is not None}
