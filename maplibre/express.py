@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Optional, Union
+from typing import Any
 
 from pydantic import Field, model_validator
 
-from ..colors import color_brewer
-from ..controls import NavigationControl
-from ..expressions import (
+from maplibre.colors import color_brewer
+from maplibre.controls import NavigationControl
+from maplibre.expressions import (
     GeometryType,
     color_match_expr,
     color_quantile_step_expr,
@@ -14,10 +14,10 @@ from ..expressions import (
     geometry_type_filter,
     interpolate,
 )
-from ..layer import Layer, LayerType
-from ..map import Map, MapOptions
-from ..settings import settings
-from ..sources import GeoJSONSource, SimpleFeatures
+from maplibre.layer import Layer, LayerType
+from maplibre.map import Map, MapOptions
+from maplibre.settings import settings
+from maplibre.sources import GeoJSONSource, SimpleFeatures
 
 try:
     import geopandas as gpd
@@ -27,18 +27,21 @@ except ImportError as e:
 
 
 # ---------------
+def path_is_geojson_url(path: str) -> bool:
+    if path is None:
+        return False
+
+    path = path.lower()
+    return path.startswith("http") and path.endswith("json")
+
+
 class SimpleLayer(Layer):
     sf: SimpleFeatures = Field(exclude=True)
 
     @model_validator(mode="before")
     def validate_this(cls, data: Any) -> Any:
-        # Use path as data source if it is a GeoJSON url
         sf_path = data["sf"].path
-        if (
-            sf_path is not None
-            and sf_path.startswith("http")
-            and sf_path.endswith("json")
-        ):
+        if path_is_geojson_url(sf_path):
             data["source"] = GeoJSONSource(data=sf_path)
         else:
             data["source"] = data["sf"].to_source()

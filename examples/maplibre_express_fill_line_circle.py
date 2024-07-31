@@ -1,5 +1,5 @@
 import geopandas as gpd
-from maplibre.__future__ import express as mx
+from maplibre import express as mx
 from maplibre.__future__.datasets import DataSets
 from maplibre.sources import CRS
 

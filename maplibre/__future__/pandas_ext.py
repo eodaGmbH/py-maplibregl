@@ -1,5 +1,5 @@
 import geopandas as gpd
-import maplibre.__future__.express as mx
+import maplibre.express as mx
 import pandas as pd
 
 from ..sources import GeoJSONSource, SimpleFeatures

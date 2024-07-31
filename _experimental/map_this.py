@@ -1,6 +1,6 @@
 import geopandas as gpd
-from maplibre import Layer, Map, MapOptions
-from maplibre.__future__ import express as mx
+from maplibre import MapOptions
+from maplibre import express as mx
 from maplibre.basemaps import Carto
 
 data = gpd.read_file("~/BART-Districts.json")

@@ -1,6 +1,5 @@
-from maplibre import Layer, LayerType, Map, MapOptions
+from maplibre import Layer, LayerType, Map
 from maplibre import expressions as expr
-from maplibre.__future__ import express as mx
 from maplibre.__future__.datasets import DataSets
 from maplibre.controls import NavigationControl
 from maplibre.sources import SimpleFeatures
