@@ -12,8 +12,8 @@ except ImportError as e:
     GeoDataFrame = None
     read_file = None
 
-from . import basemaps
-from .color_utils import *
+from _deprecated.color_utils import *
+
 from .controls import *
 from .layer import Layer, LayerType
 from .map import Map, MapOptions

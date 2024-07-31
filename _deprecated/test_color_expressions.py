@@ -1,4 +1,4 @@
-from maplibre.color_utils import (
+from _deprecated.color_utils import (
     create_categorical_color_expression,
     create_numeric_color_expression,
     create_numeric_color_expression_from_breaks,

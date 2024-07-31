@@ -1,12 +1,7 @@
-import webbrowser
-
+from _deprecated.color_utils import create_categorical_color_expression
 from geopandas import read_file
 from maplibre import Layer, LayerType, Map, MapOptions
 from maplibre.basemaps import Carto
-from maplibre.color_utils import (
-    create_categorical_color_expression,
-    create_numeric_color_expression,
-)
 from maplibre.sources import GeoJSONSource
 from maplibre.utils import geopandas_to_geojson
 
