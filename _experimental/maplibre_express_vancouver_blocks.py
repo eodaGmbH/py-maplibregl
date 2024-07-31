@@ -1,4 +1,4 @@
-from maplibre import express as mx
+from _deprecated import express as mx
 
 path = "https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/geojson/vancouver-blocks.json"
 blocks = mx.read_file(path)

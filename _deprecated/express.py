@@ -12,13 +12,13 @@ except ImportError as e:
     GeoDataFrame = None
     read_file = None
 
-from _deprecated.color_utils import *
+from maplibre.controls import *
+from maplibre.layer import Layer, LayerType
+from maplibre.map import Map, MapOptions
+from maplibre.sources import GeoJSONSource
+from maplibre.utils import geopandas_to_geojson
 
-from .controls import *
-from .layer import Layer, LayerType
-from .map import Map, MapOptions
-from .sources import GeoJSONSource
-from .utils import geopandas_to_geojson
+from _deprecated.color_utils import *
 
 CRS = "EPSG:4326"
 DEFAULT_COLOR = "darkred"
