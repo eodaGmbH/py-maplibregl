@@ -139,7 +139,7 @@ def fill_line_circle(source_id: str, colors: list = None) -> list:
         type=LayerType.FILL,
         source=source_id,
         filter=geometry_type_filter(GeometryType.POLYGON),
-    ).set_paint_props(fill_color=fill_color)
+    ).set_paint_props(fill_color=fill_color, fill_outline_color="white")
 
     line_layer = Layer(
         type=LayerType.LINE,

@@ -1,3 +1,4 @@
+# TODO: DEPRECATED: use maplibre.colors instead
 from __future__ import annotations
 
 from itertools import chain
