@@ -100,13 +100,14 @@ class SimpleLayer(Layer):
 
     def to_map(
         self,
-        mao_options: MapOptions = MapOptions(),
+        map_options: MapOptions = MapOptions(),
         controls: list = None,
         tooltip: bool = True,
+        **kwargs,
     ) -> Map:
         controls = controls or [NavigationControl()]
-        mao_options.bounds = self.sf.bounds
-        m = Map(mao_options, layers=[self], controls=controls)
+        map_options.bounds = self.sf.bounds
+        m = Map(map_options, layers=[self], controls=controls, **kwargs)
         if tooltip:
             m.add_tooltip(self.id)
 
