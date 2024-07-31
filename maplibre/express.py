@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Union
 
-from pydantic import Field, model_validator
+from pydantic import Field, field_validator, model_validator
 
 from maplibre.colors import color_brewer
 from maplibre.controls import NavigationControl
@@ -35,9 +35,21 @@ def path_is_geojson_url(path: str) -> bool:
     return path.startswith("http") and path.endswith("json")
 
 
+# TODO: Rename to Layer (and import maplibre.Layer as BaseLayer) or MXLayer
 class SimpleLayer(Layer):
+    # sf: Union[SimpleFeatures, "gpd.GeoDataFrame"] = Field(exclude=True)
     sf: SimpleFeatures = Field(exclude=True)
 
+    """
+    @field_validator("sf")
+    def validate_sf(cls, v):
+        if gpd is not None and isinstance(v, gpd.GeoDataFrame):
+            return SimpleFeatures(v)
+
+        return v
+    """
+
+    # TODO: Use 'model_after_init'
     @model_validator(mode="before")
     def validate_this(cls, data: Any) -> Any:
         sf_path = data["sf"].path
@@ -119,7 +131,12 @@ def _create_prop_key(layer_type: str, prop: str) -> str:
 
 
 def fill(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
-    return SimpleLayer(type=LayerType.FILL, sf=SimpleFeatures(data), **kwargs)
+    return SimpleLayer(
+        type=LayerType.FILL,
+        sf=SimpleFeatures(data),
+        paint=settings.paint_probs[LayerType.FILL.value],
+        **kwargs,
+    )
 
 
 def circle(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
@@ -127,6 +144,15 @@ def circle(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
 
 
 def line(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
+    return SimpleLayer(
+        type=LayerType.LINE,
+        sf=SimpleFeatures(data),
+        paint=settings.paint_probs[LayerType.LINE.value],
+        **kwargs,
+    )
+
+
+def fill_extrusion(data: gpd.GeoDataFrame | str, **kwargs) -> SimpleLayer:
     pass
 
 
