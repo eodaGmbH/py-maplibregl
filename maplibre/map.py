@@ -385,7 +385,11 @@ class Map(object):
             ...     f.write(m.to_html(style="height: 800px;") # doctest: +SKIP
         """
         js_lib = read_internal_file("srcjs", "pywidget.js")
-        js_snippet = Template(js_template).render(data=json.dumps(self.to_dict()))
+        rtl_plugin_js = read_internal_file("srcjs", "mapbox-gl-rtl-text.js")
+        js_snippet = Template(js_template).render(
+            data=json.dumps(self.to_dict()),
+            rtl_plugin_js=rtl_plugin_js,
+        )
         css_file = (
             "ipywidget.maplibre-geocoder.css"
             if self._geocoder_type == GeocoderType.MAPLIBRE

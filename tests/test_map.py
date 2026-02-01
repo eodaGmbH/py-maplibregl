@@ -81,3 +81,18 @@ def test_map_markers():
     # Assert
     assert len(markers) == 1
     assert markers[0]["lngLat"] == (0, 0)
+
+
+def test_rtl_text_plugin_bundled():
+    # RTL text plugin is always bundled and loaded for offline support
+    # Prepare
+    map_options = MapOptions(center=(35.2, 31.5), zoom=8)
+
+    # Act
+    map = maplibre.Map(map_options)
+    html = map.to_html()
+
+    # Assert - RTL plugin should always be bundled
+    assert "RTL Text Plugin" in html
+    assert "rtlPluginBlob" in html
+    assert "setRTLTextPlugin(rtlPluginUrl" in html
